@@ -80,4 +80,14 @@ class AuthController extends Controller
             'message' => 'Sesión cerrada correctamente',
         ]);
     }
+
+    /**
+     * Obtener usuario autenticado
+     */
+    public function user(Request $request)
+    {
+        return response()->json([
+            'user' => $request->user(),
+        ]);
+    }
 }
