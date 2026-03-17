@@ -16,3 +16,4 @@ Artisan::command('reservas:liberar-expiradas', function () {
 })->purpose('Libera reservas vencidas de asientos bloqueados');
 
 Schedule::command('reservas:liberar-expiradas')->everyMinute();
+Schedule::command('reservas:liberar')->everyMinute();
