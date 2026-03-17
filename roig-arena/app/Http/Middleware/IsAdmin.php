@@ -15,7 +15,7 @@ class IsAdmin
     {
         if (!$request->user() || !$request->user()->isAdmin()) {
             return response()->json([
-                'message' => 'No tienes permisos de administrador'
+                'error' => 'No tienes permisos de administrador',
             ], 403);
         }
 
