@@ -2,69 +2,95 @@
 
 namespace App\Services;
 
-use App\Models\Entrada;
 use App\Models\EstadoAsiento;
-use App\Models\Precio;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Entrada;
 use Illuminate\Support\Facades\DB;
 
 class CompraService
 {
     /**
-     * Procesa la compra de reservas activas del usuario.
-     *
-     * @param array<int, int|string> $reservasIds
-     * @throws \Exception
+     * Procesar compra de múltiples reservas
      */
-    public function procesarCompra(array $reservasIds, int $userId): Collection
+    public function procesarCompra(array $reservasIds, $userId)
     {
-        return DB::transaction(function () use ($reservasIds, $userId) {
-            $ids = array_map('intval', $reservasIds);
+        $entradas = [];
 
-            $reservas = EstadoAsiento::query()
-                ->whereIn('id', $ids)
-                ->where('user_id', $userId)
-                ->where('estado', 'bloqueado')
-                ->where('reservado_hasta', '>', now())
-                ->with(['asiento.sector', 'evento'])
-                ->lockForUpdate()
-                ->get();
-
-            if ($reservas->count() !== count($ids)) {
-                throw new \Exception('Alguna reserva no existe, no te pertenece o ha expirado.');
-            }
-
-            $entradas = collect();
-
-            foreach ($reservas as $reserva) {
-                $precio = Precio::query()
-                    ->where('evento_id', $reserva->evento_id)
-                    ->where('sector_id', $reserva->asiento->sector_id)
-                    ->where('disponible', true)
-                    ->whereHas('sector', function ($query) {
-                        $query->where('activo', true);
-                    })
-                    ->first();
-
-                if (!$precio) {
-                    throw new \Exception('No hay precio disponible para uno de los asientos seleccionados.');
-                }
-
-                $entrada = Entrada::create([
-                    'user_id' => $userId,
-                    'evento_id' => $reserva->evento_id,
-                    'asiento_id' => $reserva->asiento_id,
-                    'precio_pagado' => $precio->precio,
-                ]);
-
+        DB::beginTransaction();
+        try {
+            foreach ($reservasIds as $reservaId) {
+                $reserva = $this->obtenerReserva($reservaId, $userId);
+                
+                // Verificar expiración
+                $this->verificarNoExpirada($reserva);
+                
+                // Obtener precio
+                $precio = $this->obtenerPrecio($reserva);
+                
+                // Marcar como vendido
                 $reserva->marcarComoVendido();
-                $entradas->push($entrada);
+                
+                // Crear entrada
+                $entrada = $this->crearEntrada($reserva, $precio, $userId);
+                
+                $entradas[] = $entrada;
             }
 
-            return Entrada::query()
-                ->whereIn('id', $entradas->pluck('id'))
-                ->with(['evento', 'asiento.sector'])
-                ->get();
-        });
+            DB::commit();
+            
+            return collect($entradas)->load(['evento', 'asiento.sector']);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtener una reserva del usuario
+     */
+    private function obtenerReserva($reservaId, $userId)
+    {
+        return EstadoAsiento::where('id', $reservaId)
+            ->where('user_id', $userId)
+            ->where('estado', 'bloqueado')
+            ->with(['evento', 'asiento.sector'])
+            ->firstOrFail();
+    }
+
+    /**
+     * Verificar que la reserva no haya expirado
+     */
+    private function verificarNoExpirada($reserva)
+    {
+        if ($reserva->haExpirado()) {
+            throw new \Exception('Una de las reservas ha expirado');
+        }
+    }
+
+    /**
+     * Obtener el precio del sector para el evento
+     */
+    private function obtenerPrecio($reserva)
+    {
+        $precio = $reserva->evento->precioDelSector($reserva->asiento->sector_id);
+        
+        if (!$precio) {
+            throw new \Exception('No se encontró el precio para el sector');
+        }
+        
+        return $precio;
+    }
+
+    /**
+     * Crear la entrada
+     */
+    private function crearEntrada($reserva, $precio, $userId)
+    {
+        return Entrada::create([
+            'user_id' => $userId,
+            'evento_id' => $reserva->evento_id,
+            'asiento_id' => $reserva->asiento_id,
+            'precio_pagado' => $precio->precio,
+        ]);
     }
 }

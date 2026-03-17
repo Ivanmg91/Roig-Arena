@@ -3,86 +3,86 @@
 namespace App\Services;
 
 use App\Models\EstadoAsiento;
-use Illuminate\Support\Collection;
+use App\Models\Asiento;
+use App\Models\Evento;
 use Illuminate\Support\Facades\DB;
 
 class ReservaService
 {
     /**
-     * Reserva un asiento durante 15 minutos.
-     *
-     * @throws \Exception
+     * Reservar un asiento para un evento
      */
-    public function reservarAsiento(int $eventoId, int $asientoId, int $userId): EstadoAsiento
+    public function reservarAsiento($eventoId, $asientoId, $userId)
     {
-        return DB::transaction(function () use ($eventoId, $asientoId, $userId) {
-            $estado = EstadoAsiento::where('evento_id', $eventoId)
+        DB::beginTransaction();
+        try {
+            // Bloqueo pesimista: evita race condition
+            $existeReserva = EstadoAsiento::where('evento_id', $eventoId)
                 ->where('asiento_id', $asientoId)
                 ->lockForUpdate()
                 ->first();
-
-            if ($estado && $estado->estado === 'vendido') {
-                throw new \Exception('El asiento ya ha sido vendido.');
+            
+            if ($existeReserva) {
+                throw new \Exception('El asiento no está disponible');
             }
+            
+            $asiento = Asiento::findOrFail($asientoId);
+            $evento = Evento::findOrFail($eventoId);
+            
+            $this->verificarSectorDisponible($evento, $asiento->sector_id);
+            
+            $reserva = EstadoAsiento::create([
+                'evento_id' => $eventoId,
+                'asiento_id' => $asientoId,
+                'user_id' => $userId,
+                'estado' => 'bloqueado',
+                'reservado_hasta' => now()->addMinutes(15),
+            ]);
 
-            if ($estado && $estado->estado === 'bloqueado' && !$estado->haExpirado() && $estado->user_id !== $userId) {
-                throw new \Exception('El asiento está reservado por otro usuario.');
-            }
-
-            if (!$estado) {
-                $estado = new EstadoAsiento();
-                $estado->evento_id = $eventoId;
-                $estado->asiento_id = $asientoId;
-            }
-
-            $estado->user_id = $userId;
-            $estado->estado = 'bloqueado';
-            $estado->reservado_hasta = now()->addMinutes(15);
-            $estado->save();
-
-            return $estado->load(['evento', 'asiento.sector', 'user']);
-        });
+            DB::commit();
+            
+            return $reserva->load(['evento', 'asiento.sector']);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 
     /**
-     * Obtiene reservas activas del usuario autenticado.
+     * Cancelar una reserva
      */
-    public function obtenerReservasActivas(int $userId): Collection
+    public function cancelarReserva($reservaId, $userId)
     {
-        return EstadoAsiento::query()
-            ->deUsuario($userId)
-            ->bloqueados()
+        $reserva = EstadoAsiento::where('id', $reservaId)
+            ->where('user_id', $userId)
+            ->where('estado', 'bloqueado')
+            ->firstOrFail();
+
+        $reserva->delete();
+        
+        return true;
+    }
+
+    /**
+     * Obtener reservas activas de un usuario
+     */
+    public function obtenerReservasActivas($userId)
+    {
+        return EstadoAsiento::where('user_id', $userId)
+            ->where('estado', 'bloqueado')
             ->where('reservado_hasta', '>', now())
             ->with(['evento', 'asiento.sector'])
-            ->orderBy('reservado_hasta')
             ->get();
     }
 
     /**
-     * Cancela una reserva del usuario.
-     *
-     * @throws \Exception
+     * Verificar que el sector esté disponible para el evento
      */
-    public function cancelarReserva(int $reservaId, int $userId): void
+    private function verificarSectorDisponible($evento, $sectorId)
     {
-        $reserva = EstadoAsiento::query()
-            ->where('id', $reservaId)
-            ->where('user_id', $userId)
-            ->bloqueados()
-            ->first();
-
-        if (!$reserva) {
-            throw new \Exception('La reserva no existe o no pertenece al usuario.');
+        if (!$evento->sectorEstaDisponible($sectorId)) {
+            throw new \Exception('El sector no está disponible para este evento');
         }
-
-        $reserva->delete();
-    }
-
-    /**
-     * Libera todas las reservas expiradas.
-     */
-    public function liberarReservasExpiradas(): int
-    {
-        return EstadoAsiento::expirados()->delete();
     }
 }
