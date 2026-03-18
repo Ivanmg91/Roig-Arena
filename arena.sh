@@ -58,7 +58,19 @@ fi
 ./vendor/bin/sail ps
 echo -e "${GREEN}✔ Estado de los contenedores verificado.${NC}\n"
 
-# 5. Ejecutar migraciones y seeders
+# 5. Asegurar APP_KEY antes de migraciones/tests
+# Si APP_KEY esta vacia, Laravel lanza MissingAppKeyException al ejecutar pruebas.
+if ! grep -q '^APP_KEY=base64:' .env; then
+    echo -e "${YELLOW}[4/5] APP_KEY vacia. Generando clave de aplicacion...${NC}"
+    ./vendor/bin/sail artisan key:generate --force
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✔ APP_KEY generada correctamente.${NC}\n"
+    else
+        echo "Error al generar APP_KEY"; exit 1
+    fi
+fi
+
+# 6. Ejecutar migraciones y seeders
 # --fresh borra tablas existentes y --seed puebla los datos (Sectores, Asientos, etc.)
 echo -e "${YELLOW}[4/5] Ejecutando migraciones y poblando base de datos...${NC}"
 ./vendor/bin/sail artisan migrate:fresh --seed
@@ -68,7 +80,7 @@ else
     echo "Error en las migraciones"; exit 1
 fi
 
-# 6. Ejecutar tests de PHPUnit
+# 7. Ejecutar tests de PHPUnit
 # Verificamos que todo el sistema (Auth, Reservas, Compras) funcione tras el reset
 echo -e "${YELLOW}[5/5] Ejecutando batería de tests...${NC}"
 ./vendor/bin/sail artisan test
