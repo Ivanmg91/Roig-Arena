@@ -50,6 +50,16 @@ class Asiento extends Model
     // ============================================
 
     /**
+     * Verifica si un asiento está disponible para un evento
+     */
+    public function estaDisponible($eventoId)
+    {
+        return !$this->estadoAsientos()
+            ->where('evento_id', $eventoId)
+            ->exists();
+    }
+
+    /**
      * Obtener el nombre completo del asiento
      * Ejemplo: "VIP - Fila A - Asiento 5"
      */

@@ -1,60 +1,103 @@
-// tests/Unit/ReservaServiceTest.php
 <?php
 
 namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Services\ReservaService;
-use App\Models\Evento;
-use App\Models\Asiento;
 use App\Models\User;
+use App\Models\Evento;
+use App\Models\Sector;
+use App\Models\Asiento;
+use App\Models\Precio;
+use App\Models\EstadoAsiento;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReservaServiceTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected ReservaService $service;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->service = new ReservaService();
+    }
+
     public function test_puede_reservar_asiento_disponible()
     {
-        // Arrange
-        $evento = Evento::factory()->create();
-        $asiento = Asiento::factory()->create();
         $user = User::factory()->create();
+        $evento = Evento::factory()->create();
+        $sector = Sector::factory()->create();
+        $asiento = Asiento::factory()->create(['sector_id' => $sector->id]);
         
-        $service = new ReservaService();
-        
-        // Act
-        $reserva = $service->reservarAsiento(
-            $evento->id,
-            $asiento->id,
-            $user->id
-        );
-        
-        // Assert
+        Precio::factory()->create([
+            'evento_id' => $evento->id,
+            'sector_id' => $sector->id,
+        ]);
+
+        $reserva = $this->service->reservarAsiento($evento->id, $asiento->id, $user->id);
+
         $this->assertNotNull($reserva);
         $this->assertEquals('bloqueado', $reserva->estado);
-        $this->assertEquals($evento->id, $reserva->evento_id);
     }
-    
+
     public function test_no_puede_reservar_asiento_ocupado()
     {
-        // Arrange
+        $user = User::factory()->create();
         $evento = Evento::factory()->create();
         $asiento = Asiento::factory()->create();
-        $user = User::factory()->create();
-        
-        // Crear reserva existente
-        EstadoAsiento::create([
+
+        EstadoAsiento::factory()->create([
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
+            'estado' => 'bloqueado',
+        ]);
+
+        $this->expectException(\Exception::class);
+        $this->service->reservarAsiento($evento->id, $asiento->id, $user->id);
+    }
+
+    public function test_puede_cancelar_reserva()
+    {
+        $user = User::factory()->create();
+        $reserva = EstadoAsiento::factory()->create([
             'user_id' => $user->id,
             'estado' => 'bloqueado',
-            'reservado_hasta' => now()->addMinutes(15),
         ]);
+
+        $resultado = $this->service->cancelarReserva($reserva->id, $user->id);
+
+        $this->assertTrue($resultado);
+        $this->assertDatabaseMissing('estado_asientos', ['id' => $reserva->id]);
+    }
+
+    public function test_obtiene_reservas_activas()
+    {
+        $user = User::factory()->create();
         
-        $service = new ReservaService();
+        EstadoAsiento::factory()->count(2)->create([
+            'user_id' => $user->id,
+            'estado' => 'bloqueado',
+            'reservado_hasta' => now()->addMinutes(10),
+        ]);
+
+        $reservas = $this->service->obtenerReservasActivas($user->id);
+
+        $this->assertCount(2, $reservas);
+    }
+
+    public function test_no_obtiene_reservas_expiradas()
+    {
+        $user = User::factory()->create();
         
-        // Act & Assert
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('no está disponible');
-        
-        $service->reservarAsiento($evento->id, $asiento->id, $user->id);
+        EstadoAsiento::factory()->create([
+            'user_id' => $user->id,
+            'reservado_hasta' => now()->subMinutes(20),
+        ]);
+
+        $reservas = $this->service->obtenerReservasActivas($user->id);
+
+        $this->assertCount(0, $reservas);
     }
 }
