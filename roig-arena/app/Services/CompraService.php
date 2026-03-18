@@ -29,15 +29,16 @@ class CompraService
                 // Marcar como vendido
                 $reserva->marcarComoVendido();
                 
-                // Crear entrada
+                // Crear entrada y cargar relaciones
                 $entrada = $this->crearEntrada($reserva, $precio, $userId);
+                $entrada->load(['evento', 'asiento.sector']);
                 
                 $entradas[] = $entrada;
             }
 
             DB::commit();
             
-            return collect($entradas)->load(['evento', 'asiento.sector']);
+            return collect($entradas);
             
         } catch (\Exception $e) {
             DB::rollBack();
@@ -91,6 +92,7 @@ class CompraService
             'evento_id' => $reserva->evento_id,
             'asiento_id' => $reserva->asiento_id,
             'precio_pagado' => $precio->precio,
+            'codigo_qr' => Entrada::generarCodigoQR(),
         ]);
     }
 }

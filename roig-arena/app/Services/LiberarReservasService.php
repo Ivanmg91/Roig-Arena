@@ -33,7 +33,7 @@ class LiberarReservasService
     /**
      * Liberar reservas de un usuario específico
      */
-    public function liberarDeUsuario($userId)
+    public function liberarPorUsuario($userId)
     {
         $expiradas = EstadoAsiento::expirados()
             ->where('user_id', $userId)

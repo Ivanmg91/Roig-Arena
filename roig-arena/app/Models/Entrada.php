@@ -65,7 +65,7 @@ class Entrada extends Model
     public static function generarCodigoQR(): string
     {
         do {
-            $codigo = 'QR-' . strtoupper(Str::random(12));
+            $codigo = 'QR-' . strtoupper(Str::random(29));
         } while (self::where('codigo_qr', $codigo)->exists());
 
         return $codigo;

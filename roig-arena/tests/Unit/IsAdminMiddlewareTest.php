@@ -1,4 +1,3 @@
-// tests/Unit/IsAdminMiddlewareTest.php
 <?php
 
 namespace Tests\Unit;
