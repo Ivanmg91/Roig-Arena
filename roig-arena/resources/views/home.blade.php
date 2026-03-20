@@ -3,6 +3,10 @@
 @section('title', 'Inicio | Roig Arena')
 @section('body_class', 'home-page')
 
+@section('page_styles')
+    <link rel="stylesheet" href="/css/pages/home.css">
+@endsection
+
 @section('content')
     <section class="home-hero" aria-label="Portada principal">
         <p class="home-hero-kicker">Roig Arena Valencia</p>
