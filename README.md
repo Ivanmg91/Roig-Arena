@@ -76,3 +76,7 @@ sail restart
 
 sail down
 sail up -d
+
+
+# Pendiente
+- Q no se vean las cards de eventos gigantes si solo hay 1 o 2

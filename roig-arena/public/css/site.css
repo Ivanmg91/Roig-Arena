@@ -1,248 +1,198 @@
-:root {
-    --bg: #0f172a;
-    --panel: #111827;
-    --soft: #1f2937;
-    --text: #e5e7eb;
-    --muted: #94a3b8;
-    --accent: #f59e0b;
-    --accent-2: #ef4444;
-    --ok: #22c55e;
-}
+/* site.css - estilos generales para Roig Arena */
 
-* {
-    box-sizing: border-box;
+:root {
+  --color-primary: #ededec;
+  --color-accent: #F53003;
+  --color-muted: #A1A09A;
+  --color-bg: #161615;
+  --color-card: #1b1b18;
+  --color-border: #3e3e3a;
+  --radius: 16px;
+  --shadow: 0 2px 16px rgba(245,48,3,0.07);
 }
 
 body {
-    margin: 0;
-    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: radial-gradient(circle at top right, #1e293b 0%, var(--bg) 45%, #020617 100%);
-    color: var(--text);
-    min-height: 100vh;
+  font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  background: linear-gradient(120deg, #161615 80%, #1b1b18 100%);
+  color: var(--color-primary);
+  margin: 0;
+  min-height: 100vh;
+  transition: background 0.4s;
+  letter-spacing: 0.01em;
+  font-size: 1.05rem;
 }
 
 .container {
-    width: min(1100px, 92%);
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(8px);
-    background: rgba(2, 6, 23, 0.75);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 16px #F5300340;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-
 .nav-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
 }
-
 .brand {
-    font-weight: 700;
-    letter-spacing: 0.3px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 8px #F5300340;
+}
+.brand {
+  filter: brightness(1.2);
 }
 
-.links {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.links .link {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: color 0.2s, background 0.2s;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
 }
 
-.link {
-    text-decoration: none;
-    color: var(--text);
-    background: transparent;
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    border-radius: 999px;
-    padding: 8px 14px;
-    font-size: 0.95rem;
-}
-
-.link:hover {
-    border-color: var(--accent);
-    color: #fff;
+.links .link:hover {
+  color: #fff;
+  background: var(--color-accent);
+  box-shadow: 0 2px 8px #F5300340;
+  text-shadow: 0 1px 4px #F5300340;
 }
 
 .main {
-    padding: 32px 0 48px;
+  margin-top: 2rem;
+  animation: fadein 0.7s;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .card {
-    background: linear-gradient(160deg, rgba(31, 41, 55, 0.9), rgba(15, 23, 42, 0.9));
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    border-radius: 16px;
-    padding: 20px;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px #F5300340, var(--shadow);
+  /* padding: 1.7rem; */
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border);
+  transition: box-shadow 0.3s, border-color 0.2s;
+  position: relative;
+  color: var(--color-primary);
+  filter: brightness(1.1);
 }
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-}
-
-.muted {
-    color: var(--muted);
-}
-
-.btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #0f172a;
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    font-weight: 600;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-top: 10px;
-}
-
-.badge {
-    display: inline-block;
-    font-size: 0.78rem;
-    color: #dcfce7;
-    background: rgba(34, 197, 94, 0.2);
-    border: 1px solid rgba(34, 197, 94, 0.45);
-    border-radius: 999px;
-    padding: 4px 10px;
-    margin-bottom: 8px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+.card:hover {
+  box-shadow: 0 12px 32px #F5300340, 0 2px 8px #F5300340;
+  border-color: var(--color-accent);
 }
 
 .section-gap {
-    margin-bottom: 18px;
+  margin-bottom: 2rem;
 }
 
 .title-no-top {
-    margin-top: 0;
+  margin-top: 0;
+}
+
+.muted {
+  color: var(--color-muted);
 }
 
 .no-margin {
-    margin: 0;
+  margin: 0;
 }
+
+.btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.4rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.08rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #F5300340;
+  letter-spacing: 0.02em;
+  filter: brightness(1.1);
+}
+.btn:hover {
+  background: #d42a00;
+  box-shadow: 0 6px 24px #F5300340;
+  filter: brightness(1.2);
+}
+
+.btn:hover {
+  background: #d42a00;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #F53003 60%, #3e3e3a 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.25rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 2px 8px #F5300340;
+  letter-spacing: 0.03em;
+  filter: brightness(1.1);
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
 
 .grid-gap-bottom {
-    margin-bottom: 16px;
+  margin-bottom: 2rem;
 }
 
-.event-card-title {
-    margin-top: 0;
-    font-size: 1.2rem;
-}
-
-.event-meta {
-    margin: 8px 0 0;
-}
-
-.event-detail-title {
-    margin: 0 0 10px;
-}
-
-.event-detail-description {
-    line-height: 1.6;
-    margin-top: 0;
-}
-
-.home-page .main {
-    padding: 0;
-}
-
-.home-page .main > .container {
-    width: 100%;
-    margin: 0;
-}
-
-.home-hero {
-    min-height: calc(100dvh - 67px);
-    width: 100%;
-    background-image:
-        linear-gradient(135deg, rgba(7, 13, 27, 0.82), rgba(15, 23, 42, 0.48)),
-        url('/images/roig-arena-home.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
+@media (max-width: 600px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  .nav-inner {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 24px 18px;
-    text-align: center;
+    align-items: flex-start;
+  }
+  .main {
+    margin-top: 1rem;
+  }
+  .card {
+    padding: 1rem;
+  }
+  .brand {
+    font-size: 1.1rem;
+  }
+  .links .link {
+    font-size: 0.98rem;
+    padding: 0.3rem 0.7rem;
+  }
 }
 
-.home-hero-kicker {
-    display: inline-block;
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #fde68a;
-}
-
-.home-hero-title {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 3.4rem);
-    line-height: 1.1;
-    color: #ffffff;
-    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
-
-.home-hero-text {
-    margin: 2px auto 0;
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    line-height: 1.6;
-    color: #e2e8f0;
-    max-width: 760px;
-}
-
-.home-hero-actions {
-    margin-top: 8px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.home-hero-outline {
-    display: inline-block;
-    text-decoration: none;
-    color: #f8fafc;
-    border: 1px solid rgba(248, 250, 252, 0.45);
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-weight: 600;
-}
-
-.home-hero-outline:hover {
-    border-color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
-}
-
-@media (max-width: 720px) {
-    .main {
-        padding-top: 22px;
-    }
-
-    .card {
-        padding: 16px;
-    }
-
-    .home-hero {
-        min-height: calc(100dvh - 63px);
-    }
-}

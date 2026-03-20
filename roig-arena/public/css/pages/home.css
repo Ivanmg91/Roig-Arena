@@ -1,0 +1,84 @@
+/* home.css - estilos específicos para la portada principal */
+
+ .home-hero {
+  background-image: url('/images/roig-arena-home.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0;
+  box-shadow: 0 12px 32px #F5300340, var(--shadow);
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  animation: fadein 0.7s;
+  color: #ededec;
+  z-index: 1;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.home-hero-kicker {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px #F5300340;
+  filter: brightness(1.2);
+}
+.home-hero-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  color: var(--color-accent);
+  text-shadow: 0 2px 8px #F5300340;
+  letter-spacing: 0.03em;
+  filter: brightness(1.2);
+}
+.home-hero-text {
+  color: #A1A09A;
+  font-size: 1.25rem;
+  margin-bottom: 1.7rem;
+  line-height: 1.6;
+  /* background: #232321; */
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+}
+.home-hero-actions .btn {
+  font-size: 1.15rem;
+  padding: 0.8rem 1.7rem;
+  font-weight: 700;
+  box-shadow: 0 4px 16px #F5300340;
+  border-radius: 10px;
+  letter-spacing: 0.02em;
+  filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+  .home-hero {
+    padding: 1.2rem 0.5rem;
+    border-radius: 10px;
+    color: #ededec;
+  }
+  .home-hero-title {
+    font-size: 1.5rem;
+    filter: brightness(1.2);
+  }
+  .home-hero-text {
+    font-size: 1rem;
+    padding: 0.4rem;
+    color: #A1A09A;
+    background: #232321;
+  }
+  .home-hero-kicker {
+    font-size: 1rem;
+    filter: brightness(1.2);
+  }
+}

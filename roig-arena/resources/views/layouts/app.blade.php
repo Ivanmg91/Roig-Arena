@@ -1,5 +1,5 @@
 <!-- estructura común de todas las páginas: cabecera, menú, estilos, pie, etc. -->
- 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Roig Arena')</title>
     <link rel="stylesheet" href="/css/site.css">
+    @yield('page_styles')
 </head>
 <body class="@yield('body_class')">
     <header class="nav">

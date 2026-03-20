@@ -2,6 +2,10 @@
 
 @section('title', $evento->nombre . ' | Roig Arena')
 
+@section('page_styles')
+    <link rel="stylesheet" href="/css/pages/eventos.css">
+@endsection
+
 @section('content')
     <article class="card section-gap">
         <span class="badge">Detalle de evento</span>
