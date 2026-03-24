@@ -16,7 +16,7 @@ class CompraController extends Controller
         
         $sectoresDisponibles = $evento->sectoresDisponibles();
 
-        return view('compra.show', [
+        return view('compra.buy', [
             'evento' => $evento,
             'sectoresDisponibles' => $sectoresDisponibles,
         ]);

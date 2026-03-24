@@ -133,7 +133,7 @@
 
             <!-- Botón de compra -->
             <div class="cta-section" style="margin-top: 2rem;">
-                <a href="{{ route('compra.show', ['evento' => $evento->id], false) }}" class="btn btn-primary">
+                <a href="{{ route('compra.buy', ['evento' => $evento->id], false) }}" class="btn btn-primary">
                     Comprar Entradas
                 </a>
                 <a href="{{ route('eventos.index', [], false) }}" class="btn" style="background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent);">
