@@ -18,6 +18,7 @@ class EventoFactory extends Factory
             'fecha' => $this->faker->dateTimeBetween('now', '+1 year'),
             'hora' => $this->faker->time('H:i'),
             'poster_url' => $this->faker->imageUrl(640, 480, 'events', true),
+            'poster_ancho_url' => $this->faker->imageUrl(1280, 720, 'events', true),
         ];
     }
 }

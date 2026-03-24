@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             EventoSeeder::class,
             PrecioSeeder::class,
+            ArtistaSeeder::class,
         ]);
 
         $this->command->info('');

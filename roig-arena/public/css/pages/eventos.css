@@ -3,104 +3,92 @@
 .event-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-decoration: none;
-  background: linear-gradient(120deg, #1b1b18 80%, #3e3e3a 100%);
+  background: var(--color-card);
   color: #ededec;
   border-radius: var(--radius);
-  box-shadow: 0 8px 32px #F5300340, var(--shadow);
-  border: 1.5px solid var(--color-border);
-  /* padding: 1.2rem; */
-  transition: box-shadow 0.3s, border-color 0.2s, transform 0.2s;
-  position: relative;
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s;
   overflow: hidden;
-  animation: fadein 0.7s;
+  position: relative;
 }
 
 .event-card:hover {
-  box-shadow: 0 16px 48px #F5300340, 0 2px 8px rgba(0,0,0,0.04);
   border-color: var(--color-accent);
-  transform: translateY(-4px) scale(1.03);
-}
-@keyframes fadein {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .event-card-image {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px #F5300340;
-  transition: box-shadow 0.2s, border-color 0.2s;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .event-card-title {
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--color-accent);
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 8px #F5300340;
-  filter: brightness(1.2);
+  letter-spacing: 0.01em;
+  padding: 1rem;
+  margin: 0;
 }
+
 .event-meta {
   color: #A1A09A;
-  font-size: 1rem;
-  font-style: italic;
-  letter-spacing: 0.01em;
+  font-size: 0.9rem;
+  padding: 0 1rem 1rem 1rem;
+  margin: 0;
 }
 
 .event-detail-title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
   margin-bottom: 0;
   color: var(--color-accent);
-  text-shadow: 0 2px 8px #F5300340;
-  letter-spacing: 0.03em;
-  filter: brightness(1.2);
+  letter-spacing: 0.02em;
 }
+
 .event-detail-description {
   color: #A1A09A;
-  font-size: 1.08rem;
+  font-size: 1rem;
   margin-bottom: 0;
-  line-height: 1.2;
+  line-height: 1.5;
   background: none;
   border-radius: 0;
   padding: 0;
-  box-shadow: none;
 }
 
 /* Tabla de precios */
-/* Elimina el margin de h2 y p dentro de .card para que estén pegados */
 .card h2, .card p {
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background: #232321;
+  background: var(--color-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 8px #F5300340;
   overflow: hidden;
   color: #ededec;
 }
+
 th, td {
-  padding: 0.9rem 1.2rem;
-  border-bottom: 1px solid #3e3e3a;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--color-border);
   text-align: left;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: #ededec;
 }
+
 th {
-  background: linear-gradient(90deg, #3e3e3a 60%, #F53003 100%);
+  background: var(--color-card);
   font-weight: 700;
   color: var(--color-accent);
-  letter-spacing: 0.02em;
-  filter: brightness(1.2);
+  letter-spacing: 0.01em;
 }
+
 tr:last-child td {
   border-bottom: none;
 }
@@ -108,17 +96,14 @@ tr:last-child td {
 @media (max-width: 600px) {
   .event-card-image {
     height: 120px;
-    border-radius: 10px;
   }
+
   .event-detail-title {
     font-size: 1.3rem;
   }
-  .event-detail-description {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
+
   table, th, td {
-    font-size: 0.95rem;
-    padding: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.6rem;
   }
 }

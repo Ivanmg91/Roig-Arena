@@ -49,6 +49,7 @@ class EventoController extends Controller
             'descripcion_corta' => 'required|string|max:255',
             'descripcion_larga' => 'required|string',
             'poster_url' => 'nullable|url',
+            'poster_ancho_url' => 'nullable|url',
             'fecha' => 'required|date|unique:eventos,fecha',
             'hora' => 'required|date_format:H:i',
         ]);
@@ -73,6 +74,7 @@ class EventoController extends Controller
             'descripcion_corta' => 'sometimes|string|max:255',
             'descripcion_larga' => 'sometimes|string',
             'poster_url' => 'nullable|url',
+            'poster_ancho_url' => 'nullable|url',
             'fecha' => 'sometimes|date|unique:eventos,fecha,' . $id,
             'hora' => 'sometimes|date_format:H:i',
         ]);

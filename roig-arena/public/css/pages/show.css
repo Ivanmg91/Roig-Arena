@@ -1,0 +1,200 @@
+/* show.css - estilos específicos para la vista de detalle del evento */
+
+.event-hero {
+  position: relative;
+  height: 320px;
+  margin-bottom: 3rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.event-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.event-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+}
+
+.event-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.event-info-section {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.event-info-section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.event-meta-item {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.event-meta-label {
+  font-weight: 600;
+  color: var(--color-muted);
+  min-width: 80px;
+  font-size: 0.9rem;
+}
+
+.event-meta-value {
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+.artist-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+.artist-card:hover {
+  border-color: var(--color-accent);
+}
+
+.artist-card-header {
+  display: flex;
+  gap: 1rem;
+}
+
+.artist-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.artist-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0 0 0.3rem 0;
+}
+
+.artist-description {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.pricing-table {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.cta-section {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  flex: 1;
+  min-width: 200px;
+}
+
+.event-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.event-no-image {
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  gap: 1rem;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.section-divider span {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .event-hero {
+    height: 200px;
+    margin-bottom: 2rem;
+  }
+
+  .event-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .event-info-section {
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    flex-direction: column;
+  }
+
+  .btn-primary {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .artist-card-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .artist-image {
+    width: 100%;
+    height: auto;
+  }
+}

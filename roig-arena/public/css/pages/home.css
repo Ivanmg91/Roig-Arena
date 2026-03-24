@@ -1,11 +1,10 @@
 /* home.css - estilos específicos para la portada principal */
 
- .home-hero {
+.home-hero {
   background-image: url('/images/roig-arena-home.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 0;
-  box-shadow: 0 12px 32px #F5300340, var(--shadow);
   width: 100vw;
   height: 100vh;
   padding: 0;
@@ -15,70 +14,61 @@
   top: 0;
   left: 0;
   overflow: hidden;
-  animation: fadein 0.7s;
   color: #ededec;
   z-index: 1;
-}
-@keyframes fadein {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .home-hero-kicker {
   color: var(--color-accent);
   font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 0.7rem;
-  letter-spacing: 0.04em;
-  text-shadow: 0 2px 8px #F5300340;
-  filter: brightness(1.2);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
 }
+
 .home-hero-title {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   color: var(--color-accent);
-  text-shadow: 0 2px 8px #F5300340;
-  letter-spacing: 0.03em;
-  filter: brightness(1.2);
+  letter-spacing: 0.02em;
 }
+
 .home-hero-text {
   color: #A1A09A;
-  font-size: 1.25rem;
-  margin-bottom: 1.7rem;
-  line-height: 1.6;
-  /* background: #232321; */
-  border-radius: 8px;
-  padding: 0.7rem 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  max-width: 600px;
 }
+
 .home-hero-actions .btn {
-  font-size: 1.15rem;
-  padding: 0.8rem 1.7rem;
-  font-weight: 700;
-  box-shadow: 0 4px 16px #F5300340;
-  border-radius: 10px;
-  letter-spacing: 0.02em;
-  filter: brightness(1.1);
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border-radius: 8px;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 600px) {
   .home-hero {
-    padding: 1.2rem 0.5rem;
-    border-radius: 10px;
-    color: #ededec;
+    padding-top: 80px;
   }
+
   .home-hero-title {
     font-size: 1.5rem;
-    filter: brightness(1.2);
   }
+
   .home-hero-text {
     font-size: 1rem;
-    padding: 0.4rem;
-    color: #A1A09A;
-    background: #232321;
+    padding: 0 1rem;
   }
+
   .home-hero-kicker {
-    font-size: 1rem;
-    filter: brightness(1.2);
+    font-size: 0.9rem;
   }
 }

@@ -30,7 +30,7 @@ class PaginaController extends Controller
 
     public function eventosShow(Evento $evento)
     {
-        $evento->load(['precios.sector']);
+        $evento->load(['precios.sector', 'artistas']);
 
         return view('eventos.show', [
             'evento' => $evento,
