@@ -17,6 +17,7 @@ class Evento extends Model
         'descripcion_corta',
         'descripcion_larga',
         'poster_url',
+        'poster_ancho_url',
         'fecha',
         'hora',
     ];
@@ -65,6 +66,14 @@ class Evento extends Model
     public function entradas()
     {
         return $this->hasMany(Entrada::class);
+    }
+
+    /**
+     * Un evento tiene muchos artistas
+     */
+    public function artistas()
+    {
+        return $this->hasMany(Artista::class);
     }
 
     // ============================================

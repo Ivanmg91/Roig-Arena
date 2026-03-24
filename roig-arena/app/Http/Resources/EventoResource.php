@@ -15,6 +15,7 @@ class EventoResource extends JsonResource
             'descripcion_corta' => $this->descripcion_corta,
             'descripcion_larga' => $this->when($request->routeIs('eventos.show'), $this->descripcion_larga),
             'poster' => $this->poster_url,
+            'poster_ancho' => $this->poster_ancho_url,
             'fecha' => $this->fecha->format('d/m/Y'),
             'hora' => $this->hora ? $this->hora->format('H:i') : null,
             'sectores' => SectorResource::collection($this->whenLoaded('sectores')),

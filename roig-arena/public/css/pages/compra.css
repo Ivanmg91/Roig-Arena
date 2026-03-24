@@ -1,0 +1,212 @@
+/* compra.css - estilos específicos para la vista de compra */
+
+.compra-header {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border);
+}
+
+.compra-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.02em;
+}
+
+.compra-header p {
+  color: var(--color-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.compra-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.compra-main {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.compra-sidebar {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.sector-group {
+  margin-bottom: 2rem;
+}
+
+.sector-group:last-child {
+  margin-bottom: 0;
+}
+
+.sector-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.8rem;
+}
+
+.sector-description {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.precio-display {
+  background: var(--color-bg);
+  border-left: 2px solid var(--color-accent);
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.precio-label {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.precio-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.cantidad-selector {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.cantidad-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  border-radius: 4px;
+}
+
+.cantidad-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.cantidad-display {
+  flex: 1;
+  text-align: center;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.resumen-item:last-child {
+  border-bottom: none;
+}
+
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: 1rem;
+  border-top: 2px solid var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-full {
+  flex: 1;
+  min-width: 150px;
+}
+
+.info-message {
+  background: var(--color-bg);
+  border-left: 2px solid var(--color-accent);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .compra-header {
+    padding: 1.5rem;
+  }
+
+  .compra-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .compra-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .compra-main {
+    padding: 1.5rem;
+  }
+
+  .compra-sidebar {
+    position: static;
+    padding: 1.5rem;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+
+  .btn-full {
+    min-width: auto;
+    width: 100%;
+  }
+}

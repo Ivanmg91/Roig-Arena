@@ -35,6 +35,7 @@
         @endforelse
     </section>
 
+    {{-- La linea q se ve abajo al final --}}
     <section class="card">
         {{ $eventos->links() }}
     </section>

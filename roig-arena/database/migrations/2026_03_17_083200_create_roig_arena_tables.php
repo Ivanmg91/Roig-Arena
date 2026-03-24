@@ -45,10 +45,21 @@ return new class extends Migration
             $table->string('descripcion_corta', 255); // Para listados
             $table->text('descripcion_larga'); // Para la página del evento
             $table->string('poster_url')->nullable(); // URL de la imagen
+            $table->string('poster_ancho_url')->nullable(); // URL de la imagen ancha
             $table->date('fecha')->unique(); // Solo un evento por día
             $table->time('hora')->nullable(); // Hora del evento
             $table->timestamps();
             $table->softDeletes(); // Borrado lógico
+        });
+
+        // Tabla de artistas
+        Schema::create('artistas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
+            $table->text('descripcion')->nullable();
+            $table->string('imagen_url')->nullable();
+            $table->timestamps();
         });
 
         // Tabla de precios (precio por sector en cada evento)
@@ -101,6 +112,7 @@ return new class extends Migration
         Schema::dropIfExists('estado_asientos');
         Schema::dropIfExists('precios');
         Schema::dropIfExists('eventos');
+        Schema::dropIfExists('artistas');
         Schema::dropIfExists('asientos');
         Schema::dropIfExists('sectores');
     }
