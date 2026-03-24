@@ -128,7 +128,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody
             </table>
 
             <!-- Botón de compra -->

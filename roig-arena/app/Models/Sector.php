@@ -17,6 +17,9 @@ class Sector extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'cantidad_filas',
+        'cantidad_columnas',
+        'color_hex',
         'activo',
     ];
 
@@ -60,6 +63,45 @@ class Sector extends Model
     // ============================================
     // MÉTODOS ÚTILES
     // ============================================
+
+    // Método para obtener asientos del sector organizados
+    public function obtenerAsientosOrganizados() { 
+        return $this->asientos()
+            ->orderBy('numero_fila')
+            ->orderBy('numero_asiento')
+            ->get()
+            ->groupBy('numero_fila')
+            ->toArray();
+    }
+
+    public function contarDisponibles($eventoId): int
+    {
+        return $this->asientos()
+            ->whereDoesntHave('estadoAsientos', function ($query) use ($eventoId) {
+                $query->where('evento_id', $eventoId);
+            })
+            ->count();
+    }
+
+    public function contarReservados($eventoId): int
+    {
+        return $this->asientos()
+            ->whereHas('estadoAsientos', function ($query) use ($eventoId) {
+                $query->where('evento_id', $eventoId)
+                      ->where('estado', 'reservado');
+            })
+            ->count();
+    }
+
+    public function contarOcupados($eventoId): int
+    {
+        return $this->asientos()
+            ->whereHas('estadoAsientos', function ($query) use ($eventoId) {
+                $query->where('evento_id', $eventoId)
+                      ->where('estado', 'ocupado');
+            })
+            ->count();
+    }
 
     /**
      * Verificar si el sector está activo globalmente
