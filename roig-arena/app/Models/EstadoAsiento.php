@@ -10,6 +10,11 @@ class EstadoAsiento extends Model
     use HasFactory;
 
     protected $table = 'estado_asientos';
+
+    // Constantes de estado
+    public const DISPONIBLE = 1;
+    public const RESERVADO = 2;
+    public const OCUPADO = 3;
     
     protected $fillable = [
         'evento_id',

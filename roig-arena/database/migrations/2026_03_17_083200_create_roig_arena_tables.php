@@ -20,6 +20,9 @@ return new class extends Migration
             $table->id();
             $table->string('nombre'); // Ej: VIP, Grada Norte, Tribuna
             $table->text('descripcion')->nullable();
+            $table->integer('cantidad_filas');
+            $table->integer('cantidad_columnas');
+            $table->string('color_hex', 7); // Ej: #FF0000
             $table->boolean('activo')->default(true); // Control global (true = operativo, false = desactivado para TODOS los eventos)
             $table->timestamps();
         });
