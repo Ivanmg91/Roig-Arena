@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\PaginaController;
-use App\Http\Controllers\Web\CompraController;
+use App\Http\Controllers\CompraController;
 
 Route::get('/', [PaginaController::class, 'home'])->name('home');
 Route::get('/eventos', [PaginaController::class, 'eventosIndex'])->name('eventos.index');

@@ -15,7 +15,7 @@ class CompraController extends Controller
     public function show($eventoId)
     {
         $evento = Evento::findOrFail($eventoId);
-        return view('compra.show', compact('evento'));
+        return view('compra.buy', compact('evento'));
     }
 
     /**
