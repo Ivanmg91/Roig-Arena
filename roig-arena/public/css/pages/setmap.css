@@ -1,0 +1,226 @@
+    /* Layout General */
+    .seatmap-container {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    /* MAPA DE ASIENTOS */
+    .seatmap-area {
+        padding: 2rem;
+        background: var(--color-bg-secondary);
+        border-radius: 8px;
+    }
+
+    .stadium-view {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* Sector */
+    .sector-group {
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        padding: 1.5rem;
+        background: var(--color-bg-tertiary);
+    }
+
+    .sector-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+    }
+
+    .sector-stats {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1rem;
+    }
+
+    /* Grid de Asientos */
+    .seats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+        gap: 0.5rem;
+    }
+
+    /* Asiento Individual */
+    .seat {
+        width: 35px;
+        height: 35px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+
+    .seat-available {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .seat-available:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    .seat-reserved {
+        background: #999;
+        color: white;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .seat-selected {
+        background: #2196F3;
+        color: white;
+        border-color: #1976D2;
+        box-shadow: 0 0 8px rgba(33, 150, 243, 0.5);
+    }
+
+    .seat-occupied {
+        background: #F44336;
+        color: white;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    /* Leyenda */
+    .legend {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--color-bg-tertiary);
+        border-radius: 6px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* CARRITO FLOTANTE */
+    .checkout-sidebar {
+        position: sticky;
+        top: 100px;
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        height: fit-content;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-header {
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .checkout-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .seat-count {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+    }
+
+    .selection-summary {
+        margin-bottom: 1rem;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .selected-item {
+        padding: 0.5rem;
+        background: var(--color-bg-tertiary);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .selected-item-remove {
+        background: none;
+        border: none;
+        color: #F44336;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .price-breakdown {
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        padding: 1rem 0;
+        margin: 1rem 0;
+    }
+
+    .price-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .price-line-total {
+        font-weight: 700;
+        color: var(--color-accent);
+        font-size: 1.1rem;
+    }
+
+    .total-section {
+        text-align: center;
+        margin: 1.5rem 0;
+    }
+
+    .total-label {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        margin: 0;
+    }
+
+    .total-amount {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin: 0.5rem 0 0;
+    }
+
+    .checkout-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        color: var(--color-text-muted);
+        padding: 2rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .seatmap-container {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-sidebar {
+            position: static;
+        }
+    }
