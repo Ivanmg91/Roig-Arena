@@ -1,0 +1,895 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>guia-factories-roig-arena.md</title><style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.428571429;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.428571429;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*=col-]{position:static;float:none;display:table-column}table td[class*=col-],table th[class*=col-]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:rgb(232.25,232.25,232.25)}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:rgb(207.8888888889,232.9166666667,197.5833333333)}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:rgb(195.9347826087,227.0217391304,242.5652173913)}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:rgb(249.5322580645,242.2419354839,203.9677419355)}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:rgb(234.7934782609,203.7065217391,203.7065217391)}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type=radio],input[type=checkbox]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type=file]{display:block}input[type=range]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.428571429;color:rgb(85.425,85.425,85.425)}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:rgb(119.085,119.085,119.085);opacity:1}.form-control:-ms-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control::-webkit-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:rgb(238.425,238.425,238.425);opacity:1}textarea.form-control{height:auto}input[type=date],input[type=time],input[type=datetime-local],input[type=month]{line-height:34px;line-height:1.428571429 \0}input[type=date].input-sm,.input-group-sm>input[type=date].form-control,.input-group-sm>input[type=date].input-group-addon,.input-group-sm>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-sm input[type=date].form-control,input[type=time].input-sm,.input-group-sm>input[type=time].form-control,.input-group-sm>input[type=time].input-group-addon,.input-group-sm>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-sm input[type=time].form-control,input[type=datetime-local].input-sm,.input-group-sm>input[type=datetime-local].form-control,.input-group-sm>input[type=datetime-local].input-group-addon,.input-group-sm>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-sm input[type=datetime-local].form-control,input[type=month].input-sm,.input-group-sm>input[type=month].form-control,.input-group-sm>input[type=month].input-group-addon,.input-group-sm>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-sm input[type=month].form-control{line-height:30px}input[type=date].input-lg,.input-group-lg>input[type=date].form-control,.input-group-lg>input[type=date].input-group-addon,.input-group-lg>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-lg input[type=date].form-control,input[type=time].input-lg,.input-group-lg>input[type=time].form-control,.input-group-lg>input[type=time].input-group-addon,.input-group-lg>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-lg input[type=time].form-control,input[type=datetime-local].input-lg,.input-group-lg>input[type=datetime-local].form-control,.input-group-lg>input[type=datetime-local].input-group-addon,.input-group-lg>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-lg input[type=datetime-local].form-control,input[type=month].input-lg,.input-group-lg>input[type=month].form-control,.input-group-lg>input[type=month].input-group-addon,.input-group-lg>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-lg input[type=month].form-control{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type=radio],.radio-inline input[type=radio],.checkbox input[type=checkbox],.checkbox-inline input[type=checkbox]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type=radio][disabled],input[type=radio].disabled,fieldset[disabled] input[type=radio],input[type=checkbox][disabled],input[type=checkbox].disabled,fieldset[disabled] input[type=checkbox],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-lg .form-control-static.form-control,.form-control-static.input-sm,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-sm .form-control-static.form-control{padding-left:0;padding-right:0}.input-sm,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn,.form-horizontal .form-group-sm .form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn,.form-horizontal .form-group-sm select.form-control{height:30px;line-height:30px}textarea.input-sm,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,.form-horizontal .form-group-sm textarea.form-control,select[multiple].input-sm,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-sm select[multiple].form-control{height:auto}.input-lg,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn,.form-horizontal .form-group-lg .form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn,.form-horizontal .form-group-lg select.form-control{height:46px;line-height:46px}textarea.input-lg,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,.form-horizontal .form-group-lg textarea.form-control,select[multiple].input-lg,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-lg select[multiple].form-control{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:rgb(42.808988764,84.191011236,43.5224719101);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(102.5280898876,177.4719101124,103.8202247191)}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:rgb(102.2741116751,80.7817258883,43.7258883249);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(191.807106599,160.7461928934,107.192893401)}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:rgb(132.3234042553,53.2425531915,51.6765957447);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(206.4127659574,132.0595744681,130.5872340426)}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:rgb(114.75,114.75,114.75)}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:rgb(229.5,229.5,229.5);border-color:rgb(173.4,173.4,173.4)}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:rgb(47.5247933884,112.9834710744,169.4752066116);border-color:rgb(39.7061983471,94.3958677686,141.5938016529)}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:rgb(68.2692307692,156.7307692308,68.2692307692);border-color:rgb(57.4371794872,131.8628205128,57.4371794872)}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:rgb(48.5431472081,175.6903553299,213.4568527919);border-color:rgb(37.9081218274,153.9299492386,188.3918781726)}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:rgb(236.015625,151.21875,30.984375);border-color:rgb(213.2296875,132.515625,18.0703125)}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:rgb(201.4953271028,48.0841121495,43.5046728972);border-color:rgb(172.1345794393,41.0775700935,37.1654205607)}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:rgb(119.085,119.085,119.085);text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-block{width:100%}.fade{opacity:0;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:rgb(85.425,85.425,85.425);text-align:center;background-color:rgb(238.425,238.425,238.425);border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type=radio],.input-group-addon input[type=checkbox]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);background-color:rgb(238.425,238.425,238.425);border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:rgb(119.085,119.085,119.085);background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{transform:translate3d(0,-25%,0);transition:transform .3s ease-out}.modal.in .modal-dialog{transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.428571429px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;margin-right:5px}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:"";display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-feature-settings:"dlig" 1,"liga" 1,"lnum" 1,"kern" 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h2,h3{line-height:3rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:rgb(223.2809917355,248.7190082645,244.3223140496)}img{height:auto;max-width:100%}dt{font-style:italic;font-weight:600}.g{display:block}.g:after{clear:both;content:"";display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--6of12,.g-b--5of10,.g-b--4of8,.g-b--3of6,.g-b--2of4{width:50%}.g-b--1of3,.g-b--4of12,.g-b--2of6{width:33.333%}.g-b--2of3,.g-b--8of12,.g-b--4of6{width:66.666%}.g-b--1of4,.g-b--3of12,.g-b--2of8{width:25%}.g-b--3of4,.g-b--9of12,.g-b--6of8{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--6of12,.g-b--push--5of10,.g-b--push--4of8,.g-b--push--3of6,.g-b--push--2of4{margin-left:50%}.g-b--push--1of3,.g-b--push--4of12,.g-b--push--2of6{margin-left:33.333%}.g-b--push--2of3,.g-b--push--8of12,.g-b--push--4of6{margin-left:66.666%}.g-b--push--1of4,.g-b--push--3of12,.g-b--push--2of8{margin-left:25%}.g-b--push--3of4,.g-b--push--9of12,.g-b--push--6of8{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--6of12,.g-b--pull--5of10,.g-b--pull--4of8,.g-b--pull--3of6,.g-b--pull--2of4{margin-right:50%}.g-b--pull--1of3,.g-b--pull--4of12,.g-b--pull--2of6{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--8of12,.g-b--pull--4of6{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--3of12,.g-b--pull--2of8{margin-right:25%}.g-b--pull--3of4,.g-b--pull--9of12,.g-b--pull--6of8{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar:after{content:"";display:table;clear:both}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;transition:all .25s ease-in-out;will-change:left}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings form{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:justify;justify-content:space-between}.settings input{width:20%}.settings a:after{content:"";display:table;clear:both}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:"";left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{backface-visibility:hidden;background-color:#D3DAEA;height:2px;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#A0AABF}.words .counter,.characters .counter{color:#000}.words+.characters{top:22px}.mr10{margin-right:10px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 rgb(27.4380165289,138.5619834711,119.3553719008);padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px rgb(35.867768595,181.132231405,156.0247933884);text-shadow:0 1px 0 rgb(35.867768595,181.132231405,156.0247933884)}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px rgb(29.8596491228,33.0877192982,39.1403508772)}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px rgb(7.7894736842,8.6315789474,10.2105263158);text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:rgb(40.8947368421,45.3157894737,53.6052631579);text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);transition:all .25s ease-in-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:"";width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger li{display:-ms-flexbox;display:flex;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:rgb(138.1404958678,231.8595041322,215.6611570248)}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-text,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}body{max-width:1024px;margin:0 auto;overflow:auto;padding:2%}.split{overflow:scroll;padding:0!important;-webkit-overflow-scrolling:touch}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-html{padding:15px}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m6of12,.g-b--m5of10,.g-b--m4of8,.g-b--m3of6,.g-b--m2of4{width:50%}.g-b--m1of3,.g-b--m4of12,.g-b--m2of6{width:33.333%}.g-b--m2of3,.g-b--m8of12,.g-b--m4of6{width:66.666%}.g-b--m1of4,.g-b--m3of12,.g-b--m2of8{width:25%}.g-b--m3of4,.g-b--m9of12,.g-b--m6of8{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m6of12,.g-b--push--m5of10,.g-b--push--m4of8,.g-b--push--m3of6,.g-b--push--m2of4{margin-left:50%}.g-b--push--m1of3,.g-b--push--m4of12,.g-b--push--m2of6{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m8of12,.g-b--push--m4of6{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m3of12,.g-b--push--m2of8{margin-left:25%}.g-b--push--m3of4,.g-b--push--m9of12,.g-b--push--m6of8{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m6of12,.g-b--pull--m5of10,.g-b--pull--m4of8,.g-b--pull--m3of6,.g-b--pull--m2of4{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m4of12,.g-b--pull--m2of6{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m8of12,.g-b--pull--m4of6{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m3of12,.g-b--pull--m2of8{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m9of12,.g-b--pull--m6of8{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t6of12,.g-b--t5of10,.g-b--t4of8,.g-b--t3of6,.g-b--t2of4{width:50%}.g-b--t1of3,.g-b--t4of12,.g-b--t2of6{width:33.333%}.g-b--t2of3,.g-b--t8of12,.g-b--t4of6{width:66.666%}.g-b--t1of4,.g-b--t3of12,.g-b--t2of8{width:25%}.g-b--t3of4,.g-b--t9of12,.g-b--t6of8{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t6of12,.g-b--push--t5of10,.g-b--push--t4of8,.g-b--push--t3of6,.g-b--push--t2of4{margin-left:50%}.g-b--push--t1of3,.g-b--push--t4of12,.g-b--push--t2of6{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t8of12,.g-b--push--t4of6{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t3of12,.g-b--push--t2of8{margin-left:25%}.g-b--push--t3of4,.g-b--push--t9of12,.g-b--push--t6of8{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t6of12,.g-b--pull--t5of10,.g-b--pull--t4of8,.g-b--pull--t3of6,.g-b--pull--t2of4{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t4of12,.g-b--pull--t2of6{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t8of12,.g-b--pull--t4of6{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t3of12,.g-b--pull--t2of8{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t9of12,.g-b--pull--t6of8{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d6of12,.g-b--d5of10,.g-b--d4of8,.g-b--d3of6,.g-b--d2of4{width:50%}.g-b--d1of3,.g-b--d4of12,.g-b--d2of6{width:33.333%}.g-b--d2of3,.g-b--d8of12,.g-b--d4of6{width:66.666%}.g-b--d1of4,.g-b--d3of12,.g-b--d2of8{width:25%}.g-b--d3of4,.g-b--d9of12,.g-b--d6of8{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d6of12,.g-b--push--d5of10,.g-b--push--d4of8,.g-b--push--d3of6,.g-b--push--d2of4{margin-left:50%}.g-b--push--d1of3,.g-b--push--d4of12,.g-b--push--d2of6{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d8of12,.g-b--push--d4of6{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d3of12,.g-b--push--d2of8{margin-left:25%}.g-b--push--d3of4,.g-b--push--d9of12,.g-b--push--d6of8{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d6of12,.g-b--pull--d5of10,.g-b--pull--d4of8,.g-b--pull--d3of6,.g-b--pull--d2of4{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d4of12,.g-b--pull--d2of6{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d8of12,.g-b--pull--d4of6{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d3of12,.g-b--pull--d2of8{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d9of12,.g-b--pull--d6of8{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type=radio],.form-inline .checkbox input[type=checkbox]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="GUA_FACTORIES_DEL_PROYECTO_ROIG_ARENA_0"></a>GUÍA: FACTORIES DEL PROYECTO ROIG ARENA</h1>
+<h2 class="code-line" data-line-start=3 data-line-end=4 ><a id="Introduccin_3"></a>Introducción</h2>
+<p class="has-line-data" data-line-start="5" data-line-end="6">Esta guía documenta las <strong>6 factories</strong> creadas para el proyecto Roig Arena.</p>
+<p class="has-line-data" data-line-start="7" data-line-end="8"><strong>Ubicación:</strong> <code>database/factories/</code></p>
+<p class="has-line-data" data-line-start="9" data-line-end="10"><strong>Propósito:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="10" data-line-end="11">Generar datos de prueba para tests</li>
+<li class="has-line-data" data-line-start="11" data-line-end="12">Crear registros falsos rápidamente</li>
+<li class="has-line-data" data-line-start="12" data-line-end="14">Mantener consistencia en los datos</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=16 data-line-end=17 ><a id="Factories_implementadas_16"></a>Factories implementadas</h2>
+<h3 class="code-line" data-line-start=18 data-line-end=19 ><a id="1_SectorFactoryphp_18"></a>1. SectorFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="21" data-line-end="41" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SectorFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = Sector::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector &#x27;</span> . <span class="hljs-keyword">$this</span>-&gt;faker-&gt;numberBetween(<span class="hljs-number">101</span>, <span class="hljs-number">323</span>),
+            <span class="hljs-string">&#x27;capacidad&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;numberBetween(<span class="hljs-number">50</span>, <span class="hljs-number">200</span>),
+        ];
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="42" data-line-end="43"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="43" data-line-end="44">Nombre: “Sector 101”, “Sector 215”, etc.</li>
+<li class="has-line-data" data-line-start="44" data-line-end="46">Capacidad: Entre 50 y 200 asientos</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=48 data-line-end=49 ><a id="2_AsientoFactoryphp_48"></a>2. AsientoFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="51" data-line-end="73" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsientoFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = Asiento::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; Sector::factory(),
+            <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">20</span>),
+            <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>),
+        ];
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="74" data-line-end="75"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="75" data-line-end="76">sector_id: Crea un sector automáticamente</li>
+<li class="has-line-data" data-line-start="76" data-line-end="77">fila: Entre 1 y 20</li>
+<li class="has-line-data" data-line-start="77" data-line-end="79">numero: Entre 1 y 30</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=81 data-line-end=82 ><a id="3_EventoFactoryphp_81"></a>3. EventoFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="84" data-line-end="107" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = Evento::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;sentence(<span class="hljs-number">3</span>),
+            <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;paragraph(),
+            <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;dateTimeBetween(<span class="hljs-string">&#x27;now&#x27;</span>, <span class="hljs-string">&#x27;+1 year&#x27;</span>),
+            <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;time(<span class="hljs-string">&#x27;H:i&#x27;</span>),
+            <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;imageUrl(<span class="hljs-number">640</span>, <span class="hljs-number">480</span>, <span class="hljs-string">&#x27;events&#x27;</span>, <span class="hljs-literal">true</span>),
+        ];
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="108" data-line-end="109"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="109" data-line-end="110">nombre: “Concierto Rock 2026”</li>
+<li class="has-line-data" data-line-start="110" data-line-end="111">descripcion: Párrafo aleatorio</li>
+<li class="has-line-data" data-line-start="111" data-line-end="112">fecha: Entre hoy y 1 año</li>
+<li class="has-line-data" data-line-start="112" data-line-end="113">hora: Formato 24h (ej: “20:30”)</li>
+<li class="has-line-data" data-line-start="113" data-line-end="115">poster_url: URL de imagen falsa</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=117 data-line-end=118 ><a id="4_PrecioFactoryphp_117"></a>4. PrecioFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="120" data-line-end="143" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Precio</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PrecioFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = Precio::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; Evento::factory(),
+            <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; Sector::factory(),
+            <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;randomFloat(<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, <span class="hljs-number">150</span>),
+        ];
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="144" data-line-end="145"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="145" data-line-end="146">evento_id: Crea evento automáticamente</li>
+<li class="has-line-data" data-line-start="146" data-line-end="147">sector_id: Crea sector automáticamente</li>
+<li class="has-line-data" data-line-start="147" data-line-end="149">precio: Entre 20.00 y 150.00 €</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=151 data-line-end=152 ><a id="5_EstadoAsientoFactoryphp_151"></a>5. EstadoAsientoFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="154" data-line-end="196" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EstadoAsientoFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = EstadoAsiento::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; Evento::factory(),
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; Asiento::factory(),
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; User::factory(),
+            <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+            <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">15</span>),
+        ];
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">vendido</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;state(<span class="hljs-function"><span class="hljs-keyword">fn</span> (<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$attributes</span></span>) =&gt;</span> [
+            <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;vendido&#x27;</span>,
+            <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; <span class="hljs-literal">null</span>,
+        ]);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expirado</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;state(<span class="hljs-function"><span class="hljs-keyword">fn</span> (<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$attributes</span></span>) =&gt;</span> [
+            <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+            <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;subMinutes(<span class="hljs-number">20</span>),
+        ]);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="197" data-line-end="198"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="198" data-line-end="199">evento_id, asiento_id, user_id: Crea automáticamente</li>
+<li class="has-line-data" data-line-start="199" data-line-end="200">estado: “bloqueado” por defecto</li>
+<li class="has-line-data" data-line-start="200" data-line-end="202">reservado_hasta: +15 minutos</li>
+</ul>
+<p class="has-line-data" data-line-start="202" data-line-end="203"><strong>Estados personalizados:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="203" data-line-end="204"><code>vendido()</code>: Marca como vendido</li>
+<li class="has-line-data" data-line-start="204" data-line-end="206"><code>expirado()</code>: Reserva expirada hace 20 min</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=208 data-line-end=209 ><a id="6_EntradaFactoryphp_208"></a>6. EntradaFactory.php</h3>
+<pre><code class="has-line-data" data-line-start="211" data-line-end="238" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Entrada</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Str</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EntradaFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$model</span> = Entrada::class;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; Evento::factory(),
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; Asiento::factory(),
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; User::factory(),
+            <span class="hljs-string">&#x27;precio_pagado&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;randomFloat(<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, <span class="hljs-number">150</span>),
+            <span class="hljs-string">&#x27;codigo_qr&#x27;</span> =&gt; Str::random(<span class="hljs-number">32</span>),
+        ];
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="239" data-line-end="240"><strong>Genera:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="240" data-line-end="241">evento_id, asiento_id, user_id: Crea automáticamente</li>
+<li class="has-line-data" data-line-start="241" data-line-end="242">precio_pagado: Entre 20.00 y 150.00 €</li>
+<li class="has-line-data" data-line-start="242" data-line-end="244">codigo_qr: String aleatorio de 32 caracteres</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=246 data-line-end=247 ><a id="Uso_en_tests_246"></a>Uso en tests</h2>
+<h3 class="code-line" data-line-start=248 data-line-end=249 ><a id="Crear_un_registro_simple_248"></a>Crear un registro simple</h3>
+<pre><code class="has-line-data" data-line-start="251" data-line-end="260" class="language-php"><span class="hljs-comment">// Crear un sector</span>
+<span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create();
+
+<span class="hljs-comment">// Crear un evento</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+
+<span class="hljs-comment">// Crear un asiento</span>
+<span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=261 data-line-end=262 ><a id="Crear_mltiples_registros_261"></a>Crear múltiples registros</h3>
+<pre><code class="has-line-data" data-line-start="264" data-line-end="270" class="language-php"><span class="hljs-comment">// Crear 10 sectores</span>
+<span class="hljs-variable">$sectores</span> = Sector::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+
+<span class="hljs-comment">// Crear 50 asientos</span>
+<span class="hljs-variable">$asientos</span> = Asiento::factory()-&gt;count(<span class="hljs-number">50</span>)-&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=271 data-line-end=272 ><a id="Sobrescribir_atributos_271"></a>Sobrescribir atributos</h3>
+<pre><code class="has-line-data" data-line-start="274" data-line-end="286" class="language-php"><span class="hljs-comment">// Sector con nombre específico</span>
+<span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector 101&#x27;</span>,
+    <span class="hljs-string">&#x27;capacidad&#x27;</span> =&gt; <span class="hljs-number">100</span>,
+]);
+
+<span class="hljs-comment">// Evento con fecha específica</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Concierto Rock&#x27;</span>,
+    <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;2026-12-31&#x27;</span>,
+]);
+</code></pre>
+<h3 class="code-line" data-line-start=287 data-line-end=288 ><a id="Usar_estados_personalizados_287"></a>Usar estados personalizados</h3>
+<pre><code class="has-line-data" data-line-start="290" data-line-end="296" class="language-php"><span class="hljs-comment">// Reserva vendida</span>
+<span class="hljs-variable">$reserva</span> = EstadoAsiento::factory()-&gt;vendido()-&gt;create();
+
+<span class="hljs-comment">// Reserva expirada</span>
+<span class="hljs-variable">$reserva</span> = EstadoAsiento::factory()-&gt;expirado()-&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=297 data-line-end=298 ><a id="Crear_con_relaciones_297"></a>Crear con relaciones</h3>
+<pre><code class="has-line-data" data-line-start="300" data-line-end="315" class="language-php"><span class="hljs-comment">// Crear evento con 3 sectores y precios</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()
+    -&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))
+    -&gt;create();
+
+<span class="hljs-comment">// Crear sector con 20 asientos</span>
+<span class="hljs-variable">$sector</span> = Sector::factory()
+    -&gt;has(Asiento::factory()-&gt;count(<span class="hljs-number">20</span>))
+    -&gt;create();
+
+<span class="hljs-comment">// Crear usuario con 5 entradas</span>
+<span class="hljs-variable">$user</span> = User::factory()
+    -&gt;has(Entrada::factory()-&gt;count(<span class="hljs-number">5</span>))
+    -&gt;create();
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=318 data-line-end=319 ><a id="Ejemplos_prcticos_318"></a>Ejemplos prácticos</h2>
+<h3 class="code-line" data-line-start=320 data-line-end=321 ><a id="Ejemplo_1_Test_de_reserva_320"></a>Ejemplo 1: Test de reserva</h3>
+<pre><code class="has-line-data" data-line-start="323" data-line-end="346" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_usuario_puede_reservar_asiento</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-comment">// Crear datos de prueba</span>
+    <span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+    <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+    <span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create();
+    <span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create([<span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id]);
+    
+    Precio::factory()-&gt;create([
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+        <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-number">50.00</span>,
+    ]);
+
+    <span class="hljs-comment">// Hacer petición</span>
+    <span class="hljs-variable">$response</span> = <span class="hljs-keyword">$this</span>-&gt;actingAs(<span class="hljs-variable">$user</span>)-&gt;postJson(<span class="hljs-string">&#x27;/api/reservas&#x27;</span>, [
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+        <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+    ]);
+
+    <span class="hljs-variable">$response</span>-&gt;assertStatus(<span class="hljs-number">201</span>);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=347 data-line-end=348 ><a id="Ejemplo_2_Test_de_compra_347"></a>Ejemplo 2: Test de compra</h3>
+<pre><code class="has-line-data" data-line-start="350" data-line-end="376" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_usuario_puede_confirmar_compra</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+    <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+    <span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create();
+    
+    <span class="hljs-comment">// Crear reserva activa</span>
+    <span class="hljs-variable">$reserva</span> = EstadoAsiento::factory()-&gt;create([
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+        <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+        <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+        <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+        <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">10</span>),
+    ]);
+
+    <span class="hljs-variable">$response</span> = <span class="hljs-keyword">$this</span>-&gt;actingAs(<span class="hljs-variable">$user</span>)-&gt;postJson(<span class="hljs-string">&#x27;/api/compras&#x27;</span>, [
+        <span class="hljs-string">&#x27;reservas&#x27;</span> =&gt; [<span class="hljs-variable">$reserva</span>-&gt;id],
+    ]);
+
+    <span class="hljs-variable">$response</span>-&gt;assertStatus(<span class="hljs-number">201</span>);
+    <span class="hljs-keyword">$this</span>-&gt;assertDatabaseHas(<span class="hljs-string">&#x27;entradas&#x27;</span>, [
+        <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+    ]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=377 data-line-end=378 ><a id="Ejemplo_3_Test_con_mltiples_datos_377"></a>Ejemplo 3: Test con múltiples datos</h3>
+<pre><code class="has-line-data" data-line-start="380" data-line-end="394" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_puede_listar_eventos_con_sectores</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-comment">// Crear 5 eventos, cada uno con 3 sectores</span>
+    Evento::factory()
+        -&gt;count(<span class="hljs-number">5</span>)
+        -&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))
+        -&gt;create();
+
+    <span class="hljs-variable">$response</span> = <span class="hljs-keyword">$this</span>-&gt;getJson(<span class="hljs-string">&#x27;/api/eventos&#x27;</span>);
+
+    <span class="hljs-variable">$response</span>-&gt;assertStatus(<span class="hljs-number">200</span>);
+    <span class="hljs-variable">$response</span>-&gt;assertJsonCount(<span class="hljs-number">5</span>, <span class="hljs-string">&#x27;data&#x27;</span>);
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=397 data-line-end=398 ><a id="_Resumen_397"></a>📊 Resumen</h2>
+<p class="has-line-data" data-line-start="399" data-line-end="400"><strong>Factories creadas:</strong> 6</p>
+<ul>
+<li class="has-line-data" data-line-start="400" data-line-end="401">SectorFactory</li>
+<li class="has-line-data" data-line-start="401" data-line-end="402">AsientoFactory</li>
+<li class="has-line-data" data-line-start="402" data-line-end="403">EventoFactory</li>
+<li class="has-line-data" data-line-start="403" data-line-end="404">PrecioFactory</li>
+<li class="has-line-data" data-line-start="404" data-line-end="405">EstadoAsientoFactory (con estados)</li>
+<li class="has-line-data" data-line-start="405" data-line-end="407">EntradaFactory</li>
+</ul>
+<p class="has-line-data" data-line-start="407" data-line-end="408"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="408" data-line-end="409">✅ Datos consistentes en tests</li>
+<li class="has-line-data" data-line-start="409" data-line-end="410">✅ Creación rápida de registros</li>
+<li class="has-line-data" data-line-start="410" data-line-end="411">✅ Relaciones automáticas</li>
+<li class="has-line-data" data-line-start="411" data-line-end="412">✅ Estados personalizados</li>
+<li class="has-line-data" data-line-start="412" data-line-end="414">✅ Sobrescritura flexible</li>
+</ul>
+<p class="has-line-data" data-line-start="414" data-line-end="415"><strong>Uso:</strong></p>
+<pre><code class="has-line-data" data-line-start="416" data-line-end="431" class="language-php"><span class="hljs-comment">// Simple</span>
+Model::factory()-&gt;create();
+
+<span class="hljs-comment">// Múltiple</span>
+Model::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+
+<span class="hljs-comment">// Con atributos</span>
+Model::factory()-&gt;create([<span class="hljs-string">&#x27;campo&#x27;</span> =&gt; <span class="hljs-string">&#x27;valor&#x27;</span>]);
+
+<span class="hljs-comment">// Con estado</span>
+EstadoAsiento::factory()-&gt;vendido()-&gt;create();
+
+<span class="hljs-comment">// Con relaciones</span>
+Evento::factory()-&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))-&gt;create();
+</code></pre>
+<hr>
+<hr>
+<h1 class="code-line" data-line-start=434 data-line-end=435 ><a id="Apndice_Factories_en_Laravel_para_Principiantes_434"></a>Apéndice: Factories en Laravel para Principiantes</h1>
+<p class="has-line-data" data-line-start="436" data-line-end="437">Esta guía te ayudará a entender qué son las factories, cómo funcionan y cómo usarlas para generar datos de prueba.</p>
+<h2 class="code-line" data-line-start=438 data-line-end=439 ><a id="Qu_son_las_Factories_438"></a>¿Qué son las Factories?</h2>
+<p class="has-line-data" data-line-start="440" data-line-end="441">Las factories son <strong>clases que generan datos falsos</strong> para tus modelos. Son como “fábricas” que producen registros de prueba automáticamente.</p>
+<h3 class="code-line" data-line-start=442 data-line-end=443 ><a id="Analoga_simple_442"></a>Analogía simple</h3>
+<p class="has-line-data" data-line-start="444" data-line-end="445">Imagina una fábrica de coches de juguete:</p>
+<ul>
+<li class="has-line-data" data-line-start="445" data-line-end="446"><strong>Modelo</strong> = El diseño del coche (User, Evento, etc.)</li>
+<li class="has-line-data" data-line-start="446" data-line-end="447"><strong>Factory</strong> = La máquina que produce coches</li>
+<li class="has-line-data" data-line-start="447" data-line-end="448"><strong>Faker</strong> = Los colores y detalles aleatorios</li>
+<li class="has-line-data" data-line-start="448" data-line-end="450"><strong>Producto</strong> = Un coche de juguete listo para usar</li>
+</ul>
+<h2 class="code-line" data-line-start=450 data-line-end=451 ><a id="Por_qu_usar_Factories_450"></a>¿Por qué usar Factories?</h2>
+<h3 class="code-line" data-line-start=452 data-line-end=453 ><a id="Sin_Factories__Tedioso_452"></a>Sin Factories (❌ Tedioso)</h3>
+<pre><code class="has-line-data" data-line-start="454" data-line-end="464" class="language-php"><span class="hljs-comment">// En cada test, crear datos manualmente</span>
+<span class="hljs-variable">$user</span> = User::create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+    <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;Pérez&#x27;</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+    <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+]);
+
+<span class="hljs-comment">// Repetir en cada test... 😫</span>
+</code></pre>
+<h3 class="code-line" data-line-start=465 data-line-end=466 ><a id="Con_Factories__Automtico_465"></a>Con Factories (✅ Automático)</h3>
+<pre><code class="has-line-data" data-line-start="467" data-line-end="476" class="language-php"><span class="hljs-comment">// Una línea</span>
+<span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+
+<span class="hljs-comment">// 10 usuarios</span>
+<span class="hljs-variable">$users</span> = User::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+
+<span class="hljs-comment">// Con datos específicos</span>
+<span class="hljs-variable">$admin</span> = User::factory()-&gt;create([<span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>]);
+</code></pre>
+<p class="has-line-data" data-line-start="477" data-line-end="478"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="478" data-line-end="479">✅ Código más limpio</li>
+<li class="has-line-data" data-line-start="479" data-line-end="480">✅ Datos aleatorios realistas</li>
+<li class="has-line-data" data-line-start="480" data-line-end="481">✅ Reutilizable en tests y seeders</li>
+<li class="has-line-data" data-line-start="481" data-line-end="482">✅ Fácil crear muchos registros</li>
+<li class="has-line-data" data-line-start="482" data-line-end="484">✅ Menos código repetitivo</li>
+</ul>
+<h2 class="code-line" data-line-start=484 data-line-end=485 ><a id="Estructura_de_una_Factory_484"></a>Estructura de una Factory</h2>
+<h3 class="code-line" data-line-start=486 data-line-end=487 ><a id="Ubicacin_486"></a>Ubicación</h3>
+<pre><code class="has-line-data" data-line-start="488" data-line-end="494">database/factories/
+├── UserFactory.php
+├── EventoFactory.php
+├── SectorFactory.php
+└── ...
+</code></pre>
+<h3 class="code-line" data-line-start=495 data-line-end=496 ><a id="Anatoma_bsica_495"></a>Anatomía básica</h3>
+<pre><code class="has-line-data" data-line-start="498" data-line-end="521" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Define el estado por defecto del modelo
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; fake()-&gt;sentence(<span class="hljs-number">3</span>),
+            <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; fake()-&gt;sentence(),
+            <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; fake()-&gt;paragraph(),
+            <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; fake()-&gt;dateTimeBetween(<span class="hljs-string">&#x27;now&#x27;</span>, <span class="hljs-string">&#x27;+1 year&#x27;</span>)-&gt;format(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>),
+            <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; fake()-&gt;time(<span class="hljs-string">&#x27;H:i&#x27;</span>),
+        ];
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=522 data-line-end=523 ><a id="Faker__Generador_de_datos_falsos_522"></a>Faker - Generador de datos falsos</h2>
+<p class="has-line-data" data-line-start="524" data-line-end="525">Faker es una librería que genera datos aleatorios realistas.</p>
+<h3 class="code-line" data-line-start=526 data-line-end=527 ><a id="Datos_personales_526"></a>Datos personales</h3>
+<pre><code class="has-line-data" data-line-start="529" data-line-end="536" class="language-php">fake()-&gt;name()              <span class="hljs-comment">// &quot;Juan Pérez&quot;</span>
+fake()-&gt;firstName()         <span class="hljs-comment">// &quot;María&quot;</span>
+fake()-&gt;lastName()          <span class="hljs-comment">// &quot;García&quot;</span>
+fake()-&gt;email()             <span class="hljs-comment">// &quot;juan@example.com&quot;</span>
+fake()-&gt;phoneNumber()       <span class="hljs-comment">// &quot;+34 612 345 678&quot;</span>
+fake()-&gt;address()           <span class="hljs-comment">// &quot;Calle Mayor 123&quot;</span>
+</code></pre>
+<h3 class="code-line" data-line-start=537 data-line-end=538 ><a id="Texto_537"></a>Texto</h3>
+<pre><code class="has-line-data" data-line-start="540" data-line-end="546" class="language-php">fake()-&gt;word()              <span class="hljs-comment">// &quot;casa&quot;</span>
+fake()-&gt;sentence()          <span class="hljs-comment">// &quot;Lorem ipsum dolor sit amet.&quot;</span>
+fake()-&gt;sentence(<span class="hljs-number">3</span>)         <span class="hljs-comment">// Frase de 3 palabras</span>
+fake()-&gt;paragraph()         <span class="hljs-comment">// Párrafo completo</span>
+fake()-&gt;text(<span class="hljs-number">200</span>)           <span class="hljs-comment">// Texto de 200 caracteres</span>
+</code></pre>
+<h3 class="code-line" data-line-start=547 data-line-end=548 ><a id="Nmeros_547"></a>Números</h3>
+<pre><code class="has-line-data" data-line-start="550" data-line-end="555" class="language-php">fake()-&gt;randomDigit()       <span class="hljs-comment">// 0-9</span>
+fake()-&gt;randomNumber(<span class="hljs-number">4</span>)     <span class="hljs-comment">// 1234</span>
+fake()-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>)  <span class="hljs-comment">// 42</span>
+fake()-&gt;randomFloat(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>) <span class="hljs-comment">// 45.67</span>
+</code></pre>
+<h3 class="code-line" data-line-start=556 data-line-end=557 ><a id="Fechas_556"></a>Fechas</h3>
+<pre><code class="has-line-data" data-line-start="559" data-line-end="566" class="language-php">fake()-&gt;date()              <span class="hljs-comment">// &quot;2026-02-22&quot;</span>
+fake()-&gt;date(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>)       <span class="hljs-comment">// &quot;2026-02-22&quot;</span>
+fake()-&gt;time(<span class="hljs-string">&#x27;H:i&#x27;</span>)         <span class="hljs-comment">// &quot;14:30&quot;</span>
+fake()-&gt;dateTime()          <span class="hljs-comment">// DateTime object</span>
+fake()-&gt;dateTimeBetween(<span class="hljs-string">&#x27;now&#x27;</span>, <span class="hljs-string">&#x27;+1 year&#x27;</span>)
+fake()-&gt;dateTimeBetween(<span class="hljs-string">&#x27;-1 year&#x27;</span>, <span class="hljs-string">&#x27;now&#x27;</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=567 data-line-end=568 ><a id="Internet_567"></a>Internet</h3>
+<pre><code class="has-line-data" data-line-start="570" data-line-end="575" class="language-php">fake()-&gt;url()               <span class="hljs-comment">// &quot;https://example.com&quot;</span>
+fake()-&gt;imageUrl()          <span class="hljs-comment">// &quot;https://via.placeholder.com/640x480&quot;</span>
+fake()-&gt;slug()              <span class="hljs-comment">// &quot;lorem-ipsum-dolor&quot;</span>
+fake()-&gt;ipv4()              <span class="hljs-comment">// &quot;192.168.1.1&quot;</span>
+</code></pre>
+<h3 class="code-line" data-line-start=576 data-line-end=577 ><a id="Booleanos_y_opciones_576"></a>Booleanos y opciones</h3>
+<pre><code class="has-line-data" data-line-start="579" data-line-end="584" class="language-php">fake()-&gt;boolean()           <span class="hljs-comment">// true/false</span>
+fake()-&gt;boolean(<span class="hljs-number">70</span>)         <span class="hljs-comment">// 70% true, 30% false</span>
+fake()-&gt;randomElement([<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>])  <span class="hljs-comment">// &quot;B&quot;</span>
+fake()-&gt;randomElements([<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>], <span class="hljs-number">2</span>)  <span class="hljs-comment">// [&quot;A&quot;, &quot;C&quot;]</span>
+</code></pre>
+<h3 class="code-line" data-line-start=585 data-line-end=586 ><a id="Otros_585"></a>Otros</h3>
+<pre><code class="has-line-data" data-line-start="588" data-line-end="593" class="language-php">fake()-&gt;uuid()              <span class="hljs-comment">// &quot;550e8400-e29b-41d4-a716-446655440000&quot;</span>
+fake()-&gt;hexColor()          <span class="hljs-comment">// &quot;#ff5733&quot;</span>
+fake()-&gt;company()           <span class="hljs-comment">// &quot;Acme Corp&quot;</span>
+fake()-&gt;jobTitle()          <span class="hljs-comment">// &quot;Desarrollador Web&quot;</span>
+</code></pre>
+<h2 class="code-line" data-line-start=594 data-line-end=595 ><a id="Crear_una_Factory_594"></a>Crear una Factory</h2>
+<pre><code class="has-line-data" data-line-start="597" data-line-end="603" class="language-bash"><span class="hljs-comment"># Crear factory</span>
+sail artisan make:factory EventoFactory
+
+<span class="hljs-comment"># Crear factory para un modelo específico</span>
+sail artisan make:factory EventoFactory --model=Evento
+</code></pre>
+<h2 class="code-line" data-line-start=604 data-line-end=605 ><a id="Usar_Factories_604"></a>Usar Factories</h2>
+<h3 class="code-line" data-line-start=606 data-line-end=607 ><a id="Crear_un_registro_606"></a>Crear un registro</h3>
+<pre><code class="has-line-data" data-line-start="609" data-line-end="615" class="language-php"><span class="hljs-comment">// Crear y guardar en BD</span>
+<span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+
+<span class="hljs-comment">// Crear sin guardar (solo instancia)</span>
+<span class="hljs-variable">$user</span> = User::factory()-&gt;make();
+</code></pre>
+<h3 class="code-line" data-line-start=616 data-line-end=617 ><a id="Crear_mltiples_registros_616"></a>Crear múltiples registros</h3>
+<pre><code class="has-line-data" data-line-start="619" data-line-end="625" class="language-php"><span class="hljs-comment">// 10 usuarios</span>
+<span class="hljs-variable">$users</span> = User::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+
+<span class="hljs-comment">// Forma corta</span>
+<span class="hljs-variable">$users</span> = User::factory(<span class="hljs-number">10</span>)-&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=626 data-line-end=627 ><a id="Sobrescribir_atributos_626"></a>Sobrescribir atributos</h3>
+<pre><code class="has-line-data" data-line-start="629" data-line-end="640" class="language-php"><span class="hljs-comment">// Con datos específicos</span>
+<span class="hljs-variable">$admin</span> = User::factory()-&gt;create([
+    <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin@example.com&#x27;</span>,
+]);
+
+<span class="hljs-comment">// Múltiples con mismo atributo</span>
+<span class="hljs-variable">$admins</span> = User::factory()-&gt;count(<span class="hljs-number">5</span>)-&gt;create([
+    <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=641 data-line-end=642 ><a id="Relaciones_en_Factories_641"></a>Relaciones en Factories</h2>
+<h3 class="code-line" data-line-start=643 data-line-end=644 ><a id="belongsTo_Muchos_a_Uno_643"></a>belongsTo (Muchos a Uno)</h3>
+<pre><code class="has-line-data" data-line-start="646" data-line-end="660" class="language-php"><span class="hljs-comment">// AsientoFactory.php</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; Sector::factory(),  <span class="hljs-comment">// Crea sector automáticamente</span>
+        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; fake()-&gt;randomElement([<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>]),
+        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; fake()-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">50</span>),
+    ];
+}
+
+<span class="hljs-comment">// Uso</span>
+<span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create();
+<span class="hljs-comment">// Crea automáticamente un sector y lo asocia</span>
+</code></pre>
+<h3 class="code-line" data-line-start=661 data-line-end=662 ><a id="Con_sector_existente_661"></a>Con sector existente</h3>
+<pre><code class="has-line-data" data-line-start="664" data-line-end="669" class="language-php"><span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create();
+<span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create([
+    <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+]);
+</code></pre>
+<h3 class="code-line" data-line-start=670 data-line-end=671 ><a id="hasMany_Uno_a_Muchos_670"></a>hasMany (Uno a Muchos)</h3>
+<pre><code class="has-line-data" data-line-start="673" data-line-end="683" class="language-php"><span class="hljs-comment">// Crear sector con 10 asientos</span>
+<span class="hljs-variable">$sector</span> = Sector::factory()
+    -&gt;has(Asiento::factory()-&gt;count(<span class="hljs-number">10</span>))
+    -&gt;create();
+
+<span class="hljs-comment">// Forma alternativa</span>
+<span class="hljs-variable">$sector</span> = Sector::factory()
+    -&gt;hasAsientos(<span class="hljs-number">10</span>)
+    -&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=684 data-line-end=685 ><a id="belongsToMany_Muchos_a_Muchos_684"></a>belongsToMany (Muchos a Muchos)</h3>
+<pre><code class="has-line-data" data-line-start="687" data-line-end="697" class="language-php"><span class="hljs-comment">// Crear evento con 3 sectores</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()
+    -&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))
+    -&gt;create();
+
+<span class="hljs-comment">// Con datos pivot</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+<span class="hljs-variable">$sectores</span> = Sector::factory()-&gt;count(<span class="hljs-number">3</span>)-&gt;create();
+<span class="hljs-variable">$evento</span>-&gt;sectores()-&gt;attach(<span class="hljs-variable">$sectores</span>, [<span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-number">50.00</span>]);
+</code></pre>
+<h2 class="code-line" data-line-start=698 data-line-end=699 ><a id="Estados_States_698"></a>Estados (States)</h2>
+<p class="has-line-data" data-line-start="700" data-line-end="701">Los estados son variaciones de la factory.</p>
+<pre><code class="has-line-data" data-line-start="703" data-line-end="730" class="language-php"><span class="hljs-comment">// UserFactory.php</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; fake()-&gt;firstName(),
+        <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; fake()-&gt;lastName(),
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; fake()-&gt;unique()-&gt;email(),
+        <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">false</span>,
+    ];
+}
+
+<span class="hljs-comment">// Estado: admin</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">admin</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;state(<span class="hljs-function"><span class="hljs-keyword">fn</span> (<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$attributes</span></span>) =&gt;</span> [
+        <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+    ]);
+}
+
+<span class="hljs-comment">// Estado: con email específico</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withEmail</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$email</span></span>): <span class="hljs-title">static</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;state(<span class="hljs-function"><span class="hljs-keyword">fn</span> (<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$attributes</span></span>) =&gt;</span> [
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-variable">$email</span>,
+    ]);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="731" data-line-end="732"><strong>Uso:</strong></p>
+<pre><code class="has-line-data" data-line-start="733" data-line-end="748" class="language-php"><span class="hljs-comment">// Usuario normal</span>
+<span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+
+<span class="hljs-comment">// Usuario admin</span>
+<span class="hljs-variable">$admin</span> = User::factory()-&gt;admin()-&gt;create();
+
+<span class="hljs-comment">// Con email específico</span>
+<span class="hljs-variable">$user</span> = User::factory()-&gt;withEmail(<span class="hljs-string">&#x27;test@example.com&#x27;</span>)-&gt;create();
+
+<span class="hljs-comment">// Combinar estados</span>
+<span class="hljs-variable">$admin</span> = User::factory()
+    -&gt;admin()
+    -&gt;withEmail(<span class="hljs-string">&#x27;admin@example.com&#x27;</span>)
+    -&gt;create();
+</code></pre>
+<h2 class="code-line" data-line-start=749 data-line-end=750 ><a id="Secuencias_749"></a>Secuencias</h2>
+<p class="has-line-data" data-line-start="751" data-line-end="752">Para generar valores secuenciales:</p>
+<pre><code class="has-line-data" data-line-start="754" data-line-end="770" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;sequence(
+            <span class="hljs-string">&#x27;Sector 101&#x27;</span>,
+            <span class="hljs-string">&#x27;Sector 102&#x27;</span>,
+            <span class="hljs-string">&#x27;Sector 103&#x27;</span>,
+        ),
+    ];
+}
+
+<span class="hljs-comment">// O con closure</span>
+<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;faker-&gt;sequence(
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> (<span class="hljs-params"><span class="hljs-variable">$index</span></span>) =&gt;</span> <span class="hljs-string">&quot;Sector &quot;</span> . (<span class="hljs-variable">$index</span> + <span class="hljs-number">101</span>)
+),
+</code></pre>
+<h2 class="code-line" data-line-start=771 data-line-end=772 ><a id="Callbacks_771"></a>Callbacks</h2>
+<h3 class="code-line" data-line-start=773 data-line-end=774 ><a id="afterMaking__Despus_de_make_773"></a>afterMaking() - Después de make()</h3>
+<pre><code class="has-line-data" data-line-start="776" data-line-end="784" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configure</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;afterMaking(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">User <span class="hljs-variable">$user</span></span>) </span>{
+        <span class="hljs-comment">// Se ejecuta después de make(), antes de guardar</span>
+        <span class="hljs-variable">$user</span>-&gt;nombre = strtoupper(<span class="hljs-variable">$user</span>-&gt;nombre);
+    });
+}
+</code></pre>
+<h3 class="code-line" data-line-start=785 data-line-end=786 ><a id="afterCreating__Despus_de_create_785"></a>afterCreating() - Después de create()</h3>
+<pre><code class="has-line-data" data-line-start="788" data-line-end="798" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configure</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;afterCreating(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Evento <span class="hljs-variable">$evento</span></span>) </span>{
+        <span class="hljs-comment">// Se ejecuta después de guardar en BD</span>
+        Precio::factory()-&gt;count(<span class="hljs-number">5</span>)-&gt;create([
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+        ]);
+    });
+}
+</code></pre>
+<h2 class="code-line" data-line-start=799 data-line-end=800 ><a id="Factories_en_Tests_799"></a>Factories en Tests</h2>
+<h3 class="code-line" data-line-start=801 data-line-end=802 ><a id="Setup_bsico_801"></a>Setup básico</h3>
+<pre><code class="has-line-data" data-line-start="804" data-line-end="818" class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TestCase</span>
+</span>{
+    <span class="hljs-keyword">use</span> <span class="hljs-title">RefreshDatabase</span>;
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_puede_crear_evento</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+        
+        <span class="hljs-keyword">$this</span>-&gt;assertDatabaseHas(<span class="hljs-string">&#x27;eventos&#x27;</span>, [
+            <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+        ]);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=819 data-line-end=820 ><a id="Con_relaciones_819"></a>Con relaciones</h3>
+<pre><code class="has-line-data" data-line-start="822" data-line-end="831" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_evento_tiene_sectores</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::factory()
+        -&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))
+        -&gt;create();
+    
+    <span class="hljs-keyword">$this</span>-&gt;assertCount(<span class="hljs-number">3</span>, <span class="hljs-variable">$evento</span>-&gt;sectores);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=832 data-line-end=833 ><a id="Setup_compartido_832"></a>Setup compartido</h3>
+<pre><code class="has-line-data" data-line-start="835" data-line-end="855" class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TestCase</span>
+</span>{
+    <span class="hljs-keyword">use</span> <span class="hljs-title">RefreshDatabase</span>;
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">crearSetup</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create();
+        <span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create([<span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id]);
+        <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+        
+        <span class="hljs-keyword">return</span> [<span class="hljs-variable">$evento</span>, <span class="hljs-variable">$asiento</span>];
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_reserva</span>(<span class="hljs-params"></span>)
+    </span>{
+        [<span class="hljs-variable">$evento</span>, <span class="hljs-variable">$asiento</span>] = <span class="hljs-keyword">$this</span>-&gt;crearSetup();
+        <span class="hljs-comment">// Usar datos</span>
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=856 data-line-end=857 ><a id="Factories_en_Seeders_856"></a>Factories en Seeders</h2>
+<pre><code class="has-line-data" data-line-start="859" data-line-end="871" class="language-php"><span class="hljs-comment">// database/seeders/UserSeeder.php</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-comment">// 50 usuarios aleatorios</span>
+    User::factory()-&gt;count(<span class="hljs-number">50</span>)-&gt;create();
+    
+    <span class="hljs-comment">// 1 admin específico</span>
+    User::factory()-&gt;admin()-&gt;create([
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin@roigarena.com&#x27;</span>,
+    ]);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=872 data-line-end=873 ><a id="Datos_nicos_872"></a>Datos únicos</h2>
+<pre><code class="has-line-data" data-line-start="875" data-line-end="883" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; fake()-&gt;unique()-&gt;email(),
+        <span class="hljs-string">&#x27;codigo&#x27;</span> =&gt; fake()-&gt;unique()-&gt;numerify(<span class="hljs-string">&#x27;COD-####&#x27;</span>),
+    ];
+}
+</code></pre>
+<p class="has-line-data" data-line-start="884" data-line-end="885"><strong>Nota:</strong> <code>unique()</code> garantiza que no se repitan valores.</p>
+<h2 class="code-line" data-line-start=886 data-line-end=887 ><a id="Resetear_unique_886"></a>Resetear unique()</h2>
+<pre><code class="has-line-data" data-line-start="889" data-line-end="896" class="language-php"><span class="hljs-comment">// En tests</span>
+<span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setUp</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-built_in">parent</span>::setUp();
+    fake()-&gt;unique(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Reset</span>
+}
+</code></pre>
+<h2 class="code-line" data-line-start=897 data-line-end=898 ><a id="Patrones_comunes_897"></a>Patrones comunes</h2>
+<h3 class="code-line" data-line-start=899 data-line-end=900 ><a id="Factory_con_validacin_899"></a>Factory con validación</h3>
+<pre><code class="has-line-data" data-line-start="902" data-line-end="911" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; fake()-&gt;dateTimeBetween(<span class="hljs-string">&#x27;now&#x27;</span>, <span class="hljs-string">&#x27;+1 year&#x27;</span>)-&gt;format(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>),
+        <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; fake()-&gt;time(<span class="hljs-string">&#x27;H:i&#x27;</span>),
+        <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; fake()-&gt;randomFloat(<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, <span class="hljs-number">200</span>),
+    ];
+}
+</code></pre>
+<h3 class="code-line" data-line-start=912 data-line-end=913 ><a id="Factory_con_datos_realistas_912"></a>Factory con datos realistas</h3>
+<pre><code class="has-line-data" data-line-start="915" data-line-end="929" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; fake()-&gt;randomElement([
+            <span class="hljs-string">&#x27;Concierto Rock&#x27;</span>,
+            <span class="hljs-string">&#x27;Final Copa&#x27;</span>,
+            <span class="hljs-string">&#x27;Festival Electrónica&#x27;</span>,
+            <span class="hljs-string">&#x27;Obra de Teatro&#x27;</span>,
+        ]) . <span class="hljs-string">&#x27; &#x27;</span> . fake()-&gt;year(),
+        <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; fake()-&gt;sentence(),
+        <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; fake()-&gt;paragraph(<span class="hljs-number">3</span>),
+    ];
+}
+</code></pre>
+<h3 class="code-line" data-line-start=930 data-line-end=931 ><a id="Factory_con_relaciones_complejas_930"></a>Factory con relaciones complejas</h3>
+<pre><code class="has-line-data" data-line-start="933" data-line-end="942" class="language-php"><span class="hljs-comment">// Crear evento completo con todo</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()
+    -&gt;has(
+        Precio::factory()
+            -&gt;count(<span class="hljs-number">5</span>)
+            -&gt;for(Sector::factory())
+    )
+    -&gt;create();
+</code></pre>
+<h2 class="code-line" data-line-start=943 data-line-end=944 ><a id="Buenas_prcticas_943"></a>Buenas prácticas</h2>
+<h3 class="code-line" data-line-start=945 data-line-end=946 ><a id="_Hacer_945"></a>✅ Hacer</h3>
+<pre><code class="has-line-data" data-line-start="948" data-line-end="963" class="language-php"><span class="hljs-comment">// Datos realistas</span>
+<span class="hljs-string">&#x27;email&#x27;</span> =&gt; fake()-&gt;email()  <span class="hljs-comment">// ✅</span>
+
+<span class="hljs-comment">// Usar unique() cuando sea necesario</span>
+<span class="hljs-string">&#x27;email&#x27;</span> =&gt; fake()-&gt;unique()-&gt;email()  <span class="hljs-comment">// ✅</span>
+
+<span class="hljs-comment">// Relaciones con factory()</span>
+<span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; Sector::factory()  <span class="hljs-comment">// ✅</span>
+
+<span class="hljs-comment">// Estados para variaciones</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">admin</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>  // ✅
+
+// <span class="hljs-title">Nombres</span> <span class="hljs-title">descriptivos</span>
+<span class="hljs-title">public</span> <span class="hljs-title">function</span> <span class="hljs-title">withExpiredReservation</span>(<span class="hljs-params"></span>): <span class="hljs-title">static</span>  // ✅
+</span></code></pre>
+<h3 class="code-line" data-line-start=964 data-line-end=965 ><a id="_Evitar_964"></a>❌ Evitar</h3>
+<pre><code class="has-line-data" data-line-start="967" data-line-end="982" class="language-php"><span class="hljs-comment">// Datos hardcodeados</span>
+<span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;test@example.com&#x27;</span>  <span class="hljs-comment">// ❌</span>
+<span class="hljs-comment">// Mejor: fake()-&gt;email()</span>
+
+<span class="hljs-comment">// Valores fijos sin sentido</span>
+<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Test&#x27;</span>  <span class="hljs-comment">// ❌</span>
+<span class="hljs-comment">// Mejor: fake()-&gt;name()</span>
+
+<span class="hljs-comment">// IDs hardcodeados</span>
+<span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-number">1</span>  <span class="hljs-comment">// ❌</span>
+<span class="hljs-comment">// Mejor: Sector::factory()</span>
+
+<span class="hljs-comment">// Factories muy complejas</span>
+<span class="hljs-comment">// Mejor: usar estados o métodos auxiliares</span>
+</code></pre>
+<h2 class="code-line" data-line-start=983 data-line-end=984 ><a id="Localizacin_Espaol_983"></a>Localización (Español)</h2>
+<pre><code class="has-line-data" data-line-start="986" data-line-end="997" class="language-php"><span class="hljs-comment">// En la factory</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+</span>{
+    <span class="hljs-variable">$faker</span> = \Faker\Factory::create(<span class="hljs-string">&#x27;es_ES&#x27;</span>);
+    
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-variable">$faker</span>-&gt;name(),  <span class="hljs-comment">// Nombres españoles</span>
+        <span class="hljs-string">&#x27;ciudad&#x27;</span> =&gt; <span class="hljs-variable">$faker</span>-&gt;city(),  <span class="hljs-comment">// Ciudades españolas</span>
+    ];
+}
+</code></pre>
+<h2 class="code-line" data-line-start=998 data-line-end=999 ><a id="Errores_comunes_998"></a>Errores comunes</h2>
+<h3 class="code-line" data-line-start=1000 data-line-end=1001 ><a id="Error_Class_not_found_1000"></a>Error: “Class not found”</h3>
+<p class="has-line-data" data-line-start="1001" data-line-end="1003"><strong>Causa:</strong> Falta el namespace o el modelo.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1004" data-line-end="1006" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1007 data-line-end=1008 ><a id="Error_Unique_constraint_violation_1007"></a>Error: “Unique constraint violation”</h3>
+<p class="has-line-data" data-line-start="1008" data-line-end="1010"><strong>Causa:</strong> Datos duplicados.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1011" data-line-end="1013" class="language-php"><span class="hljs-string">&#x27;email&#x27;</span> =&gt; fake()-&gt;unique()-&gt;email()
+</code></pre>
+<h3 class="code-line" data-line-start=1014 data-line-end=1015 ><a id="Error_Foreign_key_constraint_1014"></a>Error: “Foreign key constraint”</h3>
+<p class="has-line-data" data-line-start="1015" data-line-end="1017"><strong>Causa:</strong> Falta crear el modelo relacionado.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1018" data-line-end="1021" class="language-php"><span class="hljs-variable">$sector</span> = Sector::factory()-&gt;create();
+<span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create([<span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id]);
+</code></pre>
+<h2 class="code-line" data-line-start=1022 data-line-end=1023 ><a id="Resumen_rpido_Cheat_Sheet_1022"></a>Resumen rápido (Cheat Sheet)</h2>
+<h3 class="code-line" data-line-start=1024 data-line-end=1025 ><a id="Crear_factory_1024"></a>Crear factory</h3>
+<pre><code class="has-line-data" data-line-start="1026" data-line-end="1028" class="language-bash">sail artisan make:factory EventoFactory --model=Evento
+</code></pre>
+<h3 class="code-line" data-line-start=1029 data-line-end=1030 ><a id="Estructura_bsica_1029"></a>Estructura básica</h3>
+<pre><code class="has-line-data" data-line-start="1031" data-line-end="1046" class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Factories</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Eloquent</span>\<span class="hljs-title">Factories</span>\<span class="hljs-title">Factory</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Factory</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">definition</span>(<span class="hljs-params"></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; fake()-&gt;sentence(<span class="hljs-number">3</span>),
+            <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; fake()-&gt;date(),
+        ];
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1047 data-line-end=1048 ><a id="Uso_1047"></a>Uso</h3>
+<pre><code class="has-line-data" data-line-start="1049" data-line-end="1061" class="language-php"><span class="hljs-comment">// Una instancia</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+
+<span class="hljs-comment">// Múltiples</span>
+<span class="hljs-variable">$eventos</span> = Evento::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+
+<span class="hljs-comment">// Con datos específicos</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create([<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Test&#x27;</span>]);
+
+<span class="hljs-comment">// Con relaciones</span>
+<span class="hljs-variable">$evento</span> = Evento::factory()-&gt;has(Sector::factory()-&gt;count(<span class="hljs-number">3</span>))-&gt;create();
+</code></pre>
+<h3 class="code-line" data-line-start=1062 data-line-end=1063 ><a id="Faker_comn_1062"></a>Faker común</h3>
+<pre><code class="has-line-data" data-line-start="1064" data-line-end="1073" class="language-php">fake()-&gt;name()
+fake()-&gt;email()
+fake()-&gt;sentence()
+fake()-&gt;paragraph()
+fake()-&gt;numberBetween(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>)
+fake()-&gt;date(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>)
+fake()-&gt;boolean()
+fake()-&gt;randomElement([<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>])
+</code></pre>
+<h2 class="code-line" data-line-start=1074 data-line-end=1075 ><a id="Recursos_adicionales_1074"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="1076" data-line-end="1077"><a href="https://laravel.com/docs/eloquent-factories">Documentación oficial de Factories</a></li>
+<li class="has-line-data" data-line-start="1077" data-line-end="1078"><a href="https://fakerphp.github.io/">Faker Documentation</a></li>
+<li class="has-line-data" data-line-start="1078" data-line-end="1079"><a href="https://laravel.com/docs/database-testing">Database Testing</a></li>
+</ul>
+
+</body></html>

@@ -1,0 +1,1087 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>guia-seeders-roig-arena.md</title><style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.428571429;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.428571429;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*=col-]{position:static;float:none;display:table-column}table td[class*=col-],table th[class*=col-]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:rgb(232.25,232.25,232.25)}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:rgb(207.8888888889,232.9166666667,197.5833333333)}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:rgb(195.9347826087,227.0217391304,242.5652173913)}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:rgb(249.5322580645,242.2419354839,203.9677419355)}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:rgb(234.7934782609,203.7065217391,203.7065217391)}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type=radio],input[type=checkbox]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type=file]{display:block}input[type=range]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.428571429;color:rgb(85.425,85.425,85.425)}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:rgb(119.085,119.085,119.085);opacity:1}.form-control:-ms-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control::-webkit-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:rgb(238.425,238.425,238.425);opacity:1}textarea.form-control{height:auto}input[type=date],input[type=time],input[type=datetime-local],input[type=month]{line-height:34px;line-height:1.428571429 \0}input[type=date].input-sm,.input-group-sm>input[type=date].form-control,.input-group-sm>input[type=date].input-group-addon,.input-group-sm>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-sm input[type=date].form-control,input[type=time].input-sm,.input-group-sm>input[type=time].form-control,.input-group-sm>input[type=time].input-group-addon,.input-group-sm>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-sm input[type=time].form-control,input[type=datetime-local].input-sm,.input-group-sm>input[type=datetime-local].form-control,.input-group-sm>input[type=datetime-local].input-group-addon,.input-group-sm>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-sm input[type=datetime-local].form-control,input[type=month].input-sm,.input-group-sm>input[type=month].form-control,.input-group-sm>input[type=month].input-group-addon,.input-group-sm>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-sm input[type=month].form-control{line-height:30px}input[type=date].input-lg,.input-group-lg>input[type=date].form-control,.input-group-lg>input[type=date].input-group-addon,.input-group-lg>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-lg input[type=date].form-control,input[type=time].input-lg,.input-group-lg>input[type=time].form-control,.input-group-lg>input[type=time].input-group-addon,.input-group-lg>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-lg input[type=time].form-control,input[type=datetime-local].input-lg,.input-group-lg>input[type=datetime-local].form-control,.input-group-lg>input[type=datetime-local].input-group-addon,.input-group-lg>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-lg input[type=datetime-local].form-control,input[type=month].input-lg,.input-group-lg>input[type=month].form-control,.input-group-lg>input[type=month].input-group-addon,.input-group-lg>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-lg input[type=month].form-control{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type=radio],.radio-inline input[type=radio],.checkbox input[type=checkbox],.checkbox-inline input[type=checkbox]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type=radio][disabled],input[type=radio].disabled,fieldset[disabled] input[type=radio],input[type=checkbox][disabled],input[type=checkbox].disabled,fieldset[disabled] input[type=checkbox],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-lg .form-control-static.form-control,.form-control-static.input-sm,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-sm .form-control-static.form-control{padding-left:0;padding-right:0}.input-sm,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn,.form-horizontal .form-group-sm .form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn,.form-horizontal .form-group-sm select.form-control{height:30px;line-height:30px}textarea.input-sm,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,.form-horizontal .form-group-sm textarea.form-control,select[multiple].input-sm,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-sm select[multiple].form-control{height:auto}.input-lg,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn,.form-horizontal .form-group-lg .form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn,.form-horizontal .form-group-lg select.form-control{height:46px;line-height:46px}textarea.input-lg,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,.form-horizontal .form-group-lg textarea.form-control,select[multiple].input-lg,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-lg select[multiple].form-control{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:rgb(42.808988764,84.191011236,43.5224719101);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(102.5280898876,177.4719101124,103.8202247191)}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:rgb(102.2741116751,80.7817258883,43.7258883249);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(191.807106599,160.7461928934,107.192893401)}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:rgb(132.3234042553,53.2425531915,51.6765957447);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(206.4127659574,132.0595744681,130.5872340426)}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:rgb(114.75,114.75,114.75)}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:rgb(229.5,229.5,229.5);border-color:rgb(173.4,173.4,173.4)}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:rgb(47.5247933884,112.9834710744,169.4752066116);border-color:rgb(39.7061983471,94.3958677686,141.5938016529)}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:rgb(68.2692307692,156.7307692308,68.2692307692);border-color:rgb(57.4371794872,131.8628205128,57.4371794872)}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:rgb(48.5431472081,175.6903553299,213.4568527919);border-color:rgb(37.9081218274,153.9299492386,188.3918781726)}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:rgb(236.015625,151.21875,30.984375);border-color:rgb(213.2296875,132.515625,18.0703125)}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:rgb(201.4953271028,48.0841121495,43.5046728972);border-color:rgb(172.1345794393,41.0775700935,37.1654205607)}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:rgb(119.085,119.085,119.085);text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-block{width:100%}.fade{opacity:0;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:rgb(85.425,85.425,85.425);text-align:center;background-color:rgb(238.425,238.425,238.425);border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type=radio],.input-group-addon input[type=checkbox]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);background-color:rgb(238.425,238.425,238.425);border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:rgb(119.085,119.085,119.085);background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{transform:translate3d(0,-25%,0);transition:transform .3s ease-out}.modal.in .modal-dialog{transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.428571429px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;margin-right:5px}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:"";display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-feature-settings:"dlig" 1,"liga" 1,"lnum" 1,"kern" 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h2,h3{line-height:3rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:rgb(223.2809917355,248.7190082645,244.3223140496)}img{height:auto;max-width:100%}dt{font-style:italic;font-weight:600}.g{display:block}.g:after{clear:both;content:"";display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--6of12,.g-b--5of10,.g-b--4of8,.g-b--3of6,.g-b--2of4{width:50%}.g-b--1of3,.g-b--4of12,.g-b--2of6{width:33.333%}.g-b--2of3,.g-b--8of12,.g-b--4of6{width:66.666%}.g-b--1of4,.g-b--3of12,.g-b--2of8{width:25%}.g-b--3of4,.g-b--9of12,.g-b--6of8{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--6of12,.g-b--push--5of10,.g-b--push--4of8,.g-b--push--3of6,.g-b--push--2of4{margin-left:50%}.g-b--push--1of3,.g-b--push--4of12,.g-b--push--2of6{margin-left:33.333%}.g-b--push--2of3,.g-b--push--8of12,.g-b--push--4of6{margin-left:66.666%}.g-b--push--1of4,.g-b--push--3of12,.g-b--push--2of8{margin-left:25%}.g-b--push--3of4,.g-b--push--9of12,.g-b--push--6of8{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--6of12,.g-b--pull--5of10,.g-b--pull--4of8,.g-b--pull--3of6,.g-b--pull--2of4{margin-right:50%}.g-b--pull--1of3,.g-b--pull--4of12,.g-b--pull--2of6{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--8of12,.g-b--pull--4of6{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--3of12,.g-b--pull--2of8{margin-right:25%}.g-b--pull--3of4,.g-b--pull--9of12,.g-b--pull--6of8{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar:after{content:"";display:table;clear:both}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;transition:all .25s ease-in-out;will-change:left}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings form{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:justify;justify-content:space-between}.settings input{width:20%}.settings a:after{content:"";display:table;clear:both}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:"";left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{backface-visibility:hidden;background-color:#D3DAEA;height:2px;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#A0AABF}.words .counter,.characters .counter{color:#000}.words+.characters{top:22px}.mr10{margin-right:10px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 rgb(27.4380165289,138.5619834711,119.3553719008);padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px rgb(35.867768595,181.132231405,156.0247933884);text-shadow:0 1px 0 rgb(35.867768595,181.132231405,156.0247933884)}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px rgb(29.8596491228,33.0877192982,39.1403508772)}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px rgb(7.7894736842,8.6315789474,10.2105263158);text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:rgb(40.8947368421,45.3157894737,53.6052631579);text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);transition:all .25s ease-in-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:"";width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger li{display:-ms-flexbox;display:flex;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:rgb(138.1404958678,231.8595041322,215.6611570248)}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-text,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}body{max-width:1024px;margin:0 auto;overflow:auto;padding:2%}.split{overflow:scroll;padding:0!important;-webkit-overflow-scrolling:touch}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-html{padding:15px}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m6of12,.g-b--m5of10,.g-b--m4of8,.g-b--m3of6,.g-b--m2of4{width:50%}.g-b--m1of3,.g-b--m4of12,.g-b--m2of6{width:33.333%}.g-b--m2of3,.g-b--m8of12,.g-b--m4of6{width:66.666%}.g-b--m1of4,.g-b--m3of12,.g-b--m2of8{width:25%}.g-b--m3of4,.g-b--m9of12,.g-b--m6of8{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m6of12,.g-b--push--m5of10,.g-b--push--m4of8,.g-b--push--m3of6,.g-b--push--m2of4{margin-left:50%}.g-b--push--m1of3,.g-b--push--m4of12,.g-b--push--m2of6{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m8of12,.g-b--push--m4of6{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m3of12,.g-b--push--m2of8{margin-left:25%}.g-b--push--m3of4,.g-b--push--m9of12,.g-b--push--m6of8{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m6of12,.g-b--pull--m5of10,.g-b--pull--m4of8,.g-b--pull--m3of6,.g-b--pull--m2of4{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m4of12,.g-b--pull--m2of6{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m8of12,.g-b--pull--m4of6{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m3of12,.g-b--pull--m2of8{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m9of12,.g-b--pull--m6of8{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t6of12,.g-b--t5of10,.g-b--t4of8,.g-b--t3of6,.g-b--t2of4{width:50%}.g-b--t1of3,.g-b--t4of12,.g-b--t2of6{width:33.333%}.g-b--t2of3,.g-b--t8of12,.g-b--t4of6{width:66.666%}.g-b--t1of4,.g-b--t3of12,.g-b--t2of8{width:25%}.g-b--t3of4,.g-b--t9of12,.g-b--t6of8{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t6of12,.g-b--push--t5of10,.g-b--push--t4of8,.g-b--push--t3of6,.g-b--push--t2of4{margin-left:50%}.g-b--push--t1of3,.g-b--push--t4of12,.g-b--push--t2of6{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t8of12,.g-b--push--t4of6{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t3of12,.g-b--push--t2of8{margin-left:25%}.g-b--push--t3of4,.g-b--push--t9of12,.g-b--push--t6of8{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t6of12,.g-b--pull--t5of10,.g-b--pull--t4of8,.g-b--pull--t3of6,.g-b--pull--t2of4{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t4of12,.g-b--pull--t2of6{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t8of12,.g-b--pull--t4of6{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t3of12,.g-b--pull--t2of8{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t9of12,.g-b--pull--t6of8{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d6of12,.g-b--d5of10,.g-b--d4of8,.g-b--d3of6,.g-b--d2of4{width:50%}.g-b--d1of3,.g-b--d4of12,.g-b--d2of6{width:33.333%}.g-b--d2of3,.g-b--d8of12,.g-b--d4of6{width:66.666%}.g-b--d1of4,.g-b--d3of12,.g-b--d2of8{width:25%}.g-b--d3of4,.g-b--d9of12,.g-b--d6of8{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d6of12,.g-b--push--d5of10,.g-b--push--d4of8,.g-b--push--d3of6,.g-b--push--d2of4{margin-left:50%}.g-b--push--d1of3,.g-b--push--d4of12,.g-b--push--d2of6{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d8of12,.g-b--push--d4of6{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d3of12,.g-b--push--d2of8{margin-left:25%}.g-b--push--d3of4,.g-b--push--d9of12,.g-b--push--d6of8{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d6of12,.g-b--pull--d5of10,.g-b--pull--d4of8,.g-b--pull--d3of6,.g-b--pull--d2of4{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d4of12,.g-b--pull--d2of6{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d8of12,.g-b--pull--d4of6{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d3of12,.g-b--pull--d2of8{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d9of12,.g-b--pull--d6of8{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type=radio],.form-inline .checkbox input[type=checkbox]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Gua_de_Creacin_de_Seeders_para_Roig_Arena_0"></a>Guía de Creación de Seeders para Roig Arena</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Esta guía explica cómo crear seeders para poblar la base de datos con datos iniciales y de prueba.</p>
+<h2 class="code-line" data-line-start=4 data-line-end=5 ><a id="Qu_son_los_Seeders_4"></a>¿Qué son los Seeders?</h2>
+<p class="has-line-data" data-line-start="6" data-line-end="7">Los seeders son clases que <strong>insertan datos en la base de datos</strong>. Son útiles para:</p>
+<ul>
+<li class="has-line-data" data-line-start="7" data-line-end="8">Datos iniciales (sectores, asientos)</li>
+<li class="has-line-data" data-line-start="8" data-line-end="9">Datos de prueba (usuarios, eventos)</li>
+<li class="has-line-data" data-line-start="9" data-line-end="11">Resetear la base de datos rápidamente</li>
+</ul>
+<h2 class="code-line" data-line-start=11 data-line-end=12 ><a id="Seeders_del_proyecto_11"></a>Seeders del proyecto</h2>
+<p class="has-line-data" data-line-start="13" data-line-end="14">Vamos a crear 5 seeders en este orden:</p>
+<ol>
+<li class="has-line-data" data-line-start="15" data-line-end="16"><strong>SectorSeeder</strong> - Sectores del estadio (101-122, 301-323, palcos, etc.)</li>
+<li class="has-line-data" data-line-start="16" data-line-end="17"><strong>AsientoSeeder</strong> - Asientos por sector</li>
+<li class="has-line-data" data-line-start="17" data-line-end="18"><strong>UserSeeder</strong> - Usuarios de prueba (admin + usuarios normales)</li>
+<li class="has-line-data" data-line-start="18" data-line-end="19"><strong>EventoSeeder</strong> - Eventos de prueba</li>
+<li class="has-line-data" data-line-start="19" data-line-end="21"><strong>PrecioSeeder</strong> - Precios por evento/sector</li>
+</ol>
+<hr>
+<h2 class="code-line" data-line-start=23 data-line-end=24 ><a id="Seeder_1_SectorSeeder_23"></a>Seeder 1: SectorSeeder</h2>
+<h3 class="code-line" data-line-start=25 data-line-end=26 ><a id="Crear_el_seeder_25"></a>Crear el seeder</h3>
+<pre><code class="has-line-data" data-line-start="28" data-line-end="30" class="language-bash">sail artisan make:seeder SectorSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=31 data-line-end=32 ><a id="Cdigo_completo_31"></a>Código completo</h3>
+<p class="has-line-data" data-line-start="33" data-line-end="34"><strong>Ubicación:</strong> <code>database/seeders/SectorSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="36" data-line-end="78" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SectorSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$sectores</span> = [];
+
+        <span class="hljs-comment">// Sectores 101-122</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">101</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">122</span>; <span class="hljs-variable">$i</span>++) {
+            <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&quot;Sector <span class="hljs-subst">$i</span>&quot;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Grada lateral&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        }
+
+        <span class="hljs-comment">// Sectores 301-323</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">301</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">323</span>; <span class="hljs-variable">$i</span>++) {
+            <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&quot;Sector <span class="hljs-subst">$i</span>&quot;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Grada superior&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        }
+
+        <span class="hljs-comment">// Palcos 1-22</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">22</span>; <span class="hljs-variable">$i</span>++) {
+            <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&quot;Palco <span class="hljs-subst">$i</span>&quot;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Palco VIP&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        }
+
+        <span class="hljs-comment">// Sectores especiales</span>
+        <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;CLUB&#x27;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Zona Club&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;JOHNNIE WALKER&#x27;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Zona Johnnie Walker&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;PISTA&#x27;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Pista central&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+        <span class="hljs-variable">$sectores</span>[] = [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;FRONT STAGE&#x27;</span>, <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;Frente al escenario&#x27;</span>, <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-literal">true</span>];
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$sectores</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$sector</span>) {
+            Sector::create(<span class="hljs-variable">$sector</span>);
+        }
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;✅ Sectores creados: &#x27;</span> . count(<span class="hljs-variable">$sectores</span>));
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="79" data-line-end="80"><strong>Total sectores:</strong> 71</p>
+<ul>
+<li class="has-line-data" data-line-start="80" data-line-end="81">22 sectores 101-122</li>
+<li class="has-line-data" data-line-start="81" data-line-end="82">23 sectores 301-323</li>
+<li class="has-line-data" data-line-start="82" data-line-end="83">22 palcos</li>
+<li class="has-line-data" data-line-start="83" data-line-end="85">4 sectores especiales</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=87 data-line-end=88 ><a id="Seeder_2_AsientoSeeder_87"></a>Seeder 2: AsientoSeeder</h2>
+<h3 class="code-line" data-line-start=89 data-line-end=90 ><a id="Crear_el_seeder_89"></a>Crear el seeder</h3>
+<pre><code class="has-line-data" data-line-start="92" data-line-end="94" class="language-bash">sail artisan make:seeder AsientoSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=95 data-line-end=96 ><a id="Cdigo_completo_95"></a>Código completo</h3>
+<p class="has-line-data" data-line-start="97" data-line-end="98"><strong>Ubicación:</strong> <code>database/seeders/AsientoSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="100" data-line-end="202" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsientoSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$sectores</span> = Sector::all();
+        <span class="hljs-variable">$totalAsientos</span> = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$sectores</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$sector</span>) {
+            <span class="hljs-variable">$asientos</span> = <span class="hljs-keyword">$this</span>-&gt;generarAsientosPorSector(<span class="hljs-variable">$sector</span>);
+            <span class="hljs-variable">$totalAsientos</span> += count(<span class="hljs-variable">$asientos</span>);
+        }
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&quot;✅ Asientos creados: <span class="hljs-subst">{$totalAsientos}</span>&quot;</span>);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generarAsientosPorSector</span>(<span class="hljs-params">Sector <span class="hljs-variable">$sector</span></span>): <span class="hljs-title">array</span>
+    </span>{
+        <span class="hljs-variable">$asientos</span> = [];
+
+        <span class="hljs-comment">// Sectores 101-122 y 301-323: 20 filas x 15 asientos = 300 asientos</span>
+        <span class="hljs-keyword">if</span> (preg_match(<span class="hljs-string">&#x27;/^Sector (10[1-9]|1[1-2][0-9]|30[1-9]|3[1-2][0-9])$/&#x27;</span>, <span class="hljs-variable">$sector</span>-&gt;nombre)) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$fila</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$fila</span> &lt;= <span class="hljs-number">20</span>; <span class="hljs-variable">$fila</span>++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">15</span>; <span class="hljs-variable">$numero</span>++) {
+                    <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; (<span class="hljs-keyword">string</span>) <span class="hljs-variable">$fila</span>,
+                        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                    ]);
+                }
+            }
+        }
+        <span class="hljs-comment">// Palcos: 1 fila x 8 asientos = 8 asientos</span>
+        <span class="hljs-keyword">elseif</span> (str_starts_with(<span class="hljs-variable">$sector</span>-&gt;nombre, <span class="hljs-string">&#x27;Palco&#x27;</span>)) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">8</span>; <span class="hljs-variable">$numero</span>++) {
+                <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                    <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                    <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; <span class="hljs-string">&#x27;A&#x27;</span>,
+                    <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                ]);
+            }
+        }
+        <span class="hljs-comment">// CLUB: 10 filas x 20 asientos = 200 asientos</span>
+        <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;CLUB&#x27;</span>) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$fila</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$fila</span> &lt;= <span class="hljs-number">10</span>; <span class="hljs-variable">$fila</span>++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">20</span>; <span class="hljs-variable">$numero</span>++) {
+                    <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; (<span class="hljs-keyword">string</span>) <span class="hljs-variable">$fila</span>,
+                        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                    ]);
+                }
+            }
+        }
+        <span class="hljs-comment">// JOHNNIE WALKER: 8 filas x 15 asientos = 120 asientos</span>
+        <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;JOHNNIE WALKER&#x27;</span>) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$fila</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$fila</span> &lt;= <span class="hljs-number">8</span>; <span class="hljs-variable">$fila</span>++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">15</span>; <span class="hljs-variable">$numero</span>++) {
+                    <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; (<span class="hljs-keyword">string</span>) <span class="hljs-variable">$fila</span>,
+                        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                    ]);
+                }
+            }
+        }
+        <span class="hljs-comment">// PISTA: 30 filas x 25 asientos = 750 asientos</span>
+        <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;PISTA&#x27;</span>) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$fila</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$fila</span> &lt;= <span class="hljs-number">30</span>; <span class="hljs-variable">$fila</span>++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">25</span>; <span class="hljs-variable">$numero</span>++) {
+                    <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; (<span class="hljs-keyword">string</span>) <span class="hljs-variable">$fila</span>,
+                        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                    ]);
+                }
+            }
+        }
+        <span class="hljs-comment">// FRONT STAGE: 5 filas x 30 asientos = 150 asientos</span>
+        <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;FRONT STAGE&#x27;</span>) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-variable">$fila</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$fila</span> &lt;= <span class="hljs-number">5</span>; <span class="hljs-variable">$fila</span>++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-variable">$numero</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$numero</span> &lt;= <span class="hljs-number">30</span>; <span class="hljs-variable">$numero</span>++) {
+                    <span class="hljs-variable">$asientos</span>[] = Asiento::create([
+                        <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                        <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; (<span class="hljs-keyword">string</span>) <span class="hljs-variable">$fila</span>,
+                        <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$numero</span>,
+                    ]);
+                }
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$asientos</span>;
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="203" data-line-end="204"><strong>Total asientos aproximado:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="204" data-line-end="205">Sectores 101-122: 22 × 300 = 6,600</li>
+<li class="has-line-data" data-line-start="205" data-line-end="206">Sectores 301-323: 23 × 300 = 6,900</li>
+<li class="has-line-data" data-line-start="206" data-line-end="207">Palcos: 22 × 8 = 176</li>
+<li class="has-line-data" data-line-start="207" data-line-end="208">CLUB: 200</li>
+<li class="has-line-data" data-line-start="208" data-line-end="209">JOHNNIE WALKER: 120</li>
+<li class="has-line-data" data-line-start="209" data-line-end="210">PISTA: 750</li>
+<li class="has-line-data" data-line-start="210" data-line-end="211">FRONT STAGE: 150</li>
+<li class="has-line-data" data-line-start="211" data-line-end="213"><strong>Total: ~14,896 asientos</strong></li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=215 data-line-end=216 ><a id="Seeder_3_UserSeeder_215"></a>Seeder 3: UserSeeder</h2>
+<h3 class="code-line" data-line-start=217 data-line-end=218 ><a id="Crear_el_seeder_217"></a>Crear el seeder</h3>
+<pre><code class="has-line-data" data-line-start="220" data-line-end="222" class="language-bash">sail artisan make:seeder UserSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=223 data-line-end=224 ><a id="Cdigo_completo_223"></a>Código completo</h3>
+<p class="has-line-data" data-line-start="225" data-line-end="226"><strong>Ubicación:</strong> <code>database/seeders/UserSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="228" data-line-end="278" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-comment">// Usuario administrador</span>
+        User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Admin&#x27;</span>,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sistema&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin@roigarena.com&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;admin123&#x27;</span>),
+            <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+        ]);
+
+        <span class="hljs-comment">// Usuarios de prueba</span>
+        User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;Pérez&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+            <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">false</span>,
+        ]);
+
+        User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;María&#x27;</span>,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;García&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;maria@example.com&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+            <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">false</span>,
+        ]);
+
+        User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Carlos&#x27;</span>,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;López&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;carlos@example.com&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+            <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">false</span>,
+        ]);
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;✅ Usuarios creados: 4 (1 admin + 3 normales)&#x27;</span>);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="279" data-line-end="280"><strong>Credenciales:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="280" data-line-end="281">Admin: <code>admin@roigarena.com</code> / <code>admin123</code></li>
+<li class="has-line-data" data-line-start="281" data-line-end="282">Usuario 1: <code>juan@example.com</code> / <code>password</code></li>
+<li class="has-line-data" data-line-start="282" data-line-end="283">Usuario 2: <code>maria@example.com</code> / <code>password</code></li>
+<li class="has-line-data" data-line-start="283" data-line-end="285">Usuario 3: <code>carlos@example.com</code> / <code>password</code></li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=287 data-line-end=288 ><a id="Seeder_4_EventoSeeder_287"></a>Seeder 4: EventoSeeder</h2>
+<h3 class="code-line" data-line-start=289 data-line-end=290 ><a id="Crear_el_seeder_289"></a>Crear el seeder</h3>
+<pre><code class="has-line-data" data-line-start="292" data-line-end="294" class="language-bash">sail artisan make:seeder EventoSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=295 data-line-end=296 ><a id="Cdigo_completo_295"></a>Código completo</h3>
+<p class="has-line-data" data-line-start="297" data-line-end="298"><strong>Ubicación:</strong> <code>database/seeders/EventoSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="300" data-line-end="354" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$eventos</span> = [
+            [
+                <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Concierto Rock 2026&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;El mejor concierto de rock del año&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;Disfruta de una noche inolvidable con las mejores bandas de rock internacional. Un espectáculo único que no te puedes perder.&#x27;</span>,
+                <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;https://via.placeholder.com/800x600?text=Concierto+Rock&#x27;</span>,
+                <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;2026-06-15&#x27;</span>,
+                <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;20:00&#x27;</span>,
+            ],
+            [
+                <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Final Copa del Rey&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;Gran final de la Copa del Rey&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;Vive la emoción de la final de la Copa del Rey en directo. Los dos mejores equipos se enfrentan por el título.&#x27;</span>,
+                <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;https://via.placeholder.com/800x600?text=Final+Copa&#x27;</span>,
+                <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;2026-07-20&#x27;</span>,
+                <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;21:00&#x27;</span>,
+            ],
+            [
+                <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Festival Electrónica&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;Los mejores DJs del mundo&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;Festival de música electrónica con los DJs más reconocidos a nivel mundial. Una experiencia única de sonido y luces.&#x27;</span>,
+                <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;https://via.placeholder.com/800x600?text=Festival+Electronica&#x27;</span>,
+                <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;2026-08-10&#x27;</span>,
+                <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;19:00&#x27;</span>,
+            ],
+            [
+                <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Obra de Teatro Clásico&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;Teatro clásico español&#x27;</span>,
+                <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;Representación de una obra clásica del teatro español con los mejores actores del país.&#x27;</span>,
+                <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;https://via.placeholder.com/800x600?text=Teatro&#x27;</span>,
+                <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;2026-09-05&#x27;</span>,
+                <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;18:30&#x27;</span>,
+            ],
+        ];
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$eventos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$evento</span>) {
+            Evento::create(<span class="hljs-variable">$evento</span>);
+        }
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;✅ Eventos creados: &#x27;</span> . count(<span class="hljs-variable">$eventos</span>));
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=357 data-line-end=358 ><a id="Seeder_5_PrecioSeeder_357"></a>Seeder 5: PrecioSeeder</h2>
+<h3 class="code-line" data-line-start=359 data-line-end=360 ><a id="Crear_el_seeder_359"></a>Crear el seeder</h3>
+<pre><code class="has-line-data" data-line-start="362" data-line-end="364" class="language-bash">sail artisan make:seeder PrecioSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=365 data-line-end=366 ><a id="Cdigo_completo_365"></a>Código completo</h3>
+<p class="has-line-data" data-line-start="367" data-line-end="368"><strong>Ubicación:</strong> <code>database/seeders/PrecioSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="370" data-line-end="431" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Precio</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PrecioSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-variable">$eventos</span> = Evento::all();
+        <span class="hljs-variable">$sectores</span> = Sector::all();
+        <span class="hljs-variable">$totalPrecios</span> = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$eventos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$evento</span>) {
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$sectores</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$sector</span>) {
+                <span class="hljs-variable">$precio</span> = <span class="hljs-keyword">$this</span>-&gt;calcularPrecio(<span class="hljs-variable">$evento</span>, <span class="hljs-variable">$sector</span>);
+                
+                Precio::create([
+                    <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+                    <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>-&gt;id,
+                    <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-variable">$precio</span>,
+                    <span class="hljs-string">&#x27;disponible&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+                ]);
+                
+                <span class="hljs-variable">$totalPrecios</span>++;
+            }
+        }
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&quot;✅ Precios creados: <span class="hljs-subst">{$totalPrecios}</span>&quot;</span>);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calcularPrecio</span>(<span class="hljs-params">Evento <span class="hljs-variable">$evento</span>, Sector <span class="hljs-variable">$sector</span></span>): <span class="hljs-title">float</span>
+    </span>{
+        <span class="hljs-comment">// Precios base según tipo de sector</span>
+        <span class="hljs-variable">$precioBase</span> = <span class="hljs-keyword">match</span>(<span class="hljs-literal">true</span>) {
+            str_starts_with(<span class="hljs-variable">$sector</span>-&gt;nombre, <span class="hljs-string">&#x27;Palco&#x27;</span>) =&gt; <span class="hljs-number">150.00</span>,
+            <span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;FRONT STAGE&#x27;</span> =&gt; <span class="hljs-number">120.00</span>,
+            <span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;CLUB&#x27;</span> =&gt; <span class="hljs-number">100.00</span>,
+            <span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;JOHNNIE WALKER&#x27;</span> =&gt; <span class="hljs-number">90.00</span>,
+            <span class="hljs-variable">$sector</span>-&gt;nombre === <span class="hljs-string">&#x27;PISTA&#x27;</span> =&gt; <span class="hljs-number">80.00</span>,
+            str_starts_with(<span class="hljs-variable">$sector</span>-&gt;nombre, <span class="hljs-string">&#x27;Sector 10&#x27;</span>) =&gt; <span class="hljs-number">50.00</span>, <span class="hljs-comment">// 101-122</span>
+            str_starts_with(<span class="hljs-variable">$sector</span>-&gt;nombre, <span class="hljs-string">&#x27;Sector 30&#x27;</span>) =&gt; <span class="hljs-number">40.00</span>, <span class="hljs-comment">// 301-323</span>
+            <span class="hljs-keyword">default</span> =&gt; <span class="hljs-number">50.00</span>,
+        };
+
+        <span class="hljs-comment">// Multiplicador según tipo de evento</span>
+        <span class="hljs-variable">$multiplicador</span> = <span class="hljs-keyword">match</span>(<span class="hljs-variable">$evento</span>-&gt;nombre) {
+            <span class="hljs-string">&#x27;Final Copa del Rey&#x27;</span> =&gt; <span class="hljs-number">1.5</span>,
+            <span class="hljs-string">&#x27;Concierto Rock 2026&#x27;</span> =&gt; <span class="hljs-number">1.3</span>,
+            <span class="hljs-string">&#x27;Festival Electrónica&#x27;</span> =&gt; <span class="hljs-number">1.2</span>,
+            <span class="hljs-keyword">default</span> =&gt; <span class="hljs-number">1.0</span>,
+        };
+
+        <span class="hljs-keyword">return</span> round(<span class="hljs-variable">$precioBase</span> * <span class="hljs-variable">$multiplicador</span>, <span class="hljs-number">2</span>);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="432" data-line-end="433"><strong>Lógica de precios:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="433" data-line-end="434">Palcos: 150€ base</li>
+<li class="has-line-data" data-line-start="434" data-line-end="435">Front Stage: 120€ base</li>
+<li class="has-line-data" data-line-start="435" data-line-end="436">Club: 100€ base</li>
+<li class="has-line-data" data-line-start="436" data-line-end="437">Johnnie Walker: 90€ base</li>
+<li class="has-line-data" data-line-start="437" data-line-end="438">Pista: 80€ base</li>
+<li class="has-line-data" data-line-start="438" data-line-end="439">Sectores 101-122: 50€ base</li>
+<li class="has-line-data" data-line-start="439" data-line-end="441">Sectores 301-323: 40€ base</li>
+</ul>
+<p class="has-line-data" data-line-start="441" data-line-end="442"><strong>Multiplicadores por evento:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="442" data-line-end="443">Final Copa del Rey: ×1.5</li>
+<li class="has-line-data" data-line-start="443" data-line-end="444">Concierto Rock: ×1.3</li>
+<li class="has-line-data" data-line-start="444" data-line-end="445">Festival Electrónica: ×1.2</li>
+<li class="has-line-data" data-line-start="445" data-line-end="447">Teatro: ×1.0</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=449 data-line-end=450 ><a id="DatabaseSeeder_Orquestador_449"></a>DatabaseSeeder (Orquestador)</h2>
+<h3 class="code-line" data-line-start=451 data-line-end=452 ><a id="Editar_el_seeder_principal_451"></a>Editar el seeder principal</h3>
+<p class="has-line-data" data-line-start="453" data-line-end="454"><strong>Ubicación:</strong> <code>database/seeders/DatabaseSeeder.php</code></p>
+<pre><code class="has-line-data" data-line-start="456" data-line-end="479" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-keyword">$this</span>-&gt;call([
+            SectorSeeder::class,
+            AsientoSeeder::class,
+            UserSeeder::class,
+            EventoSeeder::class,
+            PrecioSeeder::class,
+        ]);
+
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;&#x27;</span>);
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;🎉 Base de datos poblada correctamente&#x27;</span>);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=482 data-line-end=483 ><a id="Ejecutar_los_seeders_482"></a>Ejecutar los seeders</h2>
+<h3 class="code-line" data-line-start=484 data-line-end=485 ><a id="Ejecutar_todos_484"></a>Ejecutar todos</h3>
+<pre><code class="has-line-data" data-line-start="487" data-line-end="489" class="language-bash">sail artisan db:seed
+</code></pre>
+<h3 class="code-line" data-line-start=490 data-line-end=491 ><a id="Ejecutar_uno_especfico_490"></a>Ejecutar uno específico</h3>
+<pre><code class="has-line-data" data-line-start="493" data-line-end="499" class="language-bash">sail artisan db:seed --class=SectorSeeder
+sail artisan db:seed --class=AsientoSeeder
+sail artisan db:seed --class=UserSeeder
+sail artisan db:seed --class=EventoSeeder
+sail artisan db:seed --class=PrecioSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=500 data-line-end=501 ><a id="Resetear_y_ejecutar_500"></a>Resetear y ejecutar</h3>
+<pre><code class="has-line-data" data-line-start="503" data-line-end="506" class="language-bash"><span class="hljs-comment"># Elimina todo y ejecuta migraciones + seeders</span>
+sail artisan migrate:fresh --seed
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=509 data-line-end=510 ><a id="Verificar_los_datos_509"></a>Verificar los datos</h2>
+<h3 class="code-line" data-line-start=511 data-line-end=512 ><a id="Desde_MySQL_511"></a>Desde MySQL</h3>
+<pre><code class="has-line-data" data-line-start="514" data-line-end="528" class="language-bash">sail mysql
+
+<span class="hljs-comment"># Contar registros</span>
+SELECT COUNT(*) FROM sectores;
+SELECT COUNT(*) FROM asientos;
+SELECT COUNT(*) FROM users;
+SELECT COUNT(*) FROM eventos;
+SELECT COUNT(*) FROM precios;
+
+<span class="hljs-comment"># Ver algunos datos</span>
+SELECT * FROM sectores LIMIT 10;
+SELECT * FROM users;
+SELECT * FROM eventos;
+</code></pre>
+<h3 class="code-line" data-line-start=529 data-line-end=530 ><a id="Desde_Tinker_529"></a>Desde Tinker</h3>
+<pre><code class="has-line-data" data-line-start="532" data-line-end="546" class="language-bash">sail artisan tinker
+
+<span class="hljs-comment"># Contar</span>
+Sector::count();
+Asiento::count();
+User::count();
+Evento::count();
+Precio::count();
+
+<span class="hljs-comment"># Ver datos</span>
+Sector::all();
+User::all();
+Evento::all();
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=549 data-line-end=550 ><a id="Resumen_549"></a>Resumen</h2>
+<h3 class="code-line" data-line-start=551 data-line-end=552 ><a id="Seeders_creados_5_551"></a>Seeders creados: 5</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Seeder</th>
+<th>Registros</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SectorSeeder</td>
+<td>71</td>
+<td>Sectores del estadio</td>
+</tr>
+<tr>
+<td>AsientoSeeder</td>
+<td>~14,896</td>
+<td>Asientos por sector</td>
+</tr>
+<tr>
+<td>UserSeeder</td>
+<td>4</td>
+<td>1 admin + 3 usuarios</td>
+</tr>
+<tr>
+<td>EventoSeeder</td>
+<td>4</td>
+<td>Eventos de prueba</td>
+</tr>
+<tr>
+<td>PrecioSeeder</td>
+<td>284</td>
+<td>71 sectores × 4 eventos</td>
+</tr>
+</tbody>
+</table>
+<h3 class="code-line" data-line-start=561 data-line-end=562 ><a id="Total_registros_15259_561"></a>Total registros: ~15,259</h3>
+<hr>
+<h2 class="code-line" data-line-start=565 data-line-end=566 ><a id="Comandos_tiles_565"></a>Comandos útiles</h2>
+<pre><code class="has-line-data" data-line-start="568" data-line-end="580" class="language-bash"><span class="hljs-comment"># Ejecutar todos los seeders</span>
+sail artisan db:seed
+
+<span class="hljs-comment"># Resetear BD y ejecutar seeders</span>
+sail artisan migrate:fresh --seed
+
+<span class="hljs-comment"># Ejecutar un seeder específico</span>
+sail artisan db:seed --class=SectorSeeder
+
+<span class="hljs-comment"># Ver qué seeders existen</span>
+ls database/seeders/
+</code></pre>
+<hr>
+<hr>
+<h1 class="code-line" data-line-start=583 data-line-end=584 ><a id="Apndice_Seeders_en_Laravel_para_Principiantes_583"></a>Apéndice: Seeders en Laravel para Principiantes</h1>
+<p class="has-line-data" data-line-start="585" data-line-end="586">Esta guía te ayudará a entender qué son los seeders, cómo funcionan y cómo usarlos correctamente.</p>
+<h2 class="code-line" data-line-start=587 data-line-end=588 ><a id="Qu_son_los_Seeders_587"></a>¿Qué son los Seeders?</h2>
+<p class="has-line-data" data-line-start="589" data-line-end="590">Los seeders son clases PHP que <strong>insertan datos en la base de datos</strong>. Son como “plantadores de semillas” que pueblan tu base de datos con información inicial o de prueba.</p>
+<h3 class="code-line" data-line-start=591 data-line-end=592 ><a id="Analoga_simple_591"></a>Analogía simple</h3>
+<p class="has-line-data" data-line-start="593" data-line-end="594">Imagina que construyes una casa:</p>
+<ul>
+<li class="has-line-data" data-line-start="594" data-line-end="595"><strong>Migraciones</strong> = Construir las habitaciones (estructura)</li>
+<li class="has-line-data" data-line-start="595" data-line-end="597"><strong>Seeders</strong> = Amueblar las habitaciones (datos)</li>
+</ul>
+<p class="has-line-data" data-line-start="597" data-line-end="598">Las migraciones crean las tablas vacías, los seeders las llenan con datos.</p>
+<h2 class="code-line" data-line-start=599 data-line-end=600 ><a id="Por_qu_usar_Seeders_599"></a>¿Por qué usar Seeders?</h2>
+<h3 class="code-line" data-line-start=601 data-line-end=602 ><a id="Problema_sin_Seeders_601"></a>Problema sin Seeders</h3>
+<pre><code class="has-line-data" data-line-start="604" data-line-end="609" class="language-sql"><span class="hljs-comment">-- Insertar datos manualmente cada vez</span>
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (nombre, email, password) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;Juan&#x27;</span>, <span class="hljs-string">&#x27;juan@example.com&#x27;</span>, <span class="hljs-string">&#x27;...&#x27;</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (nombre, email, password) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;María&#x27;</span>, <span class="hljs-string">&#x27;maria@example.com&#x27;</span>, <span class="hljs-string">&#x27;...&#x27;</span>);
+<span class="hljs-comment">-- Repetir en cada entorno (local, staging, producción)</span>
+</code></pre>
+<p class="has-line-data" data-line-start="610" data-line-end="611"><strong>Problemas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="611" data-line-end="612">❌ Tedioso y propenso a errores</li>
+<li class="has-line-data" data-line-start="612" data-line-end="613">❌ Difícil de compartir con el equipo</li>
+<li class="has-line-data" data-line-start="613" data-line-end="614">❌ No versionado en Git</li>
+<li class="has-line-data" data-line-start="614" data-line-end="616">❌ Inconsistente entre entornos</li>
+</ul>
+<h3 class="code-line" data-line-start=616 data-line-end=617 ><a id="Solucin_con_Seeders_616"></a>Solución con Seeders</h3>
+<pre><code class="has-line-data" data-line-start="619" data-line-end="623" class="language-php"><span class="hljs-comment">// database/seeders/UserSeeder.php</span>
+User::create([<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>, ...]);
+User::create([<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;María&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;maria@example.com&#x27;</span>, ...]);
+</code></pre>
+<p class="has-line-data" data-line-start="624" data-line-end="625"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="625" data-line-end="626">✅ Automatizado</li>
+<li class="has-line-data" data-line-start="626" data-line-end="627">✅ Versionado en Git</li>
+<li class="has-line-data" data-line-start="627" data-line-end="628">✅ Compartible con el equipo</li>
+<li class="has-line-data" data-line-start="628" data-line-end="629">✅ Consistente en todos los entornos</li>
+<li class="has-line-data" data-line-start="629" data-line-end="631">✅ Fácil de resetear</li>
+</ul>
+<h2 class="code-line" data-line-start=631 data-line-end=632 ><a id="Estructura_de_un_Seeder_631"></a>Estructura de un Seeder</h2>
+<h3 class="code-line" data-line-start=633 data-line-end=634 ><a id="Ubicacin_633"></a>Ubicación</h3>
+<pre><code class="has-line-data" data-line-start="635" data-line-end="641">database/seeders/
+├── DatabaseSeeder.php    # Seeder principal (orquestador)
+├── UserSeeder.php
+├── PostSeeder.php
+└── CategorySeeder.php
+</code></pre>
+<h3 class="code-line" data-line-start=642 data-line-end=643 ><a id="Anatoma_bsica_642"></a>Anatomía básica</h3>
+<pre><code class="has-line-data" data-line-start="645" data-line-end="672" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-comment">// 1. NAMESPACE</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-comment">// 2. IMPORTS</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+
+<span class="hljs-comment">// 3. CLASE - Extiende Seeder</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-comment">/**
+     * 4. MÉTODO RUN - Ejecuta el seeder
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-comment">// Insertar datos aquí</span>
+        User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+        ]);
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=673 data-line-end=674 ><a id="Imports_necesarios_673"></a>Imports necesarios</h2>
+<h3 class="code-line" data-line-start=675 data-line-end=676 ><a id="1_Seeder_obligatorio_675"></a>1. Seeder (obligatorio)</h3>
+<pre><code class="has-line-data" data-line-start="677" data-line-end="679" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="679" data-line-end="681"><strong>¿Qué es?</strong> Clase base de todos los seeders.<br>
+<strong>¿Para qué?</strong> Proporciona la estructura básica.</p>
+<h3 class="code-line" data-line-start=682 data-line-end=683 ><a id="2_Modelos_682"></a>2. Modelos</h3>
+<pre><code class="has-line-data" data-line-start="684" data-line-end="687" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Post</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="687" data-line-end="689"><strong>¿Qué son?</strong> Los modelos Eloquent que vas a usar.<br>
+<strong>¿Para qué?</strong> Insertar datos usando Eloquent.</p>
+<h3 class="code-line" data-line-start=690 data-line-end=691 ><a id="3_Facades_tiles_690"></a>3. Facades útiles</h3>
+<pre><code class="has-line-data" data-line-start="692" data-line-end="695" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;  <span class="hljs-comment">// Para hashear passwords</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;    <span class="hljs-comment">// Para queries directas</span>
+</code></pre>
+<h2 class="code-line" data-line-start=696 data-line-end=697 ><a id="Mtodo_run_696"></a>Método run()</h2>
+<p class="has-line-data" data-line-start="698" data-line-end="699">El método <code>run()</code> es donde defines qué datos insertar.</p>
+<pre><code class="has-line-data" data-line-start="701" data-line-end="706" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-comment">// Tu código aquí</span>
+}
+</code></pre>
+<p class="has-line-data" data-line-start="707" data-line-end="708"><strong>Características:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="708" data-line-end="709">Se ejecuta cuando llamas al seeder</li>
+<li class="has-line-data" data-line-start="709" data-line-end="710">Puede insertar uno o muchos registros</li>
+<li class="has-line-data" data-line-start="710" data-line-end="712">Puede llamar a otros seeders</li>
+</ul>
+<h2 class="code-line" data-line-start=712 data-line-end=713 ><a id="Formas_de_insertar_datos_712"></a>Formas de insertar datos</h2>
+<h3 class="code-line" data-line-start=714 data-line-end=715 ><a id="1_Eloquent_create__Recomendado_714"></a>1. Eloquent create() - Recomendado</h3>
+<pre><code class="has-line-data" data-line-start="717" data-line-end="723" class="language-php">User::create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+    <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),
+]);
+</code></pre>
+<p class="has-line-data" data-line-start="724" data-line-end="725"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="725" data-line-end="726">✅ Usa el modelo (validaciones, eventos)</li>
+<li class="has-line-data" data-line-start="726" data-line-end="727">✅ Actualiza timestamps automáticamente</li>
+<li class="has-line-data" data-line-start="727" data-line-end="729">✅ Más legible</li>
+</ul>
+<h3 class="code-line" data-line-start=729 data-line-end=730 ><a id="2_Eloquent_insert__Mltiples_registros_729"></a>2. Eloquent insert() - Múltiples registros</h3>
+<pre><code class="has-line-data" data-line-start="732" data-line-end="737" class="language-php">User::insert([
+    [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>, <span class="hljs-string">&#x27;created_at&#x27;</span> =&gt; now()],
+    [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;María&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;maria@example.com&#x27;</span>, <span class="hljs-string">&#x27;created_at&#x27;</span> =&gt; now()],
+]);
+</code></pre>
+<p class="has-line-data" data-line-start="738" data-line-end="739"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="739" data-line-end="740">✅ Más rápido para muchos registros</li>
+<li class="has-line-data" data-line-start="740" data-line-end="741">❌ No dispara eventos del modelo</li>
+<li class="has-line-data" data-line-start="741" data-line-end="743">❌ Debes añadir timestamps manualmente</li>
+</ul>
+<h3 class="code-line" data-line-start=743 data-line-end=744 ><a id="3_DBtable__Query_directa_743"></a>3. DB::table() - Query directa</h3>
+<pre><code class="has-line-data" data-line-start="746" data-line-end="752" class="language-php">DB::table(<span class="hljs-string">&#x27;users&#x27;</span>)-&gt;insert([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+    <span class="hljs-string">&#x27;created_at&#x27;</span> =&gt; now(),
+]);
+</code></pre>
+<p class="has-line-data" data-line-start="753" data-line-end="754"><strong>Cuándo usar:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="754" data-line-end="755">Cuando no tienes modelo</li>
+<li class="has-line-data" data-line-start="755" data-line-end="756">Para tablas pivot</li>
+<li class="has-line-data" data-line-start="756" data-line-end="758">Para máximo rendimiento</li>
+</ul>
+<h3 class="code-line" data-line-start=758 data-line-end=759 ><a id="4_Factories__Datos_aleatorios_758"></a>4. Factories - Datos aleatorios</h3>
+<pre><code class="has-line-data" data-line-start="761" data-line-end="763" class="language-php">User::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+</code></pre>
+<p class="has-line-data" data-line-start="764" data-line-end="765"><strong>Cuándo usar:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="765" data-line-end="766">Para generar muchos datos de prueba</li>
+<li class="has-line-data" data-line-start="766" data-line-end="768">Cuando no importan los valores exactos</li>
+</ul>
+<h2 class="code-line" data-line-start=768 data-line-end=769 ><a id="Comandos_Artisan_768"></a>Comandos Artisan</h2>
+<h3 class="code-line" data-line-start=770 data-line-end=771 ><a id="Crear_un_seeder_770"></a>Crear un seeder</h3>
+<pre><code class="has-line-data" data-line-start="773" data-line-end="775" class="language-bash">sail artisan make:seeder UserSeeder
+</code></pre>
+<p class="has-line-data" data-line-start="776" data-line-end="777">Esto crea <code>database/seeders/UserSeeder.php</code>.</p>
+<h3 class="code-line" data-line-start=778 data-line-end=779 ><a id="Ejecutar_seeders_778"></a>Ejecutar seeders</h3>
+<pre><code class="has-line-data" data-line-start="781" data-line-end="790" class="language-bash"><span class="hljs-comment"># Ejecutar todos los seeders</span>
+sail artisan db:seed
+
+<span class="hljs-comment"># Ejecutar un seeder específico</span>
+sail artisan db:seed --class=UserSeeder
+
+<span class="hljs-comment"># Ejecutar en un entorno específico</span>
+sail artisan db:seed --env=testing
+</code></pre>
+<h3 class="code-line" data-line-start=791 data-line-end=792 ><a id="Resetear_y_ejecutar_791"></a>Resetear y ejecutar</h3>
+<pre><code class="has-line-data" data-line-start="794" data-line-end="800" class="language-bash"><span class="hljs-comment"># Revertir migraciones, ejecutar migraciones y seeders</span>
+sail artisan migrate:fresh --seed
+
+<span class="hljs-comment"># Solo revertir última migración y ejecutar seeders</span>
+sail artisan migrate:refresh --seed
+</code></pre>
+<h2 class="code-line" data-line-start=801 data-line-end=802 ><a id="DatabaseSeeder_Orquestador_801"></a>DatabaseSeeder (Orquestador)</h2>
+<p class="has-line-data" data-line-start="803" data-line-end="804">El archivo <code>DatabaseSeeder.php</code> es el seeder principal que llama a los demás.</p>
+<pre><code class="has-line-data" data-line-start="806" data-line-end="825" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DatabaseSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-comment">// Llamar a otros seeders en orden</span>
+        <span class="hljs-keyword">$this</span>-&gt;call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            PostSeeder::class,
+        ]);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="826" data-line-end="827"><strong>Orden importa:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="827" data-line-end="828">Primero las tablas sin foreign keys</li>
+<li class="has-line-data" data-line-start="828" data-line-end="830">Luego las que dependen de otras</li>
+</ul>
+<p class="has-line-data" data-line-start="830" data-line-end="831"><strong>Ejemplo:</strong></p>
+<pre><code class="has-line-data" data-line-start="832" data-line-end="838" class="language-php"><span class="hljs-keyword">$this</span>-&gt;call([
+    UserSeeder::class,      <span class="hljs-comment">// 1. Usuarios (sin dependencias)</span>
+    CategorySeeder::class,  <span class="hljs-comment">// 2. Categorías (sin dependencias)</span>
+    PostSeeder::class,      <span class="hljs-comment">// 3. Posts (depende de users y categories)</span>
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=839 data-line-end=840 ><a id="Patrones_comunes_839"></a>Patrones comunes</h2>
+<h3 class="code-line" data-line-start=841 data-line-end=842 ><a id="Patrn_1_Datos_fijos_841"></a>Patrón 1: Datos fijos</h3>
+<pre><code class="has-line-data" data-line-start="844" data-line-end="853" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$roles</span> = [<span class="hljs-string">&#x27;admin&#x27;</span>, <span class="hljs-string">&#x27;editor&#x27;</span>, <span class="hljs-string">&#x27;viewer&#x27;</span>];
+    
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$roles</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$role</span>) {
+        Role::create([<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-variable">$role</span>]);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=854 data-line-end=855 ><a id="Patrn_2_Datos_con_relaciones_854"></a>Patrón 2: Datos con relaciones</h3>
+<pre><code class="has-line-data" data-line-start="857" data-line-end="871" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$user</span> = User::create([
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+    ]);
+    
+    <span class="hljs-comment">// Crear posts para este usuario</span>
+    Post::create([
+        <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+        <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Mi primer post&#x27;</span>,
+    ]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=872 data-line-end=873 ><a id="Patrn_3_Verificar_antes_de_insertar_872"></a>Patrón 3: Verificar antes de insertar</h3>
+<pre><code class="has-line-data" data-line-start="875" data-line-end="888" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-keyword">if</span> (User::where(<span class="hljs-string">&#x27;email&#x27;</span>, <span class="hljs-string">&#x27;admin@example.com&#x27;</span>)-&gt;exists()) {
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;Admin ya existe, saltando...&#x27;</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+    
+    User::create([
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin@example.com&#x27;</span>,
+        <span class="hljs-comment">// ...</span>
+    ]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=889 data-line-end=890 ><a id="Patrn_4_Datos_desde_array_889"></a>Patrón 4: Datos desde array</h3>
+<pre><code class="has-line-data" data-line-start="892" data-line-end="905" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$users</span> = [
+        [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>],
+        [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;María&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;maria@example.com&#x27;</span>],
+        [<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Carlos&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;carlos@example.com&#x27;</span>],
+    ];
+    
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$users</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$userData</span>) {
+        User::create(<span class="hljs-variable">$userData</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=906 data-line-end=907 ><a id="Patrn_5_Datos_desde_archivo_906"></a>Patrón 5: Datos desde archivo</h3>
+<pre><code class="has-line-data" data-line-start="909" data-line-end="919" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$json</span> = file_get_contents(database_path(<span class="hljs-string">&#x27;data/users.json&#x27;</span>));
+    <span class="hljs-variable">$users</span> = json_decode(<span class="hljs-variable">$json</span>, <span class="hljs-literal">true</span>);
+    
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$users</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$user</span>) {
+        User::create(<span class="hljs-variable">$user</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=920 data-line-end=921 ><a id="Patrn_6_Usar_factories_920"></a>Patrón 6: Usar factories</h3>
+<pre><code class="has-line-data" data-line-start="923" data-line-end="934" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-comment">// Crear 50 usuarios aleatorios</span>
+    User::factory()-&gt;count(<span class="hljs-number">50</span>)-&gt;create();
+    
+    <span class="hljs-comment">// Crear 10 usuarios con estado específico</span>
+    User::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create([
+        <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+    ]);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=935 data-line-end=936 ><a id="Seeders_con_relaciones_935"></a>Seeders con relaciones</h2>
+<h3 class="code-line" data-line-start=937 data-line-end=938 ><a id="Uno_a_Muchos_937"></a>Uno a Muchos</h3>
+<pre><code class="has-line-data" data-line-start="940" data-line-end="954" class="language-php"><span class="hljs-comment">// UserSeeder</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$user</span> = User::create([...]);
+    
+    <span class="hljs-comment">// Crear posts para este usuario</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">1</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">5</span>; <span class="hljs-variable">$i</span>++) {
+        Post::create([
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+            <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&quot;Post <span class="hljs-subst">{$i}</span>&quot;</span>,
+        ]);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=955 data-line-end=956 ><a id="Muchos_a_Muchos_955"></a>Muchos a Muchos</h3>
+<pre><code class="has-line-data" data-line-start="958" data-line-end="970" class="language-php"><span class="hljs-comment">// PostSeeder</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-variable">$post</span> = Post::create([...]);
+    
+    <span class="hljs-comment">// Obtener categorías existentes</span>
+    <span class="hljs-variable">$categories</span> = Category::all();
+    
+    <span class="hljs-comment">// Asociar categorías al post</span>
+    <span class="hljs-variable">$post</span>-&gt;categories()-&gt;attach(<span class="hljs-variable">$categories</span>-&gt;random(<span class="hljs-number">3</span>));
+}
+</code></pre>
+<h2 class="code-line" data-line-start=971 data-line-end=972 ><a id="Hashear_passwords_971"></a>Hashear passwords</h2>
+<p class="has-line-data" data-line-start="973" data-line-end="974"><strong>Siempre</strong> hashea las contraseñas:</p>
+<pre><code class="has-line-data" data-line-start="976" data-line-end="984" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+
+User::create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;juan@example.com&#x27;</span>,
+    <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>),  <span class="hljs-comment">// ← Hashear</span>
+]);
+</code></pre>
+<p class="has-line-data" data-line-start="985" data-line-end="986"><strong>❌ Nunca hagas esto:</strong></p>
+<pre><code class="has-line-data" data-line-start="987" data-line-end="989" class="language-php"><span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;password&#x27;</span>,  <span class="hljs-comment">// ❌ Texto plano</span>
+</code></pre>
+<h2 class="code-line" data-line-start=990 data-line-end=991 ><a id="Mensajes_informativos_990"></a>Mensajes informativos</h2>
+<p class="has-line-data" data-line-start="992" data-line-end="993">Usa <code>$this-&gt;command</code> para mostrar mensajes:</p>
+<pre><code class="has-line-data" data-line-start="995" data-line-end="1004" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    User::create([...]);
+    
+    <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;✅ Usuario creado correctamente&#x27;</span>);
+    <span class="hljs-keyword">$this</span>-&gt;command-&gt;warn(<span class="hljs-string">&#x27;⚠️ Advertencia: datos de prueba&#x27;</span>);
+    <span class="hljs-keyword">$this</span>-&gt;command-&gt;error(<span class="hljs-string">&#x27;❌ Error al crear usuario&#x27;</span>);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1005 data-line-end=1006 ><a id="Seeders_condicionales_1005"></a>Seeders condicionales</h2>
+<h3 class="code-line" data-line-start=1007 data-line-end=1008 ><a id="Por_entorno_1007"></a>Por entorno</h3>
+<pre><code class="has-line-data" data-line-start="1010" data-line-end="1021" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-keyword">if</span> (app()-&gt;environment(<span class="hljs-string">&#x27;production&#x27;</span>)) {
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;warn(<span class="hljs-string">&#x27;No se ejecutan seeders en producción&#x27;</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+    
+    <span class="hljs-comment">// Datos de prueba solo en desarrollo</span>
+    User::factory()-&gt;count(<span class="hljs-number">100</span>)-&gt;create();
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1022 data-line-end=1023 ><a id="Por_existencia_de_datos_1022"></a>Por existencia de datos</h3>
+<pre><code class="has-line-data" data-line-start="1025" data-line-end="1036" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-keyword">if</span> (User::count() &gt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;Ya existen usuarios, saltando...&#x27;</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+    
+    <span class="hljs-comment">// Insertar solo si la tabla está vacía</span>
+    User::create([...]);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1037 data-line-end=1038 ><a id="Truncar_tablas_antes_de_insertar_1037"></a>Truncar tablas antes de insertar</h2>
+<pre><code class="has-line-data" data-line-start="1040" data-line-end="1057" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    <span class="hljs-comment">// Desactivar foreign keys temporalmente</span>
+    DB::statement(<span class="hljs-string">&#x27;SET FOREIGN_KEY_CHECKS=0;&#x27;</span>);
+    
+    <span class="hljs-comment">// Vaciar tabla</span>
+    User::truncate();
+    
+    <span class="hljs-comment">// Reactivar foreign keys</span>
+    DB::statement(<span class="hljs-string">&#x27;SET FOREIGN_KEY_CHECKS=1;&#x27;</span>);
+    
+    <span class="hljs-comment">// Insertar datos</span>
+    User::create([...]);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1058 data-line-end=1059 ><a id="Seeders_con_transacciones_1058"></a>Seeders con transacciones</h2>
+<p class="has-line-data" data-line-start="1060" data-line-end="1061">Para operaciones complejas:</p>
+<pre><code class="has-line-data" data-line-start="1063" data-line-end="1079" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+</span>{
+    DB::transaction(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-variable">$user</span> = User::create([...]);
+        
+        Post::create([
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+            <span class="hljs-string">&#x27;titulo&#x27;</span> =&gt; <span class="hljs-string">&#x27;Post&#x27;</span>,
+        ]);
+        
+        <span class="hljs-comment">// Si algo falla, se revierte todo</span>
+    });
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1080 data-line-end=1081 ><a id="Buenas_prcticas_1080"></a>Buenas prácticas</h2>
+<h3 class="code-line" data-line-start=1082 data-line-end=1083 ><a id="_Hacer_1082"></a>✅ Hacer</h3>
+<pre><code class="has-line-data" data-line-start="1085" data-line-end="1110" class="language-php"><span class="hljs-comment">// Nombres descriptivos</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserSeeder</span> </span>{ }
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminUserSeeder</span> </span>{ }
+
+<span class="hljs-comment">// Usar Hash para passwords</span>
+<span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-string">&#x27;password&#x27;</span>)
+
+<span class="hljs-comment">// Verificar antes de insertar</span>
+<span class="hljs-keyword">if</span> (!User::where(<span class="hljs-string">&#x27;email&#x27;</span>, <span class="hljs-string">&#x27;admin@example.com&#x27;</span>)-&gt;exists()) {
+    User::create([...]);
+}
+
+<span class="hljs-comment">// Mensajes informativos</span>
+<span class="hljs-keyword">$this</span>-&gt;command-&gt;info(<span class="hljs-string">&#x27;✅ Usuarios creados: 10&#x27;</span>);
+
+<span class="hljs-comment">// Orden correcto en DatabaseSeeder</span>
+<span class="hljs-keyword">$this</span>-&gt;call([
+    UserSeeder::class,      <span class="hljs-comment">// Primero</span>
+    PostSeeder::class,      <span class="hljs-comment">// Después (depende de users)</span>
+]);
+
+<span class="hljs-comment">// Datos realistas</span>
+<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan Pérez&#x27;</span>  <span class="hljs-comment">// ✅</span>
+<span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Test User&#x27;</span>   <span class="hljs-comment">// ❌ Para pruebas</span>
+</code></pre>
+<h3 class="code-line" data-line-start=1111 data-line-end=1112 ><a id="_Evitar_1111"></a>❌ Evitar</h3>
+<pre><code class="has-line-data" data-line-start="1114" data-line-end="1132" class="language-php"><span class="hljs-comment">// No passwords en texto plano</span>
+<span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;password&#x27;</span>  <span class="hljs-comment">// ❌</span>
+
+<span class="hljs-comment">// No seeders en producción sin verificar</span>
+<span class="hljs-comment">// Siempre verificar el entorno</span>
+
+<span class="hljs-comment">// No insertar datos duplicados</span>
+<span class="hljs-comment">// Verificar existencia primero</span>
+
+<span class="hljs-comment">// No mezclar datos de producción y prueba</span>
+<span class="hljs-comment">// Separar en seeders diferentes</span>
+
+<span class="hljs-comment">// No olvidar timestamps en insert()</span>
+User::insert([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Juan&#x27;</span>,
+    <span class="hljs-comment">// ❌ Falta created_at y updated_at</span>
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=1133 data-line-end=1134 ><a id="Seeders_vs_Factories_1133"></a>Seeders vs Factories</h2>
+<h3 class="code-line" data-line-start=1135 data-line-end=1136 ><a id="Seeders_1135"></a>Seeders</h3>
+<ul>
+<li class="has-line-data" data-line-start="1136" data-line-end="1137">Datos específicos y controlados</li>
+<li class="has-line-data" data-line-start="1137" data-line-end="1138">Datos de producción (roles, configuración)</li>
+<li class="has-line-data" data-line-start="1138" data-line-end="1140">Pocos registros</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="1141" data-line-end="1148" class="language-php"><span class="hljs-comment">// Seeder - Datos específicos</span>
+User::create([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;Admin&#x27;</span>,
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;admin@example.com&#x27;</span>,
+    <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">true</span>,
+]);
+</code></pre>
+<h3 class="code-line" data-line-start=1149 data-line-end=1150 ><a id="Factories_1149"></a>Factories</h3>
+<ul>
+<li class="has-line-data" data-line-start="1150" data-line-end="1151">Datos aleatorios</li>
+<li class="has-line-data" data-line-start="1151" data-line-end="1152">Datos de prueba</li>
+<li class="has-line-data" data-line-start="1152" data-line-end="1154">Muchos registros</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="1155" data-line-end="1158" class="language-php"><span class="hljs-comment">// Factory - Datos aleatorios</span>
+User::factory()-&gt;count(<span class="hljs-number">100</span>)-&gt;create();
+</code></pre>
+<h2 class="code-line" data-line-start=1159 data-line-end=1160 ><a id="Errores_comunes_1159"></a>Errores comunes</h2>
+<h3 class="code-line" data-line-start=1161 data-line-end=1162 ><a id="Error_Class_not_found_1161"></a>Error: “Class not found”</h3>
+<p class="has-line-data" data-line-start="1162" data-line-end="1164"><strong>Causa:</strong> Falta el import del modelo.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1165" data-line-end="1167" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1168 data-line-end=1169 ><a id="Error_SQLSTATE23000_Integrity_constraint_violation_1168"></a>Error: “SQLSTATE[23000]: Integrity constraint violation”</h3>
+<p class="has-line-data" data-line-start="1169" data-line-end="1171"><strong>Causa:</strong> Violación de foreign key o unique.<br>
+<strong>Solución:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="1171" data-line-end="1172">Verificar orden de seeders</li>
+<li class="has-line-data" data-line-start="1172" data-line-end="1173">Verificar que existan registros relacionados</li>
+<li class="has-line-data" data-line-start="1173" data-line-end="1175">Verificar duplicados</li>
+</ul>
+<h3 class="code-line" data-line-start=1175 data-line-end=1176 ><a id="Error_Mass_assignment_exception_1175"></a>Error: “Mass assignment exception”</h3>
+<p class="has-line-data" data-line-start="1176" data-line-end="1178"><strong>Causa:</strong> Campo no está en <code>$fillable</code>.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1179" data-line-end="1182" class="language-php"><span class="hljs-comment">// En el modelo</span>
+<span class="hljs-keyword">protected</span> <span class="hljs-variable">$fillable</span> = [<span class="hljs-string">&#x27;nombre&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>];
+</code></pre>
+<h3 class="code-line" data-line-start=1183 data-line-end=1184 ><a id="Error_Seeders_no_se_ejecutan_1183"></a>Error: Seeders no se ejecutan</h3>
+<p class="has-line-data" data-line-start="1184" data-line-end="1186"><strong>Causa:</strong> No están registrados en DatabaseSeeder.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1187" data-line-end="1191" class="language-php"><span class="hljs-keyword">$this</span>-&gt;call([
+    UserSeeder::class,  <span class="hljs-comment">// ← Añadir aquí</span>
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=1192 data-line-end=1193 ><a id="Testing_con_Seeders_1192"></a>Testing con Seeders</h2>
+<pre><code class="has-line-data" data-line-start="1195" data-line-end="1206" class="language-php"><span class="hljs-comment">// tests/Feature/UserTest.php</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_puede_listar_usuarios</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-comment">// Ejecutar seeder en el test</span>
+    <span class="hljs-keyword">$this</span>-&gt;seed(UserSeeder::class);
+    
+    <span class="hljs-variable">$response</span> = <span class="hljs-keyword">$this</span>-&gt;get(<span class="hljs-string">&#x27;/api/users&#x27;</span>);
+    
+    <span class="hljs-variable">$response</span>-&gt;assertStatus(<span class="hljs-number">200</span>);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1207 data-line-end=1208 ><a id="Resumen_rpido_Cheat_Sheet_1207"></a>Resumen rápido (Cheat Sheet)</h2>
+<h3 class="code-line" data-line-start=1209 data-line-end=1210 ><a id="Crear_seeder_1209"></a>Crear seeder</h3>
+<pre><code class="has-line-data" data-line-start="1211" data-line-end="1213" class="language-bash">sail artisan make:seeder UserSeeder
+</code></pre>
+<h3 class="code-line" data-line-start=1214 data-line-end=1215 ><a id="Estructura_bsica_1214"></a>Estructura básica</h3>
+<pre><code class="has-line-data" data-line-start="1216" data-line-end="1229" class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Database</span>\<span class="hljs-title">Seeders</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Database</span>\<span class="hljs-title">Seeder</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserSeeder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Seeder</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span>
+    </span>{
+        User::create([...]);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1230 data-line-end=1231 ><a id="Ejecutar_1230"></a>Ejecutar</h3>
+<pre><code class="has-line-data" data-line-start="1232" data-line-end="1236" class="language-bash">sail artisan db:seed
+sail artisan db:seed --class=UserSeeder
+sail artisan migrate:fresh --seed
+</code></pre>
+<h3 class="code-line" data-line-start=1237 data-line-end=1238 ><a id="DatabaseSeeder_1237"></a>DatabaseSeeder</h3>
+<pre><code class="has-line-data" data-line-start="1239" data-line-end="1244" class="language-php"><span class="hljs-keyword">$this</span>-&gt;call([
+    UserSeeder::class,
+    PostSeeder::class,
+]);
+</code></pre>
+<h3 class="code-line" data-line-start=1245 data-line-end=1246 ><a id="Insertar_datos_1245"></a>Insertar datos</h3>
+<pre><code class="has-line-data" data-line-start="1247" data-line-end="1256" class="language-php"><span class="hljs-comment">// Un registro</span>
+User::create([...]);
+
+<span class="hljs-comment">// Múltiples registros</span>
+User::insert([...]);
+
+<span class="hljs-comment">// Con factory</span>
+User::factory()-&gt;count(<span class="hljs-number">10</span>)-&gt;create();
+</code></pre>
+<h2 class="code-line" data-line-start=1257 data-line-end=1258 ><a id="Recursos_adicionales_1257"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="1259" data-line-end="1260"><a href="https://laravel.com/docs/seeding">Documentación oficial de Seeding</a></li>
+<li class="has-line-data" data-line-start="1260" data-line-end="1261"><a href="https://laravel.com/docs/database-testing">Database Testing</a></li>
+<li class="has-line-data" data-line-start="1261" data-line-end="1262"><a href="https://laravel.com/docs/eloquent-factories">Factories</a></li>
+</ul>
+
+</body></html>
