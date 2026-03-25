@@ -1,0 +1,1426 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>guia-services-laravel.md</title><style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.428571429;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.428571429;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*=col-]{position:static;float:none;display:table-column}table td[class*=col-],table th[class*=col-]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:rgb(232.25,232.25,232.25)}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:rgb(207.8888888889,232.9166666667,197.5833333333)}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:rgb(195.9347826087,227.0217391304,242.5652173913)}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:rgb(249.5322580645,242.2419354839,203.9677419355)}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:rgb(234.7934782609,203.7065217391,203.7065217391)}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type=radio],input[type=checkbox]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type=file]{display:block}input[type=range]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.428571429;color:rgb(85.425,85.425,85.425)}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:rgb(119.085,119.085,119.085);opacity:1}.form-control:-ms-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control::-webkit-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:rgb(238.425,238.425,238.425);opacity:1}textarea.form-control{height:auto}input[type=date],input[type=time],input[type=datetime-local],input[type=month]{line-height:34px;line-height:1.428571429 \0}input[type=date].input-sm,.input-group-sm>input[type=date].form-control,.input-group-sm>input[type=date].input-group-addon,.input-group-sm>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-sm input[type=date].form-control,input[type=time].input-sm,.input-group-sm>input[type=time].form-control,.input-group-sm>input[type=time].input-group-addon,.input-group-sm>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-sm input[type=time].form-control,input[type=datetime-local].input-sm,.input-group-sm>input[type=datetime-local].form-control,.input-group-sm>input[type=datetime-local].input-group-addon,.input-group-sm>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-sm input[type=datetime-local].form-control,input[type=month].input-sm,.input-group-sm>input[type=month].form-control,.input-group-sm>input[type=month].input-group-addon,.input-group-sm>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-sm input[type=month].form-control{line-height:30px}input[type=date].input-lg,.input-group-lg>input[type=date].form-control,.input-group-lg>input[type=date].input-group-addon,.input-group-lg>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-lg input[type=date].form-control,input[type=time].input-lg,.input-group-lg>input[type=time].form-control,.input-group-lg>input[type=time].input-group-addon,.input-group-lg>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-lg input[type=time].form-control,input[type=datetime-local].input-lg,.input-group-lg>input[type=datetime-local].form-control,.input-group-lg>input[type=datetime-local].input-group-addon,.input-group-lg>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-lg input[type=datetime-local].form-control,input[type=month].input-lg,.input-group-lg>input[type=month].form-control,.input-group-lg>input[type=month].input-group-addon,.input-group-lg>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-lg input[type=month].form-control{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type=radio],.radio-inline input[type=radio],.checkbox input[type=checkbox],.checkbox-inline input[type=checkbox]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type=radio][disabled],input[type=radio].disabled,fieldset[disabled] input[type=radio],input[type=checkbox][disabled],input[type=checkbox].disabled,fieldset[disabled] input[type=checkbox],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-lg .form-control-static.form-control,.form-control-static.input-sm,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-sm .form-control-static.form-control{padding-left:0;padding-right:0}.input-sm,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn,.form-horizontal .form-group-sm .form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn,.form-horizontal .form-group-sm select.form-control{height:30px;line-height:30px}textarea.input-sm,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,.form-horizontal .form-group-sm textarea.form-control,select[multiple].input-sm,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-sm select[multiple].form-control{height:auto}.input-lg,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn,.form-horizontal .form-group-lg .form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn,.form-horizontal .form-group-lg select.form-control{height:46px;line-height:46px}textarea.input-lg,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,.form-horizontal .form-group-lg textarea.form-control,select[multiple].input-lg,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-lg select[multiple].form-control{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:rgb(42.808988764,84.191011236,43.5224719101);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(102.5280898876,177.4719101124,103.8202247191)}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:rgb(102.2741116751,80.7817258883,43.7258883249);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(191.807106599,160.7461928934,107.192893401)}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:rgb(132.3234042553,53.2425531915,51.6765957447);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(206.4127659574,132.0595744681,130.5872340426)}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:rgb(114.75,114.75,114.75)}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:rgb(229.5,229.5,229.5);border-color:rgb(173.4,173.4,173.4)}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:rgb(47.5247933884,112.9834710744,169.4752066116);border-color:rgb(39.7061983471,94.3958677686,141.5938016529)}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:rgb(68.2692307692,156.7307692308,68.2692307692);border-color:rgb(57.4371794872,131.8628205128,57.4371794872)}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:rgb(48.5431472081,175.6903553299,213.4568527919);border-color:rgb(37.9081218274,153.9299492386,188.3918781726)}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:rgb(236.015625,151.21875,30.984375);border-color:rgb(213.2296875,132.515625,18.0703125)}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:rgb(201.4953271028,48.0841121495,43.5046728972);border-color:rgb(172.1345794393,41.0775700935,37.1654205607)}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:rgb(119.085,119.085,119.085);text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-block{width:100%}.fade{opacity:0;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:rgb(85.425,85.425,85.425);text-align:center;background-color:rgb(238.425,238.425,238.425);border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type=radio],.input-group-addon input[type=checkbox]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);background-color:rgb(238.425,238.425,238.425);border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:rgb(119.085,119.085,119.085);background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{transform:translate3d(0,-25%,0);transition:transform .3s ease-out}.modal.in .modal-dialog{transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.428571429px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;margin-right:5px}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:"";display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-feature-settings:"dlig" 1,"liga" 1,"lnum" 1,"kern" 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h2,h3{line-height:3rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:rgb(223.2809917355,248.7190082645,244.3223140496)}img{height:auto;max-width:100%}dt{font-style:italic;font-weight:600}.g{display:block}.g:after{clear:both;content:"";display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--6of12,.g-b--5of10,.g-b--4of8,.g-b--3of6,.g-b--2of4{width:50%}.g-b--1of3,.g-b--4of12,.g-b--2of6{width:33.333%}.g-b--2of3,.g-b--8of12,.g-b--4of6{width:66.666%}.g-b--1of4,.g-b--3of12,.g-b--2of8{width:25%}.g-b--3of4,.g-b--9of12,.g-b--6of8{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--6of12,.g-b--push--5of10,.g-b--push--4of8,.g-b--push--3of6,.g-b--push--2of4{margin-left:50%}.g-b--push--1of3,.g-b--push--4of12,.g-b--push--2of6{margin-left:33.333%}.g-b--push--2of3,.g-b--push--8of12,.g-b--push--4of6{margin-left:66.666%}.g-b--push--1of4,.g-b--push--3of12,.g-b--push--2of8{margin-left:25%}.g-b--push--3of4,.g-b--push--9of12,.g-b--push--6of8{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--6of12,.g-b--pull--5of10,.g-b--pull--4of8,.g-b--pull--3of6,.g-b--pull--2of4{margin-right:50%}.g-b--pull--1of3,.g-b--pull--4of12,.g-b--pull--2of6{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--8of12,.g-b--pull--4of6{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--3of12,.g-b--pull--2of8{margin-right:25%}.g-b--pull--3of4,.g-b--pull--9of12,.g-b--pull--6of8{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar:after{content:"";display:table;clear:both}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;transition:all .25s ease-in-out;will-change:left}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings form{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:justify;justify-content:space-between}.settings input{width:20%}.settings a:after{content:"";display:table;clear:both}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:"";left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{backface-visibility:hidden;background-color:#D3DAEA;height:2px;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#A0AABF}.words .counter,.characters .counter{color:#000}.words+.characters{top:22px}.mr10{margin-right:10px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 rgb(27.4380165289,138.5619834711,119.3553719008);padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px rgb(35.867768595,181.132231405,156.0247933884);text-shadow:0 1px 0 rgb(35.867768595,181.132231405,156.0247933884)}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px rgb(29.8596491228,33.0877192982,39.1403508772)}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px rgb(7.7894736842,8.6315789474,10.2105263158);text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:rgb(40.8947368421,45.3157894737,53.6052631579);text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);transition:all .25s ease-in-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:"";width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger li{display:-ms-flexbox;display:flex;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:rgb(138.1404958678,231.8595041322,215.6611570248)}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-text,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}body{max-width:1024px;margin:0 auto;overflow:auto;padding:2%}.split{overflow:scroll;padding:0!important;-webkit-overflow-scrolling:touch}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-html{padding:15px}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m6of12,.g-b--m5of10,.g-b--m4of8,.g-b--m3of6,.g-b--m2of4{width:50%}.g-b--m1of3,.g-b--m4of12,.g-b--m2of6{width:33.333%}.g-b--m2of3,.g-b--m8of12,.g-b--m4of6{width:66.666%}.g-b--m1of4,.g-b--m3of12,.g-b--m2of8{width:25%}.g-b--m3of4,.g-b--m9of12,.g-b--m6of8{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m6of12,.g-b--push--m5of10,.g-b--push--m4of8,.g-b--push--m3of6,.g-b--push--m2of4{margin-left:50%}.g-b--push--m1of3,.g-b--push--m4of12,.g-b--push--m2of6{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m8of12,.g-b--push--m4of6{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m3of12,.g-b--push--m2of8{margin-left:25%}.g-b--push--m3of4,.g-b--push--m9of12,.g-b--push--m6of8{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m6of12,.g-b--pull--m5of10,.g-b--pull--m4of8,.g-b--pull--m3of6,.g-b--pull--m2of4{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m4of12,.g-b--pull--m2of6{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m8of12,.g-b--pull--m4of6{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m3of12,.g-b--pull--m2of8{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m9of12,.g-b--pull--m6of8{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t6of12,.g-b--t5of10,.g-b--t4of8,.g-b--t3of6,.g-b--t2of4{width:50%}.g-b--t1of3,.g-b--t4of12,.g-b--t2of6{width:33.333%}.g-b--t2of3,.g-b--t8of12,.g-b--t4of6{width:66.666%}.g-b--t1of4,.g-b--t3of12,.g-b--t2of8{width:25%}.g-b--t3of4,.g-b--t9of12,.g-b--t6of8{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t6of12,.g-b--push--t5of10,.g-b--push--t4of8,.g-b--push--t3of6,.g-b--push--t2of4{margin-left:50%}.g-b--push--t1of3,.g-b--push--t4of12,.g-b--push--t2of6{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t8of12,.g-b--push--t4of6{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t3of12,.g-b--push--t2of8{margin-left:25%}.g-b--push--t3of4,.g-b--push--t9of12,.g-b--push--t6of8{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t6of12,.g-b--pull--t5of10,.g-b--pull--t4of8,.g-b--pull--t3of6,.g-b--pull--t2of4{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t4of12,.g-b--pull--t2of6{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t8of12,.g-b--pull--t4of6{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t3of12,.g-b--pull--t2of8{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t9of12,.g-b--pull--t6of8{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d6of12,.g-b--d5of10,.g-b--d4of8,.g-b--d3of6,.g-b--d2of4{width:50%}.g-b--d1of3,.g-b--d4of12,.g-b--d2of6{width:33.333%}.g-b--d2of3,.g-b--d8of12,.g-b--d4of6{width:66.666%}.g-b--d1of4,.g-b--d3of12,.g-b--d2of8{width:25%}.g-b--d3of4,.g-b--d9of12,.g-b--d6of8{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d6of12,.g-b--push--d5of10,.g-b--push--d4of8,.g-b--push--d3of6,.g-b--push--d2of4{margin-left:50%}.g-b--push--d1of3,.g-b--push--d4of12,.g-b--push--d2of6{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d8of12,.g-b--push--d4of6{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d3of12,.g-b--push--d2of8{margin-left:25%}.g-b--push--d3of4,.g-b--push--d9of12,.g-b--push--d6of8{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d6of12,.g-b--pull--d5of10,.g-b--pull--d4of8,.g-b--pull--d3of6,.g-b--pull--d2of4{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d4of12,.g-b--pull--d2of6{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d8of12,.g-b--pull--d4of6{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d3of12,.g-b--pull--d2of8{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d9of12,.g-b--pull--d6of8{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type=radio],.form-inline .checkbox input[type=checkbox]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Gua_de_Creacin_de_Services_para_Roig_Arena_0"></a>Guía de Creación de Services para Roig Arena</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Esta guía explica cómo crear Services (capa de servicios) para encapsular la lógica de negocio compleja y mantener los controladores limpios.</p>
+<h2 class="code-line" data-line-start=4 data-line-end=5 ><a id="Qu_son_los_Services_4"></a>¿Qué son los Services?</h2>
+<p class="has-line-data" data-line-start="6" data-line-end="7">Los Services son clases PHP que encapsulan <strong>lógica de negocio compleja</strong>. Separan la lógica de los controladores, haciéndolos más delgados, reutilizables y fáciles de testear.</p>
+<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Por_qu_usar_Services_8"></a>¿Por qué usar Services?</h2>
+<h3 class="code-line" data-line-start=10 data-line-end=11 ><a id="Sin_Services__Controlador_gordo_10"></a>Sin Services (❌ Controlador gordo)</h3>
+<pre><code class="has-line-data" data-line-start="12" data-line-end="51" class="language-php"><span class="hljs-comment">// ReservaController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-comment">// Validación</span>
+    <span class="hljs-variable">$request</span>-&gt;validate([...]);
+    
+    <span class="hljs-comment">// Verificar disponibilidad</span>
+    <span class="hljs-variable">$asiento</span> = Asiento::findOrFail(<span class="hljs-variable">$request</span>-&gt;asiento_id);
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$request</span>-&gt;evento_id)) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No disponible&#x27;</span>], <span class="hljs-number">400</span>);
+    }
+    
+    <span class="hljs-comment">// Verificar sector</span>
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$request</span>-&gt;evento_id);
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$evento</span>-&gt;sectorEstaDisponible(<span class="hljs-variable">$asiento</span>-&gt;sector_id)) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector no disponible&#x27;</span>], <span class="hljs-number">400</span>);
+    }
+    
+    <span class="hljs-comment">// Crear reserva</span>
+    DB::beginTransaction();
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$reserva</span> = EstadoAsiento::create([...]);
+        
+        <span class="hljs-comment">// Enviar email</span>
+        Mail::to(<span class="hljs-variable">$user</span>)-&gt;send(<span class="hljs-keyword">new</span> ReservaConfirmada(<span class="hljs-variable">$reserva</span>));
+        
+        <span class="hljs-comment">// Registrar en logs</span>
+        Log::info(<span class="hljs-string">&#x27;Reserva creada&#x27;</span>, [<span class="hljs-string">&#x27;reserva_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id]);
+        
+        DB::commit();
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        DB::rollBack();
+        <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+    }
+    
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>], <span class="hljs-number">201</span>);
+}
+<span class="hljs-comment">// Controlador con 50+ líneas de lógica</span>
+</code></pre>
+<h3 class="code-line" data-line-start=52 data-line-end=53 ><a id="Con_Services__Controlador_delgado_52"></a>Con Services (✅ Controlador delgado)</h3>
+<pre><code class="has-line-data" data-line-start="54" data-line-end="69" class="language-php"><span class="hljs-comment">// ReservaController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([...]);
+    
+    <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+        <span class="hljs-variable">$request</span>-&gt;evento_id,
+        <span class="hljs-variable">$request</span>-&gt;asiento_id,
+        auth()-&gt;id()
+    );
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ReservaResource(<span class="hljs-variable">$reserva</span>);
+}
+<span class="hljs-comment">// Controlador con 10 líneas, lógica en el Service</span>
+</code></pre>
+<p class="has-line-data" data-line-start="70" data-line-end="71"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="71" data-line-end="72">✅ Controladores delgados y legibles</li>
+<li class="has-line-data" data-line-start="72" data-line-end="73">✅ Lógica reutilizable</li>
+<li class="has-line-data" data-line-start="73" data-line-end="74">✅ Fácil de testear</li>
+<li class="has-line-data" data-line-start="74" data-line-end="75">✅ Separación de responsabilidades</li>
+<li class="has-line-data" data-line-start="75" data-line-end="77">✅ Código organizado</li>
+</ul>
+<h2 class="code-line" data-line-start=77 data-line-end=78 ><a id="Estructura_de_Services_77"></a>Estructura de Services</h2>
+<h3 class="code-line" data-line-start=79 data-line-end=80 ><a id="Ubicacin_79"></a>Ubicación</h3>
+<pre><code class="has-line-data" data-line-start="81" data-line-end="86">app/Services/
+├── ReservaService.php
+├── CompraService.php
+└── LiberarReservasService.php
+</code></pre>
+<h3 class="code-line" data-line-start=87 data-line-end=88 ><a id="Anatoma_bsica_87"></a>Anatomía básica</h3>
+<pre><code class="has-line-data" data-line-start="90" data-line-end="127" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Reservar un asiento para un evento
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        DB::beginTransaction();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// Lógica compleja aquí</span>
+            
+            DB::commit();
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>;
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            DB::rollBack();
+            <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+        }
+    }
+    
+    <span class="hljs-comment">/**
+     * Métodos privados auxiliares
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarDisponibilidad</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span></span>)
+    </span>{
+        <span class="hljs-comment">// Lógica de verificación</span>
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=130 data-line-end=131 ><a id="Services_del_proyecto_130"></a>Services del proyecto</h2>
+<h3 class="code-line" data-line-start=132 data-line-end=133 ><a id="1_ReservaService_132"></a>1. ReservaService</h3>
+<p class="has-line-data" data-line-start="134" data-line-end="135"><strong>Propósito:</strong> Gestionar el proceso de reserva de asientos (carrito).</p>
+<p class="has-line-data" data-line-start="136" data-line-end="137"><strong>Ubicación:</strong> <code>app/Services/ReservaService.php</code></p>
+<p class="has-line-data" data-line-start="138" data-line-end="139"><strong>Responsabilidades:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="139" data-line-end="140">Verificar disponibilidad del asiento (con protección contra race condition)</li>
+<li class="has-line-data" data-line-start="140" data-line-end="141">Verificar que el sector esté disponible para el evento</li>
+<li class="has-line-data" data-line-start="141" data-line-end="142">Crear la reserva temporal (15 minutos)</li>
+<li class="has-line-data" data-line-start="142" data-line-end="144">Manejar errores y transacciones</li>
+</ul>
+<p class="has-line-data" data-line-start="144" data-line-end="145"><strong>Protección contra race condition:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="145" data-line-end="146">Usa <code>lockForUpdate()</code> para bloqueo pesimista</li>
+<li class="has-line-data" data-line-start="146" data-line-end="147">Evita que 2 usuarios reserven el mismo asiento simultáneamente</li>
+<li class="has-line-data" data-line-start="147" data-line-end="149">La verificación y creación son atómicas dentro de la transacción</li>
+</ul>
+<p class="has-line-data" data-line-start="149" data-line-end="150"><strong>Código completo:</strong></p>
+<pre><code class="has-line-data" data-line-start="152" data-line-end="241" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Reservar un asiento para un evento
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        DB::beginTransaction();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// Bloqueo pesimista: evita race condition</span>
+            <span class="hljs-variable">$existeReserva</span> = EstadoAsiento::where(<span class="hljs-string">&#x27;evento_id&#x27;</span>, <span class="hljs-variable">$eventoId</span>)
+                -&gt;where(<span class="hljs-string">&#x27;asiento_id&#x27;</span>, <span class="hljs-variable">$asientoId</span>)
+                -&gt;lockForUpdate()
+                -&gt;first();
+            
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$existeReserva</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;El asiento no está disponible&#x27;</span>);
+            }
+            
+            <span class="hljs-variable">$asiento</span> = Asiento::findOrFail(<span class="hljs-variable">$asientoId</span>);
+            <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$eventoId</span>);
+            
+            <span class="hljs-keyword">$this</span>-&gt;verificarSectorDisponible(<span class="hljs-variable">$evento</span>, <span class="hljs-variable">$asiento</span>-&gt;sector_id);
+            
+            <span class="hljs-variable">$reserva</span> = EstadoAsiento::create([
+                <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$eventoId</span>,
+                <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asientoId</span>,
+                <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$userId</span>,
+                <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+                <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">15</span>),
+            ]);
+
+            DB::commit();
+            
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>]);
+            
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            DB::rollBack();
+            <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Cancelar una reserva
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelarReserva</span>(<span class="hljs-params"><span class="hljs-variable">$reservaId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-variable">$reserva</span> = EstadoAsiento::where(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-variable">$reservaId</span>)
+            -&gt;where(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-variable">$userId</span>)
+            -&gt;where(<span class="hljs-string">&#x27;estado&#x27;</span>, <span class="hljs-string">&#x27;bloqueado&#x27;</span>)
+            -&gt;firstOrFail();
+
+        <span class="hljs-variable">$reserva</span>-&gt;delete();
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Obtener reservas activas de un usuario
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obtenerReservasActivas</span>(<span class="hljs-params"><span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-keyword">return</span> EstadoAsiento::where(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-variable">$userId</span>)
+            -&gt;where(<span class="hljs-string">&#x27;estado&#x27;</span>, <span class="hljs-string">&#x27;bloqueado&#x27;</span>)
+            -&gt;where(<span class="hljs-string">&#x27;reservado_hasta&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, now())
+            -&gt;with([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>])
+            -&gt;get();
+    }
+
+    <span class="hljs-comment">/**
+     * Verificar que el sector esté disponible para el evento
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarSectorDisponible</span>(<span class="hljs-params"><span class="hljs-variable">$evento</span>, <span class="hljs-variable">$sectorId</span></span>)
+    </span>{
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$evento</span>-&gt;sectorEstaDisponible(<span class="hljs-variable">$sectorId</span>)) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;El sector no está disponible para este evento&#x27;</span>);
+        }
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="242" data-line-end="243"><strong>Uso en controlador:</strong></p>
+<pre><code class="has-line-data" data-line-start="244" data-line-end="271" class="language-php"><span class="hljs-comment">// ReservaController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:eventos,id&#x27;</span>,
+        <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:asientos,id&#x27;</span>,
+    ]);
+
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+            <span class="hljs-variable">$request</span>-&gt;evento_id,
+            <span class="hljs-variable">$request</span>-&gt;asiento_id,
+            auth()-&gt;id()
+        );
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-keyword">new</span> ReservaResource(<span class="hljs-variable">$reserva</span>),
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Asiento reservado por 15 minutos&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+        ], <span class="hljs-number">400</span>);
+    }
+}
+</code></pre>
+<hr>
+<h3 class="code-line" data-line-start=274 data-line-end=275 ><a id="_Proteccin_contra_Race_Condition_274"></a>🔒 Protección contra Race Condition</h3>
+<h4 class="code-line" data-line-start=276 data-line-end=277 ><a id="El_problema_276"></a>El problema</h4>
+<p class="has-line-data" data-line-start="278" data-line-end="279">Cuando 2 usuarios intentan reservar el mismo asiento simultáneamente:</p>
+<pre><code class="has-line-data" data-line-start="281" data-line-end="287">Usuario A: Verifica disponibilidad → ✅ Libre
+Usuario B: Verifica disponibilidad → ✅ Libre
+Usuario A: Crea reserva → ✅ Éxito
+Usuario B: Crea reserva → ✅ Éxito
+Resultado: 2 reservas del mismo asiento ❌
+</code></pre>
+<h4 class="code-line" data-line-start=288 data-line-end=289 ><a id="La_solucin_lockForUpdate_288"></a>La solución: lockForUpdate()</h4>
+<p class="has-line-data" data-line-start="290" data-line-end="291">El método <code>lockForUpdate()</code> implementa un <strong>bloqueo pesimista</strong> que evita este problema:</p>
+<pre><code class="has-line-data" data-line-start="293" data-line-end="311" class="language-php">DB::beginTransaction();
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Bloqueo pesimista: evita race condition</span>
+    <span class="hljs-variable">$existeReserva</span> = EstadoAsiento::where(<span class="hljs-string">&#x27;evento_id&#x27;</span>, <span class="hljs-variable">$eventoId</span>)
+        -&gt;where(<span class="hljs-string">&#x27;asiento_id&#x27;</span>, <span class="hljs-variable">$asientoId</span>)
+        -&gt;lockForUpdate()  <span class="hljs-comment">// ← Bloquea la fila</span>
+        -&gt;first();
+    
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$existeReserva</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;El asiento no está disponible&#x27;</span>);
+    }
+    
+    <span class="hljs-comment">// Crear reserva</span>
+    <span class="hljs-variable">$reserva</span> = EstadoAsiento::create([...]);
+    
+    DB::commit();  <span class="hljs-comment">// Libera el bloqueo</span>
+}
+</code></pre>
+<h4 class="code-line" data-line-start=312 data-line-end=313 ><a id="Cmo_funciona_312"></a>Cómo funciona</h4>
+<pre><code class="has-line-data" data-line-start="315" data-line-end="328">Usuario A: Inicia transacción
+Usuario A: lockForUpdate() → 🔒 BLOQUEA la fila
+Usuario B: Inicia transacción
+Usuario B: Intenta lockForUpdate() → ⏳ ESPERA (bloqueado por A)
+Usuario A: Verifica → Libre
+Usuario A: Crea reserva → ✅ Éxito
+Usuario A: Commit → 🔓 DESBLOQUEA
+Usuario B: Ahora puede leer → Reserva existe
+Usuario B: Verifica → Ocupado
+Usuario B: Lanza excepción → ❌ &quot;El asiento no está disponible&quot;
+Usuario B: Rollback
+Resultado: Solo 1 reserva ✅
+</code></pre>
+<h4 class="code-line" data-line-start=329 data-line-end=330 ><a id="SQL_generado_329"></a>SQL generado</h4>
+<pre><code class="has-line-data" data-line-start="332" data-line-end="339" class="language-sql"><span class="hljs-comment">-- lockForUpdate() genera:</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> estado_asientos 
+<span class="hljs-keyword">WHERE</span> evento_id <span class="hljs-operator">=</span> ? <span class="hljs-keyword">AND</span> asiento_id <span class="hljs-operator">=</span> ? 
+<span class="hljs-keyword">FOR</span> UPDATE;
+
+<span class="hljs-comment">-- Esto bloquea la fila hasta que termine la transacción (COMMIT o ROLLBACK)</span>
+</code></pre>
+<h4 class="code-line" data-line-start=340 data-line-end=341 ><a id="Ventajas_340"></a>Ventajas</h4>
+<p class="has-line-data" data-line-start="342" data-line-end="346">✅ <strong>Prevención:</strong> Evita el problema antes de que ocurra<br>
+✅ <strong>Atómico:</strong> Verificación y creación son una operación única<br>
+✅ <strong>Seguro:</strong> Garantiza consistencia de datos<br>
+✅ <strong>Estándar:</strong> Práctica recomendada en Laravel</p>
+<h4 class="code-line" data-line-start=347 data-line-end=348 ><a id="Niveles_de_proteccin_347"></a>Niveles de protección</h4>
+<ol>
+<li class="has-line-data" data-line-start="349" data-line-end="350"><strong>Base de datos</strong> (constraint):</li>
+</ol>
+<pre><code class="has-line-data" data-line-start="351" data-line-end="354" class="language-php"><span class="hljs-comment">// Migración</span>
+<span class="hljs-variable">$table</span>-&gt;unique([<span class="hljs-string">&#x27;evento_id&#x27;</span>, <span class="hljs-string">&#x27;asiento_id&#x27;</span>]);
+</code></pre>
+<ul>
+<li class="has-line-data" data-line-start="354" data-line-end="355">Última línea de defensa</li>
+<li class="has-line-data" data-line-start="355" data-line-end="357">Genera error si se intenta duplicar</li>
+</ul>
+<ol start="2">
+<li class="has-line-data" data-line-start="357" data-line-end="358"><strong>Aplicación</strong> (lockForUpdate):</li>
+</ol>
+<pre><code class="has-line-data" data-line-start="359" data-line-end="361" class="language-php">-&gt;lockForUpdate()
+</code></pre>
+<ul>
+<li class="has-line-data" data-line-start="361" data-line-end="362">Previene el problema</li>
+<li class="has-line-data" data-line-start="362" data-line-end="364">Manejo elegante del error</li>
+</ul>
+<hr>
+<h3 class="code-line" data-line-start=366 data-line-end=367 ><a id="2_CompraService_366"></a>2. CompraService</h3>
+<p class="has-line-data" data-line-start="368" data-line-end="369"><strong>Propósito:</strong> Gestionar el proceso completo de compra (reserva → entrada con QR).</p>
+<p class="has-line-data" data-line-start="370" data-line-end="371"><strong>Ubicación:</strong> <code>app/Services/CompraService.php</code></p>
+<p class="has-line-data" data-line-start="372" data-line-end="373"><strong>Responsabilidades:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="373" data-line-end="374">Validar que las reservas no hayan expirado</li>
+<li class="has-line-data" data-line-start="374" data-line-end="375">Obtener precios de los sectores</li>
+<li class="has-line-data" data-line-start="375" data-line-end="376">Cambiar estado de reservas a “vendido”</li>
+<li class="has-line-data" data-line-start="376" data-line-end="377">Crear entradas con código QR</li>
+<li class="has-line-data" data-line-start="377" data-line-end="379">Manejar transacciones DB</li>
+</ul>
+<p class="has-line-data" data-line-start="379" data-line-end="380"><strong>Código completo:</strong></p>
+<pre><code class="has-line-data" data-line-start="382" data-line-end="479" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Entrada</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CompraService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Procesar compra de múltiples reservas
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">procesarCompra</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$reservasIds</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-variable">$entradas</span> = [];
+
+        DB::beginTransaction();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$reservasIds</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$reservaId</span>) {
+                <span class="hljs-variable">$reserva</span> = <span class="hljs-keyword">$this</span>-&gt;obtenerReserva(<span class="hljs-variable">$reservaId</span>, <span class="hljs-variable">$userId</span>);
+                
+                <span class="hljs-comment">// Verificar expiración</span>
+                <span class="hljs-keyword">$this</span>-&gt;verificarNoExpirada(<span class="hljs-variable">$reserva</span>);
+                
+                <span class="hljs-comment">// Obtener precio</span>
+                <span class="hljs-variable">$precio</span> = <span class="hljs-keyword">$this</span>-&gt;obtenerPrecio(<span class="hljs-variable">$reserva</span>);
+                
+                <span class="hljs-comment">// Marcar como vendido</span>
+                <span class="hljs-variable">$reserva</span>-&gt;marcarComoVendido();
+                
+                <span class="hljs-comment">// Crear entrada</span>
+                <span class="hljs-variable">$entrada</span> = <span class="hljs-keyword">$this</span>-&gt;crearEntrada(<span class="hljs-variable">$reserva</span>, <span class="hljs-variable">$precio</span>, <span class="hljs-variable">$userId</span>);
+                
+                <span class="hljs-variable">$entradas</span>[] = <span class="hljs-variable">$entrada</span>;
+            }
+
+            DB::commit();
+            
+            <span class="hljs-keyword">return</span> collect(<span class="hljs-variable">$entradas</span>)-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>]);
+            
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            DB::rollBack();
+            <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Obtener una reserva del usuario
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obtenerReserva</span>(<span class="hljs-params"><span class="hljs-variable">$reservaId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-keyword">return</span> EstadoAsiento::where(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-variable">$reservaId</span>)
+            -&gt;where(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-variable">$userId</span>)
+            -&gt;where(<span class="hljs-string">&#x27;estado&#x27;</span>, <span class="hljs-string">&#x27;bloqueado&#x27;</span>)
+            -&gt;with([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>])
+            -&gt;firstOrFail();
+    }
+
+    <span class="hljs-comment">/**
+     * Verificar que la reserva no haya expirado
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarNoExpirada</span>(<span class="hljs-params"><span class="hljs-variable">$reserva</span></span>)
+    </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$reserva</span>-&gt;haExpirado()) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;Una de las reservas ha expirado&#x27;</span>);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Obtener el precio del sector para el evento
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obtenerPrecio</span>(<span class="hljs-params"><span class="hljs-variable">$reserva</span></span>)
+    </span>{
+        <span class="hljs-variable">$precio</span> = <span class="hljs-variable">$reserva</span>-&gt;evento-&gt;precioDelSector(<span class="hljs-variable">$reserva</span>-&gt;asiento-&gt;sector_id);
+        
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$precio</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;No se encontró el precio para el sector&#x27;</span>);
+        }
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$precio</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Crear la entrada
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">crearEntrada</span>(<span class="hljs-params"><span class="hljs-variable">$reserva</span>, <span class="hljs-variable">$precio</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-keyword">return</span> Entrada::create([
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$userId</span>,
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;evento_id,
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;asiento_id,
+            <span class="hljs-string">&#x27;precio_pagado&#x27;</span> =&gt; <span class="hljs-variable">$precio</span>-&gt;precio,
+        ]);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="480" data-line-end="481"><strong>Uso en controlador:</strong></p>
+<pre><code class="has-line-data" data-line-start="482" data-line-end="508" class="language-php"><span class="hljs-comment">// CompraController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, CompraService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([
+        <span class="hljs-string">&#x27;reservas&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|array|min:1&#x27;</span>,
+        <span class="hljs-string">&#x27;reservas.*&#x27;</span> =&gt; <span class="hljs-string">&#x27;exists:estado_asientos,id&#x27;</span>,
+    ]);
+
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$entradas</span> = <span class="hljs-variable">$service</span>-&gt;procesarCompra(
+            <span class="hljs-variable">$request</span>-&gt;reservas,
+            auth()-&gt;id()
+        );
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; EntradaResource::collection(<span class="hljs-variable">$entradas</span>),
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Compra realizada correctamente&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+        ], <span class="hljs-number">400</span>);
+    }
+}
+</code></pre>
+<hr>
+<h3 class="code-line" data-line-start=511 data-line-end=512 ><a id="3_LiberarReservasService_511"></a>3. LiberarReservasService</h3>
+<p class="has-line-data" data-line-start="513" data-line-end="514"><strong>Propósito:</strong> Liberar reservas expiradas (comando programado).</p>
+<p class="has-line-data" data-line-start="515" data-line-end="516"><strong>Ubicación:</strong> <code>app/Services/LiberarReservasService.php</code></p>
+<p class="has-line-data" data-line-start="517" data-line-end="518"><strong>Responsabilidades:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="518" data-line-end="519">Buscar reservas expiradas</li>
+<li class="has-line-data" data-line-start="519" data-line-end="520">Eliminarlas de la base de datos</li>
+<li class="has-line-data" data-line-start="520" data-line-end="522">Registrar en logs</li>
+</ul>
+<p class="has-line-data" data-line-start="522" data-line-end="523"><strong>Código completo:</strong></p>
+<pre><code class="has-line-data" data-line-start="525" data-line-end="574" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Log</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LiberarReservasService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Liberar todas las reservas expiradas
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liberarExpiradas</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$expiradas</span> = EstadoAsiento::expirados()-&gt;get();
+        
+        <span class="hljs-variable">$count</span> = <span class="hljs-number">0</span>;
+        
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$expiradas</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$reserva</span>) {
+            <span class="hljs-variable">$reserva</span>-&gt;delete();
+            <span class="hljs-variable">$count</span>++;
+            
+            Log::info(<span class="hljs-string">&#x27;Reserva expirada liberada&#x27;</span>, [
+                <span class="hljs-string">&#x27;reserva_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id,
+                <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;evento_id,
+                <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;asiento_id,
+            ]);
+        }
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$count</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Liberar reservas de un usuario específico
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liberarDeUsuario</span>(<span class="hljs-params"><span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-variable">$expiradas</span> = EstadoAsiento::expirados()
+            -&gt;where(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-variable">$userId</span>)
+            -&gt;get();
+        
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$expiradas</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$reserva</span>) {
+            <span class="hljs-variable">$reserva</span>-&gt;delete();
+        }
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$expiradas</span>-&gt;count();
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="575" data-line-end="576"><strong>Uso en comando programado:</strong></p>
+<pre><code class="has-line-data" data-line-start="578" data-line-end="601" class="language-php"><span class="hljs-comment">// app/Console/Commands/LiberarReservasExpiradas.php</span>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Console</span>\<span class="hljs-title">Commands</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>\<span class="hljs-title">LiberarReservasService</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Console</span>\<span class="hljs-title">Command</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LiberarReservasExpiradas</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Command</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$signature</span> = <span class="hljs-string">&#x27;reservas:liberar&#x27;</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$description</span> = <span class="hljs-string">&#x27;Liberar reservas expiradas automáticamente&#x27;</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span>(<span class="hljs-params">LiberarReservasService <span class="hljs-variable">$service</span></span>)
+    </span>{
+        <span class="hljs-variable">$count</span> = <span class="hljs-variable">$service</span>-&gt;liberarExpiradas();
+        
+        <span class="hljs-keyword">$this</span>-&gt;info(<span class="hljs-string">&quot;Se liberaron <span class="hljs-subst">{$count}</span> reservas expiradas&quot;</span>);
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="602" data-line-end="603"><strong>Programar en routes/console.php:</strong></p>
+<pre><code class="has-line-data" data-line-start="605" data-line-end="609" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Schedule</span>;
+
+Schedule::command(<span class="hljs-string">&#x27;reservas:liberar&#x27;</span>)-&gt;everyMinute();
+</code></pre>
+<p class="has-line-data" data-line-start="610" data-line-end="611"><strong>Ejecutar manualmente:</strong></p>
+<pre><code class="has-line-data" data-line-start="613" data-line-end="616" class="language-bash"><span class="hljs-comment"># Liberar reservas expiradas ahora</span>
+sail artisan reservas:liberar
+</code></pre>
+<hr>
+<h3 class="code-line" data-line-start=619 data-line-end=620 ><a id="_Sistema_de_Temporizador_15_minutos_619"></a>⏱️ Sistema de Temporizador (15 minutos)</h3>
+<h4 class="code-line" data-line-start=621 data-line-end=622 ><a id="Cmo_funciona_621"></a>Cómo funciona</h4>
+<p class="has-line-data" data-line-start="623" data-line-end="624">Cuando un usuario reserva un asiento:</p>
+<pre><code class="has-line-data" data-line-start="626" data-line-end="635" class="language-php"><span class="hljs-comment">// ReservaService</span>
+<span class="hljs-variable">$reserva</span> = EstadoAsiento::create([
+    <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$eventoId</span>,
+    <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asientoId</span>,
+    <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$userId</span>,
+    <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+    <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">15</span>),  <span class="hljs-comment">// ← Temporizador</span>
+]);
+</code></pre>
+<h4 class="code-line" data-line-start=636 data-line-end=637 ><a id="Mtodos_del_modelo_EstadoAsiento_636"></a>Métodos del modelo EstadoAsiento</h4>
+<pre><code class="has-line-data" data-line-start="639" data-line-end="648" class="language-php"><span class="hljs-comment">// Verificar si expiró</span>
+<span class="hljs-variable">$reserva</span>-&gt;haExpirado();  <span class="hljs-comment">// true/false</span>
+
+<span class="hljs-comment">// Calcular tiempo restante</span>
+<span class="hljs-variable">$reserva</span>-&gt;tiempoRestante();  <span class="hljs-comment">// minutos restantes (0 si expiró)</span>
+
+<span class="hljs-comment">// Scope para buscar expiradas</span>
+EstadoAsiento::expirados()-&gt;get();
+</code></pre>
+<h4 class="code-line" data-line-start=649 data-line-end=650 ><a id="Flujo_completo_649"></a>Flujo completo</h4>
+<pre><code class="has-line-data" data-line-start="652" data-line-end="664">Usuario reserva asiento
+    ↓
+reservado_hasta = now() + 15 min
+    ↓
+Comando cron cada minuto
+    ↓
+Busca reservas con reservado_hasta &lt; now()
+    ↓
+Elimina reservas expiradas
+    ↓
+Asiento queda libre para otros usuarios
+</code></pre>
+<h4 class="code-line" data-line-start=665 data-line-end=666 ><a id="Configuracin_del_cron_665"></a>Configuración del cron</h4>
+<p class="has-line-data" data-line-start="667" data-line-end="668">En producción, añade a tu crontab:</p>
+<pre><code class="has-line-data" data-line-start="670" data-line-end="672" class="language-bash">* * * * * <span class="hljs-built_in">cd</span> /ruta/proyecto &amp;&amp; php artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1
+</code></pre>
+<p class="has-line-data" data-line-start="673" data-line-end="674">En desarrollo con Sail:</p>
+<pre><code class="has-line-data" data-line-start="676" data-line-end="679" class="language-bash"><span class="hljs-comment"># El scheduler se ejecuta automáticamente</span>
+sail up -d
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=682 data-line-end=683 ><a id="Inyeccin_de_dependencias_682"></a>Inyección de dependencias</h2>
+<p class="has-line-data" data-line-start="684" data-line-end="685">Laravel inyecta automáticamente los Services en los controladores:</p>
+<pre><code class="has-line-data" data-line-start="687" data-line-end="693" class="language-php"><span class="hljs-comment">// El Service se inyecta automáticamente</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(...);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="694" data-line-end="695">No necesitas instanciar manualmente:</p>
+<pre><code class="has-line-data" data-line-start="696" data-line-end="702" class="language-php"><span class="hljs-comment">// ❌ No hagas esto</span>
+<span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+
+<span class="hljs-comment">// ✅ Deja que Laravel lo inyecte</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span></code></pre>
+<hr>
+<h2 class="code-line" data-line-start=705 data-line-end=706 ><a id="Patrones_comunes_705"></a>Patrones comunes</h2>
+<h3 class="code-line" data-line-start=707 data-line-end=708 ><a id="Transacciones_DB_707"></a>Transacciones DB</h3>
+<pre><code class="has-line-data" data-line-start="709" data-line-end="719" class="language-php">DB::beginTransaction();
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Operaciones</span>
+    DB::commit();
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$resultado</span>;
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    DB::rollBack();
+    <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+}
+</code></pre>
+<h3 class="code-line" data-line-start=720 data-line-end=721 ><a id="Validaciones_privadas_720"></a>Validaciones privadas</h3>
+<pre><code class="has-line-data" data-line-start="722" data-line-end="729" class="language-php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarCondicion</span>(<span class="hljs-params"><span class="hljs-variable">$dato</span></span>)
+</span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$condicion</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;Mensaje de error&#x27;</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=730 data-line-end=731 ><a id="Mtodos_auxiliares_730"></a>Métodos auxiliares</h3>
+<pre><code class="has-line-data" data-line-start="732" data-line-end="739" class="language-php"><span class="hljs-comment">// Público - Usado por controladores</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">procesarCompra</span>(<span class="hljs-params"><span class="hljs-variable">$datos</span></span>) </span>{ }
+
+<span class="hljs-comment">// Privado - Usado internamente</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validarDatos</span>(<span class="hljs-params"><span class="hljs-variable">$datos</span></span>) </span>{ }
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calcularTotal</span>(<span class="hljs-params"><span class="hljs-variable">$items</span></span>) </span>{ }
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=742 data-line-end=743 ><a id="Buenas_prcticas_742"></a>Buenas prácticas</h2>
+<h3 class="code-line" data-line-start=744 data-line-end=745 ><a id="_Hacer_744"></a>✅ Hacer</h3>
+<pre><code class="has-line-data" data-line-start="747" data-line-end="772" class="language-php"><span class="hljs-comment">// Nombres descriptivos</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span> </span>{ }
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"></span>) </span>{ }
+
+<span class="hljs-comment">// Un Service por responsabilidad</span>
+<span class="hljs-comment">// ReservaService - Solo reservas</span>
+<span class="hljs-comment">// CompraService - Solo compras</span>
+
+<span class="hljs-comment">// Métodos públicos para controladores</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">procesarCompra</span>(<span class="hljs-params"></span>) </span>{ }
+
+<span class="hljs-comment">// Métodos privados para lógica interna</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validarReserva</span>(<span class="hljs-params"></span>) </span>{ }
+
+<span class="hljs-comment">// Usar transacciones para operaciones múltiples</span>
+DB::beginTransaction();
+<span class="hljs-comment">// ...</span>
+DB::commit();
+
+<span class="hljs-comment">// Lanzar excepciones descriptivas</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;Mensaje claro del error&#x27;</span>);
+
+<span class="hljs-comment">// Retornar modelos cargados</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento&#x27;</span>]);
+</code></pre>
+<h3 class="code-line" data-line-start=773 data-line-end=774 ><a id="_Evitar_773"></a>❌ Evitar</h3>
+<pre><code class="has-line-data" data-line-start="776" data-line-end="795" class="language-php"><span class="hljs-comment">// No mezclar responsabilidades</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoService</span> </span>{ } <span class="hljs-comment">// ❌</span>
+
+<span class="hljs-comment">// No hacer queries en controladores</span>
+<span class="hljs-comment">// Esa lógica va en Services</span>
+
+<span class="hljs-comment">// No ignorar transacciones</span>
+<span class="hljs-comment">// Si falla algo, debe revertirse todo</span>
+
+<span class="hljs-comment">// No capturar excepciones sin hacer nada</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// ❌ Silenciar el error</span>
+}
+
+<span class="hljs-comment">// No hacer Services para CRUD simple</span>
+<span class="hljs-comment">// Solo para lógica compleja</span>
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=798 data-line-end=799 ><a id="Cundo_NO_usar_Services_798"></a>Cuándo NO usar Services</h2>
+<p class="has-line-data" data-line-start="800" data-line-end="801">No necesitas Services para:</p>
+<ul>
+<li class="has-line-data" data-line-start="801" data-line-end="802">CRUD simple (listar, ver, crear, actualizar, eliminar)</li>
+<li class="has-line-data" data-line-start="802" data-line-end="803">Operaciones de un solo modelo sin lógica compleja</li>
+<li class="has-line-data" data-line-start="803" data-line-end="805">Validaciones simples (usa Form Requests)</li>
+</ul>
+<p class="has-line-data" data-line-start="805" data-line-end="806"><strong>Ejemplo de CRUD simple (sin Service):</strong></p>
+<pre><code class="has-line-data" data-line-start="807" data-line-end="820" class="language-php"><span class="hljs-comment">// EventoController - No necesita Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-keyword">return</span> EventoResource::collection(Evento::all());
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([...]);
+    <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> EventoResource(<span class="hljs-variable">$evento</span>);
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=823 data-line-end=824 ><a id="Estructura_de_archivos_823"></a>Estructura de archivos</h2>
+<pre><code class="has-line-data" data-line-start="826" data-line-end="839">app/
+├── Services/
+│   ├── ReservaService.php
+│   ├── CompraService.php
+│   └── LiberarReservasService.php
+├── Http/
+│   └── Controllers/
+│       ├── ReservaController.php  (usa ReservaService)
+│       └── CompraController.php   (usa CompraService)
+└── Console/
+    └── Commands/
+        └── LiberarReservasExpiradas.php  (usa LiberarReservasService)
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=842 data-line-end=843 ><a id="Testing_de_Services_842"></a>Testing de Services</h2>
+<p class="has-line-data" data-line-start="844" data-line-end="845">Los Services son fáciles de testear:</p>
+<pre><code class="has-line-data" data-line-start="847" data-line-end="870" class="language-php"><span class="hljs-comment">// tests/Unit/ReservaServiceTest.php</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_puede_reservar_asiento_disponible</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+    
+    <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+        eventoId: <span class="hljs-number">1</span>,
+        asientoId: <span class="hljs-number">5</span>,
+        userId: <span class="hljs-number">1</span>
+    );
+    
+    <span class="hljs-keyword">$this</span>-&gt;assertNotNull(<span class="hljs-variable">$reserva</span>);
+    <span class="hljs-keyword">$this</span>-&gt;assertEquals(<span class="hljs-string">&#x27;bloqueado&#x27;</span>, <span class="hljs-variable">$reserva</span>-&gt;estado);
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_no_puede_reservar_asiento_ocupado</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-keyword">$this</span>-&gt;expectException(\<span class="hljs-built_in">Exception</span>::class);
+    
+    <span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+    <span class="hljs-variable">$service</span>-&gt;reservarAsiento(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// Ya ocupado</span>
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=873 data-line-end=874 ><a id="Resumen_873"></a>Resumen</h2>
+<h3 class="code-line" data-line-start=875 data-line-end=876 ><a id="Services_a_crear_para_el_proyecto_875"></a>Services a crear para el proyecto:</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Service</th>
+<th>Propósito</th>
+<th>Usado en</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReservaService</td>
+<td>Gestionar reservas</td>
+<td>ReservaController</td>
+</tr>
+<tr>
+<td>CompraService</td>
+<td>Procesar compras</td>
+<td>CompraController</td>
+</tr>
+<tr>
+<td>LiberarReservasService</td>
+<td>Liberar expiradas</td>
+<td>Comando programado</td>
+</tr>
+</tbody>
+</table>
+<h3 class="code-line" data-line-start=883 data-line-end=884 ><a id="Beneficios_883"></a>Beneficios:</h3>
+<ul>
+<li class="has-line-data" data-line-start="884" data-line-end="885">✅ Controladores delgados (10-20 líneas)</li>
+<li class="has-line-data" data-line-start="885" data-line-end="886">✅ Lógica reutilizable</li>
+<li class="has-line-data" data-line-start="886" data-line-end="887">✅ Fácil de testear</li>
+<li class="has-line-data" data-line-start="887" data-line-end="888">✅ Código organizado</li>
+<li class="has-line-data" data-line-start="888" data-line-end="890">✅ Transacciones centralizadas</li>
+</ul>
+<hr>
+<hr>
+<h1 class="code-line" data-line-start=892 data-line-end=893 ><a id="Apndice_Services_en_Laravel_para_Principiantes_892"></a>Apéndice: Services en Laravel para Principiantes</h1>
+<p class="has-line-data" data-line-start="894" data-line-end="895">Esta guía te ayudará a entender qué son los Services, cuándo usarlos y cómo implementarlos correctamente.</p>
+<h2 class="code-line" data-line-start=896 data-line-end=897 ><a id="Qu_son_los_Services_896"></a>¿Qué son los Services?</h2>
+<p class="has-line-data" data-line-start="898" data-line-end="899">Los Services (Servicios) son clases PHP que <strong>encapsulan lógica de negocio compleja</strong>. Actúan como una capa intermedia entre los controladores y los modelos.</p>
+<h3 class="code-line" data-line-start=900 data-line-end=901 ><a id="Analoga_simple_900"></a>Analogía simple</h3>
+<p class="has-line-data" data-line-start="902" data-line-end="903">Imagina una agencia de viajes:</p>
+<ul>
+<li class="has-line-data" data-line-start="903" data-line-end="904"><strong>Cliente</strong> = Usuario de la API</li>
+<li class="has-line-data" data-line-start="904" data-line-end="905"><strong>Recepcionista</strong> = Controlador (recibe peticiones)</li>
+<li class="has-line-data" data-line-start="905" data-line-end="906"><strong>Agente de viajes</strong> = Service (organiza todo el viaje)</li>
+<li class="has-line-data" data-line-start="906" data-line-end="908"><strong>Proveedores</strong> = Modelos (hoteles, vuelos, etc.)</li>
+</ul>
+<p class="has-line-data" data-line-start="908" data-line-end="909">El recepcionista no organiza el viaje completo, solo toma la petición y la pasa al agente especializado. El agente coordina con múltiples proveedores para crear el paquete completo.</p>
+<h2 class="code-line" data-line-start=910 data-line-end=911 ><a id="Por_qu_usar_Services_910"></a>¿Por qué usar Services?</h2>
+<h3 class="code-line" data-line-start=912 data-line-end=913 ><a id="Problema_Controladores_gordos_912"></a>Problema: Controladores gordos</h3>
+<pre><code class="has-line-data" data-line-start="915" data-line-end="970" class="language-php"><span class="hljs-comment">// ReservaController - 80 líneas de lógica</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-comment">// Validación</span>
+    <span class="hljs-variable">$request</span>-&gt;validate([...]);
+    
+    <span class="hljs-comment">// Buscar modelos</span>
+    <span class="hljs-variable">$asiento</span> = Asiento::findOrFail(<span class="hljs-variable">$request</span>-&gt;asiento_id);
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$request</span>-&gt;evento_id);
+    <span class="hljs-variable">$user</span> = auth()-&gt;user();
+    
+    <span class="hljs-comment">// Verificación 1</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$evento</span>-&gt;id)) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No disponible&#x27;</span>], <span class="hljs-number">400</span>);
+    }
+    
+    <span class="hljs-comment">// Verificación 2</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$evento</span>-&gt;sectorEstaDisponible(<span class="hljs-variable">$asiento</span>-&gt;sector_id)) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector no disponible&#x27;</span>], <span class="hljs-number">400</span>);
+    }
+    
+    <span class="hljs-comment">// Verificación 3</span>
+    <span class="hljs-variable">$precio</span> = <span class="hljs-variable">$evento</span>-&gt;precioDelSector(<span class="hljs-variable">$asiento</span>-&gt;sector_id);
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$precio</span> || !<span class="hljs-variable">$precio</span>-&gt;disponible) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sin precio&#x27;</span>], <span class="hljs-number">400</span>);
+    }
+    
+    <span class="hljs-comment">// Transacción</span>
+    DB::beginTransaction();
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-comment">// Crear reserva</span>
+        <span class="hljs-variable">$reserva</span> = EstadoAsiento::create([
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+            <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+            <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">15</span>),
+        ]);
+        
+        <span class="hljs-comment">// Enviar email</span>
+        Mail::to(<span class="hljs-variable">$user</span>)-&gt;send(<span class="hljs-keyword">new</span> ReservaConfirmada(<span class="hljs-variable">$reserva</span>));
+        
+        <span class="hljs-comment">// Log</span>
+        Log::info(<span class="hljs-string">&#x27;Reserva creada&#x27;</span>, [<span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id]);
+        
+        DB::commit();
+        
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        DB::rollBack();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage()], <span class="hljs-number">500</span>);
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="971" data-line-end="972"><strong>Problemas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="972" data-line-end="973">❌ Controlador con 80+ líneas</li>
+<li class="has-line-data" data-line-start="973" data-line-end="974">❌ Difícil de leer y mantener</li>
+<li class="has-line-data" data-line-start="974" data-line-end="975">❌ Difícil de testear</li>
+<li class="has-line-data" data-line-start="975" data-line-end="976">❌ Lógica no reutilizable</li>
+<li class="has-line-data" data-line-start="976" data-line-end="978">❌ Mezcla responsabilidades</li>
+</ul>
+<h3 class="code-line" data-line-start=978 data-line-end=979 ><a id="Solucin_Services_978"></a>Solución: Services</h3>
+<pre><code class="has-line-data" data-line-start="981" data-line-end="1017" class="language-php"><span class="hljs-comment">// ReservaController - 15 líneas</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([
+        <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:eventos,id&#x27;</span>,
+        <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:asientos,id&#x27;</span>,
+    ]);
+
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+            <span class="hljs-variable">$request</span>-&gt;evento_id,
+            <span class="hljs-variable">$request</span>-&gt;asiento_id,
+            auth()-&gt;id()
+        );
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-keyword">new</span> ReservaResource(<span class="hljs-variable">$reserva</span>),
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Reservado correctamente&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+        ], <span class="hljs-number">400</span>);
+    }
+}
+
+<span class="hljs-comment">// ReservaService - Toda la lógica aquí</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-comment">// Toda la lógica compleja</span>
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="1018" data-line-end="1019"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="1019" data-line-end="1020">✅ Controlador delgado (15 líneas)</li>
+<li class="has-line-data" data-line-start="1020" data-line-end="1021">✅ Fácil de leer</li>
+<li class="has-line-data" data-line-start="1021" data-line-end="1022">✅ Fácil de testear</li>
+<li class="has-line-data" data-line-start="1022" data-line-end="1023">✅ Lógica reutilizable</li>
+<li class="has-line-data" data-line-start="1023" data-line-end="1025">✅ Responsabilidades separadas</li>
+</ul>
+<h2 class="code-line" data-line-start=1025 data-line-end=1026 ><a id="Cundo_usar_Services_1025"></a>Cuándo usar Services</h2>
+<h3 class="code-line" data-line-start=1027 data-line-end=1028 ><a id="_S_usar_Services_cuando_1027"></a>✅ SÍ usar Services cuando:</h3>
+<ol>
+<li class="has-line-data" data-line-start="1029" data-line-end="1030"><strong>Operación involucra múltiples modelos</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1031" data-line-end="1034" class="language-php"><span class="hljs-comment">// Compra: EstadoAsiento + Entrada + Email + Log</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">procesarCompra</span>(<span class="hljs-params"><span class="hljs-variable">$reservas</span>, <span class="hljs-variable">$userId</span></span>) </span>{ }
+</code></pre>
+<ol start="2">
+<li class="has-line-data" data-line-start="1035" data-line-end="1036"><strong>Lógica compleja con múltiples pasos</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1037" data-line-end="1043" class="language-php"><span class="hljs-comment">// 1. Verificar disponibilidad</span>
+<span class="hljs-comment">// 2. Verificar sector</span>
+<span class="hljs-comment">// 3. Crear reserva</span>
+<span class="hljs-comment">// 4. Enviar email</span>
+<span class="hljs-comment">// 5. Registrar log</span>
+</code></pre>
+<ol start="3">
+<li class="has-line-data" data-line-start="1044" data-line-end="1045"><strong>Necesitas transacciones DB</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1046" data-line-end="1050" class="language-php">DB::beginTransaction();
+<span class="hljs-comment">// Múltiples operaciones que deben ser atómicas</span>
+DB::commit();
+</code></pre>
+<ol start="4">
+<li class="has-line-data" data-line-start="1051" data-line-end="1052"><strong>Lógica que se repite en varios controladores</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1053" data-line-end="1058" class="language-php"><span class="hljs-comment">// Verificar disponibilidad se usa en:</span>
+<span class="hljs-comment">// - ReservaController</span>
+<span class="hljs-comment">// - CompraController</span>
+<span class="hljs-comment">// - AsientoController</span>
+</code></pre>
+<ol start="5">
+<li class="has-line-data" data-line-start="1059" data-line-end="1060"><strong>Operaciones programadas (cron jobs)</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1061" data-line-end="1064" class="language-php"><span class="hljs-comment">// Liberar reservas expiradas cada minuto</span>
+<span class="hljs-variable">$schedule</span>-&gt;command(<span class="hljs-string">&#x27;reservas:liberar&#x27;</span>)-&gt;everyMinute();
+</code></pre>
+<h3 class="code-line" data-line-start=1065 data-line-end=1066 ><a id="_NO_usar_Services_cuando_1065"></a>❌ NO usar Services cuando:</h3>
+<ol>
+<li class="has-line-data" data-line-start="1067" data-line-end="1068"><strong>CRUD simple de un solo modelo</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1069" data-line-end="1081" class="language-php"><span class="hljs-comment">// EventoController - No necesita Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-keyword">return</span> EventoResource::collection(Evento::all());
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;validated());
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> EventoResource(<span class="hljs-variable">$evento</span>);
+}
+</code></pre>
+<ol start="2">
+<li class="has-line-data" data-line-start="1082" data-line-end="1083"><strong>Operación de lectura simple</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1084" data-line-end="1091" class="language-php"><span class="hljs-comment">// No necesita Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> EventoResource(<span class="hljs-variable">$evento</span>);
+}
+</code></pre>
+<ol start="3">
+<li class="has-line-data" data-line-start="1092" data-line-end="1093"><strong>Validación simple</strong></li>
+</ol>
+<pre><code class="has-line-data" data-line-start="1094" data-line-end="1097" class="language-php"><span class="hljs-comment">// Usa Form Requests, no Services</span>
+<span class="hljs-variable">$request</span>-&gt;validate([...]);
+</code></pre>
+<h2 class="code-line" data-line-start=1098 data-line-end=1099 ><a id="Estructura_de_un_Service_1098"></a>Estructura de un Service</h2>
+<h3 class="code-line" data-line-start=1100 data-line-end=1101 ><a id="Ubicacin_1100"></a>Ubicación</h3>
+<pre><code class="has-line-data" data-line-start="1102" data-line-end="1107">app/Services/
+├── ReservaService.php
+├── CompraService.php
+└── LiberarReservasService.php
+</code></pre>
+<h3 class="code-line" data-line-start=1108 data-line-end=1109 ><a id="Anatoma_bsica_1108"></a>Anatomía básica</h3>
+<pre><code class="has-line-data" data-line-start="1111" data-line-end="1152" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-comment">// 1. NAMESPACE</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-comment">// 2. IMPORTS</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-comment">// 3. CLASE</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span>
+</span>{
+    <span class="hljs-comment">/**
+     * 4. MÉTODOS PÚBLICOS - Usados por controladores
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+    </span>{
+        <span class="hljs-comment">// Lógica principal</span>
+        DB::beginTransaction();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// ...</span>
+            DB::commit();
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$resultado</span>;
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            DB::rollBack();
+            <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+        }
+    }
+    
+    <span class="hljs-comment">/**
+     * 5. MÉTODOS PRIVADOS - Lógica auxiliar
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarDisponibilidad</span>(<span class="hljs-params"><span class="hljs-variable">$asiento</span>, <span class="hljs-variable">$eventoId</span></span>)
+    </span>{
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$eventoId</span>)) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;No disponible&#x27;</span>);
+        }
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1153 data-line-end=1154 ><a id="Imports_necesarios_1153"></a>Imports necesarios</h2>
+<h3 class="code-line" data-line-start=1155 data-line-end=1156 ><a id="Modelos_1155"></a>Modelos</h3>
+<pre><code class="has-line-data" data-line-start="1157" data-line-end="1162" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Entrada</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1163 data-line-end=1164 ><a id="Facades_comunes_1163"></a>Facades comunes</h3>
+<pre><code class="has-line-data" data-line-start="1165" data-line-end="1170" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;      <span class="hljs-comment">// Transacciones</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Log</span>;     <span class="hljs-comment">// Logs</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Mail</span>;    <span class="hljs-comment">// Emails</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Cache</span>;   <span class="hljs-comment">// Caché</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1171 data-line-end=1172 ><a id="Inyeccin_de_dependencias_1171"></a>Inyección de dependencias</h2>
+<p class="has-line-data" data-line-start="1173" data-line-end="1174">Laravel inyecta automáticamente los Services en los controladores:</p>
+<pre><code class="has-line-data" data-line-start="1176" data-line-end="1183" class="language-php"><span class="hljs-comment">// Controlador</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-comment">// $service se inyecta automáticamente</span>
+    <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(...);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="1184" data-line-end="1185"><strong>No necesitas hacer:</strong></p>
+<pre><code class="has-line-data" data-line-start="1186" data-line-end="1193" class="language-php"><span class="hljs-comment">// ❌ No hagas esto</span>
+<span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+<span class="hljs-variable">$service</span> = app(ReservaService::class);
+
+<span class="hljs-comment">// ✅ Deja que Laravel lo inyecte</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span></code></pre>
+<h2 class="code-line" data-line-start=1194 data-line-end=1195 ><a id="Transacciones_de_base_de_datos_1194"></a>Transacciones de base de datos</h2>
+<p class="has-line-data" data-line-start="1196" data-line-end="1197">Las transacciones aseguran que todas las operaciones se completen o ninguna:</p>
+<pre><code class="has-line-data" data-line-start="1199" data-line-end="1223" class="language-php">DB::beginTransaction();
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Operación 1</span>
+    <span class="hljs-variable">$reserva</span> = EstadoAsiento::create([...]);
+    
+    <span class="hljs-comment">// Operación 2</span>
+    Mail::to(<span class="hljs-variable">$user</span>)-&gt;send(<span class="hljs-keyword">new</span> Email());
+    
+    <span class="hljs-comment">// Operación 3</span>
+    Log::info(<span class="hljs-string">&#x27;Reserva creada&#x27;</span>);
+    
+    <span class="hljs-comment">// Si todo va bien, confirmar</span>
+    DB::commit();
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>;
+    
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// Si algo falla, revertir TODO</span>
+    DB::rollBack();
+    
+    <span class="hljs-comment">// Re-lanzar la excepción</span>
+    <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+}
+</code></pre>
+<p class="has-line-data" data-line-start="1224" data-line-end="1225"><strong>¿Por qué?</strong> Si falla el email, la reserva no debe crearse. Todo o nada.</p>
+<h2 class="code-line" data-line-start=1226 data-line-end=1227 ><a id="Manejo_de_errores_1226"></a>Manejo de errores</h2>
+<h3 class="code-line" data-line-start=1228 data-line-end=1229 ><a id="Lanzar_excepciones_1228"></a>Lanzar excepciones</h3>
+<pre><code class="has-line-data" data-line-start="1231" data-line-end="1238" class="language-php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarDisponibilidad</span>(<span class="hljs-params"><span class="hljs-variable">$asiento</span>, <span class="hljs-variable">$eventoId</span></span>)
+</span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$eventoId</span>)) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;El asiento no está disponible&#x27;</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1239 data-line-end=1240 ><a id="Capturar_en_el_controlador_1239"></a>Capturar en el controlador</h3>
+<pre><code class="has-line-data" data-line-start="1242" data-line-end="1255" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(...);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+        ], <span class="hljs-number">400</span>);
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1256 data-line-end=1257 ><a id="Mtodos_pblicos_vs_privados_1256"></a>Métodos públicos vs privados</h2>
+<h3 class="code-line" data-line-start=1258 data-line-end=1259 ><a id="Mtodos_pblicos_1258"></a>Métodos públicos</h3>
+<ul>
+<li class="has-line-data" data-line-start="1259" data-line-end="1260">Usados por controladores</li>
+<li class="has-line-data" data-line-start="1260" data-line-end="1261">Representan acciones principales</li>
+<li class="has-line-data" data-line-start="1261" data-line-end="1263">Nombres descriptivos</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="1264" data-line-end="1274" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+</span>{
+    <span class="hljs-comment">// Acción principal</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelarReserva</span>(<span class="hljs-params"><span class="hljs-variable">$reservaId</span>, <span class="hljs-variable">$userId</span></span>)
+</span>{
+    <span class="hljs-comment">// Acción principal</span>
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1275 data-line-end=1276 ><a id="Mtodos_privados_1275"></a>Métodos privados</h3>
+<ul>
+<li class="has-line-data" data-line-start="1276" data-line-end="1277">Usados internamente por el Service</li>
+<li class="has-line-data" data-line-start="1277" data-line-end="1278">Lógica auxiliar</li>
+<li class="has-line-data" data-line-start="1278" data-line-end="1280">Validaciones, cálculos, etc.</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="1281" data-line-end="1291" class="language-php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarDisponibilidad</span>(<span class="hljs-params"><span class="hljs-variable">$asiento</span>, <span class="hljs-variable">$eventoId</span></span>)
+</span>{
+    <span class="hljs-comment">// Lógica auxiliar</span>
+}
+
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obtenerPrecio</span>(<span class="hljs-params"><span class="hljs-variable">$evento</span>, <span class="hljs-variable">$sectorId</span></span>)
+</span>{
+    <span class="hljs-comment">// Lógica auxiliar</span>
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1292 data-line-end=1293 ><a id="Patrones_comunes_1292"></a>Patrones comunes</h2>
+<h3 class="code-line" data-line-start=1294 data-line-end=1295 ><a id="Patrn_1_Verificar_y_ejecutar_1294"></a>Patrón 1: Verificar y ejecutar</h3>
+<pre><code class="has-line-data" data-line-start="1297" data-line-end="1311" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span></span>)
+</span>{
+    <span class="hljs-comment">// 1. Obtener datos</span>
+    <span class="hljs-variable">$asiento</span> = Asiento::findOrFail(<span class="hljs-variable">$asientoId</span>);
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$eventoId</span>);
+    
+    <span class="hljs-comment">// 2. Verificar condiciones</span>
+    <span class="hljs-keyword">$this</span>-&gt;verificarDisponibilidad(<span class="hljs-variable">$asiento</span>, <span class="hljs-variable">$eventoId</span>);
+    <span class="hljs-keyword">$this</span>-&gt;verificarSector(<span class="hljs-variable">$evento</span>, <span class="hljs-variable">$asiento</span>-&gt;sector_id);
+    
+    <span class="hljs-comment">// 3. Ejecutar operación</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;crearReserva(<span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$asientoId</span>, <span class="hljs-variable">$userId</span>);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1312 data-line-end=1313 ><a id="Patrn_2_Transaccin_con_mltiples_operaciones_1312"></a>Patrón 2: Transacción con múltiples operaciones</h3>
+<pre><code class="has-line-data" data-line-start="1315" data-line-end="1335" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">procesarCompra</span>(<span class="hljs-params"><span class="hljs-variable">$reservasIds</span>, <span class="hljs-variable">$userId</span></span>)
+</span>{
+    DB::beginTransaction();
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$entradas</span> = [];
+        
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$reservasIds</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$reservaId</span>) {
+            <span class="hljs-variable">$entrada</span> = <span class="hljs-keyword">$this</span>-&gt;procesarReserva(<span class="hljs-variable">$reservaId</span>, <span class="hljs-variable">$userId</span>);
+            <span class="hljs-variable">$entradas</span>[] = <span class="hljs-variable">$entrada</span>;
+        }
+        
+        DB::commit();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$entradas</span>;
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        DB::rollBack();
+        <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1336 data-line-end=1337 ><a id="Patrn_3_Operacin_con_logging_1336"></a>Patrón 3: Operación con logging</h3>
+<pre><code class="has-line-data" data-line-start="1339" data-line-end="1355" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">liberarReservasExpiradas</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$expiradas</span> = EstadoAsiento::expirados()-&gt;get();
+    
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$expiradas</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$reserva</span>) {
+        <span class="hljs-variable">$reserva</span>-&gt;delete();
+        
+        Log::info(<span class="hljs-string">&#x27;Reserva liberada&#x27;</span>, [
+            <span class="hljs-string">&#x27;reserva_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id,
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;evento_id,
+        ]);
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$expiradas</span>-&gt;count();
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1356 data-line-end=1357 ><a id="Retornar_datos_1356"></a>Retornar datos</h2>
+<h3 class="code-line" data-line-start=1358 data-line-end=1359 ><a id="Retornar_modelos_cargados_1358"></a>Retornar modelos cargados</h3>
+<pre><code class="has-line-data" data-line-start="1361" data-line-end="1367" class="language-php"><span class="hljs-comment">// ✅ Bien - Retorna con relaciones cargadas</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>]);
+
+<span class="hljs-comment">// ❌ Mal - Sin relaciones</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1368 data-line-end=1369 ><a id="Retornar_colecciones_1368"></a>Retornar colecciones</h3>
+<pre><code class="has-line-data" data-line-start="1371" data-line-end="1377" class="language-php"><span class="hljs-comment">// ✅ Bien - Retorna colección de Laravel</span>
+<span class="hljs-keyword">return</span> collect(<span class="hljs-variable">$entradas</span>)-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento&#x27;</span>]);
+
+<span class="hljs-comment">// ✅ También bien - Array de modelos</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$entradas</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1378 data-line-end=1379 ><a id="No_formatear_en_Services_1378"></a>No formatear en Services</h3>
+<pre><code class="has-line-data" data-line-start="1381" data-line-end="1390" class="language-php"><span class="hljs-comment">// ❌ Mal - Formateo en Service</span>
+<span class="hljs-keyword">return</span> [
+    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id,
+    <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;created_at-&gt;format(<span class="hljs-string">&#x27;d/m/Y&#x27;</span>),
+];
+
+<span class="hljs-comment">// ✅ Bien - Retorna el modelo, formateo en Resource</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>;
+</code></pre>
+<h2 class="code-line" data-line-start=1391 data-line-end=1392 ><a id="Testing_de_Services_1391"></a>Testing de Services</h2>
+<p class="has-line-data" data-line-start="1393" data-line-end="1394">Los Services son fáciles de testear porque no dependen de HTTP:</p>
+<pre><code class="has-line-data" data-line-start="1396" data-line-end="1457" class="language-php"><span class="hljs-comment">// tests/Unit/ReservaServiceTest.php</span>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Tests</span>\<span class="hljs-title">Unit</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Tests</span>\<span class="hljs-title">TestCase</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>\<span class="hljs-title">ReservaService</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaServiceTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TestCase</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_puede_reservar_asiento_disponible</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+        <span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create();
+        <span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+        
+        <span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+        
+        <span class="hljs-comment">// Act</span>
+        <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+            <span class="hljs-variable">$evento</span>-&gt;id,
+            <span class="hljs-variable">$asiento</span>-&gt;id,
+            <span class="hljs-variable">$user</span>-&gt;id
+        );
+        
+        <span class="hljs-comment">// Assert</span>
+        <span class="hljs-keyword">$this</span>-&gt;assertNotNull(<span class="hljs-variable">$reserva</span>);
+        <span class="hljs-keyword">$this</span>-&gt;assertEquals(<span class="hljs-string">&#x27;bloqueado&#x27;</span>, <span class="hljs-variable">$reserva</span>-&gt;estado);
+        <span class="hljs-keyword">$this</span>-&gt;assertEquals(<span class="hljs-variable">$evento</span>-&gt;id, <span class="hljs-variable">$reserva</span>-&gt;evento_id);
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_no_puede_reservar_asiento_ocupado</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-variable">$evento</span> = Evento::factory()-&gt;create();
+        <span class="hljs-variable">$asiento</span> = Asiento::factory()-&gt;create();
+        <span class="hljs-variable">$user</span> = User::factory()-&gt;create();
+        
+        <span class="hljs-comment">// Crear reserva existente</span>
+        EstadoAsiento::create([
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+            <span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$user</span>-&gt;id,
+            <span class="hljs-string">&#x27;estado&#x27;</span> =&gt; <span class="hljs-string">&#x27;bloqueado&#x27;</span>,
+            <span class="hljs-string">&#x27;reservado_hasta&#x27;</span> =&gt; now()-&gt;addMinutes(<span class="hljs-number">15</span>),
+        ]);
+        
+        <span class="hljs-variable">$service</span> = <span class="hljs-keyword">new</span> ReservaService();
+        
+        <span class="hljs-comment">// Act &amp; Assert</span>
+        <span class="hljs-keyword">$this</span>-&gt;expectException(\<span class="hljs-built_in">Exception</span>::class);
+        <span class="hljs-keyword">$this</span>-&gt;expectExceptionMessage(<span class="hljs-string">&#x27;no está disponible&#x27;</span>);
+        
+        <span class="hljs-variable">$service</span>-&gt;reservarAsiento(<span class="hljs-variable">$evento</span>-&gt;id, <span class="hljs-variable">$asiento</span>-&gt;id, <span class="hljs-variable">$user</span>-&gt;id);
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1458 data-line-end=1459 ><a id="Buenas_prcticas_1458"></a>Buenas prácticas</h2>
+<h3 class="code-line" data-line-start=1460 data-line-end=1461 ><a id="_Hacer_1460"></a>✅ Hacer</h3>
+<pre><code class="has-line-data" data-line-start="1463" data-line-end="1493" class="language-php"><span class="hljs-comment">// Nombres descriptivos</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaService</span> </span>{ }
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reservarAsiento</span>(<span class="hljs-params"></span>) </span>{ }
+
+<span class="hljs-comment">// Un Service por responsabilidad</span>
+<span class="hljs-comment">// ReservaService - Solo reservas</span>
+<span class="hljs-comment">// CompraService - Solo compras</span>
+
+<span class="hljs-comment">// Usar transacciones para operaciones múltiples</span>
+DB::beginTransaction();
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// ...</span>
+    DB::commit();
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    DB::rollBack();
+    <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+}
+
+<span class="hljs-comment">// Lanzar excepciones descriptivas</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-built_in">Exception</span>(<span class="hljs-string">&#x27;El asiento no está disponible&#x27;</span>);
+
+<span class="hljs-comment">// Métodos privados para lógica auxiliar</span>
+<span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">verificarDisponibilidad</span>(<span class="hljs-params"></span>) </span>{ }
+
+<span class="hljs-comment">// Retornar modelos con relaciones cargadas</span>
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$reserva</span>-&gt;load([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento&#x27;</span>]);
+
+<span class="hljs-comment">// Logging de operaciones importantes</span>
+Log::info(<span class="hljs-string">&#x27;Reserva creada&#x27;</span>, [<span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;id]);
+</code></pre>
+<h3 class="code-line" data-line-start=1494 data-line-end=1495 ><a id="_Evitar_1494"></a>❌ Evitar</h3>
+<pre><code class="has-line-data" data-line-start="1497" data-line-end="1524" class="language-php"><span class="hljs-comment">// No mezclar responsabilidades</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoService</span> </span>{ } <span class="hljs-comment">// ❌</span>
+
+<span class="hljs-comment">// No hacer Services para CRUD simple</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoService</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listar</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> Evento::all(); } <span class="hljs-comment">// ❌</span>
+}
+
+<span class="hljs-comment">// No capturar excepciones sin hacer nada</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    <span class="hljs-comment">// ❌ Silenciar el error</span>
+}
+
+<span class="hljs-comment">// No formatear datos en Services</span>
+<span class="hljs-keyword">return</span> [
+    <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-variable">$reserva</span>-&gt;created_at-&gt;format(<span class="hljs-string">&#x27;d/m/Y&#x27;</span>), <span class="hljs-comment">// ❌</span>
+];
+<span class="hljs-comment">// Usa Resources para formateo</span>
+
+<span class="hljs-comment">// No hacer queries en controladores</span>
+<span class="hljs-comment">// Esa lógica va en Services</span>
+
+<span class="hljs-comment">// No ignorar transacciones</span>
+<span class="hljs-comment">// Si algo puede fallar, usa transacciones</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1525 data-line-end=1526 ><a id="Errores_comunes_1525"></a>Errores comunes</h2>
+<h3 class="code-line" data-line-start=1527 data-line-end=1528 ><a id="Error_Class_not_found_1527"></a>Error: “Class not found”</h3>
+<p class="has-line-data" data-line-start="1528" data-line-end="1530"><strong>Causa:</strong> Falta el namespace o import.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1531" data-line-end="1534" class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">EstadoAsiento</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1535 data-line-end=1536 ><a id="Error_Too_few_arguments_1535"></a>Error: “Too few arguments”</h3>
+<p class="has-line-data" data-line-start="1536" data-line-end="1538"><strong>Causa:</strong> Faltan parámetros al llamar al método.<br>
+<strong>Solución:</strong> Verifica que pasas todos los parámetros requeridos.</p>
+<h3 class="code-line" data-line-start=1539 data-line-end=1540 ><a id="Error_Call_to_undefined_method_1539"></a>Error: “Call to undefined method”</h3>
+<p class="has-line-data" data-line-start="1540" data-line-end="1542"><strong>Causa:</strong> Método no existe o es privado.<br>
+<strong>Solución:</strong> Verifica el nombre y que sea público si lo llamas desde fuera.</p>
+<h2 class="code-line" data-line-start=1543 data-line-end=1544 ><a id="Resumen_rpido_Cheat_Sheet_1543"></a>Resumen rápido (Cheat Sheet)</h2>
+<h3 class="code-line" data-line-start=1545 data-line-end=1546 ><a id="Estructura_bsica_1545"></a>Estructura básica</h3>
+<pre><code class="has-line-data" data-line-start="1547" data-line-end="1573" class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Modelo</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MiService</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">operacionPrincipal</span>(<span class="hljs-params"><span class="hljs-variable">$param1</span>, <span class="hljs-variable">$param2</span></span>)
+    </span>{
+        DB::beginTransaction();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// Lógica</span>
+            DB::commit();
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$resultado</span>;
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            DB::rollBack();
+            <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+        }
+    }
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">auxiliar</span>(<span class="hljs-params"><span class="hljs-variable">$param</span></span>)
+    </span>{
+        <span class="hljs-comment">// Lógica auxiliar</span>
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1574 data-line-end=1575 ><a id="Uso_en_controlador_1574"></a>Uso en controlador</h3>
+<pre><code class="has-line-data" data-line-start="1576" data-line-end="1586" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, MiService <span class="hljs-variable">$service</span></span>)
+</span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$resultado</span> = <span class="hljs-variable">$service</span>-&gt;operacionPrincipal(...);
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$resultado</span>], <span class="hljs-number">201</span>);
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage()], <span class="hljs-number">400</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1587 data-line-end=1588 ><a id="Transacciones_1587"></a>Transacciones</h3>
+<pre><code class="has-line-data" data-line-start="1589" data-line-end="1598" class="language-php">DB::beginTransaction();
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Operaciones</span>
+    DB::commit();
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    DB::rollBack();
+    <span class="hljs-keyword">throw</span> <span class="hljs-variable">$e</span>;
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1599 data-line-end=1600 ><a id="Recursos_adicionales_1599"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="1601" data-line-end="1602"><a href="https://laravel.com/docs/container">Laravel Service Container</a></li>
+<li class="has-line-data" data-line-start="1602" data-line-end="1603"><a href="https://laravel.com/docs/database#database-transactions">Database Transactions</a></li>
+<li class="has-line-data" data-line-start="1603" data-line-end="1605"><a href="https://laravel.com/docs/testing">Testing</a></li>
+</ul>
+<hr>
+<p class="has-line-data" data-line-start="1607" data-line-end="1608"><strong>Recuerda:</strong> Los Services son para lógica de negocio compleja. Si tu operación es simple (CRUD básico), no necesitas un Service. Mantenlos enfocados en una responsabilidad específica.</p>
+
+</body></html>

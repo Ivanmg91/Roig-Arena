@@ -15,8 +15,10 @@ class CompraController extends Controller
     public function show($eventoId)
     {
         $evento = Evento::findOrFail($eventoId);
-        return view('compra.buy', compact('evento'));
+        $sectoresDisponibles = $this->obtenerSectoresDisponibles($eventoId)->getData()->data;
+        return view('compra.buy', compact('evento', 'sectoresDisponibles'));
     }
+    
 
     /**
      * API endpoint para traer asientos por sector (JSON)
@@ -117,6 +119,20 @@ class CompraController extends Controller
             'total' => $total,
             'cantidad' => count($carrito)
         ]);
+    }
+
+    /**
+     * Obtener sectores disponibles para un evento
+     */
+    public function obtenerSectoresDisponibles($eventoId) {
+        $evento = Evento::findOrFail($eventoId);
+        $sectoresDisponibles = $evento->sectores()->activos()->get();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $sectoresDisponibles
+        ]);
+
     }
 
     /**

@@ -1,0 +1,1168 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>00 - Laravel instalacion.md</title><style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.428571429;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.428571429;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*=col-]{position:static;float:none;display:table-column}table td[class*=col-],table th[class*=col-]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:rgb(232.25,232.25,232.25)}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:rgb(207.8888888889,232.9166666667,197.5833333333)}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:rgb(195.9347826087,227.0217391304,242.5652173913)}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:rgb(249.5322580645,242.2419354839,203.9677419355)}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:rgb(234.7934782609,203.7065217391,203.7065217391)}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type=radio],input[type=checkbox]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type=file]{display:block}input[type=range]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.428571429;color:rgb(85.425,85.425,85.425)}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:rgb(119.085,119.085,119.085);opacity:1}.form-control:-ms-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control::-webkit-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:rgb(238.425,238.425,238.425);opacity:1}textarea.form-control{height:auto}input[type=date],input[type=time],input[type=datetime-local],input[type=month]{line-height:34px;line-height:1.428571429 \0}input[type=date].input-sm,.input-group-sm>input[type=date].form-control,.input-group-sm>input[type=date].input-group-addon,.input-group-sm>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-sm input[type=date].form-control,input[type=time].input-sm,.input-group-sm>input[type=time].form-control,.input-group-sm>input[type=time].input-group-addon,.input-group-sm>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-sm input[type=time].form-control,input[type=datetime-local].input-sm,.input-group-sm>input[type=datetime-local].form-control,.input-group-sm>input[type=datetime-local].input-group-addon,.input-group-sm>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-sm input[type=datetime-local].form-control,input[type=month].input-sm,.input-group-sm>input[type=month].form-control,.input-group-sm>input[type=month].input-group-addon,.input-group-sm>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-sm input[type=month].form-control{line-height:30px}input[type=date].input-lg,.input-group-lg>input[type=date].form-control,.input-group-lg>input[type=date].input-group-addon,.input-group-lg>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-lg input[type=date].form-control,input[type=time].input-lg,.input-group-lg>input[type=time].form-control,.input-group-lg>input[type=time].input-group-addon,.input-group-lg>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-lg input[type=time].form-control,input[type=datetime-local].input-lg,.input-group-lg>input[type=datetime-local].form-control,.input-group-lg>input[type=datetime-local].input-group-addon,.input-group-lg>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-lg input[type=datetime-local].form-control,input[type=month].input-lg,.input-group-lg>input[type=month].form-control,.input-group-lg>input[type=month].input-group-addon,.input-group-lg>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-lg input[type=month].form-control{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type=radio],.radio-inline input[type=radio],.checkbox input[type=checkbox],.checkbox-inline input[type=checkbox]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type=radio][disabled],input[type=radio].disabled,fieldset[disabled] input[type=radio],input[type=checkbox][disabled],input[type=checkbox].disabled,fieldset[disabled] input[type=checkbox],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-lg .form-control-static.form-control,.form-control-static.input-sm,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-sm .form-control-static.form-control{padding-left:0;padding-right:0}.input-sm,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn,.form-horizontal .form-group-sm .form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn,.form-horizontal .form-group-sm select.form-control{height:30px;line-height:30px}textarea.input-sm,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,.form-horizontal .form-group-sm textarea.form-control,select[multiple].input-sm,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-sm select[multiple].form-control{height:auto}.input-lg,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn,.form-horizontal .form-group-lg .form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn,.form-horizontal .form-group-lg select.form-control{height:46px;line-height:46px}textarea.input-lg,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,.form-horizontal .form-group-lg textarea.form-control,select[multiple].input-lg,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-lg select[multiple].form-control{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:rgb(42.808988764,84.191011236,43.5224719101);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(102.5280898876,177.4719101124,103.8202247191)}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:rgb(102.2741116751,80.7817258883,43.7258883249);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(191.807106599,160.7461928934,107.192893401)}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:rgb(132.3234042553,53.2425531915,51.6765957447);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(206.4127659574,132.0595744681,130.5872340426)}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:rgb(114.75,114.75,114.75)}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:rgb(229.5,229.5,229.5);border-color:rgb(173.4,173.4,173.4)}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:rgb(47.5247933884,112.9834710744,169.4752066116);border-color:rgb(39.7061983471,94.3958677686,141.5938016529)}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:rgb(68.2692307692,156.7307692308,68.2692307692);border-color:rgb(57.4371794872,131.8628205128,57.4371794872)}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:rgb(48.5431472081,175.6903553299,213.4568527919);border-color:rgb(37.9081218274,153.9299492386,188.3918781726)}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:rgb(236.015625,151.21875,30.984375);border-color:rgb(213.2296875,132.515625,18.0703125)}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:rgb(201.4953271028,48.0841121495,43.5046728972);border-color:rgb(172.1345794393,41.0775700935,37.1654205607)}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:rgb(119.085,119.085,119.085);text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-block{width:100%}.fade{opacity:0;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:rgb(85.425,85.425,85.425);text-align:center;background-color:rgb(238.425,238.425,238.425);border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type=radio],.input-group-addon input[type=checkbox]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);background-color:rgb(238.425,238.425,238.425);border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:rgb(119.085,119.085,119.085);background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{transform:translate3d(0,-25%,0);transition:transform .3s ease-out}.modal.in .modal-dialog{transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.428571429px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;margin-right:5px}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:"";display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-feature-settings:"dlig" 1,"liga" 1,"lnum" 1,"kern" 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h2,h3{line-height:3rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:rgb(223.2809917355,248.7190082645,244.3223140496)}img{height:auto;max-width:100%}dt{font-style:italic;font-weight:600}.g{display:block}.g:after{clear:both;content:"";display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--6of12,.g-b--5of10,.g-b--4of8,.g-b--3of6,.g-b--2of4{width:50%}.g-b--1of3,.g-b--4of12,.g-b--2of6{width:33.333%}.g-b--2of3,.g-b--8of12,.g-b--4of6{width:66.666%}.g-b--1of4,.g-b--3of12,.g-b--2of8{width:25%}.g-b--3of4,.g-b--9of12,.g-b--6of8{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--6of12,.g-b--push--5of10,.g-b--push--4of8,.g-b--push--3of6,.g-b--push--2of4{margin-left:50%}.g-b--push--1of3,.g-b--push--4of12,.g-b--push--2of6{margin-left:33.333%}.g-b--push--2of3,.g-b--push--8of12,.g-b--push--4of6{margin-left:66.666%}.g-b--push--1of4,.g-b--push--3of12,.g-b--push--2of8{margin-left:25%}.g-b--push--3of4,.g-b--push--9of12,.g-b--push--6of8{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--6of12,.g-b--pull--5of10,.g-b--pull--4of8,.g-b--pull--3of6,.g-b--pull--2of4{margin-right:50%}.g-b--pull--1of3,.g-b--pull--4of12,.g-b--pull--2of6{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--8of12,.g-b--pull--4of6{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--3of12,.g-b--pull--2of8{margin-right:25%}.g-b--pull--3of4,.g-b--pull--9of12,.g-b--pull--6of8{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar:after{content:"";display:table;clear:both}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;transition:all .25s ease-in-out;will-change:left}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings form{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:justify;justify-content:space-between}.settings input{width:20%}.settings a:after{content:"";display:table;clear:both}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:"";left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{backface-visibility:hidden;background-color:#D3DAEA;height:2px;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#A0AABF}.words .counter,.characters .counter{color:#000}.words+.characters{top:22px}.mr10{margin-right:10px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 rgb(27.4380165289,138.5619834711,119.3553719008);padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px rgb(35.867768595,181.132231405,156.0247933884);text-shadow:0 1px 0 rgb(35.867768595,181.132231405,156.0247933884)}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px rgb(29.8596491228,33.0877192982,39.1403508772)}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px rgb(7.7894736842,8.6315789474,10.2105263158);text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:rgb(40.8947368421,45.3157894737,53.6052631579);text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);transition:all .25s ease-in-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:"";width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger li{display:-ms-flexbox;display:flex;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:rgb(138.1404958678,231.8595041322,215.6611570248)}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-text,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}body{max-width:1024px;margin:0 auto;overflow:auto;padding:2%}.split{overflow:scroll;padding:0!important;-webkit-overflow-scrolling:touch}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-html{padding:15px}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m6of12,.g-b--m5of10,.g-b--m4of8,.g-b--m3of6,.g-b--m2of4{width:50%}.g-b--m1of3,.g-b--m4of12,.g-b--m2of6{width:33.333%}.g-b--m2of3,.g-b--m8of12,.g-b--m4of6{width:66.666%}.g-b--m1of4,.g-b--m3of12,.g-b--m2of8{width:25%}.g-b--m3of4,.g-b--m9of12,.g-b--m6of8{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m6of12,.g-b--push--m5of10,.g-b--push--m4of8,.g-b--push--m3of6,.g-b--push--m2of4{margin-left:50%}.g-b--push--m1of3,.g-b--push--m4of12,.g-b--push--m2of6{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m8of12,.g-b--push--m4of6{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m3of12,.g-b--push--m2of8{margin-left:25%}.g-b--push--m3of4,.g-b--push--m9of12,.g-b--push--m6of8{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m6of12,.g-b--pull--m5of10,.g-b--pull--m4of8,.g-b--pull--m3of6,.g-b--pull--m2of4{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m4of12,.g-b--pull--m2of6{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m8of12,.g-b--pull--m4of6{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m3of12,.g-b--pull--m2of8{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m9of12,.g-b--pull--m6of8{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t6of12,.g-b--t5of10,.g-b--t4of8,.g-b--t3of6,.g-b--t2of4{width:50%}.g-b--t1of3,.g-b--t4of12,.g-b--t2of6{width:33.333%}.g-b--t2of3,.g-b--t8of12,.g-b--t4of6{width:66.666%}.g-b--t1of4,.g-b--t3of12,.g-b--t2of8{width:25%}.g-b--t3of4,.g-b--t9of12,.g-b--t6of8{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t6of12,.g-b--push--t5of10,.g-b--push--t4of8,.g-b--push--t3of6,.g-b--push--t2of4{margin-left:50%}.g-b--push--t1of3,.g-b--push--t4of12,.g-b--push--t2of6{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t8of12,.g-b--push--t4of6{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t3of12,.g-b--push--t2of8{margin-left:25%}.g-b--push--t3of4,.g-b--push--t9of12,.g-b--push--t6of8{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t6of12,.g-b--pull--t5of10,.g-b--pull--t4of8,.g-b--pull--t3of6,.g-b--pull--t2of4{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t4of12,.g-b--pull--t2of6{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t8of12,.g-b--pull--t4of6{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t3of12,.g-b--pull--t2of8{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t9of12,.g-b--pull--t6of8{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d6of12,.g-b--d5of10,.g-b--d4of8,.g-b--d3of6,.g-b--d2of4{width:50%}.g-b--d1of3,.g-b--d4of12,.g-b--d2of6{width:33.333%}.g-b--d2of3,.g-b--d8of12,.g-b--d4of6{width:66.666%}.g-b--d1of4,.g-b--d3of12,.g-b--d2of8{width:25%}.g-b--d3of4,.g-b--d9of12,.g-b--d6of8{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d6of12,.g-b--push--d5of10,.g-b--push--d4of8,.g-b--push--d3of6,.g-b--push--d2of4{margin-left:50%}.g-b--push--d1of3,.g-b--push--d4of12,.g-b--push--d2of6{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d8of12,.g-b--push--d4of6{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d3of12,.g-b--push--d2of8{margin-left:25%}.g-b--push--d3of4,.g-b--push--d9of12,.g-b--push--d6of8{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d6of12,.g-b--pull--d5of10,.g-b--pull--d4of8,.g-b--pull--d3of6,.g-b--pull--d2of4{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d4of12,.g-b--pull--d2of6{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d8of12,.g-b--pull--d4of6{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d3of12,.g-b--pull--d2of8{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d9of12,.g-b--pull--d6of8{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type=radio],.form-inline .checkbox input[type=checkbox]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Gua_de_Instalacin_de_Docker_en_Debian_0"></a>Guía de Instalación de Docker en Debian</h1>
+<p class="has-line-data" data-line-start="1" data-line-end="2"><strong>Docker</strong> es una plataforma que permite <strong>crear, empaquetar y ejecutar aplicaciones dentro de contenedores</strong>.  Un contenedor incluye la aplicación y <strong>todo lo que necesita para funcionar</strong> (bibliotecas, dependencias, configuración), de modo que se ejecuta <strong>igual en cualquier ordenador o servidor</strong>.</p>
+<blockquote>
+<p class="has-line-data" data-line-start="2" data-line-end="4">En pocas palabras:<br>
+<em>“Con Docker, si funciona en mi equipo, funciona en cualquier sitio.”</em></p>
+</blockquote>
+<p class="has-line-data" data-line-start="6" data-line-end="7">Esta guía te llevará paso a paso por la instalación de Docker Engine en Debian. Está basada en el script <code>instalar_docker.sh</code> pero explicada de forma clara para que entiendas qué hace cada comando.</p>
+<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Por_qu_estos_pasos_8"></a>¿Por qué estos pasos?</h2>
+<p class="has-line-data" data-line-start="10" data-line-end="11">Docker no viene en los repositorios oficiales de Debian con la última versión, así que necesitamos agregar el repositorio oficial de Docker. Además, Debian Trixie (testing) a veces no tiene soporte directo, por lo que usaremos los paquetes de Bookworm (stable) que son totalmente compatibles.</p>
+<h2 class="code-line" data-line-start=12 data-line-end=13 ><a id="Paso_1_Limpiar_instalaciones_previas_12"></a>Paso 1: Limpiar instalaciones previas</h2>
+<p class="has-line-data" data-line-start="14" data-line-end="15">Si ya intentaste instalar Docker antes y algo salió mal, este comando elimina configuraciones antiguas que podrían causar conflictos:</p>
+<pre><code class="has-line-data" data-line-start="17" data-line-end="19" class="language-bash">sudo rm -f /etc/apt/sources.list.d/docker.list
+</code></pre>
+<h2 class="code-line" data-line-start=20 data-line-end=21 ><a id="Paso_2_Actualizar_el_sistema_20"></a>Paso 2: Actualizar el sistema</h2>
+<p class="has-line-data" data-line-start="22" data-line-end="23">Siempre es buena idea tener los índices de paquetes actualizados antes de instalar algo nuevo:</p>
+<pre><code class="has-line-data" data-line-start="25" data-line-end="27" class="language-bash">sudo apt-get update
+</code></pre>
+<h2 class="code-line" data-line-start=28 data-line-end=29 ><a id="Paso_3_Instalar_dependencias_necesarias_28"></a>Paso 3: Instalar dependencias necesarias</h2>
+<p class="has-line-data" data-line-start="30" data-line-end="31">Docker necesita estas herramientas para funcionar correctamente:</p>
+<ul>
+<li class="has-line-data" data-line-start="32" data-line-end="33"><code>ca-certificates</code>: Para verificar certificados SSL/TLS</li>
+<li class="has-line-data" data-line-start="33" data-line-end="34"><code>curl</code>: Para descargar archivos desde internet</li>
+<li class="has-line-data" data-line-start="34" data-line-end="36"><code>gnupg</code>: Para verificar firmas digitales de los paquetes</li>
+</ul>
+<pre><code class="has-line-data" data-line-start="37" data-line-end="39" class="language-bash">sudo apt-get install -y ca-certificates curl gnupg
+</code></pre>
+<h2 class="code-line" data-line-start=40 data-line-end=41 ><a id="Paso_4_Configurar_la_clave_GPG_de_Docker_40"></a>Paso 4: Configurar la clave GPG de Docker</h2>
+<p class="has-line-data" data-line-start="42" data-line-end="43">Las claves GPG garantizan que los paquetes que descargas realmente vienen de Docker y no han sido modificados. Aquí creamos un directorio seguro y descargamos la clave oficial:</p>
+<pre><code class="has-line-data" data-line-start="45" data-line-end="49" class="language-bash">sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</code></pre>
+<p class="has-line-data" data-line-start="50" data-line-end="51"><strong>¿Qué hace cada parte?</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="51" data-line-end="52"><code>install -m 0755 -d</code>: Crea el directorio con permisos específicos</li>
+<li class="has-line-data" data-line-start="52" data-line-end="53"><code>curl -fsSL</code>: Descarga la clave de forma silenciosa</li>
+<li class="has-line-data" data-line-start="53" data-line-end="54"><code>gpg --dearmor</code>: Convierte la clave a formato binario</li>
+<li class="has-line-data" data-line-start="54" data-line-end="56"><code>chmod a+r</code>: Da permisos de lectura a todos los usuarios</li>
+</ul>
+<h2 class="code-line" data-line-start=56 data-line-end=57 ><a id="Paso_5_Agregar_el_repositorio_de_Docker_56"></a>Paso 5: Agregar el repositorio de Docker</h2>
+<p class="has-line-data" data-line-start="58" data-line-end="59">Aquí le decimos a Debian dónde encontrar los paquetes de Docker. Usamos Bookworm porque es la versión estable y siempre tiene soporte completo:</p>
+<pre><code class="has-line-data" data-line-start="61" data-line-end="65" class="language-bash"><span class="hljs-built_in">echo</span> \
+  <span class="hljs-string">&quot;deb [arch=<span class="hljs-subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  bookworm stable&quot;</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</code></pre>
+<p class="has-line-data" data-line-start="66" data-line-end="67"><strong>Desglose:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="67" data-line-end="68"><code>$(dpkg --print-architecture)</code>: Detecta automáticamente tu arquitectura (amd64, arm64, etc.)</li>
+<li class="has-line-data" data-line-start="68" data-line-end="69"><code>signed-by=...</code>: Indica qué clave GPG usar para verificar los paquetes</li>
+<li class="has-line-data" data-line-start="69" data-line-end="71"><code>bookworm stable</code>: Usa los paquetes estables de Debian 12</li>
+</ul>
+<h2 class="code-line" data-line-start=71 data-line-end=72 ><a id="Paso_6_Instalar_Docker_71"></a>Paso 6: Instalar Docker</h2>
+<p class="has-line-data" data-line-start="73" data-line-end="74">Ahora sí, actualizamos los índices con el nuevo repositorio e instalamos Docker completo:</p>
+<pre><code class="has-line-data" data-line-start="76" data-line-end="79" class="language-bash">sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<p class="has-line-data" data-line-start="80" data-line-end="81"><strong>¿Qué estamos instalando?</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="81" data-line-end="82"><code>docker-ce</code>: Docker Community Edition (el motor principal)</li>
+<li class="has-line-data" data-line-start="82" data-line-end="83"><code>docker-ce-cli</code>: La interfaz de línea de comandos</li>
+<li class="has-line-data" data-line-start="83" data-line-end="84"><code>containerd.io</code>: El runtime de contenedores</li>
+<li class="has-line-data" data-line-start="84" data-line-end="85"><code>docker-buildx-plugin</code>: Herramienta avanzada para construir imágenes</li>
+<li class="has-line-data" data-line-start="85" data-line-end="87"><code>docker-compose-plugin</code>: Para orquestar múltiples contenedores</li>
+</ul>
+<h2 class="code-line" data-line-start=87 data-line-end=88 ><a id="Paso_7_Verificar_la_instalacin_87"></a>Paso 7: Verificar la instalación</h2>
+<p class="has-line-data" data-line-start="89" data-line-end="90">Comprobamos que Docker se instaló correctamente y vemos la versión:</p>
+<pre><code class="has-line-data" data-line-start="92" data-line-end="100" class="language-bash"><span class="hljs-keyword">if</span> <span class="hljs-built_in">command</span> -v docker &amp;&gt; /dev/null
+<span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;¡Docker instalado con éxito!&quot;</span>
+    docker --version
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Hubo un error en la instalación.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre>
+<h2 class="code-line" data-line-start=101 data-line-end=102 ><a id="Configuracin_postinstalacin_101"></a>Configuración post-instalación</h2>
+<p class="has-line-data" data-line-start="103" data-line-end="104">Después de instalar Docker, necesitas hacer algunos ajustes para usarlo cómodamente:</p>
+<h3 class="code-line" data-line-start=105 data-line-end=106 ><a id="Iniciar_el_servicio_Docker_105"></a>Iniciar el servicio Docker</h3>
+<pre><code class="has-line-data" data-line-start="108" data-line-end="111" class="language-bash">sudo systemctl start docker
+sudo systemctl <span class="hljs-built_in">enable</span> docker
+</code></pre>
+<ul>
+<li class="has-line-data" data-line-start="112" data-line-end="113"><code>start</code>: Inicia Docker ahora mismo</li>
+<li class="has-line-data" data-line-start="113" data-line-end="115"><code>enable</code>: Hace que Docker se inicie automáticamente al encender el PC</li>
+</ul>
+<h3 class="code-line" data-line-start=115 data-line-end=116 ><a id="Agregar_tu_usuario_al_grupo_docker_115"></a>Agregar tu usuario al grupo docker</h3>
+<p class="has-line-data" data-line-start="117" data-line-end="118">Por defecto, solo root puede usar Docker. Para evitar escribir <code>sudo</code> cada vez:</p>
+<pre><code class="has-line-data" data-line-start="120" data-line-end="122" class="language-bash">sudo usermod -aG docker <span class="hljs-variable">$USER</span>
+</code></pre>
+<p class="has-line-data" data-line-start="123" data-line-end="124"><strong>⚠️ IMPORTANTE:</strong> Después de este comando, debes cerrar sesión y volver a entrar (o reiniciar) para que los cambios surtan efecto.</p>
+<h3 class="code-line" data-line-start=125 data-line-end=126 ><a id="Probar_que_todo_funciona_125"></a>Probar que todo funciona</h3>
+<pre><code class="has-line-data" data-line-start="128" data-line-end="130" class="language-bash">docker run hello-world
+</code></pre>
+<p class="has-line-data" data-line-start="131" data-line-end="132">Si ves un mensaje de bienvenida, ¡todo está listo!</p>
+<h2 class="code-line" data-line-start=133 data-line-end=134 ><a id="Solucin_de_problemas_comunes_133"></a>Solución de problemas comunes</h2>
+<h3 class="code-line" data-line-start=135 data-line-end=136 ><a id="Error_Cannot_connect_to_the_Docker_daemon_135"></a>Error: “Cannot connect to the Docker daemon”</h3>
+<p class="has-line-data" data-line-start="137" data-line-end="138">Verifica que el servicio esté corriendo:</p>
+<pre><code class="has-line-data" data-line-start="140" data-line-end="142" class="language-bash">sudo systemctl status docker
+</code></pre>
+<p class="has-line-data" data-line-start="143" data-line-end="144">Si está inactivo, inícialo con:</p>
+<pre><code class="has-line-data" data-line-start="146" data-line-end="148" class="language-bash">sudo systemctl start docker
+</code></pre>
+<h3 class="code-line" data-line-start=149 data-line-end=150 ><a id="Error_Permission_denied_149"></a>Error: “Permission denied”</h3>
+<p class="has-line-data" data-line-start="151" data-line-end="152">Asegúrate de haber agregado tu usuario al grupo docker y de haber cerrado sesión después de hacerlo.</p>
+<h3 class="code-line" data-line-start=153 data-line-end=154 ><a id="Problemas_con_iptables_en_Debian_Trixie_153"></a>Problemas con iptables en Debian Trixie</h3>
+<p class="has-line-data" data-line-start="155" data-line-end="156">Debian Trixie usa <code>iptables-nft</code> por defecto, lo que puede causar conflictos. Instala el paquete de compatibilidad:</p>
+<h1 class="code-line" data-line-start=156 data-line-end=157 ><a id="instalar_dockersh_156"></a>instalar_docker.sh</h1>
+<pre><code class="has-line-data" data-line-start="158" data-line-end="160" class="language-bash">sudo apt-get install -y iptables
+</code></pre>
+<pre><code class="has-line-data" data-line-start="161" data-line-end="197" class="language-bash"><span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-comment"># 1. Limpiar rastro del intento anterior</span>
+sudo rm -f /etc/apt/sources.list.d/docker.list
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Actualizando índices de Debian...&quot;</span>
+sudo apt-get update
+
+<span class="hljs-comment"># 2. Instalar dependencias</span>
+sudo apt-get install -y ca-certificates curl gnupg
+
+<span class="hljs-comment"># 3. Llave GPG oficial de Docker</span>
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+<span class="hljs-comment"># 4. Configurar repositorio (Usando &#x27;bookworm&#x27; como base estable si trixie falla)</span>
+<span class="hljs-comment"># Docker a veces no tiene carpeta &#x27;trixie&#x27; todavía, así que usamos la de Debian estable</span>
+<span class="hljs-built_in">echo</span> \
+  <span class="hljs-string">&quot;deb [arch=<span class="hljs-subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  bookworm stable&quot;</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+<span class="hljs-comment"># 5. Instalar</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Instalando Docker Engine...&quot;</span>
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+<span class="hljs-comment"># 6. Verificación real</span>
+<span class="hljs-keyword">if</span> <span class="hljs-built_in">command</span> -v docker &amp;&gt; /dev/null
+<span class="hljs-keyword">then</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;¡Docker instalado con éxito!&quot;</span>
+    docker --version
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Hubo un error en la instalación.&quot;</span>
+<span class="hljs-keyword">fi</span>
+</code></pre>
+<h2 class="code-line" data-line-start=197 data-line-end=198 ><a id="Y_ahora_qu_197"></a>¿Y ahora qué?</h2>
+<p class="has-line-data" data-line-start="199" data-line-end="200">Con Docker instalado, ya puedes usar Laravel Sail, Docker Compose, y cualquier contenedor que necesites</p>
+<hr>
+<h1 class="code-line" data-line-start=202 data-line-end=203 ><a id="Gua_de_Instalacin_de_Laravel_Sail_202"></a>Guía de Instalación de Laravel Sail</h1>
+<p class="has-line-data" data-line-start="204" data-line-end="205">Laravel Sail es el entorno de desarrollo oficial de Laravel basado en Docker. Te permite tener un entorno completo (PHP, MySQL, Redis, etc.) sin instalar nada directamente en tu sistema, solo necesitas Docker.</p>
+<h2 class="code-line" data-line-start=206 data-line-end=207 ><a id="Requisitos_previos_206"></a>Requisitos previos</h2>
+<p class="has-line-data" data-line-start="208" data-line-end="209">Antes de empezar, asegúrate de tener:</p>
+<ul>
+<li class="has-line-data" data-line-start="210" data-line-end="211">Docker instalado y funcionando (puedes verificar con <code>docker --version</code>)</li>
+<li class="has-line-data" data-line-start="211" data-line-end="212">Tu usuario agregado al grupo docker (para no usar <code>sudo</code>)</li>
+<li class="has-line-data" data-line-start="212" data-line-end="214">Conexión a internet</li>
+</ul>
+<h2 class="code-line" data-line-start=214 data-line-end=215 ><a id="Qu_es_Laravel_Sail_214"></a>¿Qué es Laravel Sail?</h2>
+<p class="has-line-data" data-line-start="216" data-line-end="217">Sail es una interfaz de línea de comandos ligera para interactuar con la configuración Docker predeterminada de Laravel. En lugar de configurar manualmente PHP, MySQL, Redis y otros servicios, Sail lo hace todo por ti con un solo comando.</p>
+<h2 class="code-line" data-line-start=218 data-line-end=219 ><a id="Instalacin_de_un_nuevo_proyecto_Laravel_con_Sail_218"></a>Instalación de un nuevo proyecto Laravel con Sail</h2>
+<p class="has-line-data" data-line-start="220" data-line-end="221">Laravel ofrece un instalador automático que descarga todo lo necesario y configura Sail en un solo paso.</p>
+<h3 class="code-line" data-line-start=222 data-line-end=223 ><a id="El_comando_mgico_222"></a>El comando mágico</h3>
+<pre><code class="has-line-data" data-line-start="225" data-line-end="227" class="language-bash">curl -s <span class="hljs-string">&quot;https://laravel.build/nombre-proyecto&quot;</span> | bash
+</code></pre>
+<p class="has-line-data" data-line-start="228" data-line-end="229"><strong>¿Qué hace este comando?</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="229" data-line-end="230"><code>curl -s</code>: Descarga el script de instalación de forma silenciosa</li>
+<li class="has-line-data" data-line-start="230" data-line-end="231"><code>https://laravel.build/nombre-proyecto</code>: El instalador oficial de Laravel</li>
+<li class="has-line-data" data-line-start="231" data-line-end="233"><code>| bash</code>: Ejecuta el script descargado</li>
+</ul>
+<p class="has-line-data" data-line-start="233" data-line-end="234"><strong>Importante:</strong> Reemplaza <code>nombre-proyecto</code> con el nombre que quieras para tu aplicación (sin espacios, usa guiones si es necesario).</p>
+<h3 class="code-line" data-line-start=235 data-line-end=236 ><a id="Ejemplo_Crear_proyecto_arena_con_MySQL_235"></a>Ejemplo: Crear proyecto “arena” con MySQL</h3>
+<pre><code class="has-line-data" data-line-start="238" data-line-end="240" class="language-bash">curl -s <span class="hljs-string">&quot;https://laravel.build/arena?with=mysql&quot;</span> | bash
+</code></pre>
+<p class="has-line-data" data-line-start="241" data-line-end="242">Este comando:</p>
+<ol>
+<li class="has-line-data" data-line-start="242" data-line-end="243">Crea una carpeta llamada <code>arena</code></li>
+<li class="has-line-data" data-line-start="243" data-line-end="244">Descarga Laravel dentro de ella</li>
+<li class="has-line-data" data-line-start="244" data-line-end="245">Configura Sail con soporte para MySQL</li>
+<li class="has-line-data" data-line-start="245" data-line-end="247">Instala todas las dependencias de Composer</li>
+</ol>
+<h3 class="code-line" data-line-start=247 data-line-end=248 ><a id="Servicios_disponibles_247"></a>Servicios disponibles</h3>
+<p class="has-line-data" data-line-start="249" data-line-end="250">Puedes agregar más servicios usando el parámetro <code>?with=</code>:</p>
+<pre><code class="has-line-data" data-line-start="252" data-line-end="261" class="language-bash"><span class="hljs-comment"># Solo MySQL</span>
+curl -s <span class="hljs-string">&quot;https://laravel.build/mi-app?with=mysql&quot;</span> | bash
+
+<span class="hljs-comment"># MySQL + Redis</span>
+curl -s <span class="hljs-string">&quot;https://laravel.build/mi-app?with=mysql,redis&quot;</span> | bash
+
+<span class="hljs-comment"># MySQL + Redis + Mailpit + Meilisearch</span>
+curl -s <span class="hljs-string">&quot;https://laravel.build/mi-app?with=mysql,redis,mailpit,meilisearch&quot;</span> | bash
+</code></pre>
+<p class="has-line-data" data-line-start="262" data-line-end="263"><strong>Servicios disponibles:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="263" data-line-end="264"><code>mysql</code> - Base de datos MySQL</li>
+<li class="has-line-data" data-line-start="264" data-line-end="265"><code>pgsql</code> - Base de datos PostgreSQL</li>
+<li class="has-line-data" data-line-start="265" data-line-end="266"><code>mariadb</code> - Base de datos MariaDB</li>
+<li class="has-line-data" data-line-start="266" data-line-end="267"><code>redis</code> - Cache y colas</li>
+<li class="has-line-data" data-line-start="267" data-line-end="268"><code>memcached</code> - Sistema de caché</li>
+<li class="has-line-data" data-line-start="268" data-line-end="269"><code>meilisearch</code> - Motor de búsqueda</li>
+<li class="has-line-data" data-line-start="269" data-line-end="270"><code>typesense</code> - Motor de búsqueda alternativo</li>
+<li class="has-line-data" data-line-start="270" data-line-end="271"><code>minio</code> - Almacenamiento compatible con S3</li>
+<li class="has-line-data" data-line-start="271" data-line-end="272"><code>mailpit</code> - Servidor de correo para desarrollo</li>
+<li class="has-line-data" data-line-start="272" data-line-end="274"><code>selenium</code> - Testing de navegador</li>
+</ul>
+<h2 class="code-line" data-line-start=274 data-line-end=275 ><a id="Tiempo_de_instalacin_274"></a>Tiempo de instalación</h2>
+<p class="has-line-data" data-line-start="276" data-line-end="277">La primera vez puede tardar varios minutos porque:</p>
+<ul>
+<li class="has-line-data" data-line-start="277" data-line-end="278">Descarga Laravel y todas sus dependencias</li>
+<li class="has-line-data" data-line-start="278" data-line-end="279">Descarga las imágenes Docker necesarias (PHP, MySQL, etc.)</li>
+<li class="has-line-data" data-line-start="279" data-line-end="281">Configura todo el entorno</li>
+</ul>
+<p class="has-line-data" data-line-start="281" data-line-end="282"><strong>Ten paciencia</strong>, es normal que tarde entre 5-10 minutos dependiendo de tu conexión.</p>
+<h2 class="code-line" data-line-start=283 data-line-end=284 ><a id="Despus_de_la_instalacin_283"></a>Después de la instalación</h2>
+<p class="has-line-data" data-line-start="285" data-line-end="286">Una vez que termine, entra a la carpeta de tu proyecto:</p>
+<pre><code class="has-line-data" data-line-start="288" data-line-end="290" class="language-bash"><span class="hljs-built_in">cd</span> arena
+</code></pre>
+<h3 class="code-line" data-line-start=291 data-line-end=292 ><a id="Iniciar_Sail_291"></a>Iniciar Sail</h3>
+<p class="has-line-data" data-line-start="293" data-line-end="294">Para levantar todos los contenedores y servicios:</p>
+<pre><code class="has-line-data" data-line-start="296" data-line-end="298" class="language-bash">./vendor/bin/sail up
+</code></pre>
+<p class="has-line-data" data-line-start="299" data-line-end="300">O en modo background (sin ocupar la terminal):</p>
+<pre><code class="has-line-data" data-line-start="302" data-line-end="304" class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<p class="has-line-data" data-line-start="305" data-line-end="306"><strong>¿Qué pasa cuando ejecutas esto?</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="306" data-line-end="307">Se inician los contenedores de Docker</li>
+<li class="has-line-data" data-line-start="307" data-line-end="308">PHP, MySQL y otros servicios quedan corriendo</li>
+<li class="has-line-data" data-line-start="308" data-line-end="310">Tu aplicación estará disponible en <code>http://localhost</code></li>
+</ul>
+<h3 class="code-line" data-line-start=310 data-line-end=311 ><a id="Detener_Sail_310"></a>Detener Sail</h3>
+<p class="has-line-data" data-line-start="312" data-line-end="313">Para apagar todos los servicios:</p>
+<pre><code class="has-line-data" data-line-start="315" data-line-end="317" class="language-bash">./vendor/bin/sail down
+</code></pre>
+<h3 class="code-line" data-line-start=318 data-line-end=319 ><a id="Crear_un_alias_recomendado_318"></a>Crear un alias (recomendado)</h3>
+<p class="has-line-data" data-line-start="320" data-line-end="321">Escribir <code>./vendor/bin/sail</code> cada vez es tedioso. Crea un alias en tu shell:</p>
+<p class="has-line-data" data-line-start="322" data-line-end="323"><strong>Para Bash:</strong></p>
+<pre><code class="has-line-data" data-line-start="324" data-line-end="327" class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias sail=&#x27;./vendor/bin/sail&#x27;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+<p class="has-line-data" data-line-start="328" data-line-end="329"><strong>Para Zsh:</strong></p>
+<pre><code class="has-line-data" data-line-start="330" data-line-end="333" class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias sail=&#x27;./vendor/bin/sail&#x27;&quot;</span> &gt;&gt; ~/.zshrc
+<span class="hljs-built_in">source</span> ~/.zshrc
+</code></pre>
+<p class="has-line-data" data-line-start="334" data-line-end="335">Ahora puedes usar simplemente:</p>
+<pre><code class="has-line-data" data-line-start="336" data-line-end="340" class="language-bash">sail up
+sail down
+sail artisan migrate
+</code></pre>
+<h2 class="code-line" data-line-start=341 data-line-end=342 ><a id="Comandos_tiles_de_Sail_341"></a>Comandos útiles de Sail</h2>
+<h3 class="code-line" data-line-start=343 data-line-end=344 ><a id="Ejecutar_comandos_Artisan_343"></a>Ejecutar comandos Artisan</h3>
+<pre><code class="has-line-data" data-line-start="346" data-line-end="350" class="language-bash">sail artisan migrate
+sail artisan make:model Post
+sail artisan tinker
+</code></pre>
+<h3 class="code-line" data-line-start=351 data-line-end=352 ><a id="Ejecutar_comandos_Composer_351"></a>Ejecutar comandos Composer</h3>
+<pre><code class="has-line-data" data-line-start="354" data-line-end="357" class="language-bash">sail composer require laravel/sanctum
+sail composer update
+</code></pre>
+<h3 class="code-line" data-line-start=358 data-line-end=359 ><a id="Ejecutar_comandos_NPM_358"></a>Ejecutar comandos NPM</h3>
+<pre><code class="has-line-data" data-line-start="361" data-line-end="365" class="language-bash">sail npm install
+sail npm run dev
+sail npm run build
+</code></pre>
+<h3 class="code-line" data-line-start=366 data-line-end=367 ><a id="Ejecutar_tests_366"></a>Ejecutar tests</h3>
+<pre><code class="has-line-data" data-line-start="369" data-line-end="372" class="language-bash">sail <span class="hljs-built_in">test</span>
+sail <span class="hljs-built_in">test</span> --filter NombreDelTest
+</code></pre>
+<h3 class="code-line" data-line-start=373 data-line-end=374 ><a id="Acceder_a_la_base_de_datos_373"></a>Acceder a la base de datos</h3>
+<pre><code class="has-line-data" data-line-start="376" data-line-end="378" class="language-bash">sail mysql
+</code></pre>
+<p class="has-line-data" data-line-start="379" data-line-end="380">O si usas PostgreSQL:</p>
+<pre><code class="has-line-data" data-line-start="381" data-line-end="383" class="language-bash">sail psql
+</code></pre>
+<h3 class="code-line" data-line-start=384 data-line-end=385 ><a id="Ver_logs_en_tiempo_real_384"></a>Ver logs en tiempo real</h3>
+<pre><code class="has-line-data" data-line-start="387" data-line-end="390" class="language-bash">sail logs
+sail logs -f  <span class="hljs-comment"># Seguir los logs en tiempo real</span>
+</code></pre>
+<h3 class="code-line" data-line-start=391 data-line-end=392 ><a id="Ejecutar_comandos_dentro_del_contenedor_391"></a>Ejecutar comandos dentro del contenedor</h3>
+<pre><code class="has-line-data" data-line-start="394" data-line-end="396" class="language-bash">sail shell
+</code></pre>
+<p class="has-line-data" data-line-start="397" data-line-end="398">Esto te da acceso a una terminal bash dentro del contenedor de PHP.</p>
+<h3 class="code-line" data-line-start=399 data-line-end=400 ><a id="Reiniciar_servicios_399"></a>Reiniciar servicios</h3>
+<pre><code class="has-line-data" data-line-start="402" data-line-end="404" class="language-bash">sail restart
+</code></pre>
+<h2 class="code-line" data-line-start=405 data-line-end=406 ><a id="Estructura_del_proyecto_con_Sail_405"></a>Estructura del proyecto con Sail</h2>
+<p class="has-line-data" data-line-start="407" data-line-end="408">Después de la instalación, tu proyecto tendrá:</p>
+<pre><code class="has-line-data" data-line-start="410" data-line-end="420">arena/
+├── docker-compose.yml    # Configuración de Docker
+├── .env                  # Variables de entorno
+├── vendor/
+│   └── bin/
+│       └── sail          # El comando sail
+├── app/                  # Tu código Laravel
+├── database/
+└── ...
+</code></pre>
+<h2 class="code-line" data-line-start=421 data-line-end=422 ><a id="Configuracin_de_la_base_de_datos_421"></a>Configuración de la base de datos</h2>
+<p class="has-line-data" data-line-start="423" data-line-end="424">Sail configura automáticamente tu archivo <code>.env</code> con las credenciales correctas:</p>
+<pre><code class="has-line-data" data-line-start="426" data-line-end="433" class="language-env">DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=arena
+DB_USERNAME=sail
+DB_PASSWORD=password
+</code></pre>
+<p class="has-line-data" data-line-start="434" data-line-end="435"><strong>Nota:</strong> El host es <code>mysql</code> (nombre del servicio Docker), no <code>localhost</code> ni <code>127.0.0.1</code>.</p>
+<h2 class="code-line" data-line-start=436 data-line-end=437 ><a id="Acceder_a_tu_aplicacin_436"></a>Acceder a tu aplicación</h2>
+<p class="has-line-data" data-line-start="438" data-line-end="439">Una vez que Sail esté corriendo:</p>
+<ul>
+<li class="has-line-data" data-line-start="440" data-line-end="441"><strong>Aplicación web:</strong> <a href="http://localhost">http://localhost</a></li>
+<li class="has-line-data" data-line-start="441" data-line-end="442"><strong>Mailpit (si lo instalaste):</strong> <a href="http://localhost:8025">http://localhost:8025</a></li>
+<li class="has-line-data" data-line-start="442" data-line-end="444"><strong>MySQL:</strong> <code>localhost:3306</code> (desde tu máquina host)</li>
+</ul>
+<h2 class="code-line" data-line-start=444 data-line-end=445 ><a id="Solucin_de_problemas_comunes_444"></a>Solución de problemas comunes</h2>
+<h3 class="code-line" data-line-start=446 data-line-end=447 ><a id="Error_Port_80_is_already_in_use_446"></a>Error: “Port 80 is already in use”</h3>
+<p class="has-line-data" data-line-start="448" data-line-end="449">Otro servicio está usando el puerto 80. Puedes:</p>
+<ol>
+<li class="has-line-data" data-line-start="450" data-line-end="451">Detener el servicio que lo usa (Apache, Nginx, etc.)</li>
+<li class="has-line-data" data-line-start="451" data-line-end="453">O cambiar el puerto en <code>docker-compose.yml</code>:</li>
+</ol>
+<pre><code class="has-line-data" data-line-start="454" data-line-end="457" class="language-yaml"><span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;8000:80&#x27;</span>
+</code></pre>
+<p class="has-line-data" data-line-start="458" data-line-end="459">Ahora tu app estará en <code>http://localhost:8000</code></p>
+<h3 class="code-line" data-line-start=460 data-line-end=461 ><a id="Error_Cannot_connect_to_Docker_daemon_460"></a>Error: “Cannot connect to Docker daemon”</h3>
+<p class="has-line-data" data-line-start="462" data-line-end="463">Docker no está corriendo. Inícialo:</p>
+<pre><code class="has-line-data" data-line-start="465" data-line-end="467" class="language-bash">sudo systemctl start docker
+</code></pre>
+<p class="has-line-data" data-line-start="468" data-line-end="469">O si usas Docker Desktop en Windows/Mac, asegúrate de que esté abierto.</p>
+<h3 class="code-line" data-line-start=470 data-line-end=471 ><a id="Error_Permission_denied_al_ejecutar_Sail_470"></a>Error: “Permission denied” al ejecutar Sail</h3>
+<p class="has-line-data" data-line-start="472" data-line-end="473">Tu usuario no está en el grupo docker:</p>
+<pre><code class="has-line-data" data-line-start="475" data-line-end="477" class="language-bash">sudo usermod -aG docker <span class="hljs-variable">$USER</span>
+</code></pre>
+<p class="has-line-data" data-line-start="478" data-line-end="479">Luego cierra sesión y vuelve a entrar.</p>
+<h3 class="code-line" data-line-start=480 data-line-end=481 ><a id="Los_cambios_en_el_cdigo_no_se_reflejan_480"></a>Los cambios en el código no se reflejan</h3>
+<p class="has-line-data" data-line-start="482" data-line-end="483">Si estás usando WSL2 con Docker Desktop, asegúrate de que tu proyecto esté en el sistema de archivos de Linux (<code>/home/usuario/...</code>) y no en Windows (<code>/mnt/c/...</code>). Los archivos en <code>/mnt/c/</code> son mucho más lentos.</p>
+<h3 class="code-line" data-line-start=484 data-line-end=485 ><a id="Limpiar_todo_y_empezar_de_cero_484"></a>Limpiar todo y empezar de cero</h3>
+<p class="has-line-data" data-line-start="486" data-line-end="487">Si algo se rompió y quieres resetear:</p>
+<pre><code class="has-line-data" data-line-start="489" data-line-end="493" class="language-bash">sail down -v  <span class="hljs-comment"># Detiene y elimina volúmenes (¡borra la base de datos!)</span>
+sail build --no-cache  <span class="hljs-comment"># Reconstruye las imágenes</span>
+sail up
+</code></pre>
+<h2 class="code-line" data-line-start=494 data-line-end=495 ><a id="Diferencias_entre_entornos_494"></a>Diferencias entre entornos</h2>
+<h3 class="code-line" data-line-start=496 data-line-end=497 ><a id="En_DebianLinux_nativo_496"></a>En Debian/Linux nativo</h3>
+<p class="has-line-data" data-line-start="498" data-line-end="499">Todo funciona directamente. Solo asegúrate de que Docker esté instalado y corriendo.</p>
+<h3 class="code-line" data-line-start=500 data-line-end=501 ><a id="En_WSL2_Windows_500"></a>En WSL2 (Windows)</h3>
+<p class="has-line-data" data-line-start="502" data-line-end="503">Si tienes Docker Desktop instalado en Windows:</p>
+<ul>
+<li class="has-line-data" data-line-start="503" data-line-end="504"><strong>No necesitas instalar Docker dentro de WSL2</strong></li>
+<li class="has-line-data" data-line-start="504" data-line-end="505">Docker Desktop se integra automáticamente con WSL2</li>
+<li class="has-line-data" data-line-start="505" data-line-end="506">Guarda tus proyectos en <code>/home/usuario/</code> (no en <code>/mnt/c/</code>)</li>
+<li class="has-line-data" data-line-start="506" data-line-end="508">El rendimiento será mucho mejor</li>
+</ul>
+<h3 class="code-line" data-line-start=508 data-line-end=509 ><a id="En_macOS_508"></a>En macOS</h3>
+<p class="has-line-data" data-line-start="510" data-line-end="511">Similar a Windows, usa Docker Desktop y todo funcionará sin problemas.</p>
+<h2 class="code-line" data-line-start=512 data-line-end=513 ><a id="Comandos_de_un_vistazo_512"></a>Comandos de un vistazo</h2>
+<pre><code class="has-line-data" data-line-start="515" data-line-end="536" class="language-bash"><span class="hljs-comment"># Crear proyecto</span>
+curl -s <span class="hljs-string">&quot;https://laravel.build/mi-app?with=mysql&quot;</span> | bash
+
+<span class="hljs-comment"># Entrar al proyecto</span>
+<span class="hljs-built_in">cd</span> mi-app
+
+<span class="hljs-comment"># Iniciar servicios</span>
+./vendor/bin/sail up -d
+
+<span class="hljs-comment"># Ejecutar migraciones</span>
+./vendor/bin/sail artisan migrate
+
+<span class="hljs-comment"># Detener servicios</span>
+./vendor/bin/sail down
+
+<span class="hljs-comment"># Ver logs</span>
+./vendor/bin/sail logs -f
+
+<span class="hljs-comment"># Acceder al contenedor</span>
+./vendor/bin/sail shell
+</code></pre>
+<h2 class="code-line" data-line-start=537 data-line-end=538 ><a id="Prximos_pasos_537"></a>Próximos pasos</h2>
+<p class="has-line-data" data-line-start="539" data-line-end="540">Con Sail corriendo, ya puedes:</p>
+<ul>
+<li class="has-line-data" data-line-start="540" data-line-end="541">Crear modelos, controladores y migraciones</li>
+<li class="has-line-data" data-line-start="541" data-line-end="542">Desarrollar tu aplicación normalmente</li>
+<li class="has-line-data" data-line-start="542" data-line-end="543">Ejecutar tests</li>
+<li class="has-line-data" data-line-start="543" data-line-end="545">Usar todas las características de Laravel</li>
+</ul>
+<p class="has-line-data" data-line-start="545" data-line-end="546">¡Todo sin preocuparte por configurar PHP, MySQL o cualquier otra dependencia!</p>
+<h2 class="code-line" data-line-start=547 data-line-end=548 ><a id="Recursos_adicionales_547"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="549" data-line-end="550"><a href="https://laravel.com/docs/sail">Documentación oficial de Sail</a></li>
+<li class="has-line-data" data-line-start="550" data-line-end="551"><a href="https://laravel.com/docs">Documentación de Laravel</a></li>
+<li class="has-line-data" data-line-start="551" data-line-end="552"><a href="https://laracasts.com">Laracasts</a> - Tutoriales en video</li>
+</ul>
+<hr>
+<h1 class="code-line" data-line-start=556 data-line-end=557 ><a id="Gua_para_Aadir_phpMyAdmin_a_Laravel_Sail_556"></a>Guía para Añadir phpMyAdmin a Laravel Sail</h1>
+<p class="has-line-data" data-line-start="558" data-line-end="559">phpMyAdmin es una herramienta web que te permite administrar tu base de datos MySQL de forma visual, sin necesidad de usar comandos SQL en la terminal. Es perfecta para ver tablas, ejecutar consultas, importar/exportar datos y más.</p>
+<h2 class="code-line" data-line-start=560 data-line-end=561 ><a id="Por_qu_aadir_phpMyAdmin_560"></a>¿Por qué añadir phpMyAdmin?</h2>
+<p class="has-line-data" data-line-start="562" data-line-end="563">Aunque puedes acceder a MySQL desde la terminal con <code>sail mysql</code>, phpMyAdmin ofrece:</p>
+<ul>
+<li class="has-line-data" data-line-start="563" data-line-end="564">Interfaz gráfica intuitiva</li>
+<li class="has-line-data" data-line-start="564" data-line-end="565">Visualización fácil de tablas y datos</li>
+<li class="has-line-data" data-line-start="565" data-line-end="566">Editor SQL con autocompletado</li>
+<li class="has-line-data" data-line-start="566" data-line-end="567">Importación/exportación de bases de datos</li>
+<li class="has-line-data" data-line-start="567" data-line-end="569">Gestión de usuarios y permisos</li>
+</ul>
+<h2 class="code-line" data-line-start=569 data-line-end=570 ><a id="Requisitos_previos_569"></a>Requisitos previos</h2>
+<ul>
+<li class="has-line-data" data-line-start="571" data-line-end="572">Tener Laravel Sail instalado y funcionando</li>
+<li class="has-line-data" data-line-start="572" data-line-end="574">Tener MySQL configurado en tu proyecto (viene por defecto si instalaste con <code>?with=mysql</code>)</li>
+</ul>
+<h2 class="code-line" data-line-start=574 data-line-end=575 ><a id="Paso_1_Editar_el_archivo_composeyaml_574"></a>Paso 1: Editar el archivo compose.yaml</h2>
+<p class="has-line-data" data-line-start="576" data-line-end="577">Laravel Sail usa Docker Compose para gestionar los servicios. Necesitas añadir phpMyAdmin como un nuevo servicio.</p>
+<p class="has-line-data" data-line-start="578" data-line-end="579">Abre el archivo <code>compose.yaml</code> en la raíz de tu proyecto:</p>
+<pre><code class="has-line-data" data-line-start="581" data-line-end="584" class="language-bash"><span class="hljs-built_in">cd</span> arena  <span class="hljs-comment"># o el nombre de tu proyecto</span>
+nano compose.yaml  <span class="hljs-comment"># o usa tu editor favorito</span>
+</code></pre>
+<h2 class="code-line" data-line-start=585 data-line-end=586 ><a id="Paso_2_Aadir_el_servicio_de_phpMyAdmin_585"></a>Paso 2: Añadir el servicio de phpMyAdmin</h2>
+<p class="has-line-data" data-line-start="587" data-line-end="588">Busca la sección del servicio <code>mysql</code> (debería estar después del servicio <code>laravel.test</code>). Justo después de la sección de MySQL, añade esto:</p>
+<pre><code class="has-line-data" data-line-start="590" data-line-end="604" class="language-yaml">    <span class="hljs-attr">phpmyadmin:</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">&#x27;phpmyadmin:latest&#x27;</span>
+        <span class="hljs-attr">ports:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;${FORWARD_PHPMYADMIN_PORT:-8080}:80&#x27;</span>
+        <span class="hljs-attr">environment:</span>
+            <span class="hljs-attr">PMA_HOST:</span> <span class="hljs-string">mysql</span>
+            <span class="hljs-attr">PMA_USER:</span> <span class="hljs-string">&#x27;${DB_USERNAME}&#x27;</span>
+            <span class="hljs-attr">PMA_PASSWORD:</span> <span class="hljs-string">&#x27;${DB_PASSWORD}&#x27;</span>
+            <span class="hljs-attr">UPLOAD_LIMIT:</span> <span class="hljs-string">300M</span>
+        <span class="hljs-attr">networks:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">sail</span>
+        <span class="hljs-attr">depends_on:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">mysql</span>
+</code></pre>
+<p class="has-line-data" data-line-start="605" data-line-end="606"><strong>Importante:</strong> Respeta la indentación. En YAML, los espacios son cruciales.</p>
+<h3 class="code-line" data-line-start=607 data-line-end=608 ><a id="Qu_hace_cada_parte_607"></a>¿Qué hace cada parte?</h3>
+<ul>
+<li class="has-line-data" data-line-start="609" data-line-end="610"><code>image: 'phpmyadmin:latest'</code> - Usa la imagen oficial de phpMyAdmin</li>
+<li class="has-line-data" data-line-start="610" data-line-end="611"><code>ports: - '${FORWARD_PHPMYADMIN_PORT:-8080}:80'</code> - Expone phpMyAdmin en el puerto 8080 de tu máquina</li>
+<li class="has-line-data" data-line-start="611" data-line-end="612"><code>PMA_HOST: mysql</code> - Le dice a phpMyAdmin que se conecte al servicio MySQL</li>
+<li class="has-line-data" data-line-start="612" data-line-end="613"><code>PMA_USER</code> y <code>PMA_PASSWORD</code> - Usa las credenciales de tu archivo <code>.env</code></li>
+<li class="has-line-data" data-line-start="613" data-line-end="614"><code>UPLOAD_LIMIT: 300M</code> - Permite importar archivos SQL de hasta 300MB</li>
+<li class="has-line-data" data-line-start="614" data-line-end="616"><code>depends_on: - mysql</code> - Asegura que MySQL se inicie antes que phpMyAdmin</li>
+</ul>
+<h2 class="code-line" data-line-start=616 data-line-end=617 ><a id="Paso_3_Ejemplo_completo_del_archivo_composeyaml_616"></a>Paso 3: Ejemplo completo del archivo compose.yaml</h2>
+<p class="has-line-data" data-line-start="618" data-line-end="619">Tu archivo debería verse así:</p>
+<pre><code class="has-line-data" data-line-start="621" data-line-end="691" class="language-yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-attr">laravel.test:</span>
+        <span class="hljs-attr">build:</span>
+            <span class="hljs-attr">context:</span> <span class="hljs-string">&#x27;./vendor/laravel/sail/runtimes/8.5&#x27;</span>
+            <span class="hljs-attr">dockerfile:</span> <span class="hljs-string">Dockerfile</span>
+            <span class="hljs-attr">args:</span>
+                <span class="hljs-attr">WWWGROUP:</span> <span class="hljs-string">&#x27;${WWWGROUP}&#x27;</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">&#x27;sail-8.5/app&#x27;</span>
+        <span class="hljs-attr">extra_hosts:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;host.docker.internal:host-gateway&#x27;</span>
+        <span class="hljs-attr">ports:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;${APP_PORT:-80}:80&#x27;</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;${VITE_PORT:-5173}:${VITE_PORT:-5173}&#x27;</span>
+        <span class="hljs-attr">environment:</span>
+            <span class="hljs-attr">WWWUSER:</span> <span class="hljs-string">&#x27;${WWWUSER}&#x27;</span>
+            <span class="hljs-attr">LARAVEL_SAIL:</span> <span class="hljs-number">1</span>
+            <span class="hljs-attr">XDEBUG_MODE:</span> <span class="hljs-string">&#x27;${SAIL_XDEBUG_MODE:-off}&#x27;</span>
+            <span class="hljs-attr">XDEBUG_CONFIG:</span> <span class="hljs-string">&#x27;${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}&#x27;</span>
+            <span class="hljs-attr">IGNITION_LOCAL_SITES_PATH:</span> <span class="hljs-string">&#x27;${PWD}&#x27;</span>
+        <span class="hljs-attr">volumes:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;.:/var/www/html&#x27;</span>
+        <span class="hljs-attr">networks:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">sail</span>
+        <span class="hljs-attr">depends_on:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">mysql</span>
+    <span class="hljs-attr">mysql:</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">&#x27;mysql:8.4&#x27;</span>
+        <span class="hljs-attr">ports:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;${FORWARD_DB_PORT:-3306}:3306&#x27;</span>
+        <span class="hljs-attr">environment:</span>
+            <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">&#x27;${DB_PASSWORD}&#x27;</span>
+            <span class="hljs-attr">MYSQL_ROOT_HOST:</span> <span class="hljs-string">&#x27;%&#x27;</span>
+            <span class="hljs-attr">MYSQL_DATABASE:</span> <span class="hljs-string">&#x27;${DB_DATABASE}&#x27;</span>
+            <span class="hljs-attr">MYSQL_USER:</span> <span class="hljs-string">&#x27;${DB_USERNAME}&#x27;</span>
+            <span class="hljs-attr">MYSQL_PASSWORD:</span> <span class="hljs-string">&#x27;${DB_PASSWORD}&#x27;</span>
+            <span class="hljs-attr">MYSQL_ALLOW_EMPTY_PASSWORD:</span> <span class="hljs-number">1</span>
+            <span class="hljs-attr">MYSQL_EXTRA_OPTIONS:</span> <span class="hljs-string">&#x27;${MYSQL_EXTRA_OPTIONS:-}&#x27;</span>
+        <span class="hljs-attr">volumes:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;sail-mysql:/var/lib/mysql&#x27;</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh&#x27;</span>
+        <span class="hljs-attr">networks:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">sail</span>
+        <span class="hljs-attr">healthcheck:</span>
+            <span class="hljs-attr">test:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">CMD</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">mysqladmin</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">ping</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;-p${DB_PASSWORD}&#x27;</span>
+            <span class="hljs-attr">retries:</span> <span class="hljs-number">3</span>
+            <span class="hljs-attr">timeout:</span> <span class="hljs-string">5s</span>
+    <span class="hljs-attr">phpmyadmin:</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">&#x27;phpmyadmin:latest&#x27;</span>
+        <span class="hljs-attr">ports:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;${FORWARD_PHPMYADMIN_PORT:-8080}:80&#x27;</span>
+        <span class="hljs-attr">environment:</span>
+            <span class="hljs-attr">PMA_HOST:</span> <span class="hljs-string">mysql</span>
+            <span class="hljs-attr">PMA_USER:</span> <span class="hljs-string">&#x27;${DB_USERNAME}&#x27;</span>
+            <span class="hljs-attr">PMA_PASSWORD:</span> <span class="hljs-string">&#x27;${DB_PASSWORD}&#x27;</span>
+            <span class="hljs-attr">UPLOAD_LIMIT:</span> <span class="hljs-string">300M</span>
+        <span class="hljs-attr">networks:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">sail</span>
+        <span class="hljs-attr">depends_on:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">mysql</span>
+<span class="hljs-attr">networks:</span>
+    <span class="hljs-attr">sail:</span>
+        <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span>
+<span class="hljs-attr">volumes:</span>
+    <span class="hljs-attr">sail-mysql:</span>
+        <span class="hljs-attr">driver:</span> <span class="hljs-string">local</span>
+</code></pre>
+<h2 class="code-line" data-line-start=692 data-line-end=693 ><a id="Paso_4_Reiniciar_los_contenedores_692"></a>Paso 4: Reiniciar los contenedores</h2>
+<p class="has-line-data" data-line-start="694" data-line-end="695">Si Sail ya está corriendo, necesitas reiniciarlo para que reconozca el nuevo servicio:</p>
+<pre><code class="has-line-data" data-line-start="697" data-line-end="700" class="language-bash">./vendor/bin/sail down
+./vendor/bin/sail up -d
+</code></pre>
+<p class="has-line-data" data-line-start="701" data-line-end="702">Si es la primera vez que inicias Sail:</p>
+<pre><code class="has-line-data" data-line-start="704" data-line-end="706" class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<p class="has-line-data" data-line-start="707" data-line-end="708">El flag <code>-d</code> ejecuta los contenedores en segundo plano (modo detached).</p>
+<h2 class="code-line" data-line-start=709 data-line-end=710 ><a id="Paso_5_Acceder_a_phpMyAdmin_709"></a>Paso 5: Acceder a phpMyAdmin</h2>
+<p class="has-line-data" data-line-start="711" data-line-end="712">Abre tu navegador y ve a:</p>
+<pre><code class="has-line-data" data-line-start="714" data-line-end="716">http://localhost:8080
+</code></pre>
+<p class="has-line-data" data-line-start="717" data-line-end="718"><strong>Credenciales de acceso:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="718" data-line-end="719"><strong>Servidor:</strong> Déjalo en blanco o escribe <code>mysql</code></li>
+<li class="has-line-data" data-line-start="719" data-line-end="720"><strong>Usuario:</strong> <code>sail</code> (o el valor de <code>DB_USERNAME</code> en tu <code>.env</code>)</li>
+<li class="has-line-data" data-line-start="720" data-line-end="722"><strong>Contraseña:</strong> <code>password</code> (o el valor de <code>DB_PASSWORD</code> en tu <code>.env</code>)</li>
+</ul>
+<h2 class="code-line" data-line-start=722 data-line-end=723 ><a id="Personalizacin_del_puerto_722"></a>Personalización del puerto</h2>
+<p class="has-line-data" data-line-start="724" data-line-end="725">Si el puerto 8080 ya está en uso o prefieres otro, puedes cambiarlo de dos formas:</p>
+<h3 class="code-line" data-line-start=726 data-line-end=727 ><a id="Opcin_1_Editar_el_archivo_env_726"></a>Opción 1: Editar el archivo .env</h3>
+<p class="has-line-data" data-line-start="728" data-line-end="729">Añade esta línea a tu archivo <code>.env</code>:</p>
+<pre><code class="has-line-data" data-line-start="731" data-line-end="733" class="language-env">FORWARD_PHPMYADMIN_PORT=8081
+</code></pre>
+<p class="has-line-data" data-line-start="734" data-line-end="735">Luego reinicia Sail:</p>
+<pre><code class="has-line-data" data-line-start="737" data-line-end="740" class="language-bash">./vendor/bin/sail down
+./vendor/bin/sail up -d
+</code></pre>
+<p class="has-line-data" data-line-start="741" data-line-end="742">Ahora phpMyAdmin estará en <code>http://localhost:8081</code></p>
+<h3 class="code-line" data-line-start=743 data-line-end=744 ><a id="Opcin_2_Cambiar_directamente_en_composeyaml_743"></a>Opción 2: Cambiar directamente en compose.yaml</h3>
+<p class="has-line-data" data-line-start="745" data-line-end="746">Modifica la línea de puertos:</p>
+<pre><code class="has-line-data" data-line-start="748" data-line-end="751" class="language-yaml"><span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;8081:80&#x27;</span>  <span class="hljs-comment"># Cambia 8080 por el puerto que quieras</span>
+</code></pre>
+<h2 class="code-line" data-line-start=752 data-line-end=753 ><a id="Verificar_que_phpMyAdmin_est_corriendo_752"></a>Verificar que phpMyAdmin está corriendo</h2>
+<p class="has-line-data" data-line-start="754" data-line-end="755">Para ver todos los contenedores activos:</p>
+<pre><code class="has-line-data" data-line-start="757" data-line-end="759" class="language-bash">./vendor/bin/sail ps
+</code></pre>
+<p class="has-line-data" data-line-start="760" data-line-end="761">Deberías ver algo como:</p>
+<pre><code class="has-line-data" data-line-start="763" data-line-end="768">NAME                    IMAGE               STATUS
+arena-laravel.test-1    sail-8.5/app        Up
+arena-mysql-1           mysql:8.4           Up
+arena-phpmyadmin-1      phpmyadmin:latest   Up
+</code></pre>
+<h2 class="code-line" data-line-start=769 data-line-end=770 ><a id="Ver_los_logs_de_phpMyAdmin_769"></a>Ver los logs de phpMyAdmin</h2>
+<p class="has-line-data" data-line-start="771" data-line-end="772">Si tienes problemas, revisa los logs:</p>
+<pre><code class="has-line-data" data-line-start="774" data-line-end="776" class="language-bash">./vendor/bin/sail logs phpmyadmin
+</code></pre>
+<p class="has-line-data" data-line-start="777" data-line-end="778">O para seguir los logs en tiempo real:</p>
+<pre><code class="has-line-data" data-line-start="780" data-line-end="782" class="language-bash">./vendor/bin/sail logs -f phpmyadmin
+</code></pre>
+<h2 class="code-line" data-line-start=783 data-line-end=784 ><a id="Tareas_comunes_en_phpMyAdmin_783"></a>Tareas comunes en phpMyAdmin</h2>
+<h3 class="code-line" data-line-start=785 data-line-end=786 ><a id="Crear_una_nueva_tabla_785"></a>Crear una nueva tabla</h3>
+<ol>
+<li class="has-line-data" data-line-start="787" data-line-end="788">Selecciona tu base de datos en el panel izquierdo</li>
+<li class="has-line-data" data-line-start="788" data-line-end="789">Haz clic en “Nueva” en la parte superior</li>
+<li class="has-line-data" data-line-start="789" data-line-end="790">Define el nombre de la tabla y el número de columnas</li>
+<li class="has-line-data" data-line-start="790" data-line-end="791">Configura cada columna (nombre, tipo, longitud, etc.)</li>
+<li class="has-line-data" data-line-start="791" data-line-end="793">Haz clic en “Guardar”</li>
+</ol>
+<h3 class="code-line" data-line-start=793 data-line-end=794 ><a id="Ejecutar_consultas_SQL_793"></a>Ejecutar consultas SQL</h3>
+<ol>
+<li class="has-line-data" data-line-start="795" data-line-end="796">Selecciona tu base de datos</li>
+<li class="has-line-data" data-line-start="796" data-line-end="797">Haz clic en la pestaña “SQL”</li>
+<li class="has-line-data" data-line-start="797" data-line-end="798">Escribe tu consulta</li>
+<li class="has-line-data" data-line-start="798" data-line-end="800">Haz clic en “Continuar”</li>
+</ol>
+<h3 class="code-line" data-line-start=800 data-line-end=801 ><a id="Importar_una_base_de_datos_800"></a>Importar una base de datos</h3>
+<ol>
+<li class="has-line-data" data-line-start="802" data-line-end="803">Selecciona tu base de datos</li>
+<li class="has-line-data" data-line-start="803" data-line-end="804">Haz clic en la pestaña “Importar”</li>
+<li class="has-line-data" data-line-start="804" data-line-end="805">Selecciona tu archivo <code>.sql</code></li>
+<li class="has-line-data" data-line-start="805" data-line-end="807">Haz clic en “Continuar”</li>
+</ol>
+<h3 class="code-line" data-line-start=807 data-line-end=808 ><a id="Exportar_una_base_de_datos_807"></a>Exportar una base de datos</h3>
+<ol>
+<li class="has-line-data" data-line-start="809" data-line-end="810">Selecciona tu base de datos</li>
+<li class="has-line-data" data-line-start="810" data-line-end="811">Haz clic en la pestaña “Exportar”</li>
+<li class="has-line-data" data-line-start="811" data-line-end="812">Elige el método (rápido o personalizado)</li>
+<li class="has-line-data" data-line-start="812" data-line-end="814">Haz clic en “Continuar”</li>
+</ol>
+<h2 class="code-line" data-line-start=814 data-line-end=815 ><a id="Solucin_de_problemas_814"></a>Solución de problemas</h2>
+<h3 class="code-line" data-line-start=816 data-line-end=817 ><a id="Error_Cannot_connect_to_MySQL_server_816"></a>Error: “Cannot connect to MySQL server”</h3>
+<p class="has-line-data" data-line-start="818" data-line-end="819"><strong>Causa:</strong> phpMyAdmin no puede conectarse a MySQL.</p>
+<p class="has-line-data" data-line-start="820" data-line-end="821"><strong>Solución:</strong></p>
+<ol>
+<li class="has-line-data" data-line-start="821" data-line-end="822">Verifica que MySQL esté corriendo: <code>./vendor/bin/sail ps</code></li>
+<li class="has-line-data" data-line-start="822" data-line-end="823">Revisa las credenciales en tu archivo <code>.env</code></li>
+<li class="has-line-data" data-line-start="823" data-line-end="825">Asegúrate de que <code>PMA_HOST</code> sea <code>mysql</code> (nombre del servicio)</li>
+</ol>
+<h3 class="code-line" data-line-start=825 data-line-end=826 ><a id="Error_Access_denied_for_user_825"></a>Error: “Access denied for user”</h3>
+<p class="has-line-data" data-line-start="827" data-line-end="828"><strong>Causa:</strong> Las credenciales son incorrectas.</p>
+<p class="has-line-data" data-line-start="829" data-line-end="830"><strong>Solución:</strong></p>
+<ol>
+<li class="has-line-data" data-line-start="830" data-line-end="835">Verifica tu archivo <code>.env</code>:<pre><code class="has-line-data" data-line-start="832" data-line-end="835" class="language-env">DB_USERNAME=sail
+DB_PASSWORD=password
+</code></pre>
+</li>
+<li class="has-line-data" data-line-start="835" data-line-end="837">Usa esas mismas credenciales en phpMyAdmin</li>
+</ol>
+<h3 class="code-line" data-line-start=837 data-line-end=838 ><a id="Puerto_8080_ya_est_en_uso_837"></a>Puerto 8080 ya está en uso</h3>
+<p class="has-line-data" data-line-start="839" data-line-end="840"><strong>Causa:</strong> Otro servicio está usando el puerto 8080.</p>
+<p class="has-line-data" data-line-start="841" data-line-end="843"><strong>Solución:</strong><br>
+Cambia el puerto como se explicó en la sección “Personalización del puerto”.</p>
+<h3 class="code-line" data-line-start=844 data-line-end=845 ><a id="phpMyAdmin_no_aparece_despus_de_reiniciar_844"></a>phpMyAdmin no aparece después de reiniciar</h3>
+<p class="has-line-data" data-line-start="846" data-line-end="847"><strong>Causa:</strong> Error en la sintaxis del archivo <code>compose.yaml</code>.</p>
+<p class="has-line-data" data-line-start="848" data-line-end="849"><strong>Solución:</strong></p>
+<ol>
+<li class="has-line-data" data-line-start="849" data-line-end="850">Verifica la indentación (usa espacios, no tabs)</li>
+<li class="has-line-data" data-line-start="850" data-line-end="851">Revisa que no falten dos puntos o guiones</li>
+<li class="has-line-data" data-line-start="851" data-line-end="853">Ejecuta: <code>./vendor/bin/sail down</code> y luego <code>./vendor/bin/sail up -d</code></li>
+</ol>
+<h2 class="code-line" data-line-start=853 data-line-end=854 ><a id="Seguridad_853"></a>Seguridad</h2>
+<h3 class="code-line" data-line-start=855 data-line-end=856 ><a id="En_desarrollo_855"></a>En desarrollo</h3>
+<p class="has-line-data" data-line-start="857" data-line-end="858">phpMyAdmin está bien para desarrollo local, pero ten en cuenta:</p>
+<ul>
+<li class="has-line-data" data-line-start="858" data-line-end="859">No expongas el puerto 8080 públicamente</li>
+<li class="has-line-data" data-line-start="859" data-line-end="861">Usa contraseñas fuertes incluso en desarrollo</li>
+</ul>
+<h3 class="code-line" data-line-start=861 data-line-end=862 ><a id="En_produccin_861"></a>En producción</h3>
+<p class="has-line-data" data-line-start="863" data-line-end="864"><strong>NO uses phpMyAdmin en producción</strong> a menos que:</p>
+<ul>
+<li class="has-line-data" data-line-start="864" data-line-end="865">Esté detrás de una VPN</li>
+<li class="has-line-data" data-line-start="865" data-line-end="866">Tenga autenticación adicional</li>
+<li class="has-line-data" data-line-start="866" data-line-end="867">Use HTTPS</li>
+<li class="has-line-data" data-line-start="867" data-line-end="869">Tenga restricciones de IP</li>
+</ul>
+<p class="has-line-data" data-line-start="869" data-line-end="870">Para producción, es mejor usar herramientas de línea de comandos o servicios administrados.</p>
+<h2 class="code-line" data-line-start=871 data-line-end=872 ><a id="Comandos_tiles_871"></a>Comandos útiles</h2>
+<pre><code class="has-line-data" data-line-start="874" data-line-end="892" class="language-bash"><span class="hljs-comment"># Iniciar Sail con phpMyAdmin</span>
+./vendor/bin/sail up -d
+
+<span class="hljs-comment"># Detener todos los servicios</span>
+./vendor/bin/sail down
+
+<span class="hljs-comment"># Ver logs de phpMyAdmin</span>
+./vendor/bin/sail logs phpmyadmin
+
+<span class="hljs-comment"># Ver todos los contenedores</span>
+./vendor/bin/sail ps
+
+<span class="hljs-comment"># Reiniciar solo phpMyAdmin</span>
+./vendor/bin/sail restart phpmyadmin
+
+<span class="hljs-comment"># Acceder a la terminal de phpMyAdmin (raramente necesario)</span>
+./vendor/bin/sail <span class="hljs-built_in">exec</span> phpmyadmin sh
+</code></pre>
+<h2 class="code-line" data-line-start=893 data-line-end=894 ><a id="Alternativas_a_phpMyAdmin_893"></a>Alternativas a phpMyAdmin</h2>
+<p class="has-line-data" data-line-start="895" data-line-end="896">Si phpMyAdmin no te convence, hay otras opciones:</p>
+<h3 class="code-line" data-line-start=897 data-line-end=898 ><a id="Adminer_897"></a>Adminer</h3>
+<p class="has-line-data" data-line-start="898" data-line-end="899">Más ligero que phpMyAdmin. Para usarlo, cambia en <code>compose.yaml</code>:</p>
+<pre><code class="has-line-data" data-line-start="901" data-line-end="910" class="language-yaml">    <span class="hljs-attr">adminer:</span>
+        <span class="hljs-attr">image:</span> <span class="hljs-string">&#x27;adminer:latest&#x27;</span>
+        <span class="hljs-attr">ports:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;8080:8080&#x27;</span>
+        <span class="hljs-attr">networks:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">sail</span>
+        <span class="hljs-attr">depends_on:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">mysql</span>
+</code></pre>
+<h3 class="code-line" data-line-start=911 data-line-end=912 ><a id="TablePlus__DBeaver_911"></a>TablePlus / DBeaver</h3>
+<p class="has-line-data" data-line-start="912" data-line-end="913">Aplicaciones de escritorio que se conectan directamente a MySQL:</p>
+<ul>
+<li class="has-line-data" data-line-start="913" data-line-end="914">Host: <code>localhost</code></li>
+<li class="has-line-data" data-line-start="914" data-line-end="915">Puerto: <code>3306</code></li>
+<li class="has-line-data" data-line-start="915" data-line-end="916">Usuario: <code>sail</code></li>
+<li class="has-line-data" data-line-start="916" data-line-end="918">Contraseña: <code>password</code></li>
+</ul>
+<h3 class="code-line" data-line-start=918 data-line-end=919 ><a id="MySQL_Workbench_918"></a>MySQL Workbench</h3>
+<p class="has-line-data" data-line-start="919" data-line-end="920">Cliente oficial de MySQL con muchas características avanzadas.</p>
+<h2 class="code-line" data-line-start=921 data-line-end=922 ><a id="Resumen_rpido_921"></a>Resumen rápido</h2>
+<ol>
+<li class="has-line-data" data-line-start="923" data-line-end="924">Edita <code>compose.yaml</code> y añade el servicio <code>phpmyadmin</code></li>
+<li class="has-line-data" data-line-start="924" data-line-end="925">Reinicia Sail: <code>./vendor/bin/sail down &amp;&amp; ./vendor/bin/sail up -d</code></li>
+<li class="has-line-data" data-line-start="925" data-line-end="926">Accede a <code>http://localhost:8080</code></li>
+<li class="has-line-data" data-line-start="926" data-line-end="928">Usa las credenciales de tu archivo <code>.env</code></li>
+</ol>
+<p class="has-line-data" data-line-start="928" data-line-end="929">¡Y listo! Ya puedes gestionar tu base de datos visualmente. 🎉</p>
+<h2 class="code-line" data-line-start=930 data-line-end=931 ><a id="Recursos_adicionales_930"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="932" data-line-end="933"><a href="https://docs.phpmyadmin.net/">Documentación oficial de phpMyAdmin</a></li>
+<li class="has-line-data" data-line-start="933" data-line-end="934"><a href="https://laravel.com/docs/sail">Documentación de Laravel Sail</a></li>
+<li class="has-line-data" data-line-start="934" data-line-end="935"><a href="https://docs.docker.com/compose/">Docker Compose reference</a></li>
+</ul>
+<hr>
+<h1 class="code-line" data-line-start=939 data-line-end=940 ><a id="Gua_de_Comandos_Bsicos_de_Laravel_Sail_y_Docker_939"></a>Guía de Comandos Básicos de Laravel Sail y Docker</h1>
+<p class="has-line-data" data-line-start="941" data-line-end="942">Esta guía te muestra los comandos esenciales para gestionar tu entorno de desarrollo con Laravel Sail. Sail es básicamente un wrapper de Docker Compose, así que también incluimos comandos Docker útiles.</p>
+<h2 class="code-line" data-line-start=943 data-line-end=944 ><a id="Comandos_bsicos_de_Sail_943"></a>Comandos básicos de Sail</h2>
+<h3 class="code-line" data-line-start=945 data-line-end=946 ><a id="Iniciar_y_detener_servicios_945"></a>Iniciar y detener servicios</h3>
+<pre><code class="has-line-data" data-line-start="948" data-line-end="967" class="language-bash"><span class="hljs-comment"># Iniciar todos los servicios en segundo plano</span>
+./vendor/bin/sail up -d
+
+<span class="hljs-comment"># Iniciar y ver los logs en tiempo real</span>
+./vendor/bin/sail up
+
+<span class="hljs-comment"># Detener todos los servicios</span>
+./vendor/bin/sail down
+
+<span class="hljs-comment"># Detener y eliminar volúmenes (¡CUIDADO! Borra la base de datos)</span>
+./vendor/bin/sail down -v
+
+<span class="hljs-comment"># Reiniciar todos los servicios</span>
+./vendor/bin/sail restart
+
+<span class="hljs-comment"># Reiniciar un servicio específico</span>
+./vendor/bin/sail restart mysql
+./vendor/bin/sail restart phpmyadmin
+</code></pre>
+<h3 class="code-line" data-line-start=968 data-line-end=969 ><a id="Ver_el_estado_de_los_servicios_968"></a>Ver el estado de los servicios</h3>
+<pre><code class="has-line-data" data-line-start="971" data-line-end="977" class="language-bash"><span class="hljs-comment"># Ver todos los contenedores y su estado</span>
+./vendor/bin/sail ps
+
+<span class="hljs-comment"># Ver procesos en ejecución dentro de los contenedores</span>
+./vendor/bin/sail top
+</code></pre>
+<h3 class="code-line" data-line-start=978 data-line-end=979 ><a id="Ver_logs_978"></a>Ver logs</h3>
+<pre><code class="has-line-data" data-line-start="981" data-line-end="998" class="language-bash"><span class="hljs-comment"># Ver logs de todos los servicios</span>
+./vendor/bin/sail logs
+
+<span class="hljs-comment"># Ver logs en tiempo real (seguir)</span>
+./vendor/bin/sail logs -f
+
+<span class="hljs-comment"># Ver logs de un servicio específico</span>
+./vendor/bin/sail logs mysql
+./vendor/bin/sail logs phpmyadmin
+./vendor/bin/sail logs laravel.test
+
+<span class="hljs-comment"># Ver las últimas 50 líneas de logs</span>
+./vendor/bin/sail logs --tail=50
+
+<span class="hljs-comment"># Combinar: seguir logs de MySQL</span>
+./vendor/bin/sail logs -f mysql
+</code></pre>
+<h2 class="code-line" data-line-start=999 data-line-end=1000 ><a id="Comandos_de_Laravel_Artisan_999"></a>Comandos de Laravel Artisan</h2>
+<pre><code class="has-line-data" data-line-start="1002" data-line-end="1044" class="language-bash"><span class="hljs-comment"># Ejecutar cualquier comando Artisan</span>
+./vendor/bin/sail artisan
+
+<span class="hljs-comment"># Ver todas las rutas</span>
+./vendor/bin/sail artisan route:list
+
+<span class="hljs-comment"># Ejecutar migraciones</span>
+./vendor/bin/sail artisan migrate
+
+<span class="hljs-comment"># Revertir última migración</span>
+./vendor/bin/sail artisan migrate:rollback
+
+<span class="hljs-comment"># Resetear y ejecutar todas las migraciones</span>
+./vendor/bin/sail artisan migrate:fresh
+
+<span class="hljs-comment"># Ejecutar migraciones con seeders</span>
+./vendor/bin/sail artisan migrate:fresh --seed
+
+<span class="hljs-comment"># Crear un modelo</span>
+./vendor/bin/sail artisan make:model Post
+
+<span class="hljs-comment"># Crear modelo con migración y controlador</span>
+./vendor/bin/sail artisan make:model Post -mc
+
+<span class="hljs-comment"># Crear un controlador</span>
+./vendor/bin/sail artisan make:controller PostController
+
+<span class="hljs-comment"># Crear un middleware</span>
+./vendor/bin/sail artisan make:middleware CheckAge
+
+<span class="hljs-comment"># Limpiar caché</span>
+./vendor/bin/sail artisan cache:clear
+./vendor/bin/sail artisan config:clear
+./vendor/bin/sail artisan route:clear
+./vendor/bin/sail artisan view:clear
+
+<span class="hljs-comment"># Abrir Tinker (consola interactiva)</span>
+./vendor/bin/sail artisan tinker
+
+<span class="hljs-comment"># Ver información de la aplicación</span>
+./vendor/bin/sail artisan about
+</code></pre>
+<h2 class="code-line" data-line-start=1045 data-line-end=1046 ><a id="Comandos_de_Composer_1045"></a>Comandos de Composer</h2>
+<pre><code class="has-line-data" data-line-start="1048" data-line-end="1069" class="language-bash"><span class="hljs-comment"># Instalar dependencias</span>
+./vendor/bin/sail composer install
+
+<span class="hljs-comment"># Actualizar dependencias</span>
+./vendor/bin/sail composer update
+
+<span class="hljs-comment"># Añadir un paquete</span>
+./vendor/bin/sail composer require laravel/sanctum
+
+<span class="hljs-comment"># Añadir un paquete de desarrollo</span>
+./vendor/bin/sail composer require --dev laravel/pint
+
+<span class="hljs-comment"># Eliminar un paquete</span>
+./vendor/bin/sail composer remove nombre/paquete
+
+<span class="hljs-comment"># Ver paquetes instalados</span>
+./vendor/bin/sail composer show
+
+<span class="hljs-comment"># Autoload (regenerar archivos de autoload)</span>
+./vendor/bin/sail composer dump-autoload
+</code></pre>
+<h2 class="code-line" data-line-start=1070 data-line-end=1071 ><a id="Comandos_de_NPM_1070"></a>Comandos de NPM</h2>
+<pre><code class="has-line-data" data-line-start="1073" data-line-end="1094" class="language-bash"><span class="hljs-comment"># Instalar dependencias de Node</span>
+./vendor/bin/sail npm install
+
+<span class="hljs-comment"># Ejecutar desarrollo (watch mode)</span>
+./vendor/bin/sail npm run dev
+
+<span class="hljs-comment"># Compilar para producción</span>
+./vendor/bin/sail npm run build
+
+<span class="hljs-comment"># Añadir un paquete</span>
+./vendor/bin/sail npm install vue
+
+<span class="hljs-comment"># Añadir un paquete de desarrollo</span>
+./vendor/bin/sail npm install --save-dev tailwindcss
+
+<span class="hljs-comment"># Actualizar paquetes</span>
+./vendor/bin/sail npm update
+
+<span class="hljs-comment"># Ver paquetes instalados</span>
+./vendor/bin/sail npm list
+</code></pre>
+<h2 class="code-line" data-line-start=1095 data-line-end=1096 ><a id="Acceso_a_bases_de_datos_1095"></a>Acceso a bases de datos</h2>
+<pre><code class="has-line-data" data-line-start="1098" data-line-end="1116" class="language-bash"><span class="hljs-comment"># Acceder a MySQL</span>
+./vendor/bin/sail mysql
+
+<span class="hljs-comment"># Ejecutar un comando SQL directamente</span>
+./vendor/bin/sail mysql -e <span class="hljs-string">&quot;SHOW DATABASES;&quot;</span>
+
+<span class="hljs-comment"># Importar un archivo SQL</span>
+./vendor/bin/sail mysql arena &lt; backup.sql
+
+<span class="hljs-comment"># Exportar la base de datos</span>
+./vendor/bin/sail mysql arena &gt; backup.sql
+
+<span class="hljs-comment"># Acceder a PostgreSQL (si lo usas)</span>
+./vendor/bin/sail psql
+
+<span class="hljs-comment"># Acceder a Redis (si lo usas)</span>
+./vendor/bin/sail redis
+</code></pre>
+<h2 class="code-line" data-line-start=1117 data-line-end=1118 ><a id="Ejecutar_comandos_dentro_de_los_contenedores_1117"></a>Ejecutar comandos dentro de los contenedores</h2>
+<pre><code class="has-line-data" data-line-start="1120" data-line-end="1132" class="language-bash"><span class="hljs-comment"># Abrir una shell en el contenedor de Laravel</span>
+./vendor/bin/sail shell
+
+<span class="hljs-comment"># Abrir una shell como root</span>
+./vendor/bin/sail root-shell
+
+<span class="hljs-comment"># Ejecutar un comando específico</span>
+./vendor/bin/sail <span class="hljs-built_in">exec</span> laravel.test php -v
+
+<span class="hljs-comment"># Ejecutar comando en otro contenedor</span>
+./vendor/bin/sail <span class="hljs-built_in">exec</span> mysql mysql --version
+</code></pre>
+<h2 class="code-line" data-line-start=1133 data-line-end=1134 ><a id="Ejecutar_tests_1133"></a>Ejecutar tests</h2>
+<pre><code class="has-line-data" data-line-start="1136" data-line-end="1151" class="language-bash"><span class="hljs-comment"># Ejecutar todos los tests</span>
+./vendor/bin/sail <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Ejecutar tests con cobertura</span>
+./vendor/bin/sail <span class="hljs-built_in">test</span> --coverage
+
+<span class="hljs-comment"># Ejecutar un test específico</span>
+./vendor/bin/sail <span class="hljs-built_in">test</span> --filter NombreDelTest
+
+<span class="hljs-comment"># Ejecutar tests de un archivo</span>
+./vendor/bin/sail <span class="hljs-built_in">test</span> tests/Feature/ExampleTest.php
+
+<span class="hljs-comment"># Ejecutar PHPUnit directamente</span>
+./vendor/bin/sail phpunit
+</code></pre>
+<h2 class="code-line" data-line-start=1152 data-line-end=1153 ><a id="Comandos_de_Docker_sin_Sail_1152"></a>Comandos de Docker (sin Sail)</h2>
+<p class="has-line-data" data-line-start="1154" data-line-end="1155">A veces necesitas usar Docker directamente:</p>
+<pre><code class="has-line-data" data-line-start="1157" data-line-end="1204" class="language-bash"><span class="hljs-comment"># Ver todos los contenedores (corriendo)</span>
+docker ps
+
+<span class="hljs-comment"># Ver todos los contenedores (incluso detenidos)</span>
+docker ps -a
+
+<span class="hljs-comment"># Ver imágenes descargadas</span>
+docker images
+
+<span class="hljs-comment"># Ver uso de recursos</span>
+docker stats
+
+<span class="hljs-comment"># Ver logs de un contenedor</span>
+docker logs arena-mysql-1
+docker logs -f arena-mysql-1
+
+<span class="hljs-comment"># Detener un contenedor específico</span>
+docker stop arena-mysql-1
+
+<span class="hljs-comment"># Iniciar un contenedor específico</span>
+docker start arena-mysql-1
+
+<span class="hljs-comment"># Reiniciar un contenedor</span>
+docker restart arena-mysql-1
+
+<span class="hljs-comment"># Eliminar un contenedor detenido</span>
+docker rm arena-mysql-1
+
+<span class="hljs-comment"># Eliminar una imagen</span>
+docker rmi phpmyadmin:latest
+
+<span class="hljs-comment"># Ver redes de Docker</span>
+docker network ls
+
+<span class="hljs-comment"># Ver volúmenes de Docker</span>
+docker volume ls
+
+<span class="hljs-comment"># Inspeccionar un contenedor</span>
+docker inspect arena-mysql-1
+
+<span class="hljs-comment"># Ver procesos dentro de un contenedor</span>
+docker top arena-mysql-1
+
+<span class="hljs-comment"># Ejecutar comando en un contenedor</span>
+docker <span class="hljs-built_in">exec</span> -it arena-mysql-1 bash
+docker <span class="hljs-built_in">exec</span> arena-mysql-1 mysql -u sail -ppassword -e <span class="hljs-string">&quot;SHOW DATABASES;&quot;</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1205 data-line-end=1206 ><a id="Limpieza_y_mantenimiento_1205"></a>Limpieza y mantenimiento</h2>
+<pre><code class="has-line-data" data-line-start="1208" data-line-end="1229" class="language-bash"><span class="hljs-comment"># Limpiar contenedores detenidos</span>
+docker container prune
+
+<span class="hljs-comment"># Limpiar imágenes sin usar</span>
+docker image prune
+
+<span class="hljs-comment"># Limpiar volúmenes sin usar</span>
+docker volume prune
+
+<span class="hljs-comment"># Limpiar redes sin usar</span>
+docker network prune
+
+<span class="hljs-comment"># Limpiar todo (¡CUIDADO!)</span>
+docker system prune
+
+<span class="hljs-comment"># Limpiar todo incluyendo volúmenes</span>
+docker system prune -a --volumes
+
+<span class="hljs-comment"># Ver espacio usado por Docker</span>
+docker system df
+</code></pre>
+<h2 class="code-line" data-line-start=1230 data-line-end=1231 ><a id="Reconstruir_contenedores_1230"></a>Reconstruir contenedores</h2>
+<pre><code class="has-line-data" data-line-start="1233" data-line-end="1242" class="language-bash"><span class="hljs-comment"># Reconstruir las imágenes de Sail</span>
+./vendor/bin/sail build
+
+<span class="hljs-comment"># Reconstruir sin usar caché</span>
+./vendor/bin/sail build --no-cache
+
+<span class="hljs-comment"># Reconstruir un servicio específico</span>
+./vendor/bin/sail build laravel.test
+</code></pre>
+<h2 class="code-line" data-line-start=1243 data-line-end=1244 ><a id="Crear_alias_para_Sail_1243"></a>Crear alias para Sail</h2>
+<p class="has-line-data" data-line-start="1245" data-line-end="1246">En lugar de escribir <code>./vendor/bin/sail</code> cada vez, crea un alias:</p>
+<h3 class="code-line" data-line-start=1247 data-line-end=1248 ><a id="Para_Bash_1247"></a>Para Bash</h3>
+<pre><code class="has-line-data" data-line-start="1250" data-line-end="1253" class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias sail=&#x27;./vendor/bin/sail&#x27;&quot;</span> &gt;&gt; ~/.bashrc
+<span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+<h3 class="code-line" data-line-start=1254 data-line-end=1255 ><a id="Para_Zsh_1254"></a>Para Zsh</h3>
+<pre><code class="has-line-data" data-line-start="1257" data-line-end="1260" class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;alias sail=&#x27;./vendor/bin/sail&#x27;&quot;</span> &gt;&gt; ~/.zshrc
+<span class="hljs-built_in">source</span> ~/.zshrc
+</code></pre>
+<h3 class="code-line" data-line-start=1261 data-line-end=1262 ><a id="Uso_despus_del_alias_1261"></a>Uso después del alias</h3>
+<pre><code class="has-line-data" data-line-start="1264" data-line-end="1271" class="language-bash"><span class="hljs-comment"># Ahora puedes usar simplemente:</span>
+sail up -d
+sail artisan migrate
+sail composer require paquete
+sail npm run dev
+sail <span class="hljs-built_in">test</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1272 data-line-end=1273 ><a id="Comandos_tiles_combinados_1272"></a>Comandos útiles combinados</h2>
+<pre><code class="has-line-data" data-line-start="1275" data-line-end="1296" class="language-bash"><span class="hljs-comment"># Reiniciar todo desde cero (sin perder datos)</span>
+sail down &amp;&amp; sail up -d
+
+<span class="hljs-comment"># Reiniciar y ver logs</span>
+sail down &amp;&amp; sail up
+
+<span class="hljs-comment"># Limpiar caché de Laravel</span>
+sail artisan cache:clear &amp;&amp; sail artisan config:clear &amp;&amp; sail artisan route:clear
+
+<span class="hljs-comment"># Resetear base de datos con datos de prueba</span>
+sail artisan migrate:fresh --seed
+
+<span class="hljs-comment"># Instalar todo (Composer + NPM)</span>
+sail composer install &amp;&amp; sail npm install
+
+<span class="hljs-comment"># Actualizar todo</span>
+sail composer update &amp;&amp; sail npm update
+
+<span class="hljs-comment"># Compilar assets y ejecutar tests</span>
+sail npm run build &amp;&amp; sail <span class="hljs-built_in">test</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1297 data-line-end=1298 ><a id="Comandos_para_desarrollo_diario_1297"></a>Comandos para desarrollo diario</h2>
+<pre><code class="has-line-data" data-line-start="1300" data-line-end="1313" class="language-bash"><span class="hljs-comment"># Iniciar el día</span>
+<span class="hljs-built_in">cd</span> /ruta/a/tu/proyecto
+sail up -d
+sail npm run dev
+
+<span class="hljs-comment"># Durante el desarrollo</span>
+sail artisan make:model NombreModelo -mc
+sail artisan migrate
+sail <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Terminar el día</span>
+sail down
+</code></pre>
+<h2 class="code-line" data-line-start=1314 data-line-end=1315 ><a id="Solucin_de_problemas_con_comandos_1314"></a>Solución de problemas con comandos</h2>
+<h3 class="code-line" data-line-start=1316 data-line-end=1317 ><a id="Puerto_ocupado_1316"></a>Puerto ocupado</h3>
+<pre><code class="has-line-data" data-line-start="1319" data-line-end="1328" class="language-bash"><span class="hljs-comment"># Ver qué está usando el puerto 80</span>
+sudo lsof -i :80
+
+<span class="hljs-comment"># Ver qué está usando el puerto 3306</span>
+sudo lsof -i :3306
+
+<span class="hljs-comment"># Matar proceso en un puerto</span>
+sudo <span class="hljs-built_in">kill</span> -9 $(sudo lsof -t -i:80)
+</code></pre>
+<h3 class="code-line" data-line-start=1329 data-line-end=1330 ><a id="Contenedor_no_inicia_1329"></a>Contenedor no inicia</h3>
+<pre><code class="has-line-data" data-line-start="1332" data-line-end="1343" class="language-bash"><span class="hljs-comment"># Ver logs detallados</span>
+sail logs nombre-servicio
+
+<span class="hljs-comment"># Reiniciar el servicio</span>
+sail restart nombre-servicio
+
+<span class="hljs-comment"># Reconstruir el contenedor</span>
+sail down
+sail build --no-cache
+sail up -d
+</code></pre>
+<h3 class="code-line" data-line-start=1344 data-line-end=1345 ><a id="Problemas_de_permisos_1344"></a>Problemas de permisos</h3>
+<pre><code class="has-line-data" data-line-start="1347" data-line-end="1355" class="language-bash"><span class="hljs-comment"># Cambiar permisos de storage y bootstrap/cache</span>
+sudo chmod -R 775 storage bootstrap/cache
+sudo chown -R <span class="hljs-variable">$USER</span>:<span class="hljs-variable">$USER</span> storage bootstrap/cache
+
+<span class="hljs-comment"># Dentro del contenedor</span>
+sail shell
+chmod -R 775 storage bootstrap/cache
+</code></pre>
+<h3 class="code-line" data-line-start=1356 data-line-end=1357 ><a id="Base_de_datos_no_conecta_1356"></a>Base de datos no conecta</h3>
+<pre><code class="has-line-data" data-line-start="1359" data-line-end="1371" class="language-bash"><span class="hljs-comment"># Verificar que MySQL está corriendo</span>
+sail ps
+
+<span class="hljs-comment"># Ver logs de MySQL</span>
+sail logs mysql
+
+<span class="hljs-comment"># Reiniciar MySQL</span>
+sail restart mysql
+
+<span class="hljs-comment"># Acceder a MySQL para verificar</span>
+sail mysql
+</code></pre>
+<h3 class="code-line" data-line-start=1372 data-line-end=1373 ><a id="Limpiar_todo_y_empezar_de_nuevo_1372"></a>Limpiar todo y empezar de nuevo</h3>
+<pre><code class="has-line-data" data-line-start="1375" data-line-end="1385" class="language-bash"><span class="hljs-comment"># Detener y eliminar todo</span>
+sail down -v
+
+<span class="hljs-comment"># Limpiar Docker</span>
+docker system prune -a
+
+<span class="hljs-comment"># Volver a iniciar</span>
+sail up -d
+sail artisan migrate
+</code></pre>
+<h2 class="code-line" data-line-start=1386 data-line-end=1387 ><a id="Comandos_de_informacin_1386"></a>Comandos de información</h2>
+<pre><code class="has-line-data" data-line-start="1389" data-line-end="1410" class="language-bash"><span class="hljs-comment"># Ver versión de PHP</span>
+sail php -v
+
+<span class="hljs-comment"># Ver versión de Composer</span>
+sail composer --version
+
+<span class="hljs-comment"># Ver versión de Node</span>
+sail node --version
+
+<span class="hljs-comment"># Ver versión de NPM</span>
+sail npm --version
+
+<span class="hljs-comment"># Ver configuración de Laravel</span>
+sail artisan about
+
+<span class="hljs-comment"># Ver variables de entorno</span>
+sail artisan env
+
+<span class="hljs-comment"># Ver información de la base de datos</span>
+sail mysql -e <span class="hljs-string">&quot;SELECT VERSION();&quot;</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1411 data-line-end=1412 ><a id="Comandos_avanzados_1411"></a>Comandos avanzados</h2>
+<pre><code class="has-line-data" data-line-start="1414" data-line-end="1431" class="language-bash"><span class="hljs-comment"># Ejecutar comandos en paralelo</span>
+sail artisan queue:work &amp;
+sail npm run dev
+
+<span class="hljs-comment"># Exportar base de datos con timestamp</span>
+sail mysql arena &gt; backup_$(date +%Y%m%d_%H%M%S).sql
+
+<span class="hljs-comment"># Monitorear logs de múltiples servicios</span>
+sail logs -f mysql &amp; sail logs -f laravel.test
+
+<span class="hljs-comment"># Ejecutar comando y guardar salida</span>
+sail artisan route:list &gt; routes.txt
+
+<span class="hljs-comment"># Buscar en logs</span>
+sail logs | grep <span class="hljs-string">&quot;error&quot;</span>
+sail logs mysql | grep <span class="hljs-string">&quot;ERROR&quot;</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1432 data-line-end=1433 ><a id="Atajos_de_teclado_tiles_1432"></a>Atajos de teclado útiles</h2>
+<p class="has-line-data" data-line-start="1434" data-line-end="1435">Cuando estás viendo logs con <code>sail logs -f</code>:</p>
+<ul>
+<li class="has-line-data" data-line-start="1436" data-line-end="1437"><code>Ctrl + C</code> - Detener el seguimiento de logs</li>
+<li class="has-line-data" data-line-start="1437" data-line-end="1438"><code>Ctrl + Z</code> - Pausar el proceso</li>
+<li class="has-line-data" data-line-start="1438" data-line-end="1440"><code>fg</code> - Volver al proceso pausado</li>
+</ul>
+<h2 class="code-line" data-line-start=1440 data-line-end=1441 ><a id="Comandos_para_produccin_1440"></a>Comandos para producción</h2>
+<p class="has-line-data" data-line-start="1442" data-line-end="1443"><strong>Nota:</strong> Sail está diseñado para desarrollo. Para producción, usa Docker Compose directamente.</p>
+<pre><code class="has-line-data" data-line-start="1445" data-line-end="1457" class="language-bash"><span class="hljs-comment"># Optimizar Laravel para producción</span>
+sail artisan config:cache
+sail artisan route:cache
+sail artisan view:cache
+sail artisan event:cache
+
+<span class="hljs-comment"># Compilar assets para producción</span>
+sail npm run build
+
+<span class="hljs-comment"># Limpiar archivos de desarrollo</span>
+sail composer install --no-dev --optimize-autoloader
+</code></pre>
+<h2 class="code-line" data-line-start=1458 data-line-end=1459 ><a id="Resumen_de_comandos_ms_usados_1458"></a>Resumen de comandos más usados</h2>
+<pre><code class="has-line-data" data-line-start="1461" data-line-end="1483" class="language-bash"><span class="hljs-comment"># Gestión básica</span>
+sail up -d              <span class="hljs-comment"># Iniciar</span>
+sail down               <span class="hljs-comment"># Detener</span>
+sail restart            <span class="hljs-comment"># Reiniciar</span>
+sail ps                 <span class="hljs-comment"># Ver estado</span>
+sail logs -f            <span class="hljs-comment"># Ver logs</span>
+
+<span class="hljs-comment"># Laravel</span>
+sail artisan migrate    <span class="hljs-comment"># Migraciones</span>
+sail artisan tinker     <span class="hljs-comment"># Consola</span>
+sail <span class="hljs-built_in">test</span>               <span class="hljs-comment"># Tests</span>
+
+<span class="hljs-comment"># Dependencias</span>
+sail composer install   <span class="hljs-comment"># PHP</span>
+sail npm install        <span class="hljs-comment"># Node</span>
+
+<span class="hljs-comment"># Base de datos</span>
+sail mysql              <span class="hljs-comment"># Acceder a MySQL</span>
+
+<span class="hljs-comment"># Shell</span>
+sail shell              <span class="hljs-comment"># Terminal del contenedor</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1484 data-line-end=1485 ><a id="Recursos_adicionales_1484"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="1486" data-line-end="1487"><a href="https://laravel.com/docs/sail">Documentación oficial de Sail</a></li>
+<li class="has-line-data" data-line-start="1487" data-line-end="1488"><a href="https://docs.docker.com/">Documentación de Docker</a></li>
+<li class="has-line-data" data-line-start="1488" data-line-end="1489"><a href="https://docs.docker.com/compose/">Documentación de Docker Compose</a></li>
+<li class="has-line-data" data-line-start="1489" data-line-end="1491"><a href="https://laravel.com/docs">Documentación de Laravel</a></li>
+</ul>
+<hr>
+
+</body></html>

@@ -1,0 +1,1512 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>guia-controladores-api.md</title><style>@charset "UTF-8";@import 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css';code{color:#c7254e;background-color:#f9f2f4;border-radius:4px}code,kbd{padding:2px 4px}kbd{color:#fff;background-color:#333;border-radius:3px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.25)}kbd kbd{padding:0;font-size:100%;box-shadow:none}pre{display:block;margin:0 0 10px;word-break:break-all;word-wrap:break-word;color:#333;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.pre-scrollable{max-height:340px;overflow-y:scroll}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>thead>tr>th{padding:8px;line-height:1.428571429;border-top:1px solid #ddd}.table>thead>tr>td,.table>tbody>tr>th,.table>tbody>tr>td,.table>tfoot>tr>th,.table>tfoot>tr>td{padding:8px;line-height:1.428571429;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>th,.table>caption+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>thead:first-child>tr:first-child>th,.table>thead:first-child>tr:first-child>td{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>thead>tr>th,.table-condensed>thead>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>tfoot>tr>td{padding:5px}.table-bordered,.table-bordered>thead>tr>th,.table-bordered>thead>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>tfoot>tr>td{border:1px solid #ddd}.table-bordered>thead>tr>th,.table-bordered>thead>tr>td{border-bottom-width:2px}.table-striped>tbody>tr:nth-child(odd)>td,.table-striped>tbody>tr:nth-child(odd)>th{background-color:#f9f9f9}.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th{background-color:#f5f5f5}table col[class*=col-]{position:static;float:none;display:table-column}table td[class*=col-],table th[class*=col-]{position:static;float:none;display:table-cell}.table>thead>tr>td.active,.table>thead>tr>th.active,.table>thead>tr.active>td,.table>thead>tr.active>th,.table>tbody>tr>td.active,.table>tbody>tr>th.active,.table>tbody>tr.active>td,.table>tbody>tr.active>th,.table>tfoot>tr>td.active,.table>tfoot>tr>th.active,.table>tfoot>tr.active>td,.table>tfoot>tr.active>th{background-color:#f5f5f5}.table-hover>tbody>tr>td.active:hover,.table-hover>tbody>tr>th.active:hover,.table-hover>tbody>tr.active:hover>td,.table-hover>tbody>tr:hover>.active,.table-hover>tbody>tr.active:hover>th{background-color:rgb(232.25,232.25,232.25)}.table>thead>tr>td.success,.table>thead>tr>th.success,.table>thead>tr.success>td,.table>thead>tr.success>th,.table>tbody>tr>td.success,.table>tbody>tr>th.success,.table>tbody>tr.success>td,.table>tbody>tr.success>th,.table>tfoot>tr>td.success,.table>tfoot>tr>th.success,.table>tfoot>tr.success>td,.table>tfoot>tr.success>th{background-color:#dff0d8}.table-hover>tbody>tr>td.success:hover,.table-hover>tbody>tr>th.success:hover,.table-hover>tbody>tr.success:hover>td,.table-hover>tbody>tr:hover>.success,.table-hover>tbody>tr.success:hover>th{background-color:rgb(207.8888888889,232.9166666667,197.5833333333)}.table>thead>tr>td.info,.table>thead>tr>th.info,.table>thead>tr.info>td,.table>thead>tr.info>th,.table>tbody>tr>td.info,.table>tbody>tr>th.info,.table>tbody>tr.info>td,.table>tbody>tr.info>th,.table>tfoot>tr>td.info,.table>tfoot>tr>th.info,.table>tfoot>tr.info>td,.table>tfoot>tr.info>th{background-color:#d9edf7}.table-hover>tbody>tr>td.info:hover,.table-hover>tbody>tr>th.info:hover,.table-hover>tbody>tr.info:hover>td,.table-hover>tbody>tr:hover>.info,.table-hover>tbody>tr.info:hover>th{background-color:rgb(195.9347826087,227.0217391304,242.5652173913)}.table>thead>tr>td.warning,.table>thead>tr>th.warning,.table>thead>tr.warning>td,.table>thead>tr.warning>th,.table>tbody>tr>td.warning,.table>tbody>tr>th.warning,.table>tbody>tr.warning>td,.table>tbody>tr.warning>th,.table>tfoot>tr>td.warning,.table>tfoot>tr>th.warning,.table>tfoot>tr.warning>td,.table>tfoot>tr.warning>th{background-color:#fcf8e3}.table-hover>tbody>tr>td.warning:hover,.table-hover>tbody>tr>th.warning:hover,.table-hover>tbody>tr.warning:hover>td,.table-hover>tbody>tr:hover>.warning,.table-hover>tbody>tr.warning:hover>th{background-color:rgb(249.5322580645,242.2419354839,203.9677419355)}.table>thead>tr>td.danger,.table>thead>tr>th.danger,.table>thead>tr.danger>td,.table>thead>tr.danger>th,.table>tbody>tr>td.danger,.table>tbody>tr>th.danger,.table>tbody>tr.danger>td,.table>tbody>tr.danger>th,.table>tfoot>tr>td.danger,.table>tfoot>tr>th.danger,.table>tfoot>tr.danger>td,.table>tfoot>tr.danger>th{background-color:#f2dede}.table-hover>tbody>tr>td.danger:hover,.table-hover>tbody>tr>th.danger:hover,.table-hover>tbody>tr.danger:hover>td,.table-hover>tbody>tr:hover>.danger,.table-hover>tbody>tr.danger:hover>th{background-color:rgb(234.7934782609,203.7065217391,203.7065217391)}fieldset{border:0;min-width:0}legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700}input[type=radio],input[type=checkbox]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type=file]{display:block}input[type=range]{display:block;width:100%}select[multiple],select[size]{height:auto}input[type=file]:focus,input[type=radio]:focus,input[type=checkbox]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}output{padding-top:7px}output,.form-control{display:block;font-size:14px;line-height:1.428571429;color:rgb(85.425,85.425,85.425)}.form-control{width:100%;height:34px;padding:6px 12px;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:rgb(119.085,119.085,119.085);opacity:1}.form-control:-ms-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control::-webkit-input-placeholder{color:rgb(119.085,119.085,119.085)}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:rgb(238.425,238.425,238.425);opacity:1}textarea.form-control{height:auto}input[type=date],input[type=time],input[type=datetime-local],input[type=month]{line-height:34px;line-height:1.428571429 \0}input[type=date].input-sm,.input-group-sm>input[type=date].form-control,.input-group-sm>input[type=date].input-group-addon,.input-group-sm>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-sm input[type=date].form-control,input[type=time].input-sm,.input-group-sm>input[type=time].form-control,.input-group-sm>input[type=time].input-group-addon,.input-group-sm>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-sm input[type=time].form-control,input[type=datetime-local].input-sm,.input-group-sm>input[type=datetime-local].form-control,.input-group-sm>input[type=datetime-local].input-group-addon,.input-group-sm>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-sm input[type=datetime-local].form-control,input[type=month].input-sm,.input-group-sm>input[type=month].form-control,.input-group-sm>input[type=month].input-group-addon,.input-group-sm>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-sm input[type=month].form-control{line-height:30px}input[type=date].input-lg,.input-group-lg>input[type=date].form-control,.input-group-lg>input[type=date].input-group-addon,.input-group-lg>.input-group-btn>input[type=date].btn,.form-horizontal .form-group-lg input[type=date].form-control,input[type=time].input-lg,.input-group-lg>input[type=time].form-control,.input-group-lg>input[type=time].input-group-addon,.input-group-lg>.input-group-btn>input[type=time].btn,.form-horizontal .form-group-lg input[type=time].form-control,input[type=datetime-local].input-lg,.input-group-lg>input[type=datetime-local].form-control,.input-group-lg>input[type=datetime-local].input-group-addon,.input-group-lg>.input-group-btn>input[type=datetime-local].btn,.form-horizontal .form-group-lg input[type=datetime-local].form-control,input[type=month].input-lg,.input-group-lg>input[type=month].form-control,.input-group-lg>input[type=month].input-group-addon,.input-group-lg>.input-group-btn>input[type=month].btn,.form-horizontal .form-group-lg input[type=month].form-control{line-height:46px}.form-group{margin-bottom:15px}.radio,.checkbox{position:relative;display:block;min-height:20px;margin-top:10px;margin-bottom:10px}.radio label,.checkbox label{padding-left:20px;margin-bottom:0;font-weight:400;cursor:pointer}.radio input[type=radio],.radio-inline input[type=radio],.checkbox input[type=checkbox],.checkbox-inline input[type=checkbox]{position:absolute;margin-left:-20px;margin-top:4px \9}.radio+.radio,.checkbox+.checkbox{margin-top:-5px}.radio-inline,.checkbox-inline{display:inline-block;padding-left:20px;margin-bottom:0;vertical-align:middle;font-weight:400;cursor:pointer}.radio-inline+.radio-inline,.checkbox-inline+.checkbox-inline{margin-top:0;margin-left:10px}input[type=radio][disabled],input[type=radio].disabled,fieldset[disabled] input[type=radio],input[type=checkbox][disabled],input[type=checkbox].disabled,fieldset[disabled] input[type=checkbox],.radio-inline.disabled,fieldset[disabled] .radio-inline,.checkbox-inline.disabled,fieldset[disabled] .checkbox-inline,.radio.disabled label,fieldset[disabled] .radio label,.checkbox.disabled label,fieldset[disabled] .checkbox label{cursor:not-allowed}.form-control-static{padding-top:7px;padding-bottom:7px;margin-bottom:0}.form-control-static.input-lg,.input-group-lg>.form-control-static.form-control,.input-group-lg>.form-control-static.input-group-addon,.input-group-lg>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-lg .form-control-static.form-control,.form-control-static.input-sm,.input-group-sm>.form-control-static.form-control,.input-group-sm>.form-control-static.input-group-addon,.input-group-sm>.input-group-btn>.form-control-static.btn,.form-horizontal .form-group-sm .form-control-static.form-control{padding-left:0;padding-right:0}.input-sm,.input-group-sm>.form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.input-group-sm>.input-group-addon{height:30px;line-height:1.5}.input-group-sm>.input-group-btn>.btn,.form-horizontal .form-group-sm .form-control{height:30px;padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}select.input-sm,.input-group-sm>select.form-control,.input-group-sm>select.input-group-addon,.input-group-sm>.input-group-btn>select.btn,.form-horizontal .form-group-sm select.form-control{height:30px;line-height:30px}textarea.input-sm,.input-group-sm>textarea.form-control,.input-group-sm>textarea.input-group-addon,.input-group-sm>.input-group-btn>textarea.btn,.form-horizontal .form-group-sm textarea.form-control,select[multiple].input-sm,.input-group-sm>select[multiple].form-control,.input-group-sm>select[multiple].input-group-addon,.input-group-sm>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-sm select[multiple].form-control{height:auto}.input-lg,.input-group-lg>.form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.input-group-lg>.input-group-addon{height:46px;line-height:1.33}.input-group-lg>.input-group-btn>.btn,.form-horizontal .form-group-lg .form-control{height:46px;padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}select.input-lg,.input-group-lg>select.form-control,.input-group-lg>select.input-group-addon,.input-group-lg>.input-group-btn>select.btn,.form-horizontal .form-group-lg select.form-control{height:46px;line-height:46px}textarea.input-lg,.input-group-lg>textarea.form-control,.input-group-lg>textarea.input-group-addon,.input-group-lg>.input-group-btn>textarea.btn,.form-horizontal .form-group-lg textarea.form-control,select[multiple].input-lg,.input-group-lg>select[multiple].form-control,.input-group-lg>select[multiple].input-group-addon,.input-group-lg>.input-group-btn>select[multiple].btn,.form-horizontal .form-group-lg select[multiple].form-control{height:auto}.has-feedback{position:relative}.has-feedback .form-control{padding-right:42.5px}.form-control-feedback{position:absolute;top:25px;right:0;z-index:2;display:block;width:34px;height:34px;line-height:34px;text-align:center}.input-lg+.form-control-feedback,.input-group-lg>.form-control+.form-control-feedback,.input-group-lg>.input-group-addon+.form-control-feedback,.input-group-lg>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-lg .form-control+.form-control-feedback{width:46px;height:46px;line-height:46px}.input-sm+.form-control-feedback,.input-group-sm>.form-control+.form-control-feedback,.input-group-sm>.input-group-addon+.form-control-feedback,.input-group-sm>.input-group-btn>.btn+.form-control-feedback,.form-horizontal .form-group-sm .form-control+.form-control-feedback{width:30px;height:30px;line-height:30px}.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline{color:#3c763d}.has-success .form-control{border-color:#3c763d;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-success .form-control:focus{border-color:rgb(42.808988764,84.191011236,43.5224719101);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(102.5280898876,177.4719101124,103.8202247191)}.has-success .input-group-addon{color:#3c763d;border-color:#3c763d;background-color:#dff0d8}.has-success .form-control-feedback{color:#3c763d}.has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline{color:#8a6d3b}.has-warning .form-control{border-color:#8a6d3b;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-warning .form-control:focus{border-color:rgb(102.2741116751,80.7817258883,43.7258883249);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(191.807106599,160.7461928934,107.192893401)}.has-warning .input-group-addon{color:#8a6d3b;border-color:#8a6d3b;background-color:#fcf8e3}.has-warning .form-control-feedback{color:#8a6d3b}.has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442}.has-error .form-control{border-color:#a94442;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.has-error .form-control:focus{border-color:rgb(132.3234042553,53.2425531915,51.6765957447);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px rgb(206.4127659574,132.0595744681,130.5872340426)}.has-error .input-group-addon{color:#a94442;border-color:#a94442;background-color:#f2dede}.has-error .form-control-feedback{color:#a94442}.has-feedback label.sr-only~.form-control-feedback{top:0}.help-block{display:block;margin-top:5px;margin-bottom:10px;color:rgb(114.75,114.75,114.75)}.form-horizontal .radio,.form-horizontal .checkbox,.form-horizontal .radio-inline,.form-horizontal .checkbox-inline{margin-top:0;margin-bottom:0;padding-top:7px}.form-horizontal .radio,.form-horizontal .checkbox{min-height:27px}.form-horizontal .form-group{margin-left:-15px;margin-right:-15px}.form-horizontal .form-group:before{content:" ";display:table}.form-horizontal .form-group:after{content:" ";display:table;clear:both}.form-horizontal .has-feedback .form-control-feedback{top:0;right:15px}.btn{display:inline-block;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.btn:focus,.btn:active:focus,.btn.active:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active,.btn.active{outline:0;background-image:none;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{cursor:not-allowed;pointer-events:none;opacity:.65;filter:alpha(opacity=65);box-shadow:none}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#333;background-color:rgb(229.5,229.5,229.5);border-color:rgb(173.4,173.4,173.4)}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{background-image:none}.btn-default.disabled,.btn-default.disabled:hover,.btn-default.disabled:focus,.btn-default.disabled:active,.btn-default.disabled.active,.btn-default[disabled],.btn-default[disabled]:hover,.btn-default[disabled]:focus,.btn-default[disabled]:active,.btn-default[disabled].active,fieldset[disabled] .btn-default,fieldset[disabled] .btn-default:hover,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:active,fieldset[disabled] .btn-default.active{background-color:#fff;border-color:#ccc}.btn-default .badge{color:#fff;background-color:#333}.btn-primary{color:#fff;background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:rgb(47.5247933884,112.9834710744,169.4752066116);border-color:rgb(39.7061983471,94.3958677686,141.5938016529)}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{background-image:none}.btn-primary.disabled,.btn-primary.disabled:hover,.btn-primary.disabled:focus,.btn-primary.disabled:active,.btn-primary.disabled.active,.btn-primary[disabled],.btn-primary[disabled]:hover,.btn-primary[disabled]:focus,.btn-primary[disabled]:active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary:hover,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary.active{background-color:#428bca;border-color:rgb(53.1095041322,126.2603305785,189.3904958678)}.btn-primary .badge{color:#428bca;background-color:#fff}.btn-success{color:#fff;background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:rgb(68.2692307692,156.7307692308,68.2692307692);border-color:rgb(57.4371794872,131.8628205128,57.4371794872)}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{background-image:none}.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active{background-color:#5cb85c;border-color:rgb(76.0064102564,174.4935897436,76.0064102564)}.btn-success .badge{color:#5cb85c;background-color:#fff}.btn-info{color:#fff;background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{color:#fff;background-color:rgb(48.5431472081,175.6903553299,213.4568527919);border-color:rgb(37.9081218274,153.9299492386,188.3918781726)}.btn-info:active,.btn-info.active,.open>.btn-info.dropdown-toggle{background-image:none}.btn-info.disabled,.btn-info.disabled:hover,.btn-info.disabled:focus,.btn-info.disabled:active,.btn-info.disabled.active,.btn-info[disabled],.btn-info[disabled]:hover,.btn-info[disabled]:focus,.btn-info[disabled]:active,.btn-info[disabled].active,fieldset[disabled] .btn-info,fieldset[disabled] .btn-info:hover,fieldset[disabled] .btn-info:focus,fieldset[disabled] .btn-info:active,fieldset[disabled] .btn-info.active{background-color:#5bc0de;border-color:rgb(69.7715736041,183.845177665,217.7284263959)}.btn-info .badge{color:#5bc0de;background-color:#fff}.btn-warning{color:#fff;background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:rgb(236.015625,151.21875,30.984375);border-color:rgb(213.2296875,132.515625,18.0703125)}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{background-image:none}.btn-warning.disabled,.btn-warning.disabled:hover,.btn-warning.disabled:focus,.btn-warning.disabled:active,.btn-warning.disabled.active,.btn-warning[disabled],.btn-warning[disabled]:hover,.btn-warning[disabled]:focus,.btn-warning[disabled]:active,.btn-warning[disabled].active,fieldset[disabled] .btn-warning,fieldset[disabled] .btn-warning:hover,fieldset[disabled] .btn-warning:focus,fieldset[disabled] .btn-warning:active,fieldset[disabled] .btn-warning.active{background-color:#f0ad4e;border-color:rgb(238.0078125,162.109375,54.4921875)}.btn-warning .badge{color:#f0ad4e;background-color:#fff}.btn-danger{color:#fff;background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:rgb(201.4953271028,48.0841121495,43.5046728972);border-color:rgb(172.1345794393,41.0775700935,37.1654205607)}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{background-image:none}.btn-danger.disabled,.btn-danger.disabled:hover,.btn-danger.disabled:focus,.btn-danger.disabled:active,.btn-danger.disabled.active,.btn-danger[disabled],.btn-danger[disabled]:hover,.btn-danger[disabled]:focus,.btn-danger[disabled]:active,.btn-danger[disabled].active,fieldset[disabled] .btn-danger,fieldset[disabled] .btn-danger:hover,fieldset[disabled] .btn-danger:focus,fieldset[disabled] .btn-danger:active,fieldset[disabled] .btn-danger.active{background-color:#d9534f;border-color:rgb(212.4719626168,62.5046728972,58.0280373832)}.btn-danger .badge{color:#d9534f;background-color:#fff}.btn-link{color:#428bca;font-weight:400;cursor:pointer;border-radius:0}.btn-link,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link{background-color:transparent;box-shadow:none}.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active{border-color:transparent}.btn-link:hover,.btn-link:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);text-decoration:underline;background-color:transparent}.btn-link[disabled]:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:hover,fieldset[disabled] .btn-link:focus{color:rgb(119.085,119.085,119.085);text-decoration:none}.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px}.btn-sm{padding:5px 10px}.btn-sm,.btn-xs{font-size:12px;line-height:1.5;border-radius:3px}.btn-xs{padding:1px 5px}.btn-block{display:block;width:100%}.btn-block+.btn-block{margin-top:5px}input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-block{width:100%}.fade{opacity:0;transition:opacity .15s linear}.fade.in{opacity:1}.collapse{display:none}.collapse.in{display:block}tr.collapse.in{display:table-row}tbody.collapse.in{display:table-row-group}.collapsing{position:relative;height:0;overflow:hidden;transition:height .35s ease}.input-group{position:relative;display:table;border-collapse:separate}.input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.input-group .form-control{position:relative;z-index:2;float:left;width:100%;margin-bottom:0}.input-group-addon,.input-group-btn,.input-group .form-control{display:table-cell}.input-group-addon:not(:first-child):not(:last-child),.input-group-btn:not(:first-child):not(:last-child),.input-group .form-control:not(:first-child):not(:last-child){border-radius:0}.input-group-addon{white-space:nowrap}.input-group-addon,.input-group-btn{width:1%;vertical-align:middle}.input-group-addon{padding:6px 12px;font-size:14px;font-weight:400;line-height:1;color:rgb(85.425,85.425,85.425);text-align:center;background-color:rgb(238.425,238.425,238.425);border:1px solid #ccc;border-radius:4px}.input-group-addon.input-sm,.form-horizontal .form-group-sm .input-group-addon.form-control,.input-group-sm>.input-group-addon,.input-group-sm>.input-group-btn>.input-group-addon.btn{padding:5px 10px;font-size:12px;border-radius:3px}.input-group-addon.input-lg,.form-horizontal .form-group-lg .input-group-addon.form-control,.input-group-lg>.input-group-addon,.input-group-lg>.input-group-btn>.input-group-addon.btn{padding:10px 16px;font-size:18px;border-radius:6px}.input-group-addon input[type=radio],.input-group-addon input[type=checkbox]{margin-top:0}.input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group-btn:last-child>.btn-group:not(:last-child)>.btn{border-bottom-right-radius:0;border-top-right-radius:0}.input-group-addon:first-child{border-right:0}.input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:first-child>.btn-group:not(:first-child)>.btn{border-bottom-left-radius:0;border-top-left-radius:0}.input-group-addon:last-child{border-left:0}.input-group-btn{font-size:0;white-space:nowrap}.input-group-btn,.input-group-btn>.btn{position:relative}.input-group-btn>.btn+.btn{margin-left:-1px}.input-group-btn>.btn:hover,.input-group-btn>.btn:focus,.input-group-btn>.btn:active{z-index:2}.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group{margin-right:-1px}.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{margin-left:-1px}.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px}.pagination>li{display:inline}.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;color:#428bca;background-color:#fff;border:1px solid #ddd;margin-left:-1px}.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}.pagination>li>a:hover,.pagination>li>a:focus,.pagination>li>span:hover,.pagination>li>span:focus{color:rgb(41.9400826446,99.7066115702,149.5599173554);background-color:rgb(238.425,238.425,238.425);border-color:#ddd}.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus,.pagination>.active>span,.pagination>.active>span:hover,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;cursor:default}.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:rgb(119.085,119.085,119.085);background-color:#fff;border-color:#ddd;cursor:not-allowed}.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2;filter:alpha(opacity=20)}.close:hover,.close:focus{color:#000;text-decoration:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50)}button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.modal-open,.modal{overflow:hidden}.modal{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0}.modal.fade .modal-dialog{transform:translate3d(0,-25%,0);transition:transform .3s ease-out}.modal.in .modal-dialog{transform:translate3d(0,0,0)}.modal-open .modal{overflow-x:hidden;overflow-y:auto}.modal-dialog{position:relative;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.5);background-clip:padding-box;outline:0}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{padding:15px;border-bottom:1px solid #e5e5e5;min-height:16.428571429px}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:15px}.modal-footer{padding:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{content:" ";display:table}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-left:5px;margin-bottom:0}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}.modal-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed;transform:translate3d(0,0,0)}.hljs{display:block;overflow-x:auto;padding:.5em;background:#002b36;color:#839496;-webkit-text-size-adjust:none}.hljs-comment,.hljs-template_comment,.diff .hljs-header,.hljs-doctype,.hljs-pi,.lisp .hljs-string,.hljs-javadoc{color:#586e75}.hljs-keyword,.hljs-winutils,.method,.hljs-addition,.css .hljs-tag,.hljs-request,.hljs-status,.nginx .hljs-title{color:#859900}.hljs-number,.hljs-command,.hljs-string,.hljs-tag .hljs-value,.hljs-rules .hljs-value,.hljs-phpdoc,.hljs-dartdoc,.tex .hljs-formula,.hljs-regexp,.hljs-hexcolor,.hljs-link_url{color:#2aa198}.hljs-title,.hljs-localvars,.hljs-chunk,.hljs-decorator,.hljs-built_in,.hljs-identifier,.vhdl .hljs-literal,.hljs-id,.css .hljs-function{color:#268bd2}.hljs-attribute,.hljs-variable,.lisp .hljs-body,.smalltalk .hljs-number,.hljs-constant,.hljs-class .hljs-title,.hljs-parent,.hljs-type,.hljs-link_reference{color:#b58900}.hljs-preprocessor,.hljs-preprocessor .hljs-keyword,.hljs-pragma,.hljs-shebang,.hljs-symbol,.hljs-symbol .hljs-string,.diff .hljs-change,.hljs-special,.hljs-attr_selector,.hljs-subst,.hljs-cdata,.css .hljs-pseudo,.hljs-header{color:#cb4b16}.hljs-deletion,.hljs-important{color:#dc322f}.hljs-link_label{color:#6c71c4}.tex .hljs-formula{background:#073642}*,*:before,*:after{box-sizing:border-box}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:0 0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}images{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd{font-size:1em}code,kbd,pre,samp{font-family:monospace,monospace}samp{font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;margin-right:5px}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}.debug{background-color:#ffc0cb!important}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ir{background-color:transparent;border:0;overflow:hidden}.ir::before{content:"";display:block;height:150%;width:0}html{font-size:.875em;background:#fff;color:#373D49}html,body{font-family:Georgia,Cambria,serif;height:100%}body{font-size:1rem;font-weight:400;line-height:2rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}li{font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-left:1rem}li>ul,li>ol{margin-bottom:0}p{padding-top:.66001rem;font-feature-settings:"kern" 1,"onum" 1,"liga" 1;margin-top:0}p,pre{margin-bottom:1.33999rem}pre{font-size:1rem;padding:.66001rem 9.5px 9.5px;line-height:2rem;background:linear-gradient(to bottom,#fff 0,#fff .75rem,#f5f7fa .75rem,#f5f7fa 2.75rem,#fff 2.75rem,#fff 4rem);background-size:100% 4rem;border-color:#D3DAEA}blockquote{margin:0}blockquote p{font-size:1rem;margin-bottom:.33999rem;font-style:italic;padding:.66001rem 1rem 1rem;border-left:3px solid #A0AABF}th,td{padding:12px}h1,h2,h3,h4,h5,h6{font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-feature-settings:"dlig" 1,"liga" 1,"lnum" 1,"kern" 1;font-style:normal;font-weight:600;margin-top:0}h1{line-height:3rem;font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h2,h3{line-height:3rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}a{cursor:pointer;color:#35D7BB;text-decoration:none}a:hover,a:focus{border-bottom-color:#35D7BB;color:rgb(223.2809917355,248.7190082645,244.3223140496)}img{height:auto;max-width:100%}dt{font-style:italic;font-weight:600}.g{display:block}.g:after{clear:both;content:"";display:table}.g-b{float:left;margin:0;width:100%}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--center{display:block;float:none;margin:0 auto}.g-b--right{float:right}.g-b--1of1{width:100%}.g-b--1of2,.g-b--6of12,.g-b--5of10,.g-b--4of8,.g-b--3of6,.g-b--2of4{width:50%}.g-b--1of3,.g-b--4of12,.g-b--2of6{width:33.333%}.g-b--2of3,.g-b--8of12,.g-b--4of6{width:66.666%}.g-b--1of4,.g-b--3of12,.g-b--2of8{width:25%}.g-b--3of4,.g-b--9of12,.g-b--6of8{width:75%}.g-b--1of5,.g-b--2of10{width:20%}.g-b--2of5,.g-b--4of10{width:40%}.g-b--3of5,.g-b--6of10{width:60%}.g-b--4of5,.g-b--8of10{width:80%}.g-b--1of6,.g-b--2of12{width:16.666%}.g-b--5of6,.g-b--10of12{width:83.333%}.g-b--1of8{width:12.5%}.g-b--3of8{width:37.5%}.g-b--5of8{width:62.5%}.g-b--7of8{width:87.5%}.g-b--1of10{width:10%}.g-b--3of10{width:30%}.g-b--7of10{width:70%}.g-b--9of10{width:90%}.g-b--1of12{width:8.333%}.g-b--5of12{width:41.666%}.g-b--7of12{width:58.333%}.g-b--11of12{width:91.666%}.g-b--push--1of1{margin-left:100%}.g-b--push--1of2,.g-b--push--6of12,.g-b--push--5of10,.g-b--push--4of8,.g-b--push--3of6,.g-b--push--2of4{margin-left:50%}.g-b--push--1of3,.g-b--push--4of12,.g-b--push--2of6{margin-left:33.333%}.g-b--push--2of3,.g-b--push--8of12,.g-b--push--4of6{margin-left:66.666%}.g-b--push--1of4,.g-b--push--3of12,.g-b--push--2of8{margin-left:25%}.g-b--push--3of4,.g-b--push--9of12,.g-b--push--6of8{margin-left:75%}.g-b--push--1of5,.g-b--push--2of10{margin-left:20%}.g-b--push--2of5,.g-b--push--4of10{margin-left:40%}.g-b--push--3of5,.g-b--push--6of10{margin-left:60%}.g-b--push--4of5,.g-b--push--8of10{margin-left:80%}.g-b--push--1of6,.g-b--push--2of12{margin-left:16.666%}.g-b--push--5of6,.g-b--push--10of12{margin-left:83.333%}.g-b--push--1of8{margin-left:12.5%}.g-b--push--3of8{margin-left:37.5%}.g-b--push--5of8{margin-left:62.5%}.g-b--push--7of8{margin-left:87.5%}.g-b--push--1of10{margin-left:10%}.g-b--push--3of10{margin-left:30%}.g-b--push--7of10{margin-left:70%}.g-b--push--9of10{margin-left:90%}.g-b--push--1of12{margin-left:8.333%}.g-b--push--5of12{margin-left:41.666%}.g-b--push--7of12{margin-left:58.333%}.g-b--push--11of12{margin-left:91.666%}.g-b--pull--1of1{margin-right:100%}.g-b--pull--1of2,.g-b--pull--6of12,.g-b--pull--5of10,.g-b--pull--4of8,.g-b--pull--3of6,.g-b--pull--2of4{margin-right:50%}.g-b--pull--1of3,.g-b--pull--4of12,.g-b--pull--2of6{margin-right:33.333%}.g-b--pull--2of3,.g-b--pull--8of12,.g-b--pull--4of6{margin-right:66.666%}.g-b--pull--1of4,.g-b--pull--3of12,.g-b--pull--2of8{margin-right:25%}.g-b--pull--3of4,.g-b--pull--9of12,.g-b--pull--6of8{margin-right:75%}.g-b--pull--1of5,.g-b--pull--2of10{margin-right:20%}.g-b--pull--2of5,.g-b--pull--4of10{margin-right:40%}.g-b--pull--3of5,.g-b--pull--6of10{margin-right:60%}.g-b--pull--4of5,.g-b--pull--8of10{margin-right:80%}.g-b--pull--1of6,.g-b--pull--2of12{margin-right:16.666%}.g-b--pull--5of6,.g-b--pull--10of12{margin-right:83.333%}.g-b--pull--1of8{margin-right:12.5%}.g-b--pull--3of8{margin-right:37.5%}.g-b--pull--5of8{margin-right:62.5%}.g-b--pull--7of8{margin-right:87.5%}.g-b--pull--1of10{margin-right:10%}.g-b--pull--3of10{margin-right:30%}.g-b--pull--7of10{margin-right:70%}.g-b--pull--9of10{margin-right:90%}.g-b--pull--1of12{margin-right:8.333%}.g-b--pull--5of12{margin-right:41.666%}.g-b--pull--7of12{margin-right:58.333%}.g-b--pull--11of12{margin-right:91.666%}.splashscreen{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#373D49;z-index:22}.splashscreen-dillinger{width:260px;height:auto;display:block;margin:0 auto;padding-bottom:3rem}.splashscreen p{font-size:1.25rem;padding-top:.56251rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:center;max-width:500px;margin:0 auto;color:#FFF}.sp-center{position:relative;transform:translateY(-50%);top:50%}.open-menu>.wrapper{overflow-x:hidden}.page{margin:0 auto;position:relative;top:0;left:0;width:100%;height:100%;z-index:2;transition:all .25s ease-in-out;background-color:#fff;padding-top:51px;will-change:left}.open-menu .page{left:270px}.title{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;color:#A0AABF;letter-spacing:1px;text-transform:uppercase;padding-left:16px;padding-right:16px;margin-top:1rem}.split-preview .title{padding-left:0}.title-document{line-height:1rem;font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem;font-weight:400;font-family:"Ubuntu Mono",Monaco;color:#373D49;padding-left:16px;padding-right:16px;width:80%;min-width:300px;outline:0;border:none}.icon{display:block;margin:0 auto;width:36px;height:36px;border-radius:3px;text-align:center}.icon svg{display:inline-block;margin-left:auto;margin-right:auto}.icon-preview{background-color:#373D49;line-height:40px}.icon-preview svg{width:19px;height:12px}.icon-settings{background-color:#373D49;line-height:44px}.icon-settings svg{width:18px;height:18px}.icon-link{width:16px;height:16px;line-height:1;margin-right:24px;text-align:right}.navbar:after{content:"";display:table;clear:both}.navbar{background-color:#373D49;height:51px;width:100%;position:fixed;top:0;left:0;z-index:6;transition:all .25s ease-in-out;will-change:left}.open-menu .navbar{left:270px}.navbar-brand{float:left;margin:0 0 0 24px;padding:0;line-height:42px}.navbar-brand svg{width:85px;height:11px}.nav-left{float:left}.nav-right{float:right}.nav-sidebar{width:100%}.menu{list-style:none;margin:0;padding:0}.menu a{border:0;color:#A0AABF;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;outline:none;text-transform:uppercase}.menu a:hover{color:#35D7BB}.menu .menu-item{border:0;display:none;float:left;margin:0;position:relative}.menu .menu-item>a{display:block;font-size:12px;height:51px;letter-spacing:1px;line-height:51px;padding:0 24px}.menu .menu-item--settings,.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar,.menu .menu-item--link-unlink.in-sidebar,.menu .menu-item--documents.in-sidebar{display:block}.menu .menu-item--documents{padding-bottom:1rem}.menu .menu-item.open>a{background-color:#1D212A}.menu .menu-item-icon>a{height:auto;padding:0}.menu .menu-item-icon:hover>a{background-color:transparent}.menu .menu-link.open i{background-color:#1D212A}.menu .menu-link.open g{fill:#35D7BB}.menu .menu-link-preview,.menu .menu-link-settings{margin-top:8px;width:51px}.menu-sidebar{width:100%}.menu-sidebar .menu-item{float:none;margin-bottom:1px;width:100%}.menu-sidebar .menu-item.open>a{background-color:#373D49}.menu-sidebar .open .caret{transform:rotate(180deg)}.menu-sidebar>.menu-item:hover .dropdown a,.menu-sidebar>.menu-item:hover .settings a{background-color:transparent}.menu-sidebar .menu-link{background-color:#373D49;font-weight:600}.menu-sidebar .menu-link:after{content:"";display:table;clear:both}.menu-sidebar .menu-link>span{float:left}.menu-sidebar .menu-link>.caret{float:right;text-align:right;top:22px}.menu-sidebar .dropdown,.menu-sidebar .settings{background-color:transparent;position:static;width:100%}.dropdown{position:absolute;right:0;top:51px;width:188px}.dropdown,.settings{display:none;background-color:#1D212A}.dropdown{padding:0}.dropdown,.settings,.sidebar-list{list-style:none;margin:0}.sidebar-list{padding:0}.dropdown li{margin:32px 0;padding:0 0 0 32px}.dropdown li,.settings li{line-height:1}.sidebar-list li{line-height:1;margin:32px 0;padding:0 0 0 32px}.dropdown a:after,.settings a:after,.sidebar-list a:after{content:"";display:table;clear:both}.dropdown a{color:#D0D6E2}.dropdown a,.settings a,.sidebar-list a{display:block;text-transform:none}.sidebar-list a{color:#D0D6E2}.dropdown .icon,.settings .icon,.sidebar-list .icon{float:right}.open .dropdown,.open .settings,.open .sidebar-list{display:block}.open .dropdown.collapse,.open .collapse.settings,.open .sidebar-list.collapse{display:none}.open .dropdown.collapse.in,.open .collapse.in.settings,.open .sidebar-list.collapse.in{display:block}.dropdown .unlinked .icon,.settings .unlinked .icon,.sidebar-list .unlinked .icon{opacity:.3}.dropdown.documents li,.documents.settings li,.sidebar-list.documents li{background-image:url("../img/icons/file.svg");background-position:240px center;background-repeat:no-repeat;background-size:14px 16px;padding:3px 32px}.dropdown.documents li.octocat,.documents.settings li.octocat,.sidebar-list.documents li.octocat{background-image:url("../img/icons/octocat.svg");background-position:234px center;background-size:24px 24px}.dropdown.documents li:last-child,.documents.settings li:last-child,.sidebar-list.documents li:last-child{margin-bottom:1rem}.dropdown.documents li.active a,.documents.settings li.active a,.sidebar-list.documents li.active a{color:#35D7BB}.settings{position:fixed;top:67px;right:16px;border-radius:3px;width:288px;background-color:#373D49;padding:16px;z-index:7}.show-settings .settings{display:block}.settings .has-checkbox{float:left}.settings form{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:justify;justify-content:space-between}.settings input{width:20%}.settings a:after{content:"";display:table;clear:both}.settings a{font-size:1.25rem;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:28px;color:#D0D6E2}.settings a:hover{color:#35D7BB}.settings li{border-bottom:1px solid #4F535B;margin:0;padding:16px 0}.settings li:last-child{border-bottom:none}.brand{border:none;display:block}.brand:hover g{fill:#35D7BB}.toggle{display:block;float:left;height:16px;padding:25px 16px 26px;width:40px}.toggle span:after,.toggle span:before{content:"";left:0;position:absolute;top:-6px}.toggle span:after{top:6px}.toggle span{display:block;position:relative}.toggle span,.toggle span:after,.toggle span:before{backface-visibility:hidden;background-color:#D3DAEA;height:2px;transition:all .3s;width:20px}.open-menu .toggle span{background-color:transparent}.open-menu .toggle span:before{transform:rotate(45deg) translate(3px,3px)}.open-menu .toggle span:after{transform:rotate(-45deg) translate(5px,-6px)}.caret{display:inline-block;width:0;height:0;margin-left:6px;vertical-align:middle;position:relative;top:-1px;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}.sidebar{overflow:auto;height:100%;padding-right:15px;padding-bottom:15px;width:285px}.sidebar-wrapper{-webkit-overflow-scrolling:touch;background-color:#2B2F36;left:0;height:100%;overflow-y:hidden;position:fixed;top:0;width:285px;z-index:1}.sidebar-branding{width:160px;padding:0;margin:16px auto}.header{border-bottom:1px solid #E8E8E8;position:relative}.words,.characters{line-height:1rem;font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem;font-weight:500;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;z-index:5;position:absolute;right:16px;top:0}.words span,.characters span{color:#A0AABF}.words .counter,.characters .counter{color:#000}.words+.characters{top:22px}.mr10{margin-right:10px}.btn{text-align:center;display:inline-block;width:100%;text-transform:uppercase;font-weight:600;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:0 1px 0 rgb(27.4380165289,138.5619834711,119.3553719008);padding:16px 24px;background-color:#35D7BB;border-radius:3px;margin:0 auto 16px;line-height:1;color:#fff;transition:all .15s linear;-webkit-font-smoothing:antialiased}.btn--new,.btn--save{display:block;width:238px}.btn--new:hover,.btn--new:focus,.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 3px rgb(35.867768595,181.132231405,156.0247933884);text-shadow:0 1px 0 rgb(35.867768595,181.132231405,156.0247933884)}.btn--save{background-color:#4A5261;text-shadow:0 1px 1px rgb(29.8596491228,33.0877192982,39.1403508772)}.btn--save:hover,.btn--save:focus{color:#fff;border-bottom-color:transparent;box-shadow:0 1px 5px rgb(7.7894736842,8.6315789474,10.2105263158);text-shadow:none}.btn--delete{display:block;width:238px;background-color:transparent;font-size:12px;text-shadow:none}.btn--delete:hover,.btn--delete:focus{color:#fff;border-bottom-color:transparent;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);opacity:.8}.btn--delete-modal,.btn--ok,.btn--close{border-top:0;background-color:#4A5261;text-shadow:0 1px 0 rgb(7.7894736842,8.6315789474,10.2105263158);margin:0}.btn--delete-modal:hover,.btn--delete-modal:focus,.btn--ok:hover,.btn--ok:focus,.btn--close:hover,.btn--close:focus{color:#fff;background-color:rgb(40.8947368421,45.3157894737,53.6052631579);text-shadow:none}.btn--delete-modal{display:inline;width:auto}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(55,61,73,.8);transition:all .25s ease-in-out;transition-timing-function:ease-out;will-change:left,opacity,visibility;z-index:5;opacity:0;visibility:hidden}.show-settings .overlay{visibility:visible;opacity:1}.switch{float:right;line-height:1}.switch input{display:none}.switch small{display:inline-block;cursor:pointer;padding:0 24px 0 0;transition:all ease .2s;background-color:#2B2F36;border-color:#2B2F36}.switch small,.switch small:before{border-radius:30px;box-shadow:inset 0 0 2px 0 #14171F}.switch small:before{display:block;content:"";width:28px;height:28px;background:#fff}.switch.checked small{padding-right:0;padding-left:24px;background-color:#35D7BB;box-shadow:none}.modal--dillinger.about .modal-dialog{font-size:1.25rem;max-width:500px}.modal--dillinger.scope .modal-dialog{max-width:300px;margin:5rem auto}.modal--dillinger .modal-dialog{max-width:600px;width:auto;margin:5rem auto}.modal--dillinger .modal-content{background:#373D49;border-radius:3px;box-shadow:0 2px 5px 0 #2C3B59;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;padding:2rem}.modal--dillinger ul{list-style-type:disc;margin:1rem 0;padding:0 0 0 1rem}.modal--dillinger li{padding:0;margin:0}.modal--dillinger .modal-header{border:0;padding:0}.modal--dillinger .modal-body{padding:0}.modal--dillinger .modal-footer{border:0;padding:0}.modal--dillinger .close{color:#fff;opacity:1}.modal-backdrop{background-color:#373D49}.pagination--dillinger{padding:0!important;margin:1.5rem 0!important;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-direction:row;flex-direction:row;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:stretch;align-content:stretch}.pagination--dillinger li{display:-ms-flexbox;display:flex;-ms-flex-positive:1;flex-grow:1;text-align:center}.pagination--dillinger li:first-child>a,.pagination--dillinger li.disabled>a,.pagination--dillinger li.disabled>a:hover,.pagination--dillinger li.disabled>a:focus,.pagination--dillinger li>a{background-color:transparent;border-color:#4F535B;border-right-color:transparent}.pagination--dillinger li.active>a,.pagination--dillinger li.active>a:hover,.pagination--dillinger li.active>a:focus{border-color:#4A5261;background-color:#4A5261;color:#fff}.pagination--dillinger li>a{float:none;color:#fff;width:100%;display:block;text-align:center;margin:0;border-right-color:transparent;padding:6px}.pagination--dillinger li>a:hover,.pagination--dillinger li>a:focus{border-color:#35D7BB;background-color:#35D7BB;color:#fff}.pagination--dillinger li:last-child a{border-color:#4F535B}.pagination--dillinger li:first-child a{border-right-color:transparent}.diNotify{position:absolute;z-index:9999;left:0;right:0;top:0;margin:0 auto;max-width:400px;text-align:center;transition:top .5s ease-in-out,opacity .5s ease-in-out;visibility:hidden}.diNotify-body{-webkit-font-smoothing:antialiased;background-color:#35D7BB;background:#666E7F;border-radius:3px;color:#fff;font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;overflow:hidden;padding:1rem 2rem .5rem;display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;-ms-flex-pack:center;justify-content:center}.diNotify-icon{display:block;width:16px;height:16px;line-height:16px;position:relative;top:3px}.diNotify-message{padding-left:1rem}.zen-wrapper{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:10;background-color:#FFF;opacity:0;transition:opacity .25s ease-in-out}.zen-wrapper.on{opacity:1}.enter-zen-mode{background-image:url("../img/icons/enter-zen.svg");right:.5rem;top:.313rem;display:none}.enter-zen-mode,.close-zen-mode{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute}.close-zen-mode{background-image:url("../img/icons/exit-zen.svg");right:1rem;top:1rem}.zen-page{position:relative;top:0;bottom:0;z-index:11;height:100%;width:100%}#zen{font-size:1.25rem;width:300px;height:80%;margin:0 auto;position:relative;top:10%}#zen:before,#zen:after{content:"";position:absolute;height:10%;width:100%;z-index:12;pointer-events:none}#preview .table{width:auto}.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:.1px;z-index:99999;display:block}.ui-resizable-e{background-color:#666;border-right:8px solid #e8e8e8;border-left:1px solid #222;width:10px;z-index:88!important;position:relative}.ui-resizable-e:after{content:"-";display:block;position:absolute;top:calc(50% - 16px);left:0;height:25px;width:2px;background-color:rgba(0,0,0,.4);margin:3px}#editor{cursor:ew-resize;position:relative;z-index:auto}.profile-pic{float:left;width:250px}#_default_ a::before{color:#A0AABF}#_default_ img{display:none}#_default_ #_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ .default-ad{display:none}#_default_ ._default_{display:block}#_default_ a{color:#35d7bb;text-decoration:none}#_default_ a:hover{color:rgb(138.1404958678,231.8595041322,215.6611570248)}#_default_ .default-image{display:none}#_default_ .default-title:after{content:" — "}#_default_ .default-title,#_default_ .default-text,#_default_ .default-description{display:inline}#_default_ .default-title{position:relative;font-weight:600;display:none}#_default_ a:before{position:relative;top:0;padding:5px;color:#a0aabf;content:"Ad";text-transform:uppercase;font-size:8px;font-family:Verdana,sans-serif}#_default_{display:block;float:left;max-width:38%;word-wrap:break-word}#_default_ ._default_{display:block;font-size:.75rem;height:51px;letter-spacing:1px;line-height:1rem;padding:18px 24px}body{max-width:1024px;margin:0 auto;overflow:auto;padding:2%}.split{overflow:scroll;padding:0!important;-webkit-overflow-scrolling:touch}.split-editor{padding-left:0;padding-right:0;position:relative;z-index:3}.show-preview .split-editor{display:none}.split-preview{background-color:#fff;display:none;top:0;position:relative;z-index:4}.show-preview .split-preview{display:block}#editor{font-size:1rem;font-family:"Ubuntu Mono",Monaco;font-weight:400;line-height:2rem;width:100%;height:100%}#editor .ace_gutter{-webkit-font-smoothing:antialiased}.editor-header{width:50%;float:left;border-bottom:1px solid #E8E8E8;position:relative}.editor-header--first{border-right:1px solid #E8E8E8}.editor-header .title{display:inline-block}.preview-html a{color:#A0AABF;text-decoration:underline}.preview-html{padding:15px}.preview-src{white-space:normal}.preview-mode-toggle-src{background-image:url("../img/icons/code.svg")}.preview-mode-toggle-src,.preview-mode-toggle-html{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;background-repeat:no-repeat;width:32px;height:32px;display:block;position:absolute;right:.5rem;top:.5rem;display:none}.preview-mode-toggle-html{background-image:url("../img/icons/eye.svg")}.sr-only{visibility:hidden;text-overflow:110%;overflow:hidden;top:-100px;position:absolute}.mnone{margin:0!important}@media screen and (min-width:27.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--m1of1{width:100%}.g-b--m1of2,.g-b--m6of12,.g-b--m5of10,.g-b--m4of8,.g-b--m3of6,.g-b--m2of4{width:50%}.g-b--m1of3,.g-b--m4of12,.g-b--m2of6{width:33.333%}.g-b--m2of3,.g-b--m8of12,.g-b--m4of6{width:66.666%}.g-b--m1of4,.g-b--m3of12,.g-b--m2of8{width:25%}.g-b--m3of4,.g-b--m9of12,.g-b--m6of8{width:75%}.g-b--m1of5,.g-b--m2of10{width:20%}.g-b--m2of5,.g-b--m4of10{width:40%}.g-b--m3of5,.g-b--m6of10{width:60%}.g-b--m4of5,.g-b--m8of10{width:80%}.g-b--m1of6,.g-b--m2of12{width:16.666%}.g-b--m5of6,.g-b--m10of12{width:83.333%}.g-b--m1of8{width:12.5%}.g-b--m3of8{width:37.5%}.g-b--m5of8{width:62.5%}.g-b--m7of8{width:87.5%}.g-b--m1of10{width:10%}.g-b--m3of10{width:30%}.g-b--m7of10{width:70%}.g-b--m9of10{width:90%}.g-b--m1of12{width:8.333%}.g-b--m5of12{width:41.666%}.g-b--m7of12{width:58.333%}.g-b--m11of12{width:91.666%}.g-b--push--m1of1{margin-left:100%}.g-b--push--m1of2,.g-b--push--m6of12,.g-b--push--m5of10,.g-b--push--m4of8,.g-b--push--m3of6,.g-b--push--m2of4{margin-left:50%}.g-b--push--m1of3,.g-b--push--m4of12,.g-b--push--m2of6{margin-left:33.333%}.g-b--push--m2of3,.g-b--push--m8of12,.g-b--push--m4of6{margin-left:66.666%}.g-b--push--m1of4,.g-b--push--m3of12,.g-b--push--m2of8{margin-left:25%}.g-b--push--m3of4,.g-b--push--m9of12,.g-b--push--m6of8{margin-left:75%}.g-b--push--m1of5,.g-b--push--m2of10{margin-left:20%}.g-b--push--m2of5,.g-b--push--m4of10{margin-left:40%}.g-b--push--m3of5,.g-b--push--m6of10{margin-left:60%}.g-b--push--m4of5,.g-b--push--m8of10{margin-left:80%}.g-b--push--m1of6,.g-b--push--m2of12{margin-left:16.666%}.g-b--push--m5of6,.g-b--push--m10of12{margin-left:83.333%}.g-b--push--m1of8{margin-left:12.5%}.g-b--push--m3of8{margin-left:37.5%}.g-b--push--m5of8{margin-left:62.5%}.g-b--push--m7of8{margin-left:87.5%}.g-b--push--m1of10{margin-left:10%}.g-b--push--m3of10{margin-left:30%}.g-b--push--m7of10{margin-left:70%}.g-b--push--m9of10{margin-left:90%}.g-b--push--m1of12{margin-left:8.333%}.g-b--push--m5of12{margin-left:41.666%}.g-b--push--m7of12{margin-left:58.333%}.g-b--push--m11of12{margin-left:91.666%}.g-b--pull--m1of1{margin-right:100%}.g-b--pull--m1of2,.g-b--pull--m6of12,.g-b--pull--m5of10,.g-b--pull--m4of8,.g-b--pull--m3of6,.g-b--pull--m2of4{margin-right:50%}.g-b--pull--m1of3,.g-b--pull--m4of12,.g-b--pull--m2of6{margin-right:33.333%}.g-b--pull--m2of3,.g-b--pull--m8of12,.g-b--pull--m4of6{margin-right:66.666%}.g-b--pull--m1of4,.g-b--pull--m3of12,.g-b--pull--m2of8{margin-right:25%}.g-b--pull--m3of4,.g-b--pull--m9of12,.g-b--pull--m6of8{margin-right:75%}.g-b--pull--m1of5,.g-b--pull--m2of10{margin-right:20%}.g-b--pull--m2of5,.g-b--pull--m4of10{margin-right:40%}.g-b--pull--m3of5,.g-b--pull--m6of10{margin-right:60%}.g-b--pull--m4of5,.g-b--pull--m8of10{margin-right:80%}.g-b--pull--m1of6,.g-b--pull--m2of12{margin-right:16.666%}.g-b--pull--m5of6,.g-b--pull--m10of12{margin-right:83.333%}.g-b--pull--m1of8{margin-right:12.5%}.g-b--pull--m3of8{margin-right:37.5%}.g-b--pull--m5of8{margin-right:62.5%}.g-b--pull--m7of8{margin-right:87.5%}.g-b--pull--m1of10{margin-right:10%}.g-b--pull--m3of10{margin-right:30%}.g-b--pull--m7of10{margin-right:70%}.g-b--pull--m9of10{margin-right:90%}.g-b--pull--m1of12{margin-right:8.333%}.g-b--pull--m5of12{margin-right:41.666%}.g-b--pull--m7of12{margin-right:58.333%}.g-b--pull--m11of12{margin-right:91.666%}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:400px}#editor{font-size:1rem}}@media screen and (min-width:46.25em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--t1of1{width:100%}.g-b--t1of2,.g-b--t6of12,.g-b--t5of10,.g-b--t4of8,.g-b--t3of6,.g-b--t2of4{width:50%}.g-b--t1of3,.g-b--t4of12,.g-b--t2of6{width:33.333%}.g-b--t2of3,.g-b--t8of12,.g-b--t4of6{width:66.666%}.g-b--t1of4,.g-b--t3of12,.g-b--t2of8{width:25%}.g-b--t3of4,.g-b--t9of12,.g-b--t6of8{width:75%}.g-b--t1of5,.g-b--t2of10{width:20%}.g-b--t2of5,.g-b--t4of10{width:40%}.g-b--t3of5,.g-b--t6of10{width:60%}.g-b--t4of5,.g-b--t8of10{width:80%}.g-b--t1of6,.g-b--t2of12{width:16.666%}.g-b--t5of6,.g-b--t10of12{width:83.333%}.g-b--t1of8{width:12.5%}.g-b--t3of8{width:37.5%}.g-b--t5of8{width:62.5%}.g-b--t7of8{width:87.5%}.g-b--t1of10{width:10%}.g-b--t3of10{width:30%}.g-b--t7of10{width:70%}.g-b--t9of10{width:90%}.g-b--t1of12{width:8.333%}.g-b--t5of12{width:41.666%}.g-b--t7of12{width:58.333%}.g-b--t11of12{width:91.666%}.g-b--push--t1of1{margin-left:100%}.g-b--push--t1of2,.g-b--push--t6of12,.g-b--push--t5of10,.g-b--push--t4of8,.g-b--push--t3of6,.g-b--push--t2of4{margin-left:50%}.g-b--push--t1of3,.g-b--push--t4of12,.g-b--push--t2of6{margin-left:33.333%}.g-b--push--t2of3,.g-b--push--t8of12,.g-b--push--t4of6{margin-left:66.666%}.g-b--push--t1of4,.g-b--push--t3of12,.g-b--push--t2of8{margin-left:25%}.g-b--push--t3of4,.g-b--push--t9of12,.g-b--push--t6of8{margin-left:75%}.g-b--push--t1of5,.g-b--push--t2of10{margin-left:20%}.g-b--push--t2of5,.g-b--push--t4of10{margin-left:40%}.g-b--push--t3of5,.g-b--push--t6of10{margin-left:60%}.g-b--push--t4of5,.g-b--push--t8of10{margin-left:80%}.g-b--push--t1of6,.g-b--push--t2of12{margin-left:16.666%}.g-b--push--t5of6,.g-b--push--t10of12{margin-left:83.333%}.g-b--push--t1of8{margin-left:12.5%}.g-b--push--t3of8{margin-left:37.5%}.g-b--push--t5of8{margin-left:62.5%}.g-b--push--t7of8{margin-left:87.5%}.g-b--push--t1of10{margin-left:10%}.g-b--push--t3of10{margin-left:30%}.g-b--push--t7of10{margin-left:70%}.g-b--push--t9of10{margin-left:90%}.g-b--push--t1of12{margin-left:8.333%}.g-b--push--t5of12{margin-left:41.666%}.g-b--push--t7of12{margin-left:58.333%}.g-b--push--t11of12{margin-left:91.666%}.g-b--pull--t1of1{margin-right:100%}.g-b--pull--t1of2,.g-b--pull--t6of12,.g-b--pull--t5of10,.g-b--pull--t4of8,.g-b--pull--t3of6,.g-b--pull--t2of4{margin-right:50%}.g-b--pull--t1of3,.g-b--pull--t4of12,.g-b--pull--t2of6{margin-right:33.333%}.g-b--pull--t2of3,.g-b--pull--t8of12,.g-b--pull--t4of6{margin-right:66.666%}.g-b--pull--t1of4,.g-b--pull--t3of12,.g-b--pull--t2of8{margin-right:25%}.g-b--pull--t3of4,.g-b--pull--t9of12,.g-b--pull--t6of8{margin-right:75%}.g-b--pull--t1of5,.g-b--pull--t2of10{margin-right:20%}.g-b--pull--t2of5,.g-b--pull--t4of10{margin-right:40%}.g-b--pull--t3of5,.g-b--pull--t6of10{margin-right:60%}.g-b--pull--t4of5,.g-b--pull--t8of10{margin-right:80%}.g-b--pull--t1of6,.g-b--pull--t2of12{margin-right:16.666%}.g-b--pull--t5of6,.g-b--pull--t10of12{margin-right:83.333%}.g-b--pull--t1of8{margin-right:12.5%}.g-b--pull--t3of8{margin-right:37.5%}.g-b--pull--t5of8{margin-right:62.5%}.g-b--pull--t7of8{margin-right:87.5%}.g-b--pull--t1of10{margin-right:10%}.g-b--pull--t3of10{margin-right:30%}.g-b--pull--t7of10{margin-right:70%}.g-b--pull--t9of10{margin-right:90%}.g-b--pull--t1of12{margin-right:8.333%}.g-b--pull--t5of12{margin-right:41.666%}.g-b--pull--t7of12{margin-right:58.333%}.g-b--pull--t11of12{margin-right:91.666%}.splashscreen-dillinger{width:500px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--save-to,.menu .menu-item--import-from{display:block}.menu .menu-item--preview,.menu .menu-item--save-to.in-sidebar,.menu .menu-item--import-from.in-sidebar{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog{font-size:1.25rem}.enter-zen-mode{display:block}.close-zen-mode{right:3rem;top:3rem}#zen{font-size:1.25rem;width:500px}.split-editor{border-right:1px solid #E8E8E8;float:left;padding-right:16px;width:50%}.show-preview .split-editor{display:block}.split-preview{display:block;float:right;position:relative;top:0;width:50%}#editor{font-size:1rem}.preview-mode-toggle-src,.preview-mode-toggle-html{display:block}}@media screen and (min-width:62.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.g{margin-left:-16px;margin-right:-16px}.g-b{padding-left:16px;padding-right:16px}.g-b--d1of1{width:100%}.g-b--d1of2,.g-b--d6of12,.g-b--d5of10,.g-b--d4of8,.g-b--d3of6,.g-b--d2of4{width:50%}.g-b--d1of3,.g-b--d4of12,.g-b--d2of6{width:33.333%}.g-b--d2of3,.g-b--d8of12,.g-b--d4of6{width:66.666%}.g-b--d1of4,.g-b--d3of12,.g-b--d2of8{width:25%}.g-b--d3of4,.g-b--d9of12,.g-b--d6of8{width:75%}.g-b--d1of5,.g-b--d2of10{width:20%}.g-b--d2of5,.g-b--d4of10{width:40%}.g-b--d3of5,.g-b--d6of10{width:60%}.g-b--d4of5,.g-b--d8of10{width:80%}.g-b--d1of6,.g-b--d2of12{width:16.666%}.g-b--d5of6,.g-b--d10of12{width:83.333%}.g-b--d1of8{width:12.5%}.g-b--d3of8{width:37.5%}.g-b--d5of8{width:62.5%}.g-b--d7of8{width:87.5%}.g-b--d1of10{width:10%}.g-b--d3of10{width:30%}.g-b--d7of10{width:70%}.g-b--d9of10{width:90%}.g-b--d1of12{width:8.333%}.g-b--d5of12{width:41.666%}.g-b--d7of12{width:58.333%}.g-b--d11of12{width:91.666%}.g-b--push--d1of1{margin-left:100%}.g-b--push--d1of2,.g-b--push--d6of12,.g-b--push--d5of10,.g-b--push--d4of8,.g-b--push--d3of6,.g-b--push--d2of4{margin-left:50%}.g-b--push--d1of3,.g-b--push--d4of12,.g-b--push--d2of6{margin-left:33.333%}.g-b--push--d2of3,.g-b--push--d8of12,.g-b--push--d4of6{margin-left:66.666%}.g-b--push--d1of4,.g-b--push--d3of12,.g-b--push--d2of8{margin-left:25%}.g-b--push--d3of4,.g-b--push--d9of12,.g-b--push--d6of8{margin-left:75%}.g-b--push--d1of5,.g-b--push--d2of10{margin-left:20%}.g-b--push--d2of5,.g-b--push--d4of10{margin-left:40%}.g-b--push--d3of5,.g-b--push--d6of10{margin-left:60%}.g-b--push--d4of5,.g-b--push--d8of10{margin-left:80%}.g-b--push--d1of6,.g-b--push--d2of12{margin-left:16.666%}.g-b--push--d5of6,.g-b--push--d10of12{margin-left:83.333%}.g-b--push--d1of8{margin-left:12.5%}.g-b--push--d3of8{margin-left:37.5%}.g-b--push--d5of8{margin-left:62.5%}.g-b--push--d7of8{margin-left:87.5%}.g-b--push--d1of10{margin-left:10%}.g-b--push--d3of10{margin-left:30%}.g-b--push--d7of10{margin-left:70%}.g-b--push--d9of10{margin-left:90%}.g-b--push--d1of12{margin-left:8.333%}.g-b--push--d5of12{margin-left:41.666%}.g-b--push--d7of12{margin-left:58.333%}.g-b--push--d11of12{margin-left:91.666%}.g-b--pull--d1of1{margin-right:100%}.g-b--pull--d1of2,.g-b--pull--d6of12,.g-b--pull--d5of10,.g-b--pull--d4of8,.g-b--pull--d3of6,.g-b--pull--d2of4{margin-right:50%}.g-b--pull--d1of3,.g-b--pull--d4of12,.g-b--pull--d2of6{margin-right:33.333%}.g-b--pull--d2of3,.g-b--pull--d8of12,.g-b--pull--d4of6{margin-right:66.666%}.g-b--pull--d1of4,.g-b--pull--d3of12,.g-b--pull--d2of8{margin-right:25%}.g-b--pull--d3of4,.g-b--pull--d9of12,.g-b--pull--d6of8{margin-right:75%}.g-b--pull--d1of5,.g-b--pull--d2of10{margin-right:20%}.g-b--pull--d2of5,.g-b--pull--d4of10{margin-right:40%}.g-b--pull--d3of5,.g-b--pull--d6of10{margin-right:60%}.g-b--pull--d4of5,.g-b--pull--d8of10{margin-right:80%}.g-b--pull--d1of6,.g-b--pull--d2of12{margin-right:16.666%}.g-b--pull--d5of6,.g-b--pull--d10of12{margin-right:83.333%}.g-b--pull--d1of8{margin-right:12.5%}.g-b--pull--d3of8{margin-right:37.5%}.g-b--pull--d5of8{margin-right:62.5%}.g-b--pull--d7of8{margin-right:87.5%}.g-b--pull--d1of10{margin-right:10%}.g-b--pull--d3of10{margin-right:30%}.g-b--pull--d7of10{margin-right:70%}.g-b--pull--d9of10{margin-right:90%}.g-b--pull--d1of12{margin-right:8.333%}.g-b--pull--d5of12{margin-right:41.666%}.g-b--pull--d7of12{margin-right:58.333%}.g-b--pull--d11of12{margin-right:91.666%}.splashscreen-dillinger{width:700px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{font-size:1.25rem;margin-bottom:.89999rem;padding-top:.10001rem}.menu .menu-item--export-as{display:block}.menu .menu-item--preview{display:none}.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#zen{width:700px}#editor{font-size:1rem}}@media screen and (min-width:87.5em){html{font-size:.875em}body{font-size:1rem}ul,ol{margin-bottom:.83999rem;padding-top:.16001rem}p{padding-top:.66001rem}p,pre{margin-bottom:1.33999rem}pre,blockquote p{font-size:1rem;padding-top:.66001rem}blockquote p{margin-bottom:.33999rem}h1{font-size:2.0571428571rem;margin-bottom:.21999rem;padding-top:.78001rem}h2{font-size:1.953125rem;margin-bottom:.18358375rem;padding-top:.81641625rem}h3{font-size:1.6457142857rem;margin-bottom:.07599rem;padding-top:.92401rem}h4{font-size:1.5625rem;margin-bottom:.546865rem;padding-top:.453135rem}h5{font-size:1.25rem;margin-bottom:-.56251rem;padding-top:.56251rem}h6{font-size:1rem;margin-bottom:-.65001rem;padding-top:.65001rem}.splashscreen-dillinger{width:800px}.splashscreen p{font-size:1.25rem;margin-bottom:1.43749rem;padding-top:.56251rem}.title{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.title-document{margin-bottom:.89999rem;padding-top:.10001rem}.title-document,.settings a{font-size:1.25rem}.words,.characters{font-size:.8rem;margin-bottom:.77999rem;padding-top:.22001rem}.modal--dillinger.about .modal-dialog,#zen{font-size:1.25rem}#editor{font-size:1rem}}@media (min-width:768px){.form-inline .form-group{display:inline-block;margin-bottom:0;vertical-align:middle}.form-inline .form-control{display:inline-block;width:auto;vertical-align:middle}.form-inline .input-group{display:inline-table;vertical-align:middle}.form-inline .input-group .input-group-addon,.form-inline .input-group .input-group-btn,.form-inline .input-group .form-control{width:auto}.form-inline .input-group>.form-control{width:100%}.form-inline .control-label{margin-bottom:0;vertical-align:middle}.form-inline .radio,.form-inline .checkbox{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}.form-inline .radio label,.form-inline .checkbox label{padding-left:0}.form-inline .radio input[type=radio],.form-inline .checkbox input[type=checkbox]{position:relative;margin-left:0}.form-inline .has-feedback .form-control-feedback{top:0}.form-horizontal .control-label{text-align:right;margin-bottom:0;padding-top:7px}.form-horizontal .form-group-lg .control-label{padding-top:14.3px}.form-horizontal .form-group-sm .control-label{padding-top:6px}.modal-dialog{width:600px;margin:30px auto}.modal-content{box-shadow:0 5px 15px rgba(0,0,0,.5)}.modal-sm{width:300px}}@media (min-width:992px){.modal-lg{width:900px}}@media screen and (max-width:1200px){#_default_{max-width:30%}#_default_ ._default_{font-size:.825rem;line-height:.875rem;padding:12px 12px 6px 24px;text-align:justify}}@media screen and (max-width:1100px){#_default_{max-width:27%}#_default_ ._default_{font-size:.8rem;line-height:.85rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:1000px){#_default_{max-width:24%}#_default_ ._default_{font-size:.775rem;line-height:.8rem;padding:12px 6px 6px 24px;text-align:justify}}@media screen and (max-width:900px){#_default_{max-width:30%}}@media screen and (max-width:767px){.table-responsive{width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:auto;-ms-overflow-style:-ms-autohiding-scrollbar;border:1px solid #ddd;-webkit-overflow-scrolling:touch}.table-responsive>.table{margin-bottom:0}.table-responsive>.table>thead>tr>th,.table-responsive>.table>thead>tr>td,.table-responsive>.table>tbody>tr>th,.table-responsive>.table>tbody>tr>td,.table-responsive>.table>tfoot>tr>th,.table-responsive>.table>tfoot>tr>td{white-space:nowrap}.table-responsive>.table-bordered{border:0}.table-responsive>.table-bordered>thead>tr>th:first-child,.table-responsive>.table-bordered>thead>tr>td:first-child,.table-responsive>.table-bordered>tbody>tr>th:first-child,.table-responsive>.table-bordered>tbody>tr>td:first-child,.table-responsive>.table-bordered>tfoot>tr>th:first-child,.table-responsive>.table-bordered>tfoot>tr>td:first-child{border-left:0}.table-responsive>.table-bordered>thead>tr>th:last-child,.table-responsive>.table-bordered>thead>tr>td:last-child,.table-responsive>.table-bordered>tbody>tr>th:last-child,.table-responsive>.table-bordered>tbody>tr>td:last-child,.table-responsive>.table-bordered>tfoot>tr>th:last-child,.table-responsive>.table-bordered>tfoot>tr>td:last-child{border-right:0}.table-responsive>.table-bordered>tbody>tr:last-child>th,.table-responsive>.table-bordered>tbody>tr:last-child>td,.table-responsive>.table-bordered>tfoot>tr:last-child>th,.table-responsive>.table-bordered>tfoot>tr:last-child>td{border-bottom:0}}@media screen and (max-width:720px){#_default_{max-width:60%}#_default_ ._default_{font-size:.75rem;line-height:1rem;padding:12px 24px}}@media screen and (max-width:620px){#_default_{max-width:50%}#_default_ ._default_{font-size:.66rem;letter-spacing:1px;line-height:1rem;padding:10px 24px}}@media screen and (max-width:520px){#_default_ ._default_{font-size:.4rem;line-height:.875rem;padding:6px 12px 6px 24px;text-align:justify}}@media screen and (max-width:460px){#_default_{display:none}}@media screen and (max-width:46.1875em){.editor-header{display:none}.editor-header--first{display:block;width:100%}}</style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Gua_de_Creacin_de_Controladores_API_para_Roig_Arena_0"></a>Guía de Creación de Controladores API para Roig Arena</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Esta guía explica cómo crear los controladores necesarios para el sistema de venta de entradas, siguiendo las mejores prácticas de Laravel.</p>
+<h2 class="code-line" data-line-start=4 data-line-end=5 ><a id="Qu_son_los_controladores_4"></a>¿Qué son los controladores?</h2>
+<p class="has-line-data" data-line-start="6" data-line-end="7">Los controladores son clases que manejan las peticiones HTTP y contienen la lógica para responder a las acciones del usuario. En una API REST, cada controlador gestiona un recurso específico (eventos, sectores, reservas, etc.).</p>
+<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Estructura_de_controladores_para_el_proyecto_8"></a>Estructura de controladores para el proyecto</h2>
+<h3 class="code-line" data-line-start=10 data-line-end=11 ><a id="Controladores_que_vamos_a_crear_10"></a>Controladores que vamos a crear:</h3>
+<ol>
+<li class="has-line-data" data-line-start="12" data-line-end="13"><strong>AuthController</strong> - Registro, login, logout</li>
+<li class="has-line-data" data-line-start="13" data-line-end="14"><strong>EventoController</strong> - CRUD de eventos (admin) + listado público</li>
+<li class="has-line-data" data-line-start="14" data-line-end="15"><strong>SectorController</strong> - Gestión de sectores (admin)</li>
+<li class="has-line-data" data-line-start="15" data-line-end="16"><strong>AsientoController</strong> - Consulta de asientos disponibles</li>
+<li class="has-line-data" data-line-start="16" data-line-end="17"><strong>ReservaController</strong> - Reservar asientos (carrito)</li>
+<li class="has-line-data" data-line-start="17" data-line-end="18"><strong>CompraController</strong> - Confirmar compra y generar entrada</li>
+<li class="has-line-data" data-line-start="18" data-line-end="20"><strong>EntradaController</strong> - Ver mis entradas</li>
+</ol>
+<h2 class="code-line" data-line-start=20 data-line-end=21 ><a id="Principios_de_diseo_20"></a>Principios de diseño</h2>
+<h3 class="code-line" data-line-start=22 data-line-end=23 ><a id="Controladores_delgados_Thin_Controllers_22"></a>Controladores delgados (Thin Controllers)</h3>
+<ul>
+<li class="has-line-data" data-line-start="23" data-line-end="24">La lógica compleja va en Services</li>
+<li class="has-line-data" data-line-start="24" data-line-end="25">Los controladores solo coordinan y responden</li>
+<li class="has-line-data" data-line-start="25" data-line-end="27">Validaciones en Form Requests (opcional) o en el controlador</li>
+</ul>
+<h3 class="code-line" data-line-start=27 data-line-end=28 ><a id="Respuestas_consistentes_27"></a>Respuestas consistentes</h3>
+<pre><code class="has-line-data" data-line-start="29" data-line-end="38" class="language-php"><span class="hljs-comment">// Éxito</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$data</span>], <span class="hljs-number">200</span>);
+
+<span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Mensaje&#x27;</span>], <span class="hljs-number">400</span>);
+
+<span class="hljs-comment">// Creado</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$data</span>], <span class="hljs-number">201</span>);
+</code></pre>
+<h3 class="code-line" data-line-start=39 data-line-end=40 ><a id="Cdigos_HTTP_39"></a>Códigos HTTP</h3>
+<ul>
+<li class="has-line-data" data-line-start="40" data-line-end="41">200 OK - Éxito</li>
+<li class="has-line-data" data-line-start="41" data-line-end="42">201 Created - Recurso creado</li>
+<li class="has-line-data" data-line-start="42" data-line-end="43">400 Bad Request - Error de validación</li>
+<li class="has-line-data" data-line-start="43" data-line-end="44">401 Unauthorized - No autenticado</li>
+<li class="has-line-data" data-line-start="44" data-line-end="45">403 Forbidden - Sin permisos</li>
+<li class="has-line-data" data-line-start="45" data-line-end="46">404 Not Found - No encontrado</li>
+<li class="has-line-data" data-line-start="46" data-line-end="48">500 Internal Server Error - Error del servidor</li>
+</ul>
+<hr>
+<h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="Controlador_1_AuthController_50"></a>Controlador 1: AuthController</h2>
+<h3 class="code-line" data-line-start=52 data-line-end=53 ><a id="Propsito_52"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="53" data-line-end="54">Gestionar autenticación de usuarios (registro, login, logout).</p>
+<h3 class="code-line" data-line-start=55 data-line-end=56 ><a id="Ubicacin_55"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="56" data-line-end="57"><code>app/Http/Controllers/Auth/AuthController.php</code></p>
+<h3 class="code-line" data-line-start=58 data-line-end=59 ><a id="Rutas_que_maneja_58"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="60" data-line-end="65" class="language-php">POST /api/register
+POST /api/login
+POST /api/logout (protegida)
+GET  /api/user (protegida)
+</code></pre>
+<h3 class="code-line" data-line-start=66 data-line-end=67 ><a id="Cdigo_completo_66"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="69" data-line-end="163" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">Auth</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">Controller</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">User</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Validation</span>\<span class="hljs-title">ValidationException</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Registrar un nuevo usuario
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|email|max:255|unique:users&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|min:8|confirmed&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$user</span> = User::create([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-variable">$request</span>-&gt;nombre,
+            <span class="hljs-string">&#x27;apellido&#x27;</span> =&gt; <span class="hljs-variable">$request</span>-&gt;apellido,
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-variable">$request</span>-&gt;email,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; Hash::make(<span class="hljs-variable">$request</span>-&gt;password),
+            <span class="hljs-string">&#x27;is_admin&#x27;</span> =&gt; <span class="hljs-literal">false</span>,
+        ]);
+
+        <span class="hljs-variable">$token</span> = <span class="hljs-variable">$user</span>-&gt;createToken(<span class="hljs-string">&#x27;auth-token&#x27;</span>)-&gt;plainTextToken;
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;user&#x27;</span> =&gt; <span class="hljs-variable">$user</span>,
+            <span class="hljs-string">&#x27;token&#x27;</span> =&gt; <span class="hljs-variable">$token</span>,
+            <span class="hljs-string">&#x27;token_type&#x27;</span> =&gt; <span class="hljs-string">&#x27;Bearer&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Iniciar sesión
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">login</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|email&#x27;</span>,
+            <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$user</span> = User::where(<span class="hljs-string">&#x27;email&#x27;</span>, <span class="hljs-variable">$request</span>-&gt;email)-&gt;first();
+
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$user</span> || !Hash::check(<span class="hljs-variable">$request</span>-&gt;password, <span class="hljs-variable">$user</span>-&gt;password)) {
+            <span class="hljs-keyword">throw</span> ValidationException::withMessages([
+                <span class="hljs-string">&#x27;email&#x27;</span> =&gt; [<span class="hljs-string">&#x27;Las credenciales son incorrectas.&#x27;</span>],
+            ]);
+        }
+
+        <span class="hljs-comment">// Eliminar tokens anteriores (opcional)</span>
+        <span class="hljs-variable">$user</span>-&gt;tokens()-&gt;delete();
+
+        <span class="hljs-variable">$token</span> = <span class="hljs-variable">$user</span>-&gt;createToken(<span class="hljs-string">&#x27;auth-token&#x27;</span>)-&gt;plainTextToken;
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;user&#x27;</span> =&gt; <span class="hljs-variable">$user</span>,
+            <span class="hljs-string">&#x27;token&#x27;</span> =&gt; <span class="hljs-variable">$token</span>,
+            <span class="hljs-string">&#x27;token_type&#x27;</span> =&gt; <span class="hljs-string">&#x27;Bearer&#x27;</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Cerrar sesión
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logout</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;user()-&gt;currentAccessToken()-&gt;delete();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sesión cerrada correctamente&#x27;</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Obtener usuario autenticado
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">user</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;user&#x27;</span> =&gt; <span class="hljs-variable">$request</span>-&gt;user(),
+        ]);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=166 data-line-end=167 ><a id="Controlador_2_EventoController_166"></a>Controlador 2: EventoController</h2>
+<h3 class="code-line" data-line-start=168 data-line-end=169 ><a id="Propsito_168"></a>Propósito</h3>
+<ul>
+<li class="has-line-data" data-line-start="169" data-line-end="170">Público: Listar eventos futuros con precios</li>
+<li class="has-line-data" data-line-start="170" data-line-end="172">Admin: CRUD completo de eventos</li>
+</ul>
+<h3 class="code-line" data-line-start=172 data-line-end=173 ><a id="Ubicacin_172"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="173" data-line-end="174"><code>app/Http/Controllers/EventoController.php</code></p>
+<h3 class="code-line" data-line-start=175 data-line-end=176 ><a id="Rutas_que_maneja_175"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="177" data-line-end="183" class="language-php">GET    /api/eventos              - Listar eventos futuros (público)
+GET    /api/eventos/{id}         - Ver detalle de evento (público)
+POST   /api/admin/eventos        - Crear evento (admin)
+PUT    /api/admin/eventos/{id}   - Actualizar evento (admin)
+DELETE /api/admin/eventos/{id}   - Eliminar evento (admin)
+</code></pre>
+<h3 class="code-line" data-line-start=184 data-line-end=185 ><a id="Cdigo_completo_184"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="187" data-line-end="296" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Listar eventos futuros (público)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$eventos</span> = Evento::futuros()
+            -&gt;with([<span class="hljs-string">&#x27;precios.sector&#x27;</span>])
+            -&gt;get();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Ver detalle de un evento (público)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::with([<span class="hljs-string">&#x27;precios.sector&#x27;</span>])
+            -&gt;findOrFail(<span class="hljs-variable">$id</span>);
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; [
+                <span class="hljs-string">&#x27;evento&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>,
+                <span class="hljs-string">&#x27;sectores_disponibles&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;sectoresDisponibles(),
+                <span class="hljs-string">&#x27;asientos_disponibles&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;totalAsientosDisponibles(),
+                <span class="hljs-string">&#x27;entradas_vendidas&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;totalEntradasVendidas(),
+            ],
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Crear evento (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string&#x27;</span>,
+            <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;nullable|url&#x27;</span>,
+            <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|date|unique:eventos,fecha&#x27;</span>,
+            <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|date_format:H:i&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>,
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Evento creado correctamente&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Actualizar evento (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, <span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;descripcion_corta&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|string|max:255&#x27;</span>,
+            <span class="hljs-string">&#x27;descripcion_larga&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|string&#x27;</span>,
+            <span class="hljs-string">&#x27;poster_url&#x27;</span> =&gt; <span class="hljs-string">&#x27;nullable|url&#x27;</span>,
+            <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|date|unique:eventos,fecha,&#x27;</span> . <span class="hljs-variable">$id</span>,
+            <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|date_format:H:i&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$evento</span>-&gt;update(<span class="hljs-variable">$request</span>-&gt;all());
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>,
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Evento actualizado correctamente&#x27;</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Eliminar evento (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+        
+        <span class="hljs-comment">// Verificar que no tenga entradas vendidas</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$evento</span>-&gt;totalEntradasVendidas() &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No se puede eliminar un evento con entradas vendidas&#x27;</span>,
+            ], <span class="hljs-number">400</span>);
+        }
+
+        <span class="hljs-variable">$evento</span>-&gt;delete();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Evento eliminado correctamente&#x27;</span>,
+        ]);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=299 data-line-end=300 ><a id="Controlador_3_SectorController_299"></a>Controlador 3: SectorController</h2>
+<h3 class="code-line" data-line-start=301 data-line-end=302 ><a id="Propsito_301"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="302" data-line-end="303">Gestionar sectores del estadio (solo admin).</p>
+<h3 class="code-line" data-line-start=304 data-line-end=305 ><a id="Ubicacin_304"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="305" data-line-end="306"><code>app/Http/Controllers/SectorController.php</code></p>
+<h3 class="code-line" data-line-start=307 data-line-end=308 ><a id="Rutas_que_maneja_307"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="309" data-line-end="314" class="language-php">GET    /api/sectores             - Listar sectores activos (público)
+POST   /api/admin/sectores       - Crear sector (admin)
+PUT    /api/admin/sectores/{id}  - Actualizar sector (admin)
+DELETE /api/admin/sectores/{id}  - Eliminar sector (admin)
+</code></pre>
+<h3 class="code-line" data-line-start=315 data-line-end=316 ><a id="Cdigo_completo_315"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="318" data-line-end="403" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SectorController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Listar sectores activos (público)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$sectores</span> = Sector::activos()
+            -&gt;withCount(<span class="hljs-string">&#x27;asientos&#x27;</span>)
+            -&gt;get();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$sectores</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Crear sector (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255|unique:sectores&#x27;</span>,
+            <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;nullable|string&#x27;</span>,
+            <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-string">&#x27;boolean&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$sector</span> = Sector::create(<span class="hljs-variable">$request</span>-&gt;all());
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>,
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector creado correctamente&#x27;</span>,
+        ], <span class="hljs-number">201</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Actualizar sector (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, <span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$sector</span> = Sector::findOrFail(<span class="hljs-variable">$id</span>);
+
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|string|max:255|unique:sectores,nombre,&#x27;</span> . <span class="hljs-variable">$id</span>,
+            <span class="hljs-string">&#x27;descripcion&#x27;</span> =&gt; <span class="hljs-string">&#x27;nullable|string&#x27;</span>,
+            <span class="hljs-string">&#x27;activo&#x27;</span> =&gt; <span class="hljs-string">&#x27;boolean&#x27;</span>,
+        ]);
+
+        <span class="hljs-variable">$sector</span>-&gt;update(<span class="hljs-variable">$request</span>-&gt;all());
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>,
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector actualizado correctamente&#x27;</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Eliminar sector (admin)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$sector</span> = Sector::findOrFail(<span class="hljs-variable">$id</span>);
+        
+        <span class="hljs-comment">// Verificar que no tenga asientos</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$sector</span>-&gt;totalAsientos() &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No se puede eliminar un sector con asientos&#x27;</span>,
+            ], <span class="hljs-number">400</span>);
+        }
+
+        <span class="hljs-variable">$sector</span>-&gt;delete();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sector eliminado correctamente&#x27;</span>,
+        ]);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=406 data-line-end=407 ><a id="Controlador_4_AsientoController_406"></a>Controlador 4: AsientoController</h2>
+<h3 class="code-line" data-line-start=408 data-line-end=409 ><a id="Propsito_408"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="409" data-line-end="410">Consultar asientos disponibles para un evento.</p>
+<h3 class="code-line" data-line-start=411 data-line-end=412 ><a id="Ubicacin_411"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="412" data-line-end="413"><code>app/Http/Controllers/AsientoController.php</code></p>
+<h3 class="code-line" data-line-start=414 data-line-end=415 ><a id="Rutas_que_maneja_414"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="416" data-line-end="419" class="language-php">GET /api/eventos/{eventoId}/asientos - Asientos disponibles por evento
+GET /api/eventos/{eventoId}/sectores/{sectorId}/asientos - Asientos de un sector
+</code></pre>
+<h3 class="code-line" data-line-start=420 data-line-end=421 ><a id="Cdigo_completo_420"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="423" data-line-end="504" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Asiento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsientoController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Obtener asientos disponibles de un evento
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">porEvento</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$eventoId</span>);
+        
+        <span class="hljs-comment">// Obtener sectores disponibles</span>
+        <span class="hljs-variable">$sectoresDisponibles</span> = <span class="hljs-variable">$evento</span>-&gt;sectoresDisponibles()-&gt;pluck(<span class="hljs-string">&#x27;id&#x27;</span>);
+        
+        <span class="hljs-comment">// Obtener asientos de esos sectores</span>
+        <span class="hljs-variable">$asientos</span> = Asiento::whereIn(<span class="hljs-string">&#x27;sector_id&#x27;</span>, <span class="hljs-variable">$sectoresDisponibles</span>)
+            -&gt;with(<span class="hljs-string">&#x27;sector&#x27;</span>)
+            -&gt;get()
+            -&gt;map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable">$asiento</span></span>) <span class="hljs-keyword">use</span> (<span class="hljs-params"><span class="hljs-variable">$eventoId</span></span>) </span>{
+                <span class="hljs-keyword">return</span> [
+                    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+                    <span class="hljs-string">&#x27;sector&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;sector-&gt;nombre,
+                    <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;fila,
+                    <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;numero,
+                    <span class="hljs-string">&#x27;disponible&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$eventoId</span>),
+                    <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;sector-&gt;precios()
+                        -&gt;where(<span class="hljs-string">&#x27;evento_id&#x27;</span>, <span class="hljs-variable">$eventoId</span>)
+                        -&gt;first()?-&gt;precio,
+                ];
+            });
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$asientos</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Obtener asientos de un sector específico para un evento
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">porSector</span>(<span class="hljs-params"><span class="hljs-variable">$eventoId</span>, <span class="hljs-variable">$sectorId</span></span>)
+    </span>{
+        <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$eventoId</span>);
+        <span class="hljs-variable">$sector</span> = Sector::findOrFail(<span class="hljs-variable">$sectorId</span>);
+        
+        <span class="hljs-comment">// Verificar que el sector esté disponible para el evento</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$evento</span>-&gt;sectorEstaDisponible(<span class="hljs-variable">$sectorId</span>)) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;El sector no está disponible para este evento&#x27;</span>,
+            ], <span class="hljs-number">400</span>);
+        }
+
+        <span class="hljs-variable">$asientos</span> = <span class="hljs-variable">$sector</span>-&gt;asientos()
+            -&gt;get()
+            -&gt;map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable">$asiento</span></span>) <span class="hljs-keyword">use</span> (<span class="hljs-params"><span class="hljs-variable">$eventoId</span></span>) </span>{
+                <span class="hljs-keyword">return</span> [
+                    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;id,
+                    <span class="hljs-string">&#x27;fila&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;fila,
+                    <span class="hljs-string">&#x27;numero&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;numero,
+                    <span class="hljs-string">&#x27;disponible&#x27;</span> =&gt; <span class="hljs-variable">$asiento</span>-&gt;estaDisponibleParaEvento(<span class="hljs-variable">$eventoId</span>),
+                ];
+            });
+
+        <span class="hljs-variable">$precio</span> = <span class="hljs-variable">$evento</span>-&gt;precioDelSector(<span class="hljs-variable">$sectorId</span>);
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; [
+                <span class="hljs-string">&#x27;sector&#x27;</span> =&gt; <span class="hljs-variable">$sector</span>,
+                <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-variable">$precio</span>?-&gt;precio,
+                <span class="hljs-string">&#x27;asientos&#x27;</span> =&gt; <span class="hljs-variable">$asientos</span>,
+            ],
+        ]);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=507 data-line-end=508 ><a id="Controlador_5_ReservaController_507"></a>Controlador 5: ReservaController</h2>
+<h3 class="code-line" data-line-start=509 data-line-end=510 ><a id="Propsito_509"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="510" data-line-end="511">Gestionar el carrito de compras (reservas temporales).</p>
+<h3 class="code-line" data-line-start=512 data-line-end=513 ><a id="Ubicacin_512"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="513" data-line-end="514"><code>app/Http/Controllers/ReservaController.php</code></p>
+<h3 class="code-line" data-line-start=515 data-line-end=516 ><a id="Rutas_que_maneja_515"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="517" data-line-end="521" class="language-php">POST   /api/reservas           - Reservar asiento (añadir al carrito)
+GET    /api/reservas           - Ver mis reservas activas
+DELETE /api/reservas/{id}      - Cancelar reserva
+</code></pre>
+<h3 class="code-line" data-line-start=522 data-line-end=523 ><a id="Cdigo_completo_522"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="525" data-line-end="594" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Resources</span>\<span class="hljs-title">ReservaResource</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>\<span class="hljs-title">ReservaService</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReservaController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Reservar un asiento (añadir al carrito)
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:eventos,id&#x27;</span>,
+            <span class="hljs-string">&#x27;asiento_id&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|exists:asientos,id&#x27;</span>,
+        ]);
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$reserva</span> = <span class="hljs-variable">$service</span>-&gt;reservarAsiento(
+                <span class="hljs-variable">$request</span>-&gt;evento_id,
+                <span class="hljs-variable">$request</span>-&gt;asiento_id,
+                auth()-&gt;id()
+            );
+
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-keyword">new</span> ReservaResource(<span class="hljs-variable">$reserva</span>),
+                <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Asiento reservado por 15 minutos&#x27;</span>,
+            ], <span class="hljs-number">201</span>);
+            
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+            ], <span class="hljs-number">400</span>);
+        }
+    }
+
+    <span class="hljs-comment">/**
+     * Ver mis reservas activas
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+    </span>{
+        <span class="hljs-variable">$reservas</span> = <span class="hljs-variable">$service</span>-&gt;obtenerReservasActivas(auth()-&gt;id());
+
+        <span class="hljs-keyword">return</span> ReservaResource::collection(<span class="hljs-variable">$reservas</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * Cancelar una reserva
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span>, ReservaService <span class="hljs-variable">$service</span></span>)
+    </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$service</span>-&gt;cancelarReserva(<span class="hljs-variable">$id</span>, auth()-&gt;id());
+
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Reserva cancelada correctamente&#x27;</span>,
+            ]);
+            
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+            ], <span class="hljs-number">400</span>);
+        }
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="595" data-line-end="596"><strong>Nota:</strong> Este controlador usa <code>ReservaService</code> para encapsular la lógica de negocio compleja (verificaciones, transacciones). El controlador se mantiene delgado (15 líneas por método).</p>
+<hr>
+<h2 class="code-line" data-line-start=599 data-line-end=600 ><a id="Controlador_6_CompraController_599"></a>Controlador 6: CompraController</h2>
+<h3 class="code-line" data-line-start=601 data-line-end=602 ><a id="Propsito_601"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="602" data-line-end="603">Confirmar la compra y generar la entrada con código QR.</p>
+<h3 class="code-line" data-line-start=604 data-line-end=605 ><a id="Ubicacin_604"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="605" data-line-end="606"><code>app/Http/Controllers/CompraController.php</code></p>
+<h3 class="code-line" data-line-start=607 data-line-end=608 ><a id="Rutas_que_maneja_607"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="609" data-line-end="611" class="language-php">POST /api/compras - Confirmar compra de reservas
+</code></pre>
+<h3 class="code-line" data-line-start=612 data-line-end=613 ><a id="Cdigo_completo_612"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="615" data-line-end="654" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Resources</span>\<span class="hljs-title">EntradaResource</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Services</span>\<span class="hljs-title">CompraService</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CompraController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Confirmar compra de reservas
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, CompraService <span class="hljs-variable">$service</span></span>)
+    </span>{
+        <span class="hljs-variable">$request</span>-&gt;validate([
+            <span class="hljs-string">&#x27;reservas&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|array|min:1&#x27;</span>,
+            <span class="hljs-string">&#x27;reservas.*&#x27;</span> =&gt; <span class="hljs-string">&#x27;exists:estado_asientos,id&#x27;</span>,
+        ]);
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$entradas</span> = <span class="hljs-variable">$service</span>-&gt;procesarCompra(
+                <span class="hljs-variable">$request</span>-&gt;reservas,
+                auth()-&gt;id()
+            );
+
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;data&#x27;</span> =&gt; EntradaResource::collection(<span class="hljs-variable">$entradas</span>),
+                <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Compra realizada correctamente&#x27;</span>,
+            ], <span class="hljs-number">201</span>);
+            
+        } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-keyword">return</span> response()-&gt;json([
+                <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+            ], <span class="hljs-number">400</span>);
+        }
+    }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="655" data-line-end="656"><strong>Nota:</strong> Este controlador usa <code>CompraService</code> para manejar la lógica compleja de compra (transacciones DB, validaciones, creación de entradas). El controlador se mantiene delgado (15 líneas).</p>
+<hr>
+<h2 class="code-line" data-line-start=659 data-line-end=660 ><a id="Controlador_7_EntradaController_659"></a>Controlador 7: EntradaController</h2>
+<h3 class="code-line" data-line-start=661 data-line-end=662 ><a id="Propsito_661"></a>Propósito</h3>
+<p class="has-line-data" data-line-start="662" data-line-end="663">Ver las entradas compradas por el usuario.</p>
+<h3 class="code-line" data-line-start=664 data-line-end=665 ><a id="Ubicacin_664"></a>Ubicación</h3>
+<p class="has-line-data" data-line-start="665" data-line-end="666"><code>app/Http/Controllers/EntradaController.php</code></p>
+<h3 class="code-line" data-line-start=667 data-line-end=668 ><a id="Rutas_que_maneja_667"></a>Rutas que maneja</h3>
+<pre><code class="has-line-data" data-line-start="669" data-line-end="672" class="language-php">GET /api/entradas     - Mis entradas
+GET /api/entradas/{id} - Detalle de entrada
+</code></pre>
+<h3 class="code-line" data-line-start=673 data-line-end=674 ><a id="Cdigo_completo_673"></a>Código completo</h3>
+<pre><code class="has-line-data" data-line-start="676" data-line-end="729" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Entrada</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EntradaController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Listar mis entradas
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-variable">$entradas</span> = <span class="hljs-variable">$request</span>-&gt;user()
+            -&gt;entradas()
+            -&gt;with([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>])
+            -&gt;latest()
+            -&gt;get()
+            -&gt;map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable">$entrada</span></span>) </span>{
+                <span class="hljs-keyword">return</span> [
+                    <span class="hljs-string">&#x27;id&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;id,
+                    <span class="hljs-string">&#x27;codigo_qr&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;codigo_qr,
+                    <span class="hljs-string">&#x27;evento&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;evento-&gt;nombre,
+                    <span class="hljs-string">&#x27;fecha&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;evento-&gt;fecha-&gt;format(<span class="hljs-string">&#x27;d/m/Y&#x27;</span>),
+                    <span class="hljs-string">&#x27;hora&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;evento-&gt;hora,
+                    <span class="hljs-string">&#x27;asiento&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;asiento-&gt;nombreCompleto(),
+                    <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;precioFormateado(),
+                    <span class="hljs-string">&#x27;valida&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;esValida(),
+                ];
+            });
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$entradas</span>,
+        ]);
+    }
+
+    <span class="hljs-comment">/**
+     * Ver detalle de una entrada
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+    </span>{
+        <span class="hljs-variable">$entrada</span> = Entrada::where(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-variable">$id</span>)
+            -&gt;where(<span class="hljs-string">&#x27;user_id&#x27;</span>, auth()-&gt;id())
+            -&gt;with([<span class="hljs-string">&#x27;evento&#x27;</span>, <span class="hljs-string">&#x27;asiento.sector&#x27;</span>])
+            -&gt;firstOrFail();
+
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$entrada</span>-&gt;informacionCompleta(),
+        ]);
+    }
+}
+</code></pre>
+<hr>
+<h2 class="code-line" data-line-start=732 data-line-end=733 ><a id="Resumen_de_controladores_732"></a>Resumen de controladores</h2>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Controlador</th>
+<th>Propósito</th>
+<th>Rutas</th>
+<th>Usa Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthController</td>
+<td>Autenticación</td>
+<td>register, login, logout, user</td>
+<td>No</td>
+</tr>
+<tr>
+<td>EventoController</td>
+<td>CRUD eventos</td>
+<td>index, show, store, update, destroy</td>
+<td>No</td>
+</tr>
+<tr>
+<td>SectorController</td>
+<td>CRUD sectores</td>
+<td>index, store, update, destroy</td>
+<td>No</td>
+</tr>
+<tr>
+<td>AsientoController</td>
+<td>Consultar asientos</td>
+<td>porEvento, porSector</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ReservaController</td>
+<td>Carrito</td>
+<td>store, index, destroy</td>
+<td><strong>Sí - ReservaService</strong></td>
+</tr>
+<tr>
+<td>CompraController</td>
+<td>Confirmar compra</td>
+<td>store</td>
+<td><strong>Sí - CompraService</strong></td>
+</tr>
+<tr>
+<td>EntradaController</td>
+<td>Ver entradas</td>
+<td>index, show</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="744" data-line-end="745"><strong>Nota:</strong> Los controladores que manejan lógica compleja (reservas, compras) usan Services para mantener el código limpio y reutilizable.</p>
+<h2 class="code-line" data-line-start=746 data-line-end=747 ><a id="Estructura_de_archivos_746"></a>Estructura de archivos</h2>
+<pre><code class="has-line-data" data-line-start="749" data-line-end="760">app/Http/Controllers/
+├── Auth/
+│   └── AuthController.php
+├── Controller.php (base)
+├── EventoController.php
+├── SectorController.php
+├── AsientoController.php
+├── ReservaController.php
+├── CompraController.php
+└── EntradaController.php
+</code></pre>
+<h2 class="code-line" data-line-start=761 data-line-end=762 ><a id="Prximos_pasos_761"></a>Próximos pasos</h2>
+<ol>
+<li class="has-line-data" data-line-start="763" data-line-end="764">Crear el archivo <code>routes/api.php</code> con todas las rutas</li>
+<li class="has-line-data" data-line-start="764" data-line-end="765">Crear middleware <code>IsAdmin</code> para proteger rutas de administrador</li>
+<li class="has-line-data" data-line-start="765" data-line-end="766">Crear Resources para formatear respuestas JSON</li>
+<li class="has-line-data" data-line-start="766" data-line-end="767"><strong>Crear Services para lógica compleja</strong> (ReservaService, CompraService) - <strong>IMPLEMENTADO</strong></li>
+<li class="has-line-data" data-line-start="767" data-line-end="769">Crear comando programado para liberar reservas expiradas</li>
+</ol>
+<p class="has-line-data" data-line-start="769" data-line-end="770"><strong>Nota:</strong> Los Services ya están implementados para ReservaController y CompraController, manteniendo los controladores delgados y la lógica reutilizable.</p>
+<hr>
+<hr>
+<h1 class="code-line" data-line-start=773 data-line-end=774 ><a id="Apndice_Controladores_en_Laravel_para_Principiantes_773"></a>Apéndice: Controladores en Laravel para Principiantes</h1>
+<p class="has-line-data" data-line-start="775" data-line-end="776">Esta guía te ayudará a entender qué son los controladores, cómo funcionan y el vocabulario específico que usa Laravel para trabajar con ellos.</p>
+<h2 class="code-line" data-line-start=777 data-line-end=778 ><a id="Qu_son_los_controladores_777"></a>¿Qué son los controladores?</h2>
+<p class="has-line-data" data-line-start="779" data-line-end="780">Los controladores son clases PHP que <strong>manejan las peticiones HTTP</strong> y deciden qué responder. Son el “cerebro” que coordina entre las rutas, los modelos y las vistas/respuestas.</p>
+<h3 class="code-line" data-line-start=781 data-line-end=782 ><a id="Analoga_simple_781"></a>Analogía simple</h3>
+<p class="has-line-data" data-line-start="783" data-line-end="784">Imagina un restaurante:</p>
+<ul>
+<li class="has-line-data" data-line-start="784" data-line-end="785"><strong>Rutas</strong> = El menú (qué platos puedes pedir)</li>
+<li class="has-line-data" data-line-start="785" data-line-end="786"><strong>Controlador</strong> = El camarero (recibe tu pedido y lo coordina)</li>
+<li class="has-line-data" data-line-start="786" data-line-end="787"><strong>Modelo</strong> = La cocina (prepara los datos)</li>
+<li class="has-line-data" data-line-start="787" data-line-end="789"><strong>Respuesta</strong> = El plato servido (lo que recibes)</li>
+</ul>
+<p class="has-line-data" data-line-start="789" data-line-end="790">Cuando pides “GET /api/eventos”, la ruta llama al controlador, el controlador pide datos al modelo, y devuelve una respuesta JSON.</p>
+<h2 class="code-line" data-line-start=791 data-line-end=792 ><a id="Por_qu_usar_controladores_791"></a>¿Por qué usar controladores?</h2>
+<h3 class="code-line" data-line-start=793 data-line-end=794 ><a id="Sin_controladores__Problemtico_793"></a>Sin controladores (❌ Problemático)</h3>
+<pre><code class="has-line-data" data-line-start="795" data-line-end="808" class="language-php"><span class="hljs-comment">// routes/api.php</span>
+Route::get(<span class="hljs-string">&#x27;/eventos&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-variable">$eventos</span> = Evento::all();
+    <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-variable">$eventos</span>);
+});
+
+Route::post(<span class="hljs-string">&#x27;/eventos&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>) </span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([...]);
+    <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+    <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-variable">$evento</span>);
+});
+<span class="hljs-comment">// Todo mezclado en las rutas</span>
+</code></pre>
+<h3 class="code-line" data-line-start=809 data-line-end=810 ><a id="Con_controladores__Organizado_809"></a>Con controladores (✅ Organizado)</h3>
+<pre><code class="has-line-data" data-line-start="811" data-line-end="822" class="language-php"><span class="hljs-comment">// routes/api.php</span>
+Route::get(<span class="hljs-string">&#x27;/eventos&#x27;</span>, [EventoController::class, <span class="hljs-string">&#x27;index&#x27;</span>]);
+Route::post(<span class="hljs-string">&#x27;/eventos&#x27;</span>, [EventoController::class, <span class="hljs-string">&#x27;store&#x27;</span>]);
+
+<span class="hljs-comment">// app/Http/Controllers/EventoController.php</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* lógica aquí */</span> }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>) </span>{ <span class="hljs-comment">/* lógica aquí */</span> }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="823" data-line-end="824"><strong>Ventajas:</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="824" data-line-end="825">✅ Código organizado y reutilizable</li>
+<li class="has-line-data" data-line-start="825" data-line-end="826">✅ Fácil de mantener y testear</li>
+<li class="has-line-data" data-line-start="826" data-line-end="827">✅ Separación de responsabilidades</li>
+<li class="has-line-data" data-line-start="827" data-line-end="829">✅ Lógica agrupada por recurso</li>
+</ul>
+<h2 class="code-line" data-line-start=829 data-line-end=830 ><a id="Estructura_de_un_controlador_829"></a>Estructura de un controlador</h2>
+<h3 class="code-line" data-line-start=831 data-line-end=832 ><a id="Ubicacin_831"></a>Ubicación</h3>
+<pre><code class="has-line-data" data-line-start="833" data-line-end="840">app/Http/Controllers/
+├── Controller.php              # Controlador base
+├── EventoController.php        # Controlador de eventos
+├── SectorController.php        # Controlador de sectores
+└── Auth/
+    └── AuthController.php      # Controlador de autenticación
+</code></pre>
+<h3 class="code-line" data-line-start=841 data-line-end=842 ><a id="Anatoma_de_un_controlador_841"></a>Anatomía de un controlador</h3>
+<pre><code class="has-line-data" data-line-start="844" data-line-end="875" class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-comment">// 1. NAMESPACE - Ubicación del controlador</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-comment">// 2. IMPORTS - Clases que necesita</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-comment">// 3. CLASE - Extiende del controlador base</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-comment">/**
+     * 4. MÉTODOS - Acciones del controlador
+     * Cada método maneja una petición HTTP
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-comment">// Lógica para listar eventos</span>
+        <span class="hljs-variable">$eventos</span> = Evento::all();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>]);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+    </span>{
+        <span class="hljs-comment">// Lógica para crear un evento</span>
+        <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>);
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=876 data-line-end=877 ><a id="Imports_necesarios_876"></a>Imports necesarios</h2>
+<h3 class="code-line" data-line-start=878 data-line-end=879 ><a id="1_Controller_base_878"></a>1. Controller (base)</h3>
+<pre><code class="has-line-data" data-line-start="880" data-line-end="882" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">Controller</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="882" data-line-end="884"><strong>¿Qué es?</strong> La clase base de todos los controladores.<br>
+<strong>¿Para qué?</strong> Proporciona funcionalidad común (middleware, validación).</p>
+<h3 class="code-line" data-line-start=885 data-line-end=886 ><a id="2_Request_885"></a>2. Request</h3>
+<pre><code class="has-line-data" data-line-start="887" data-line-end="889" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="889" data-line-end="891"><strong>¿Qué es?</strong> Objeto que contiene los datos de la petición HTTP.<br>
+<strong>¿Para qué?</strong> Acceder a datos del formulario, headers, archivos, etc.</p>
+<h3 class="code-line" data-line-start=892 data-line-end=893 ><a id="3_Modelos_892"></a>3. Modelos</h3>
+<pre><code class="has-line-data" data-line-start="894" data-line-end="897" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Sector</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="897" data-line-end="899"><strong>¿Qué es?</strong> Los modelos Eloquent que vas a usar.<br>
+<strong>¿Para qué?</strong> Interactuar con la base de datos.</p>
+<h3 class="code-line" data-line-start=900 data-line-end=901 ><a id="4_Facades_opcionales_900"></a>4. Facades (opcionales)</h3>
+<pre><code class="has-line-data" data-line-start="902" data-line-end="906" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Auth</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="906" data-line-end="908"><strong>¿Qué son?</strong> Interfaces estáticas para servicios de Laravel.<br>
+<strong>¿Para qué?</strong> Transacciones, hashing, autenticación, etc.</p>
+<h2 class="code-line" data-line-start=909 data-line-end=910 ><a id="Mtodos_estndar_de_un_controlador_REST_909"></a>Métodos estándar de un controlador REST</h2>
+<p class="has-line-data" data-line-start="911" data-line-end="912">Laravel sigue la convención REST para nombrar métodos:</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Método</th>
+<th>Verbo HTTP</th>
+<th>Ruta</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index()</code></td>
+<td>GET</td>
+<td>/recursos</td>
+<td>Listar todos</td>
+</tr>
+<tr>
+<td><code>store()</code></td>
+<td>POST</td>
+<td>/recursos</td>
+<td>Crear nuevo</td>
+</tr>
+<tr>
+<td><code>show($id)</code></td>
+<td>GET</td>
+<td>/recursos/{id}</td>
+<td>Ver uno</td>
+</tr>
+<tr>
+<td><code>update($id)</code></td>
+<td>PUT/PATCH</td>
+<td>/recursos/{id}</td>
+<td>Actualizar</td>
+</tr>
+<tr>
+<td><code>destroy($id)</code></td>
+<td>DELETE</td>
+<td>/recursos/{id}</td>
+<td>Eliminar</td>
+</tr>
+</tbody>
+</table>
+<h3 class="code-line" data-line-start=921 data-line-end=922 ><a id="Mtodos_adicionales_comunes_921"></a>Métodos adicionales comunes</h3>
+<ul>
+<li class="has-line-data" data-line-start="922" data-line-end="923"><code>create()</code> - Mostrar formulario de creación (para vistas)</li>
+<li class="has-line-data" data-line-start="923" data-line-end="925"><code>edit($id)</code> - Mostrar formulario de edición (para vistas)</li>
+</ul>
+<p class="has-line-data" data-line-start="925" data-line-end="926"><strong>Nota:</strong> En APIs REST puras, solo usamos los 5 primeros.</p>
+<h2 class="code-line" data-line-start=927 data-line-end=928 ><a id="Glosario_de_mtodos_y_conceptos_927"></a>Glosario de métodos y conceptos</h2>
+<h3 class="code-line" data-line-start=929 data-line-end=930 ><a id="index__Listar_recursos_929"></a>index() - Listar recursos</h3>
+<pre><code class="has-line-data" data-line-start="931" data-line-end="937" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$eventos</span> = Evento::all();
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>]);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="937" data-line-end="939"><strong>Equivalente SQL:</strong> <code>SELECT * FROM eventos</code><br>
+<strong>Cuándo usarlo:</strong> Para obtener una lista de recursos.</p>
+<h3 class="code-line" data-line-start=940 data-line-end=941 ><a id="store__Crear_recurso_940"></a>store() - Crear recurso</h3>
+<pre><code class="has-line-data" data-line-start="942" data-line-end="952" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$request</span>-&gt;validate([
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+    ]);
+
+    <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="952" data-line-end="954"><strong>Equivalente SQL:</strong> <code>INSERT INTO eventos ...</code><br>
+<strong>Cuándo usarlo:</strong> Para crear un nuevo recurso.</p>
+<h3 class="code-line" data-line-start=955 data-line-end=956 ><a id="showid__Ver_un_recurso_955"></a>show($id) - Ver un recurso</h3>
+<pre><code class="has-line-data" data-line-start="957" data-line-end="963" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>]);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="963" data-line-end="965"><strong>Equivalente SQL:</strong> <code>SELECT * FROM eventos WHERE id = ?</code><br>
+<strong>Cuándo usarlo:</strong> Para obtener los detalles de un recurso específico.</p>
+<h3 class="code-line" data-line-start=966 data-line-end=967 ><a id="updateid__Actualizar_recurso_966"></a>update($id) - Actualizar recurso</h3>
+<pre><code class="has-line-data" data-line-start="968" data-line-end="975" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, <span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    <span class="hljs-variable">$evento</span>-&gt;update(<span class="hljs-variable">$request</span>-&gt;all());
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>]);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="975" data-line-end="977"><strong>Equivalente SQL:</strong> <code>UPDATE eventos SET ... WHERE id = ?</code><br>
+<strong>Cuándo usarlo:</strong> Para modificar un recurso existente.</p>
+<h3 class="code-line" data-line-start=978 data-line-end=979 ><a id="destroyid__Eliminar_recurso_978"></a>destroy($id) - Eliminar recurso</h3>
+<pre><code class="has-line-data" data-line-start="980" data-line-end="987" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    <span class="hljs-variable">$evento</span>-&gt;delete();
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Eliminado&#x27;</span>]);
+}
+</code></pre>
+<p class="has-line-data" data-line-start="987" data-line-end="989"><strong>Equivalente SQL:</strong> <code>DELETE FROM eventos WHERE id = ?</code><br>
+<strong>Cuándo usarlo:</strong> Para eliminar un recurso.</p>
+<h2 class="code-line" data-line-start=990 data-line-end=991 ><a id="Request__El_objeto_de_peticin_990"></a>Request - El objeto de petición</h2>
+<h3 class="code-line" data-line-start=992 data-line-end=993 ><a id="Acceder_a_datos_del_request_992"></a>Acceder a datos del request</h3>
+<pre><code class="has-line-data" data-line-start="995" data-line-end="1017" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-comment">// Obtener un campo específico</span>
+    <span class="hljs-variable">$nombre</span> = <span class="hljs-variable">$request</span>-&gt;nombre;
+    <span class="hljs-variable">$nombre</span> = <span class="hljs-variable">$request</span>-&gt;input(<span class="hljs-string">&#x27;nombre&#x27;</span>);
+    
+    <span class="hljs-comment">// Obtener todos los datos</span>
+    <span class="hljs-variable">$datos</span> = <span class="hljs-variable">$request</span>-&gt;all();
+    
+    <span class="hljs-comment">// Obtener solo algunos campos</span>
+    <span class="hljs-variable">$datos</span> = <span class="hljs-variable">$request</span>-&gt;only([<span class="hljs-string">&#x27;nombre&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span>]);
+    
+    <span class="hljs-comment">// Obtener todos excepto algunos</span>
+    <span class="hljs-variable">$datos</span> = <span class="hljs-variable">$request</span>-&gt;except([<span class="hljs-string">&#x27;password&#x27;</span>]);
+    
+    <span class="hljs-comment">// Verificar si existe un campo</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$request</span>-&gt;has(<span class="hljs-string">&#x27;nombre&#x27;</span>)) { }
+    
+    <span class="hljs-comment">// Obtener con valor por defecto</span>
+    <span class="hljs-variable">$nombre</span> = <span class="hljs-variable">$request</span>-&gt;input(<span class="hljs-string">&#x27;nombre&#x27;</span>, <span class="hljs-string">&#x27;Sin nombre&#x27;</span>);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1018 data-line-end=1019 ><a id="Validacin_de_datos_1018"></a>Validación de datos</h3>
+<pre><code class="has-line-data" data-line-start="1021" data-line-end="1037" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-comment">// Validar datos</span>
+    <span class="hljs-variable">$validated</span> = <span class="hljs-variable">$request</span>-&gt;validate([
+        <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|email|unique:users&#x27;</span>,
+        <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|min:8|confirmed&#x27;</span>,
+        <span class="hljs-string">&#x27;edad&#x27;</span> =&gt; <span class="hljs-string">&#x27;nullable|integer|min:18&#x27;</span>,
+    ]);
+    
+    <span class="hljs-comment">// Si la validación falla, Laravel devuelve error 422 automáticamente</span>
+    <span class="hljs-comment">// Si pasa, continúa con el código</span>
+    
+    <span class="hljs-variable">$user</span> = User::create(<span class="hljs-variable">$validated</span>);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1038 data-line-end=1039 ><a id="Reglas_de_validacin_comunes_1038"></a>Reglas de validación comunes</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Regla</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>required</code></td>
+<td>Campo obligatorio</td>
+<td><code>'nombre' =&gt; 'required'</code></td>
+</tr>
+<tr>
+<td><code>nullable</code></td>
+<td>Puede ser null</td>
+<td><code>'telefono' =&gt; 'nullable'</code></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>Debe ser texto</td>
+<td><code>'nombre' =&gt; 'string'</code></td>
+</tr>
+<tr>
+<td><code>integer</code></td>
+<td>Debe ser número entero</td>
+<td><code>'edad' =&gt; 'integer'</code></td>
+</tr>
+<tr>
+<td><code>numeric</code></td>
+<td>Debe ser numérico</td>
+<td><code>'precio' =&gt; 'numeric'</code></td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>Debe ser email válido</td>
+<td><code>'email' =&gt; 'email'</code></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>Debe ser URL válida</td>
+<td><code>'website' =&gt; 'url'</code></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>Debe ser fecha</td>
+<td><code>'fecha' =&gt; 'date'</code></td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td>Debe ser true/false</td>
+<td><code>'activo' =&gt; 'boolean'</code></td>
+</tr>
+<tr>
+<td><code>min:n</code></td>
+<td>Mínimo n caracteres/valor</td>
+<td><code>'password' =&gt; 'min:8'</code></td>
+</tr>
+<tr>
+<td><code>max:n</code></td>
+<td>Máximo n caracteres/valor</td>
+<td><code>'nombre' =&gt; 'max:255'</code></td>
+</tr>
+<tr>
+<td><code>unique:tabla,columna</code></td>
+<td>Valor único en tabla</td>
+<td><code>'email' =&gt; 'unique:users'</code></td>
+</tr>
+<tr>
+<td><code>exists:tabla,columna</code></td>
+<td>Debe existir en tabla</td>
+<td><code>'sector_id' =&gt; 'exists:sectores,id'</code></td>
+</tr>
+<tr>
+<td><code>confirmed</code></td>
+<td>Campo_confirmation debe coincidir</td>
+<td><code>'password' =&gt; 'confirmed'</code></td>
+</tr>
+<tr>
+<td><code>array</code></td>
+<td>Debe ser un array</td>
+<td><code>'tags' =&gt; 'array'</code></td>
+</tr>
+<tr>
+<td><code>in:val1,val2</code></td>
+<td>Debe ser uno de los valores</td>
+<td><code>'tipo' =&gt; 'in:admin,user'</code></td>
+</tr>
+</tbody>
+</table>
+<h3 class="code-line" data-line-start=1059 data-line-end=1060 ><a id="Combinar_reglas_1059"></a>Combinar reglas</h3>
+<pre><code class="has-line-data" data-line-start="1062" data-line-end="1076" class="language-php"><span class="hljs-variable">$request</span>-&gt;validate([
+    <span class="hljs-comment">// Múltiples reglas con |</span>
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+    
+    <span class="hljs-comment">// O con array</span>
+    <span class="hljs-string">&#x27;email&#x27;</span> =&gt; [<span class="hljs-string">&#x27;required&#x27;</span>, <span class="hljs-string">&#x27;email&#x27;</span>, <span class="hljs-string">&#x27;unique:users&#x27;</span>],
+    
+    <span class="hljs-comment">// Con parámetros</span>
+    <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|min:8|confirmed&#x27;</span>,
+    
+    <span class="hljs-comment">// Condicionales</span>
+    <span class="hljs-string">&#x27;edad&#x27;</span> =&gt; <span class="hljs-string">&#x27;sometimes|integer|min:18&#x27;</span>,
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=1077 data-line-end=1078 ><a id="Response__Respuestas_HTTP_1077"></a>Response - Respuestas HTTP</h2>
+<h3 class="code-line" data-line-start=1079 data-line-end=1080 ><a id="Tipos_de_respuestas_1079"></a>Tipos de respuestas</h3>
+<h4 class="code-line" data-line-start=1081 data-line-end=1082 ><a id="JSON_APIs_1081"></a>JSON (APIs)</h4>
+<pre><code class="has-line-data" data-line-start="1083" data-line-end="1096" class="language-php"><span class="hljs-comment">// Respuesta simple</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>]);
+
+<span class="hljs-comment">// Con código de estado</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>);
+
+<span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No encontrado&#x27;</span>], <span class="hljs-number">404</span>);
+
+<span class="hljs-comment">// Con headers</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>])
+    -&gt;header(<span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>, <span class="hljs-string">&#x27;Valor&#x27;</span>);
+</code></pre>
+<h4 class="code-line" data-line-start=1097 data-line-end=1098 ><a id="Cdigos_HTTP_comunes_1097"></a>Códigos HTTP comunes</h4>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Código</th>
+<th>Nombre</th>
+<th>Cuándo usar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>Petición exitosa</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Created</td>
+<td>Recurso creado</td>
+</tr>
+<tr>
+<td>204</td>
+<td>No Content</td>
+<td>Éxito sin contenido</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>Error de validación</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>No autenticado</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>Sin permisos</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>Recurso no encontrado</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entity</td>
+<td>Validación fallida</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>Error del servidor</td>
+</tr>
+</tbody>
+</table>
+<h3 class="code-line" data-line-start=1111 data-line-end=1112 ><a id="Estructura_de_respuestas_consistente_1111"></a>Estructura de respuestas consistente</h3>
+<pre><code class="has-line-data" data-line-start="1114" data-line-end="1136" class="language-php"><span class="hljs-comment">// Éxito con datos</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([
+    <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$recursos</span>,
+], <span class="hljs-number">200</span>);
+
+<span class="hljs-comment">// Éxito con mensaje</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([
+    <span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$recurso</span>,
+    <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Creado correctamente&#x27;</span>,
+], <span class="hljs-number">201</span>);
+
+<span class="hljs-comment">// Error</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([
+    <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Mensaje de error&#x27;</span>,
+], <span class="hljs-number">400</span>);
+
+<span class="hljs-comment">// Error con detalles</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([
+    <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Validación fallida&#x27;</span>,
+    <span class="hljs-string">&#x27;details&#x27;</span> =&gt; <span class="hljs-variable">$validator</span>-&gt;errors(),
+], <span class="hljs-number">422</span>);
+</code></pre>
+<h2 class="code-line" data-line-start=1137 data-line-end=1138 ><a id="Inyeccin_de_dependencias_1137"></a>Inyección de dependencias</h2>
+<p class="has-line-data" data-line-start="1139" data-line-end="1140">Laravel inyecta automáticamente objetos en los métodos del controlador.</p>
+<h3 class="code-line" data-line-start=1141 data-line-end=1142 ><a id="Request_1141"></a>Request</h3>
+<pre><code class="has-line-data" data-line-start="1143" data-line-end="1149" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-comment">// $request se inyecta automáticamente</span>
+    <span class="hljs-variable">$nombre</span> = <span class="hljs-variable">$request</span>-&gt;nombre;
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1150 data-line-end=1151 ><a id="Modelos_Route_Model_Binding_1150"></a>Modelos (Route Model Binding)</h3>
+<pre><code class="has-line-data" data-line-start="1152" data-line-end="1166" class="language-php"><span class="hljs-comment">// En la ruta: /api/eventos/{evento}</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params">Evento <span class="hljs-variable">$evento</span></span>)
+</span>{
+    <span class="hljs-comment">// Laravel busca el evento automáticamente</span>
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>]);
+}
+
+<span class="hljs-comment">// Equivalente a:</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1167 data-line-end=1168 ><a id="Usuario_autenticado_1167"></a>Usuario autenticado</h3>
+<pre><code class="has-line-data" data-line-start="1169" data-line-end="1175" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$user</span> = <span class="hljs-variable">$request</span>-&gt;user(); <span class="hljs-comment">// Usuario autenticado</span>
+    <span class="hljs-variable">$userId</span> = auth()-&gt;id();   <span class="hljs-comment">// ID del usuario</span>
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1176 data-line-end=1177 ><a id="Middleware_en_controladores_1176"></a>Middleware en controladores</h2>
+<p class="has-line-data" data-line-start="1178" data-line-end="1179">Los middleware filtran peticiones antes de llegar al controlador.</p>
+<h3 class="code-line" data-line-start=1180 data-line-end=1181 ><a id="Aplicar_middleware_1180"></a>Aplicar middleware</h3>
+<pre><code class="has-line-data" data-line-start="1183" data-line-end="1198" class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventoController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-comment">// Aplicar a todos los métodos</span>
+        <span class="hljs-keyword">$this</span>-&gt;middleware(<span class="hljs-string">&#x27;auth&#x27;</span>);
+        
+        <span class="hljs-comment">// Aplicar solo a algunos métodos</span>
+        <span class="hljs-keyword">$this</span>-&gt;middleware(<span class="hljs-string">&#x27;auth&#x27;</span>)-&gt;only([<span class="hljs-string">&#x27;store&#x27;</span>, <span class="hljs-string">&#x27;update&#x27;</span>, <span class="hljs-string">&#x27;destroy&#x27;</span>]);
+        
+        <span class="hljs-comment">// Aplicar excepto a algunos</span>
+        <span class="hljs-keyword">$this</span>-&gt;middleware(<span class="hljs-string">&#x27;auth&#x27;</span>)-&gt;except([<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-string">&#x27;show&#x27;</span>]);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1199 data-line-end=1200 ><a id="Middleware_comunes_1199"></a>Middleware comunes</h3>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Middleware</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>auth</code></td>
+<td>Requiere autenticación</td>
+</tr>
+<tr>
+<td><code>auth:sanctum</code></td>
+<td>Autenticación con Sanctum</td>
+</tr>
+<tr>
+<td><code>guest</code></td>
+<td>Solo usuarios no autenticados</td>
+</tr>
+<tr>
+<td><code>throttle:60,1</code></td>
+<td>Limitar peticiones (60 por minuto)</td>
+</tr>
+<tr>
+<td><code>verified</code></td>
+<td>Email verificado</td>
+</tr>
+</tbody>
+</table>
+<h2 class="code-line" data-line-start=1209 data-line-end=1210 ><a id="Manejo_de_errores_1209"></a>Manejo de errores</h2>
+<h3 class="code-line" data-line-start=1211 data-line-end=1212 ><a id="findOrFail_1211"></a>findOrFail()</h3>
+<pre><code class="has-line-data" data-line-start="1213" data-line-end="1216" class="language-php"><span class="hljs-comment">// Si no encuentra, lanza excepción 404 automáticamente</span>
+<span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+</code></pre>
+<h3 class="code-line" data-line-start=1217 data-line-end=1218 ><a id="TryCatch_1217"></a>Try-Catch</h3>
+<pre><code class="has-line-data" data-line-start="1219" data-line-end="1232" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all());
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>);
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;Error al crear evento&#x27;</span>,
+            <span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage(),
+        ], <span class="hljs-number">500</span>);
+    }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1233 data-line-end=1234 ><a id="Validacin_con_mensajes_personalizados_1233"></a>Validación con mensajes personalizados</h3>
+<pre><code class="has-line-data" data-line-start="1235" data-line-end="1242" class="language-php"><span class="hljs-variable">$request</span>-&gt;validate([
+    <span class="hljs-string">&#x27;nombre&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|max:255&#x27;</span>,
+], [
+    <span class="hljs-string">&#x27;nombre.required&#x27;</span> =&gt; <span class="hljs-string">&#x27;El nombre es obligatorio&#x27;</span>,
+    <span class="hljs-string">&#x27;nombre.max&#x27;</span> =&gt; <span class="hljs-string">&#x27;El nombre no puede tener más de 255 caracteres&#x27;</span>,
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=1243 data-line-end=1244 ><a id="Transacciones_de_base_de_datos_1243"></a>Transacciones de base de datos</h2>
+<p class="has-line-data" data-line-start="1245" data-line-end="1246">Para operaciones que involucran múltiples tablas:</p>
+<pre><code class="has-line-data" data-line-start="1248" data-line-end="1275" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">DB</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    DB::beginTransaction();
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-comment">// Operación 1</span>
+        <span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;evento);
+        
+        <span class="hljs-comment">// Operación 2</span>
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$request</span>-&gt;precios <span class="hljs-keyword">as</span> <span class="hljs-variable">$precio</span>) {
+            Precio::create([
+                <span class="hljs-string">&#x27;evento_id&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>-&gt;id,
+                <span class="hljs-string">&#x27;sector_id&#x27;</span> =&gt; <span class="hljs-variable">$precio</span>[<span class="hljs-string">&#x27;sector_id&#x27;</span>],
+                <span class="hljs-string">&#x27;precio&#x27;</span> =&gt; <span class="hljs-variable">$precio</span>[<span class="hljs-string">&#x27;precio&#x27;</span>],
+            ]);
+        }
+        
+        DB::commit();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>);
+        
+    } <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+        DB::rollBack();
+        <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;getMessage()], <span class="hljs-number">500</span>);
+    }
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1276 data-line-end=1277 ><a id="Patrones_comunes_1276"></a>Patrones comunes</h2>
+<h3 class="code-line" data-line-start=1278 data-line-end=1279 ><a id="Listar_con_filtros_1278"></a>Listar con filtros</h3>
+<pre><code class="has-line-data" data-line-start="1280" data-line-end="1298" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$query</span> = Evento::query();
+    
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$request</span>-&gt;has(<span class="hljs-string">&#x27;fecha&#x27;</span>)) {
+        <span class="hljs-variable">$query</span>-&gt;where(<span class="hljs-string">&#x27;fecha&#x27;</span>, <span class="hljs-variable">$request</span>-&gt;fecha);
+    }
+    
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$request</span>-&gt;has(<span class="hljs-string">&#x27;sector_id&#x27;</span>)) {
+        <span class="hljs-variable">$query</span>-&gt;whereHas(<span class="hljs-string">&#x27;sectores&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable">$q</span></span>) <span class="hljs-keyword">use</span> (<span class="hljs-params"><span class="hljs-variable">$request</span></span>) </span>{
+            <span class="hljs-variable">$q</span>-&gt;where(<span class="hljs-string">&#x27;sector_id&#x27;</span>, <span class="hljs-variable">$request</span>-&gt;sector_id);
+        });
+    }
+    
+    <span class="hljs-variable">$eventos</span> = <span class="hljs-variable">$query</span>-&gt;get();
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1299 data-line-end=1300 ><a id="Paginacin_1299"></a>Paginación</h3>
+<pre><code class="has-line-data" data-line-start="1301" data-line-end="1307" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-variable">$eventos</span> = Evento::paginate(<span class="hljs-number">10</span>); <span class="hljs-comment">// 10 por página</span>
+    <span class="hljs-keyword">return</span> response()-&gt;json(<span class="hljs-variable">$eventos</span>);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1308 data-line-end=1309 ><a id="Bsqueda_1308"></a>Búsqueda</h3>
+<pre><code class="has-line-data" data-line-start="1310" data-line-end="1319" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$eventos</span> = Evento::where(<span class="hljs-string">&#x27;nombre&#x27;</span>, <span class="hljs-string">&#x27;like&#x27;</span>, <span class="hljs-string">&#x27;%&#x27;</span> . <span class="hljs-variable">$request</span>-&gt;q . <span class="hljs-string">&#x27;%&#x27;</span>)
+        -&gt;orWhere(<span class="hljs-string">&#x27;descripcion&#x27;</span>, <span class="hljs-string">&#x27;like&#x27;</span>, <span class="hljs-string">&#x27;%&#x27;</span> . <span class="hljs-variable">$request</span>-&gt;q . <span class="hljs-string">&#x27;%&#x27;</span>)
+        -&gt;get();
+    
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$eventos</span>]);
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1320 data-line-end=1321 ><a id="Verificar_permisos_1320"></a>Verificar permisos</h3>
+<pre><code class="has-line-data" data-line-start="1322" data-line-end="1337" class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>)
+</span>{
+    <span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+    
+    <span class="hljs-comment">// Verificar que el usuario sea admin</span>
+    <span class="hljs-keyword">if</span> (!auth()-&gt;user()-&gt;isAdmin()) {
+        <span class="hljs-keyword">return</span> response()-&gt;json([
+            <span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No tienes permisos&#x27;</span>,
+        ], <span class="hljs-number">403</span>);
+    }
+    
+    <span class="hljs-variable">$evento</span>-&gt;delete();
+    <span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;message&#x27;</span> =&gt; <span class="hljs-string">&#x27;Eliminado&#x27;</span>]);
+}
+</code></pre>
+<h2 class="code-line" data-line-start=1338 data-line-end=1339 ><a id="Comandos_Artisan_1338"></a>Comandos Artisan</h2>
+<pre><code class="has-line-data" data-line-start="1341" data-line-end="1359" class="language-bash"><span class="hljs-comment"># Crear controlador</span>
+sail artisan make:controller EventoController
+
+<span class="hljs-comment"># Crear controlador con métodos REST</span>
+sail artisan make:controller EventoController --resource
+
+<span class="hljs-comment"># Crear controlador API (sin create/edit)</span>
+sail artisan make:controller EventoController --api
+
+<span class="hljs-comment"># Crear en subcarpeta</span>
+sail artisan make:controller Auth/AuthController
+
+<span class="hljs-comment"># Ver todas las rutas</span>
+sail artisan route:list
+
+<span class="hljs-comment"># Ver rutas de un controlador</span>
+sail artisan route:list --path=eventos
+</code></pre>
+<h2 class="code-line" data-line-start=1360 data-line-end=1361 ><a id="Buenas_prcticas_1360"></a>Buenas prácticas</h2>
+<h3 class="code-line" data-line-start=1362 data-line-end=1363 ><a id="_Hacer_1362"></a>✅ Hacer</h3>
+<pre><code class="has-line-data" data-line-start="1365" data-line-end="1385" class="language-php"><span class="hljs-comment">// Validar siempre los datos</span>
+<span class="hljs-variable">$request</span>-&gt;validate([...]);
+
+<span class="hljs-comment">// Usar findOrFail para errores 404 automáticos</span>
+<span class="hljs-variable">$evento</span> = Evento::findOrFail(<span class="hljs-variable">$id</span>);
+
+<span class="hljs-comment">// Respuestas consistentes</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$data</span>], <span class="hljs-number">200</span>);
+
+<span class="hljs-comment">// Códigos HTTP correctos</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$evento</span>], <span class="hljs-number">201</span>); <span class="hljs-comment">// Created</span>
+
+<span class="hljs-comment">// Transacciones para operaciones múltiples</span>
+DB::beginTransaction();
+<span class="hljs-comment">// ...</span>
+DB::commit();
+
+<span class="hljs-comment">// Nombres descriptivos</span>
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">obtenerEventosFuturos</span>(<span class="hljs-params"></span>) </span>{ }
+</code></pre>
+<h3 class="code-line" data-line-start=1386 data-line-end=1387 ><a id="_Evitar_1386"></a>❌ Evitar</h3>
+<pre><code class="has-line-data" data-line-start="1389" data-line-end="1407" class="language-php"><span class="hljs-comment">// No mezclar lógica de negocio compleja</span>
+<span class="hljs-comment">// Mejor: usar Services</span>
+
+<span class="hljs-comment">// No devolver modelos directamente sin validar</span>
+<span class="hljs-keyword">return</span> Evento::all(); <span class="hljs-comment">// ❌</span>
+
+<span class="hljs-comment">// No usar códigos HTTP incorrectos</span>
+<span class="hljs-keyword">return</span> response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;No encontrado&#x27;</span>], <span class="hljs-number">200</span>); <span class="hljs-comment">// ❌</span>
+
+<span class="hljs-comment">// No ignorar validaciones</span>
+<span class="hljs-variable">$evento</span> = Evento::create(<span class="hljs-variable">$request</span>-&gt;all()); <span class="hljs-comment">// ❌ Sin validar</span>
+
+<span class="hljs-comment">// No hacer queries en loops (N+1)</span>
+<span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$eventos</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$evento</span>) {
+    <span class="hljs-variable">$evento</span>-&gt;sectores; <span class="hljs-comment">// ❌ Query por cada evento</span>
+}
+<span class="hljs-comment">// Mejor: Evento::with(&#x27;sectores&#x27;)-&gt;get();</span>
+</code></pre>
+<h2 class="code-line" data-line-start=1408 data-line-end=1409 ><a id="Errores_comunes_1408"></a>Errores comunes</h2>
+<h3 class="code-line" data-line-start=1410 data-line-end=1411 ><a id="Error_Class_not_found_1410"></a>Error: “Class not found”</h3>
+<p class="has-line-data" data-line-start="1411" data-line-end="1413"><strong>Causa:</strong> Falta el import del modelo o clase.<br>
+<strong>Solución:</strong></p>
+<pre><code class="has-line-data" data-line-start="1414" data-line-end="1416" class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Evento</span>;
+</code></pre>
+<h3 class="code-line" data-line-start=1417 data-line-end=1418 ><a id="Error_Method_not_allowed_1417"></a>Error: “Method not allowed”</h3>
+<p class="has-line-data" data-line-start="1418" data-line-end="1420"><strong>Causa:</strong> Verbo HTTP incorrecto en la ruta.<br>
+<strong>Solución:</strong> Verificar que la ruta use el verbo correcto (GET, POST, PUT, DELETE).</p>
+<h3 class="code-line" data-line-start=1421 data-line-end=1422 ><a id="Error_Undefined_variable_1421"></a>Error: “Undefined variable”</h3>
+<p class="has-line-data" data-line-start="1422" data-line-end="1424"><strong>Causa:</strong> Variable no existe en el scope.<br>
+<strong>Solución:</strong> Verificar que la variable esté definida antes de usarla.</p>
+<h3 class="code-line" data-line-start=1425 data-line-end=1426 ><a id="Error_Call_to_undefined_method_1425"></a>Error: “Call to undefined method”</h3>
+<p class="has-line-data" data-line-start="1426" data-line-end="1428"><strong>Causa:</strong> Método no existe en el modelo o controlador.<br>
+<strong>Solución:</strong> Verificar el nombre del método y que esté definido.</p>
+<h2 class="code-line" data-line-start=1429 data-line-end=1430 ><a id="Resumen_rpido_Cheat_Sheet_1429"></a>Resumen rápido (Cheat Sheet)</h2>
+<h3 class="code-line" data-line-start=1431 data-line-end=1432 ><a id="Estructura_bsica_1431"></a>Estructura básica</h3>
+<pre><code class="has-line-data" data-line-start="1433" data-line-end="1447" class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Modelo</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ModeloController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>) </span>{ }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">store</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>) </span>{ }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>) </span>{ }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span>, <span class="hljs-variable">$id</span></span>) </span>{ }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>) </span>{ }
+}
+</code></pre>
+<h3 class="code-line" data-line-start=1448 data-line-end=1449 ><a id="Mtodos_REST_1448"></a>Métodos REST</h3>
+<pre><code class="has-line-data" data-line-start="1450" data-line-end="1456" class="language-php">index()    <span class="hljs-comment">// GET    /recursos</span>
+store()    <span class="hljs-comment">// POST   /recursos</span>
+show(<span class="hljs-variable">$id</span>)  <span class="hljs-comment">// GET    /recursos/{id}</span>
+update()   <span class="hljs-comment">// PUT    /recursos/{id}</span>
+destroy()  <span class="hljs-comment">// DELETE /recursos/{id}</span>
+</code></pre>
+<h3 class="code-line" data-line-start=1457 data-line-end=1458 ><a id="Request_1457"></a>Request</h3>
+<pre><code class="has-line-data" data-line-start="1459" data-line-end="1464" class="language-php"><span class="hljs-variable">$request</span>-&gt;nombre           <span class="hljs-comment">// Obtener campo</span>
+<span class="hljs-variable">$request</span>-&gt;all()            <span class="hljs-comment">// Todos los datos</span>
+<span class="hljs-variable">$request</span>-&gt;validate([...])  <span class="hljs-comment">// Validar</span>
+<span class="hljs-variable">$request</span>-&gt;user()           <span class="hljs-comment">// Usuario autenticado</span>
+</code></pre>
+<h3 class="code-line" data-line-start=1465 data-line-end=1466 ><a id="Response_1465"></a>Response</h3>
+<pre><code class="has-line-data" data-line-start="1467" data-line-end="1470" class="language-php">response()-&gt;json([<span class="hljs-string">&#x27;data&#x27;</span> =&gt; <span class="hljs-variable">$data</span>], <span class="hljs-number">200</span>)
+response()-&gt;json([<span class="hljs-string">&#x27;error&#x27;</span> =&gt; <span class="hljs-string">&#x27;msg&#x27;</span>], <span class="hljs-number">400</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=1471 data-line-end=1472 ><a id="Validacin_1471"></a>Validación</h3>
+<pre><code class="has-line-data" data-line-start="1473" data-line-end="1477" class="language-php"><span class="hljs-variable">$request</span>-&gt;validate([
+    <span class="hljs-string">&#x27;campo&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|string|max:255&#x27;</span>,
+]);
+</code></pre>
+<h2 class="code-line" data-line-start=1478 data-line-end=1479 ><a id="Recursos_adicionales_1478"></a>Recursos adicionales</h2>
+<ul>
+<li class="has-line-data" data-line-start="1480" data-line-end="1481"><a href="https://laravel.com/docs/controllers">Documentación oficial de Controllers</a></li>
+<li class="has-line-data" data-line-start="1481" data-line-end="1482"><a href="https://laravel.com/docs/validation">Documentación de Validation</a></li>
+<li class="has-line-data" data-line-start="1482" data-line-end="1483"><a href="https://laravel.com/docs/responses">Documentación de Responses</a></li>
+<li class="has-line-data" data-line-start="1483" data-line-end="1485"><a href="https://restfulapi.net/">REST API Best Practices</a></li>
+</ul>
+<hr>
+
+</body></html>
