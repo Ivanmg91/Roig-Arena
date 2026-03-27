@@ -84,5 +84,6 @@
         </aside>
     </div>
     
+    <div id="eventoData" data-evento-id="{{ $evento->id }}"></div>
     <script src="/js/pages/compra.js"></script> 
 @endsection

@@ -26,7 +26,7 @@ class AsientoResource extends JsonResource
             'nombre_completo' => $this->nombreCompleto(),
             'disponible' => $this->when(
                 $this->eventoId,
-                fn() => $this->estaDisponibleParaEvento($this->eventoId)
+                fn() => $this->estaDisponible($this->eventoId)
             ),
         ];
     }
