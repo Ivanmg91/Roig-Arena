@@ -194,6 +194,72 @@
   transition: var(--transition);
 }
 
+/* ============================
+   ESTADIO INTERACTIVO
+   ============================ */
+
+.stadium-view {
+  width: 420px;
+  height: 420px;
+  margin: 0 auto 2rem auto;
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a1a1a 0%, #000 70%);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.stadium-sector {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: bottom right;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.stadium-sector:hover {
+  background: var(--color-accent);
+  opacity: 0.7;
+}
+
+.stadium-sector.active {
+  background: var(--color-accent);
+  opacity: 1;
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+#sectorSeats {
+  margin-top: 2rem;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 32px);
+  gap: 6px;
+}
+
+.seat {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: .8rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.seat-selected {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+
 @media (max-width: 768px) {
   .compra-header {
     padding: 1.5rem;

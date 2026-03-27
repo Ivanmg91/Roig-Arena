@@ -30,11 +30,62 @@ class SeatMapManager {
         const stadiumView = document.getElementById('stadiumView');
         stadiumView.innerHTML = '';
 
-        this.data.data.sectores_disponibles.forEach(sector => {
-            const sectorElement = this.createSectorElement(sector);
+        const sectores = this.data.data.sectores_disponibles;
+        const total = sectores.length;
+        const angleStep = 180 / total;
+
+        sectores.forEach((sector, index) => {
+            const sectorElement = document.createElement('div');
+            sectorElement.className = 'stadium-sector';
+            sectorElement.style.transform = `rotate(${index * angleStep}deg) skewY(-30deg)`;
+            sectorElement.dataset.sectorId = sector.id;
+
+            sectorElement.addEventListener('click', () => {
+                document.querySelectorAll('.stadium-sector')
+                    .forEach(s => s.classList.remove('active'));
+
+                sectorElement.classList.add('active');
+                this.renderSectorSeats(sector);
+            });
+
             stadiumView.appendChild(sectorElement);
         });
     }
+
+    renderSectorSeats(sector) {
+        const container = document.getElementById('sectorSeats');
+        container.innerHTML = '';
+
+        const title = document.createElement('h3');
+        title.textContent = `Asientos - ${sector.nombre}`;
+        container.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'seats-grid';
+
+        for (let fila = 1; fila <= sector.cantidad_filas; fila++) {
+            for (let col = 1; col <= sector.cantidad_columnas; col++) {
+                const asiento = {
+                    id: `${sector.id}-${fila}-${col}`,
+                    fila,
+                    columna: col,
+                    estado: "disponible",
+                    precio: sector.pivot.precio,
+                    sector_id: sector.id
+                };
+
+                const seatElement = this.createSeatElement(asiento);
+                grid.appendChild(seatElement);
+            }
+        }
+
+        container.appendChild(grid);
+
+        // Actualizar selección previa
+        this.updateSeatVisuals();
+    }
+
+
 
     createSectorElement(sector) {
         const sectorDiv = document.createElement('div');
