@@ -31,10 +31,10 @@ class EventoController extends Controller
 
         return response()->json([
             'data' => [
-                'evento' => $evento,
-                'sectores_disponibles' => $evento->sectoresDisponibles(),
                 'asientos_disponibles' => $evento->totalAsientosDisponibles(),
                 'entradas_vendidas' => $evento->totalEntradasVendidas(),
+                'evento' => $evento,
+                'sectores_disponibles' => $evento->sectoresDisponibles(),
             ],
         ]);
     }

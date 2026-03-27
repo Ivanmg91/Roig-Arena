@@ -9,8 +9,9 @@ class SeatMapManager {
     async init() {
         try {
             // 1. Cargar datos del evento y asientos
-            const response = await fetch(`/api/eventos/${this.eventoId}/asientos`);
+            const response = await fetch(`/api/eventos/${this.eventoId}/`);
             this.data = await response.json();
+            console.log('Datos del evento:', this.data);
 
             // 2. Renderizar el mapa
             this.renderStadium();
@@ -29,7 +30,7 @@ class SeatMapManager {
         const stadiumView = document.getElementById('stadiumView');
         stadiumView.innerHTML = '';
 
-        this.data.sectores.forEach(sector => {
+        this.data.data.sectores_disponibles.forEach(sector => {
             const sectorElement = this.createSectorElement(sector);
             stadiumView.appendChild(sectorElement);
         });
@@ -38,49 +39,49 @@ class SeatMapManager {
     createSectorElement(sector) {
         const sectorDiv = document.createElement('div');
         sectorDiv.className = 'sector-group';
-        sectorDiv.style.borderColor = sector.color;
+        sectorDiv.style.borderColor = sector.color_hex;
 
         const title = document.createElement('div');
         title.className = 'sector-title';
         title.textContent = sector.nombre;
-
-        const stats = document.createElement('div');
-        stats.className = 'sector-stats';
-        stats.innerHTML = `
-            Disponibles: ${sector.estadisticas.disponibles} | 
-            Reservados: ${sector.estadisticas.reservados}
-        `;
 
         const grid = document.createElement('div');
         grid.className = 'seats-grid';
 
         // Crear matriz de asientos
         const asientosPorFila = {};
-        sector.asientos.forEach(asiento => {
-            if (!asientosPorFila[asiento.fila]) {
-                asientosPorFila[asiento.fila] = [];
-            }
-            asientosPorFila[asiento.fila].push(asiento);
-        });
 
-        // Ordenar filas
+        for (let fila = 1; fila <= sector.cantidad_filas; fila++) {
+            asientosPorFila[fila] = [];
+
+            for (let col = 1; col <= sector.cantidad_columnas; col++) {
+                asientosPorFila[fila].push({
+                    id: `${sector.id}-${fila}-${col}`,
+                    fila: fila,
+                    columna: col,
+                    estado: "disponible",
+                    precio: sector.pivot.precio,
+                    sector_id: sector.id
+                });
+            }
+        }
+
+        // Renderizar asientos
         Object.keys(asientosPorFila)
             .sort((a, b) => parseInt(a) - parseInt(b))
             .forEach(fila => {
-                asientosPorFila[fila]
-                    .sort((a, b) => a.columna - b.columna)
-                    .forEach(asiento => {
-                        const seatElement = this.createSeatElement(asiento);
-                        grid.appendChild(seatElement);
-                    });
+                asientosPorFila[fila].forEach(asiento => {
+                    const seatElement = this.createSeatElement(asiento);
+                    grid.appendChild(seatElement);
+                });
             });
 
         sectorDiv.appendChild(title);
-        sectorDiv.appendChild(stats);
         sectorDiv.appendChild(grid);
 
         return sectorDiv;
     }
+
 
     createSeatElement(asiento) {
         const seat = document.createElement('div');
@@ -186,7 +187,7 @@ class SeatMapManager {
 
         // Renderizar líneas de desglose
         Object.entries(asientosPorSector).forEach(([sectorId, asientos]) => {
-            const sector = this.data.sectores.find(s => s.id == sectorId);
+            const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
             const totalSector = asientos.reduce((sum, a) => sum + parseFloat(a.precio), 0);
 
             const line = document.createElement('div');
