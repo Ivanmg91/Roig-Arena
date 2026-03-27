@@ -6,6 +6,9 @@ use App\Models\Evento;
 use App\Models\Asiento;
 use App\Models\Sector;
 use Illuminate\Http\Request;
+use App\Models\Entrada;
+use App\Models\EstadoAsiento;
+use Illuminate\Support\Str;
 
 class CompraController extends Controller
 {
@@ -17,6 +20,51 @@ class CompraController extends Controller
         $evento = Evento::findOrFail($eventoId);
         $sectoresDisponibles = $this->obtenerSectoresDisponibles($eventoId)->getData()->data;
         return view('compra.buy', compact('evento', 'sectoresDisponibles'));
+    }
+
+
+    public function store(Request $request)
+{
+        $request->validate([
+            'reservas' => 'required|array',
+            'reservas.*' => 'exists:estado_asientos,id',
+        ]);
+
+        $user = auth()->user();
+
+        $reservas = EstadoAsiento::whereIn('id', $request->reservas)->get();
+
+        foreach ($reservas as $reserva) {
+
+            // ❌ Expirada
+            if ($reserva->reservado_hasta < now()) {
+                return response()->json(['error' => 'Reserva expirada'], 400);
+            }
+
+            // ❌ No pertenece al usuario
+            if ($reserva->user_id !== $user->id) {
+                return response()->json(['error' => 'No autorizada'], 400);
+            }
+
+            // ✅ Crear entrada
+            Entrada::create([
+                'user_id' => $user->id,
+                'evento_id' => $reserva->evento_id,
+                'asiento_id' => $reserva->asiento_id,
+                'precio_pagado' => 0, // o calcular con Precio
+                'codigo_qr' => Str::random(32),
+            ]);
+
+            // ✅ Marcar asiento como ocupado
+            $reserva->update([
+                'estado' => 'OCUPADO',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Compra procesada exitosamente',
+        ], 201);
     }
     
 
@@ -141,7 +189,7 @@ class CompraController extends Controller
     public function confirmarCompra(Request $request)
     {
         $request->validate([
-            'usuario_id' => 'required|exists:usuarios,id',
+            'user_id' => 'required|exists:users,id',
             'metodo_pago' => 'required|in:tarjeta,efectivo,transferencia'
         ]);
 

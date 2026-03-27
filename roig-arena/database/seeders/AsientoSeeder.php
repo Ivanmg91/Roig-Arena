@@ -18,6 +18,9 @@ class AsientoSeeder extends Seeder
             $totalAsientos += count($asientos);
         }
 
+        // Llamamos a la función para generar estado_asientos para el primer evento
+        $this->generarEstadoAsientosParaEvento($asientos, 1); // Asumiendo que el primer evento tiene ID 1
+
         $this->command->info("✅ Asientos creados: {$totalAsientos}");
     }
 
@@ -97,5 +100,17 @@ class AsientoSeeder extends Seeder
         }
 
         return $asientos;
+    }
+
+    private function generarEstadoAsientosParaEvento($asientos, $eventoId): void
+    {
+        foreach ($asientos as $asiento) {
+            $asiento->estadoAsientos()->create([
+                'evento_id' => $eventoId,
+                'asiento_id' => $asiento->id,
+                'estado' => 1, // DISPONIBLE
+                'reservado_hasta' => null,
+            ]);
+        }
     }
 }

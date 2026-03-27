@@ -22,14 +22,13 @@ class LiberarReservasServiceTest extends TestCase
 
     public function test_libera_reservas_expiradas()
     {
-        EstadoAsiento::factory()->count(3)->create([
-            'estado' => 'bloqueado',
+        EstadoAsiento::factory()->count(5)->create([
             'reservado_hasta' => now()->subMinutes(20),
         ]);
 
         $liberadas = $this->service->liberarExpiradas();
 
-        $this->assertEquals(3, $liberadas);
+        $this->assertEquals(5, $liberadas);
         $this->assertDatabaseCount('estado_asientos', 0);
     }
 

@@ -34,7 +34,7 @@ class Asiento extends Model
      */
     public function estadoAsientos()
     {
-        return $this->belongsTo(EstadoAsiento::class);
+        return $this->hasMany(EstadoAsiento::class);
     }
 
     /**
@@ -52,17 +52,30 @@ class Asiento extends Model
     /**
      * Verifica si un asiento está disponible para un evento
      */
-    public function estaDisponible() {
-        return $this->estado_asiento_id == EstadoAsiento::DISPONIBLE; 
-    
+    public function estaDisponible($eventoId): bool
+    {
+        return $this->estadoAsientos()
+        ->where('evento_id', $eventoId)
+        ->where('estado', 'DISPONIBLE')
+        ->exists();
     }
 
-    public function estaReservado() {
-        return $this->estado_asiento_id == EstadoAsiento::RESERVADO; 
+     /**
+     * Verifica si un asiento está bloqueado (reservado) para un evento
+     */
+    public function estaReservado($eventoId) {
+        return $this->estadoAsientos()
+        ->where('evento_id', $eventoId)
+        ->where('estado', 'RESERVADO')
+        ->where('reservado_hasta', '>', now())
+        ->exists();
     }
     
-    public function estaOcupado() { 
-        return $this->estado_asiento_id == EstadoAsiento::OCUPADO;
+    public function estaOcupado($eventoId) { 
+        return $this->estadoAsientos()
+        ->where('evento_id', $eventoId)
+        ->where('estado', 'OCUPADO')
+        ->exists();
     }
 
     /**

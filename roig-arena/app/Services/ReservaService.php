@@ -35,7 +35,7 @@ class ReservaService
                 'evento_id' => $eventoId,
                 'asiento_id' => $asientoId,
                 'user_id' => $userId,
-                'estado' => 'bloqueado',
+                'estado' => 'RESERVADO',
                 'reservado_hasta' => now()->addMinutes(15),
             ]);
 
@@ -56,7 +56,7 @@ class ReservaService
     {
         $reserva = EstadoAsiento::where('id', $reservaId)
             ->where('user_id', $userId)
-            ->where('estado', 'bloqueado')
+            ->where('estado', 'RESERVADO')
             ->firstOrFail();
 
         $reserva->delete();
@@ -70,7 +70,7 @@ class ReservaService
     public function obtenerReservasActivas($userId)
     {
         return EstadoAsiento::where('user_id', $userId)
-            ->where('estado', 'bloqueado')
+            ->where('estado', 'RESERVADO')
             ->where('reservado_hasta', '>', now())
             ->with(['evento', 'asiento.sector'])
             ->get();

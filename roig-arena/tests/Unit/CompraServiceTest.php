@@ -38,6 +38,7 @@ class CompraServiceTest extends TestCase
         $reserva = EstadoAsiento::factory()->create([
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
+            'estado' => 'RESERVADO',
             'user_id' => $user->id,
             'reservado_hasta' => now()->addMinutes(10),
         ]);
@@ -45,7 +46,7 @@ class CompraServiceTest extends TestCase
         $entradas = $this->service->procesarCompra([$reserva->id], $user->id);
 
         $this->assertCount(1, $entradas);
-        $this->assertEquals('vendido', $reserva->fresh()->estado);
+        $this->assertEquals('OCUPADO', $reserva->fresh()->estado);
     }
 
     public function test_no_puede_procesar_compra_expirada()
@@ -108,7 +109,7 @@ class CompraServiceTest extends TestCase
             // Esperado
         }
 
-        $this->assertEquals('bloqueado', $reserva1->fresh()->estado);
+        $this->assertEquals('RESERVADO', $reserva1->fresh()->estado);
         $this->assertDatabaseMissing('entradas', ['user_id' => $user->id]);
     }
 }

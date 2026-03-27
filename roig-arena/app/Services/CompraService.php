@@ -35,7 +35,6 @@ class CompraService
                 
                 $entradas[] = $entrada;
             }
-
             DB::commit();
             
             return collect($entradas);
@@ -53,7 +52,7 @@ class CompraService
     {
         return EstadoAsiento::where('id', $reservaId)
             ->where('user_id', $userId)
-            ->where('estado', 'bloqueado')
+            ->where('estado', 'RESERVADO')
             ->with(['evento', 'asiento.sector'])
             ->firstOrFail();
     }
