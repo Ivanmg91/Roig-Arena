@@ -42,7 +42,9 @@
             </div>
 
             <!-- Vista del Estadio por Sector -->
-            <div class="stadium-view" id="stadiumView">
+            <div class="stadium-view" id="stadiumView"></div>
+                <div id="sectorSeats"></div>
+
                 <!-- JavaScript generará los sectores aquí -->
             </div>
         </div>
