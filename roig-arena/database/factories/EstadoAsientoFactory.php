@@ -18,7 +18,7 @@ class EstadoAsientoFactory extends Factory
             'evento_id' => Evento::factory(),
             'asiento_id' => Asiento::factory(),
             'user_id' => User::factory(),
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
             'reservado_hasta' => now()->addMinutes(15),
         ];
     }
@@ -26,7 +26,7 @@ class EstadoAsientoFactory extends Factory
     public function vendido(): static
     {
         return $this->state(fn (array $attributes) => [
-            'estado' => 'vendido',
+            'estado' => 'OCUPADO',
             'reservado_hasta' => null,
         ]);
     }
@@ -34,7 +34,7 @@ class EstadoAsientoFactory extends Factory
     public function expirado(): static
     {
         return $this->state(fn (array $attributes) => [
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
             'reservado_hasta' => now()->subMinutes(20),
         ]);
     }

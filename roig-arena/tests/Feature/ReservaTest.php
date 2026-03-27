@@ -38,7 +38,7 @@ class ReservaTest extends TestCase
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
     }
 
@@ -51,7 +51,7 @@ class ReservaTest extends TestCase
         EstadoAsiento::factory()->create([
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
 
         $response = $this->actingAs($user)->postJson('/api/reservas', [
@@ -68,7 +68,7 @@ class ReservaTest extends TestCase
         
         EstadoAsiento::factory()->count(3)->create([
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
 
         $response = $this->actingAs($user)->getJson('/api/reservas');
@@ -82,7 +82,7 @@ class ReservaTest extends TestCase
         $user = User::factory()->create();
         $reserva = EstadoAsiento::factory()->create([
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
 
         $response = $this->actingAs($user)->deleteJson("/api/reservas/{$reserva->id}");

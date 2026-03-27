@@ -30,12 +30,16 @@ class CompraTest extends TestCase
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
             'reservado_hasta' => now()->addMinutes(10),
         ]);
 
         $response = $this->actingAs($user)->postJson('/api/compras', [
             'reservas' => [$reserva->id],
+            'metodo_pago' => 'tarjeta',
+            'evento_id' => $evento->id,
+            'user_id' => $user->id,
+            'asientos' => [$asiento->id],
         ]);
 
         $response->assertStatus(201);
@@ -45,7 +49,7 @@ class CompraTest extends TestCase
         ]);
         $this->assertDatabaseHas('estado_asientos', [
             'id' => $reserva->id,
-            'estado' => 'vendido',
+            'estado' => 'OCUPADO',
         ]);
     }
 
@@ -95,7 +99,7 @@ class CompraTest extends TestCase
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
             'reservado_hasta' => now()->addMinutes(10),
         ]);
 

@@ -68,27 +68,46 @@ class EstadoAsiento extends Model
      */
     public function haExpirado(): bool
     {
-        if ($this->estado === 'vendido') {
+        if ($this->estado === 'OCUPADO') {
             return false; // Las ventas no expiran
         }
 
         return $this->reservado_hasta && $this->reservado_hasta->isPast();
     }
 
-    /**
-     * Verificar si está bloqueado (en carrito)
-     */
-    public function estaBloqueado(): bool
+    public function estaDisponible(): bool
     {
-        return $this->estado === 'bloqueado' && !$this->haExpirado();
+        if ($this->estado === 'DISPONIBLE') {
+            return true;
+        }
+        return false;
+    }
+
+     /**
+     * Verificar si está RESERVADO (en carrito)
+     */
+
+    /**
+     * Verificar si está RESERVADO (en carrito)
+     */
+    public function estaReservado(): bool
+    {
+        if ($this->estado === 'RESERVADO') {
+            return true; // Las ventas no están reservadas
+        }
+
+        return false;
     }
 
     /**
-     * Verificar si está vendido
+     * Verificar si está OCUPADO (vendido)
      */
-    public function estaVendido(): bool
+    public function estaOcupado(): bool
     {
-        return $this->estado === 'vendido';
+        if ($this->estado === 'OCUPADO') {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -96,7 +115,7 @@ class EstadoAsiento extends Model
      */
     public function tiempoRestante(): ?int
     {
-        if ($this->estado === 'vendido' || !$this->reservado_hasta) {
+        if ($this->estado === 'OCUPADO' || !$this->reservado_hasta) {
             return null;
         }
 
@@ -117,7 +136,7 @@ class EstadoAsiento extends Model
      */
     public function marcarComoVendido(): bool
     {
-        $this->estado = 'vendido';
+        $this->estado = 'OCUPADO';
         $this->reservado_hasta = null;
         return $this->save();
     }
@@ -127,7 +146,7 @@ class EstadoAsiento extends Model
      */
     public function scopeBloqueados($query)
     {
-        return $query->where('estado', 'bloqueado');
+        return $query->where('estado', 'RESERVADO');
     }
 
     /**
@@ -135,7 +154,7 @@ class EstadoAsiento extends Model
      */
     public function scopeVendidos($query)
     {
-        return $query->where('estado', 'vendido');
+        return $query->where('estado', 'OCUPADO');
     }
 
     /**
@@ -143,7 +162,7 @@ class EstadoAsiento extends Model
      */
     public function scopeExpirados($query)
     {
-        return $query->where('estado', 'bloqueado')
+        return $query->where('estado', 'RESERVADO')
                      ->where('reservado_hasta', '<', now());
     }
 

@@ -49,4 +49,22 @@ class EntradaController extends Controller
             'data' => $entrada->informacionCompleta(),
         ]);
     }
+
+    public function store(Request $request)
+    {
+        // Este método se encargaría de crear una nueva entrada después de la compra
+        // La lógica de compra y reserva de asiento se manejaría en otro controlador (e.g. CompraController)
+        $this->validate($request, [
+            'evento_id' => 'required|exists:eventos,id',
+            'asiento_id' => 'required|exists:asientos,id',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+        $entrada = Entrada::create($request->all());
+
+        return response()->json([
+            'data' => $entrada,
+            'message' => 'Entrada creada correctamente',
+        ], 201);
+    }
 }

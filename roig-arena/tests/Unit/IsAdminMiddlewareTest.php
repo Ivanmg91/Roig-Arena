@@ -6,9 +6,12 @@ use Tests\TestCase;
 use App\Http\Middleware\IsAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IsAdminMiddlewareTest extends TestCase
 {
+
+    use RefreshDatabase;
     public function test_permite_acceso_a_admin()
     {
         $user = User::factory()->create(['is_admin' => true]);

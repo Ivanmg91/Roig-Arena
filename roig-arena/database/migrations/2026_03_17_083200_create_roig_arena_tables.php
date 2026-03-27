@@ -49,7 +49,7 @@ return new class extends Migration
             $table->text('descripcion_larga'); // Para la página del evento
             $table->string('poster_url')->nullable(); // URL de la imagen
             $table->string('poster_ancho_url')->nullable(); // URL de la imagen ancha
-            $table->date('fecha')->unique(); // Solo un evento por día
+            $table->date('fecha'); // Puede ir a más de un evento por día, pero no a la vez
             $table->time('hora')->nullable(); // Hora del evento
             $table->timestamps();
             $table->softDeletes(); // Borrado lógico
@@ -82,7 +82,7 @@ return new class extends Migration
             $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
             $table->foreignId('asiento_id')->constrained('asientos')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->enum('estado', ['bloqueado', 'vendido']);
+            $table->enum('estado', ['DISPONIBLE', 'RESERVADO', 'OCUPADO'])->default('DISPONIBLE');
             $table->timestamp('reservado_hasta')->nullable(); // Temporizador de reserva
             $table->unique(['evento_id', 'asiento_id']); // Un estado por asiento/evento
             $table->timestamps();

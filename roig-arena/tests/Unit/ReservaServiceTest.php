@@ -39,7 +39,7 @@ class ReservaServiceTest extends TestCase
         $reserva = $this->service->reservarAsiento($evento->id, $asiento->id, $user->id);
 
         $this->assertNotNull($reserva);
-        $this->assertEquals('bloqueado', $reserva->estado);
+        $this->assertEquals('RESERVADO', $reserva->estado);
     }
 
     public function test_no_puede_reservar_asiento_ocupado()
@@ -51,7 +51,7 @@ class ReservaServiceTest extends TestCase
         EstadoAsiento::factory()->create([
             'evento_id' => $evento->id,
             'asiento_id' => $asiento->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
 
         $this->expectException(\Exception::class);
@@ -63,7 +63,7 @@ class ReservaServiceTest extends TestCase
         $user = User::factory()->create();
         $reserva = EstadoAsiento::factory()->create([
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
         ]);
 
         $resultado = $this->service->cancelarReserva($reserva->id, $user->id);
@@ -78,7 +78,7 @@ class ReservaServiceTest extends TestCase
         
         EstadoAsiento::factory()->count(2)->create([
             'user_id' => $user->id,
-            'estado' => 'bloqueado',
+            'estado' => 'RESERVADO',
             'reservado_hasta' => now()->addMinutes(10),
         ]);
 

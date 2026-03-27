@@ -13,10 +13,10 @@ class CompraResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'evento' => new EventoResource($this->whenLoaded('evento')),
-            'asiento' => new AsientoResource($this->whenLoaded('asiento')),
-            'precio_pagado' => number_format($this->precio_pagado, 2, ',', '.') . ' €',
-            'comprador' => $this->user->nombre . ' ' . $this->user->apellido,
+            'evento' => new EventoResource($this->evento),
+            'asientos' => AsientoResource::collection($this->asientos),
+            'precio_total' => number_format($this->precio_total, 2, ',', '.') . ' €',
+            'metodo_pago' => $this->metodo_pago,
             'fecha_compra' => $this->created_at->format('d/m/Y H:i'),
         ];
     }
