@@ -8,18 +8,23 @@ use Illuminate\Database\Seeder;
 
 class AsientoSeeder extends Seeder
 {
+
+    private array $asientos = [];
+
     public function run(): void
     {
-        $sectores = Sector::all();
+        $sectores = Sector::activos()->get();
         $totalAsientos = 0;
+        $this->asientos = [];
 
         foreach ($sectores as $sector) {
-            $asientos = $this->generarAsientosPorSector($sector);
-            $totalAsientos += count($asientos);
+            $asientosSector = $this->generarAsientosPorSector($sector);
+            $this->asientos = array_merge($this->asientos, $asientosSector);
+            $totalAsientos += count($asientosSector);
         }
 
         // Llamamos a la función para generar estado_asientos para el primer evento
-        $this->generarEstadoAsientosParaEvento($asientos, 1); // Asumiendo que el primer evento tiene ID 1
+        $this->generarEstadoAsientosParaEvento($this->asientos, 1); // Asumiendo que el primer evento tiene ID 1
 
         $this->command->info("✅ Asientos creados: {$totalAsientos}");
     }
@@ -30,8 +35,8 @@ class AsientoSeeder extends Seeder
 
         // Sectores 101-122 y 301-323: 20 filas x 15 asientos = 300 asientos
         if (preg_match('/^Sector (10[1-9]|1[1-2][0-9]|30[1-9]|3[1-2][0-9])$/', $sector->nombre)) {
-            for ($fila = 1; $fila <= 20; $fila++) {
-                for ($numero = 1; $numero <= 15; $numero++) {
+            for ($fila = 1; $fila <= 3; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
                     $asientos[] = Asiento::create([
                         'sector_id' => $sector->id,
                         'fila' => (string) $fila,
@@ -52,8 +57,8 @@ class AsientoSeeder extends Seeder
         }
         // CLUB: 10 filas x 20 asientos = 200 asientos
         elseif ($sector->nombre === 'CLUB') {
-            for ($fila = 1; $fila <= 10; $fila++) {
-                for ($numero = 1; $numero <= 20; $numero++) {
+            for ($fila = 1; $fila <= 3; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
                     $asientos[] = Asiento::create([
                         'sector_id' => $sector->id,
                         'fila' => (string) $fila,
@@ -76,8 +81,8 @@ class AsientoSeeder extends Seeder
         }
         // PISTA: 30 filas x 25 asientos = 750 asientos
         elseif ($sector->nombre === 'PISTA') {
-            for ($fila = 1; $fila <= 30; $fila++) {
-                for ($numero = 1; $numero <= 25; $numero++) {
+            for ($fila = 1; $fila <= 3; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
                     $asientos[] = Asiento::create([
                         'sector_id' => $sector->id,
                         'fila' => (string) $fila,
@@ -89,7 +94,7 @@ class AsientoSeeder extends Seeder
         // FRONT STAGE: 5 filas x 30 asientos = 150 asientos
         elseif ($sector->nombre === 'FRONT STAGE') {
             for ($fila = 1; $fila <= 5; $fila++) {
-                for ($numero = 1; $numero <= 30; $numero++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
                     $asientos[] = Asiento::create([
                         'sector_id' => $sector->id,
                         'fila' => (string) $fila,

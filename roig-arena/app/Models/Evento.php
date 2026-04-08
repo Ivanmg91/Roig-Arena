@@ -11,7 +11,7 @@ class Evento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'eventos';
-    
+
     protected $fillable = [
         'nombre',
         'descripcion_corta',
@@ -118,11 +118,27 @@ class Evento extends Model
     public function totalAsientosDisponibles(): int
     {
         $sectoresDisponibles = $this->sectoresDisponibles()->pluck('id');
-        
+
+        if ($sectoresDisponibles->isEmpty()) {
+            return 0;
+        }
+
         $totalAsientos = Asiento::whereIn('sector_id', $sectoresDisponibles)->count();
-        $asientosOcupados = $this->estadoAsientos()->count();
-        
-        return $totalAsientos - $asientosOcupados;
+
+        $asientosNoDisponibles = $this->estadoAsientos()
+            ->where(function ($query) {
+                $query->where('estado', 'OCUPADO')
+                    ->orWhere(function ($query) {
+                        $query->where('estado', 'RESERVADO')
+                            ->where(function ($query) {
+                                $query->whereNull('reservado_hasta')
+                                    ->orWhere('reservado_hasta', '>', now());
+                            });
+                    });
+            })
+            ->count();
+
+        return max(0, $totalAsientos - $asientosNoDisponibles);
     }
 
     /**

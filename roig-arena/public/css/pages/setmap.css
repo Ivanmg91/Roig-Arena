@@ -13,10 +13,21 @@
         border-radius: 8px;
     }
 
+    .stadium-layout {
+        margin: 0 auto 2rem;
+        max-width: 860px;
+    }
+
     .stadium-view {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        position: relative;
+        width: min(100%, 860px);
+        display: grid;
+        gap: 0.85rem;
+        margin: 0 auto;
+    }
+
+    .sector-seats {
+        margin-top: 1rem;
     }
 
     /* Sector */

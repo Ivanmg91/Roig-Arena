@@ -1,113 +1,99 @@
 /* home.css - estilos específicos para la portada principal */
 
 .home-hero {
-  background-image: url('/images/roig-arena-home.jpg');
+  position: relative;
+  min-height: calc(100dvh - var(--nav-height));
+  width: 100%;
+  margin: 0;
+  padding: clamp(2.25rem, 7vw, 5rem) clamp(1rem, 7vw, 5.5rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
+  color: #ededec;
+  background-image:
+    linear-gradient(120deg, rgba(4, 8, 15, 0.88) 0%, rgba(6, 10, 17, 0.64) 35%, rgba(6, 9, 15, 0.3) 65%),
+    url('/images/roig-arena-home2.jpg');
   background-size: cover;
   background-position: center;
-  border-radius: 0;
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  text-align: center;
-  margin: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  color: #ededec;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  backdrop-filter: blur(0);
-  transition: backdrop-filter 0.5s ease;
 }
 
-.home-hero::before {
+.home-hero::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, transparent 30%, rgba(22, 22, 21, 0.3) 100%);
-  z-index: 1;
+  inset: auto 0 0 0;
+  height: clamp(140px, 30vh, 280px);
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(9, 12, 18, 0.86) 100%);
 }
 
 .home-hero > * {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  width: min(720px, 100%);
 }
 
 .home-hero-kicker {
-  color: var(--color-accent);
+  color: #f74e24;
   font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  letter-spacing: 0.04em;
+  font-size: clamp(0.85rem, 2vw, 1.02rem);
+  margin: 0;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .home-hero-title {
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 5.2vw, 4rem);
   font-weight: 800;
-  margin-bottom: 1rem;
-  color: var(--color-accent);
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  max-width: 600px;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  line-height: 1.06;
+  text-wrap: balance;
 }
 
 .home-hero-text {
-  color: #A1A09A;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  line-height: 1.7;
-  max-width: 600px;
+  color: rgba(237, 237, 236, 0.86);
+  font-size: clamp(0.98rem, 2vw, 1.18rem);
+  margin: 0;
+  line-height: 1.65;
+  max-width: 62ch;
   font-weight: 500;
 }
 
 .home-hero-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.9rem;
   flex-wrap: wrap;
+  margin-top: 0.4rem;
 }
 
 .home-hero-actions .btn {
-  font-size: 1rem;
-  padding: 0.7rem 1.8rem;
+  font-size: 0.95rem;
+  padding: 0.74rem 1.6rem;
   font-weight: 700;
-  border-radius: 8px;
-  letter-spacing: 0.02em;
-  transition: var(--transition);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(245, 48, 3, 0.3);
 }
 
-.home-hero-actions .btn:hover {
-  transform: translateY(-2px);
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .home-hero {
-    padding-top: 80px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: calc(100dvh - var(--nav-height));
+    padding: clamp(2rem, 12vw, 3.5rem) 1.1rem;
+    background-position: 72% center;
   }
 
-  .home-hero-kicker {
-    font-size: 0.9rem;
+  .home-hero > * {
+    width: min(640px, 100%);
   }
 
-  .home-hero-title {
-    font-size: 1.8rem;
-  }
-
-  .home-hero-text {
-    font-size: 1rem;
-    padding: 0 1.5rem;
-  }
-
-  .home-hero-actions .btn {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.4rem;
+  .home-hero-actions {
+    justify-content: center;
+    width: 100%;
   }
 }

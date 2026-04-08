@@ -3,9 +3,7 @@
 @section('title', 'Comprar Entradas | ' . $evento->nombre . ' | Roig Arena')
 
 @section('page_styles')
-    <link rel="stylesheet" href="/css/pages/eventos.css">
     <link rel="stylesheet" href="/css/pages/compra.css">
-    <link rel="stylesheet" href="/css/pages/setmap.css">
 @endsection
 
 @section('content')
@@ -42,11 +40,12 @@
             </div>
 
             <!-- Vista del Estadio por Sector -->
-            <div class="stadium-view" id="stadiumView"></div>
-                <div id="sectorSeats"></div>
-
-                <!-- JavaScript generará los sectores aquí -->
+            <div class="stadium-layout">
+                <div class="stadium-view" id="stadiumView">
+                    <!-- JavaScript generará los sectores aquí -->
+                </div>
             </div>
+            <div id="sectorSeats" class="sector-seats"></div>
         </div>
 
         <!-- LADO DERECHO: CARRITO FLOTANTE -->
