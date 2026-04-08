@@ -137,6 +137,60 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 
 ---
 
+## Diseño Del Estadio Interactivo (Pasos Recomendados)
+
+Para llegar a un estadio visualmente limpio y que siga funcionando bien cuando hay muchos sectores, estos son los pasos que se deberían haber seguido:
+
+1. Definir criterios de UX antes de programar.
+    - Objetivo visual: que parezca un graderio real, no un circulo con bloques sueltos.
+    - Objetivo funcional: seleccionar sector en 1 clic y ver asientos sin perder contexto.
+    - Escalabilidad: soportar pocos sectores y tambien eventos con muchos sectores.
+
+2. Estandarizar los datos minimos por sector desde la API.
+    - Campos necesarios: id, nombre, color_hex, pivot.precio, cantidad_filas y cantidad_columnas.
+    - Con eso se puede dibujar el mapa, mostrar precio y renderizar asientos del sector activo.
+
+3. Elegir SVG como base de renderizado del mapa.
+    - SVG permite dibujar formas elipticas y segmentos con precision.
+    - Es mas mantenible y escalable que posicionar botones absolutos alrededor de un contenedor.
+
+4. Repartir sectores en anillos dinámicos.
+    - Calcular el numero de anillos segun el total de sectores.
+    - Distribuir sectores de forma equilibrada por anillo para evitar saturacion.
+    - Limitar ángulos útiles del graderío para reservar zona de escenario.
+
+5. Dibujar cada sector como un segmento real de graderio.
+    - Cada segmento se construye con arco exterior + arco interior + cierres laterales.
+    - Aplicar separacion angular minima para que se distingan incluso cuando hay muchos sectores.
+    - Mantener estados visuales claros: normal, hover y activo.
+
+6. Añadir una segunda capa de navegación para alta densidad.
+    - Debajo del mapa, mostrar una lista compacta de sectores (chips).
+    - Sincronizar siempre mapa y lista: seleccionar en uno activa el otro.
+    - Esto evita problemas de usabilidad cuando los segmentos son pequenos.
+
+7. Centralizar la logica de estado activo.
+    - Una sola funcion debe activar el sector y disparar render de asientos.
+    - Esa misma funcion debe actualizar estilos del segmento SVG y del chip de lista.
+
+8. Cuidar responsive y accesibilidad.
+    - En movil, priorizar lectura del mapa y mantener scroll controlado en la lista.
+    - Permitir selección por teclado en segmentos del SVG (Enter y Espacio).
+    - Incluir title o aria-label para mejorar contexto en lectores y tooltips.
+
+9. Validar comportamiento con escenarios reales.
+    - Probar eventos con pocos, medianos y muchos sectores.
+    - Revisar que no haya solapes, que la seleccion sea estable y que la carga sea fluida.
+    - Confirmar que el flujo completo (sector -> asientos -> carrito) no se rompe.
+
+Archivos clave de referencia en esta implementacion:
+
+- `roig-arena/public/js/pages/compra.js`
+- `roig-arena/public/css/pages/compra.css`
+- `roig-arena/public/css/pages/setmap.css`
+
+---
+
 ## Tecnologías
 
 - [Laravel 12](https://laravel.com/)

@@ -51,7 +51,7 @@
             @endif
 
             @if($evento->descripcion_corta)
-                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+                <div class="event-description-block">
                     <p class="event-description">{{ $evento->descripcion_corta }}</p>
                 </div>
             @endif
@@ -97,7 +97,7 @@
             <div class="section-divider">
                 <span>PRECIOS</span>
             </div>
-            <p class="muted" style="margin-top: 0;">Selecciona tu sector y compra tu entrada</p>
+            <p class="muted event-prices-intro">Selecciona tu sector y compra tu entrada</p>
 
             <table class="pricing-table">
                 <thead>
@@ -120,7 +120,7 @@
                                     <span class="muted">{{ $sector->descripcion }}</span>
                                 @endif
                             </td>
-                            <td style="font-weight: 600; color: var(--color-accent); text-shadow: 0 2px 8px #F5300340;">
+                            <td class="price-highlight">
                                 {{ number_format($precio->precio, 2, ',', '.') }}€
                             </td>
                             <td>
@@ -128,15 +128,15 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody
+                </tbody>
             </table>
 
             <!-- Botón de compra -->
-            <div class="cta-section" style="margin-top: 2rem;">
+            <div class="cta-section">
                 <a href="{{ route('compra.buy', ['evento' => $evento->id], false) }}" class="btn btn-primary">
                     Comprar Entradas
                 </a>
-                <a href="{{ route('eventos.index', [], false) }}" class="btn" style="background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent);">
+                <a href="{{ route('eventos.index', [], false) }}" class="btn btn-alt">
                     Volver
                 </a>
             </div>
