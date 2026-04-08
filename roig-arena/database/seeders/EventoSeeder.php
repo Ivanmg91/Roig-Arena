@@ -13,9 +13,9 @@ class EventoSeeder extends Seeder
             [
                 'nombre' => 'Concierto Rock 2026',
                 'descripcion_corta' => 'El mejor concierto de rock del año',
-                'descripcion_larga' => 'Disfruta de una noche inolvidable con las mejores bandas de rock internacional. Un espectáculo único que no te puedes perder.',
-                'poster_url' => 'https://via.placeholder.com/800x600?text=Concierto+Rock',
-                'poster_ancho_url' => 'https://via.placeholder.com/1280x720?text=Concierto+Rock',
+                'descripcion_larga' => 'Disfruta de una noche inolvidable con la mejore banda de rock internacional. Un espectáculo único que no te puedes perder.',
+                'poster_url' => 'https://www.tuposter.com/pub/media/catalog/product/cache/71d04d62b2100522587d43c930e8a36b/f/i/file_80_60.jpg',
+                'poster_ancho_url' => 'https://mariskalrock.com/wp-content/uploads/2024/01/extremoduro-agila-fb.jpg',
                 'fecha' => '2026-06-15',
                 'hora' => '20:00',
             ],

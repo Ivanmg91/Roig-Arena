@@ -135,7 +135,7 @@ body {
   position: relative;
   color: var(--color-primary);
   transition: var(--transition);
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 
 .card:hover {
