@@ -15,10 +15,10 @@ class AsientoController extends Controller
     public function porEvento($eventoId)
     {
         $evento = Evento::findOrFail($eventoId);
-        
+
         // Obtener sectores disponibles
         $sectoresDisponibles = $evento->sectoresDisponibles()->pluck('id');
-        
+
         // Obtener asientos de esos sectores
         $asientos = Asiento::whereIn('sector_id', $sectoresDisponibles)
             ->with('sector')
@@ -29,7 +29,7 @@ class AsientoController extends Controller
                     'sector' => $asiento->sector->nombre,
                     'fila' => $asiento->fila,
                     'numero' => $asiento->numero,
-                    'disponible' => $asiento->estaDisponibleParaEvento($eventoId),
+                    'disponible' => $asiento->estaDisponible($eventoId),
                     'precio' => $asiento->sector->precios()
                         ->where('evento_id', $eventoId)
                         ->first()?->precio,
@@ -48,7 +48,7 @@ class AsientoController extends Controller
     {
         $evento = Evento::findOrFail($eventoId);
         $sector = Sector::findOrFail($sectorId);
-        
+
         // Verificar que el sector esté disponible para el evento
         if (!$evento->sectorEstaDisponible($sectorId)) {
             return response()->json([
@@ -63,7 +63,7 @@ class AsientoController extends Controller
                     'id' => $asiento->id,
                     'fila' => $asiento->fila,
                     'numero' => $asiento->numero,
-                    'disponible' => $asiento->estaDisponibleParaEvento($eventoId),
+                    'disponible' => $asiento->estaDisponible($eventoId),
                 ];
             });
 
