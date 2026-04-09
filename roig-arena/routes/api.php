@@ -25,7 +25,7 @@ use App\Http\Controllers\ArtistaController;
 
 // Autenticación
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'loginApi']);
 
 // Eventos (consulta pública)
 Route::get('/eventos', [EventoController::class, 'index']);

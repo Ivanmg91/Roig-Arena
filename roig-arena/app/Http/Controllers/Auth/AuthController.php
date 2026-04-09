@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -43,10 +43,7 @@ class AuthController extends Controller
         ], 201);
     }
 
-    /**
-     * Iniciar sesión
-     */
-    public function login(Request $request)
+    public function loginApi(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -61,15 +58,34 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // Eliminar tokens anteriores (opcional)
         $user->tokens()->delete();
-
         $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
             'user' => $user,
             'token' => $token,
             'token_type' => 'Bearer',
+        ]);
+    }
+
+    public function loginWeb(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'Las credenciales son incorrectas.',
+            ], 401);
+        }
+
+        $request->session()->regenerate();
+
+        return response()->json([
+            'message' => 'Login correcto',
+            'user' => $request->user(),
         ]);
     }
 
@@ -84,6 +100,19 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Sesión cerrada correctamente',
         ]);
+    }
+
+    public function logoutWeb(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Sesión cerrada correctamente']);
+        }
+
+        return redirect()->route('home');
     }
 
     /**

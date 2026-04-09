@@ -83,11 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				return;
 			}
 
-			localStorage.setItem('sanctum_token', data.token);
-
-			if (data.user) {
-				localStorage.setItem('sanctum_user', JSON.stringify(data.user));
-			}
+			localStorage.removeItem('sanctum_token');
+			localStorage.removeItem('sanctum_user');
 
 			window.location.href = getRedirectTo();
 		} catch (error) {
