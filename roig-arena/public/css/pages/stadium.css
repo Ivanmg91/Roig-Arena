@@ -11,7 +11,7 @@
   display: grid;
   gap: 0.85rem;
   border-radius: 18px;
-  background: linear-gradient(165deg, #09111c 0%, #060b14 48%, #090c13 100%);
+  background: linear-gradient(180deg, #0b131f 0%, #070c15 56%, #090f18 100%);
   padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 36px rgba(0, 0, 0, 0.35);
@@ -21,7 +21,7 @@
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(ellipse at center, #182738 0%, #0e1624 66%, #090f18 100%);
+  background: linear-gradient(180deg, #172332 0%, #0f1827 55%, #0b1019 100%);
 }
 
 .stadium-svg {
@@ -31,26 +31,33 @@
 }
 
 .stadium-shell {
-  fill: rgba(10, 16, 26, 0.86);
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 2;
+  fill: rgba(8, 14, 24, 0.84);
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-width: 2.5;
 }
 
 .stadium-floor {
-  fill: #1b6044;
-  stroke: rgba(255, 255, 255, 0.26);
+  fill: #1f6549;
+  stroke: rgba(255, 255, 255, 0.22);
   stroke-width: 2;
 }
 
+.stadium-inner-guide {
+  fill: rgba(31, 101, 73, 0.14);
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1.8;
+  stroke-dasharray: 10 8;
+}
+
 .stadium-stage {
-  fill: rgba(245, 48, 3, 0.18);
-  stroke: rgba(245, 48, 3, 0.72);
-  stroke-width: 2;
+  fill: rgba(245, 48, 3, 0.26);
+  stroke: rgba(245, 48, 3, 0.82);
+  stroke-width: 2.4;
 }
 
 .stadium-stage-label {
   fill: rgba(255, 255, 255, 0.9);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-anchor: middle;
@@ -58,9 +65,9 @@
 
 .stadium-sector-shape {
   fill: var(--sector-color, #f53003);
-  opacity: 0.74;
-  stroke: rgba(255, 255, 255, 0.3);
-  stroke-width: 1;
+  opacity: 0.78;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1.1;
   cursor: pointer;
   transition: opacity 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease;
 }
@@ -75,12 +82,12 @@
   opacity: 1;
   stroke: #ffffff;
   stroke-width: 2;
-  filter: drop-shadow(0 0 8px rgba(245, 48, 3, 0.45));
+  filter: drop-shadow(0 0 8px rgba(245, 48, 3, 0.4));
 }
 
 .stadium-sector-label-text {
   fill: #f2f6fb;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-anchor: middle;
   dominant-baseline: middle;

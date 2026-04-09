@@ -1,10 +1,17 @@
 class SeatMapManager {
     constructor(eventoId) {
+        // ID del evento actual (se utiliza en llamadas API y persistencia del carrito).
         this.eventoId = eventoId;
+        // Selección actual en memoria: clave = id de asiento, valor = datos del asiento.
         this.selectedSeats = new Map(); // Map<seatId, seatData>
+        // Cache por sector para no repetir peticiones de asientos al cambiar de pestaña/sector.
         this.seatsCacheBySector = new Map(); // Map<sectorId, apiSeat[]>
+        // Contador para invalidar respuestas antiguas cuando el usuario cambia rápido de sector.
         this.activeSectorRequestId = 0;
+        // Payload completo del evento recibido desde backend.
         this.data = null;
+
+        // Arranca el ciclo de carga inicial de la pantalla.
         this.init();
     }
 
@@ -28,6 +35,7 @@ class SeatMapManager {
         }
     }
 
+    // Dibuja el mapa del estadio en SVG y crea chips para elegir sector.
     renderStadium() {
         const stadiumView = document.getElementById('stadiumView');
         stadiumView.innerHTML = '';
@@ -42,7 +50,6 @@ class SeatMapManager {
         }
 
         const svgNS = 'http://www.w3.org/2000/svg';
-        const rings = this.distributeSectorsInRings(sectores);
 
         const canvas = document.createElement('div');
         canvas.className = 'stadium-canvas';
@@ -53,44 +60,52 @@ class SeatMapManager {
         svg.setAttribute('role', 'img');
         svg.setAttribute('aria-label', 'Mapa de sectores del estadio');
 
-        const cx = 500;
-        const cy = 320;
+        const shellX = 120;
+        const shellY = 145;
+        const shellWidth = 760;
+        const shellHeight = 390;
+        const shellRadius = 120;
 
-        const shell = document.createElementNS(svgNS, 'ellipse');
+        const shell = document.createElementNS(svgNS, 'rect');
         shell.classList.add('stadium-shell');
-        shell.setAttribute('cx', String(cx));
-        shell.setAttribute('cy', String(cy));
-        shell.setAttribute('rx', '450');
-        shell.setAttribute('ry', '265');
+        shell.setAttribute('x', String(shellX));
+        shell.setAttribute('y', String(shellY));
+        shell.setAttribute('width', String(shellWidth));
+        shell.setAttribute('height', String(shellHeight));
+        shell.setAttribute('rx', String(shellRadius));
+        shell.setAttribute('ry', String(shellRadius));
         svg.appendChild(shell);
 
-        const floor = document.createElementNS(svgNS, 'ellipse');
-        floor.classList.add('stadium-floor');
-        floor.setAttribute('cx', String(cx));
-        floor.setAttribute('cy', String(cy));
-        floor.setAttribute('rx', '168');
-        floor.setAttribute('ry', '100');
-        svg.appendChild(floor);
+        const innerGuide = document.createElementNS(svgNS, 'rect');
+        innerGuide.classList.add('stadium-inner-guide');
+        innerGuide.setAttribute('x', '262');
+        innerGuide.setAttribute('y', '220');
+        innerGuide.setAttribute('width', '476');
+        innerGuide.setAttribute('height', '236');
+        innerGuide.setAttribute('rx', '72');
+        innerGuide.setAttribute('ry', '72');
+        svg.appendChild(innerGuide);
 
         const stage = document.createElementNS(svgNS, 'rect');
         stage.classList.add('stadium-stage');
         stage.setAttribute('x', '388');
-        stage.setAttribute('y', '500');
+        stage.setAttribute('y', '34');
         stage.setAttribute('width', '224');
-        stage.setAttribute('height', '74');
-        stage.setAttribute('rx', '18');
+        stage.setAttribute('height', '72');
+        stage.setAttribute('rx', '22');
         svg.appendChild(stage);
 
         const stageLabel = document.createElementNS(svgNS, 'text');
         stageLabel.classList.add('stadium-stage-label');
         stageLabel.setAttribute('x', '500');
-        stageLabel.setAttribute('y', '544');
+        stageLabel.setAttribute('y', '78');
         stageLabel.textContent = 'ESCENARIO';
         svg.appendChild(stageLabel);
 
         const sectorShapeMap = new Map();
         const sectorChipMap = new Map();
 
+        // Marca visualmente un sector activo y dispara carga de sus asientos.
         const setActiveSector = sector => {
             const targetId = String(sector.id);
 
@@ -105,90 +120,57 @@ class SeatMapManager {
             this.renderSectorSeats(sector);
         };
 
-        const ringCount = rings.length;
-        const ringStart = 160;
-        const ringEnd = 380;
-        const ringSpan = ringEnd - ringStart;
-        const baseOuterRx = 430;
-        const baseOuterRy = 255;
-        const minInnerRx = 170;
-        const minInnerRy = 98;
-        const gapX = 10;
-        const gapY = 8;
+        // Reparte sectores en laterales, zona inferior y centro. Sin sectores en la parte superior.
+        const perimeterSlots = this.buildStadiumSlots(sectores.length, {
+            x: shellX,
+            y: shellY,
+            width: shellWidth,
+            height: shellHeight
+        });
 
-        const ringThicknessX = (baseOuterRx - minInnerRx - (ringCount - 1) * gapX) / ringCount;
-        const ringThicknessY = (baseOuterRy - minInnerRy - (ringCount - 1) * gapY) / ringCount;
-
-        rings.forEach((ringSectors, ringIndex) => {
-            if (ringSectors.length === 0) {
+        sectores.forEach((sector, index) => {
+            const slot = perimeterSlots[index];
+            if (!slot) {
                 return;
             }
 
-            const outerRx = baseOuterRx - ringIndex * (ringThicknessX + gapX);
-            const outerRy = baseOuterRy - ringIndex * (ringThicknessY + gapY);
-            const innerRx = outerRx - ringThicknessX;
-            const innerRy = outerRy - ringThicknessY;
+            const shape = document.createElementNS(svgNS, 'rect');
+            shape.classList.add('stadium-sector-shape');
+            shape.dataset.sectorId = String(sector.id);
+            shape.style.setProperty('--sector-color', sector.color_hex || '#f53003');
+            shape.setAttribute('x', slot.x.toFixed(2));
+            shape.setAttribute('y', slot.y.toFixed(2));
+            shape.setAttribute('width', slot.width.toFixed(2));
+            shape.setAttribute('height', slot.height.toFixed(2));
+            shape.setAttribute('rx', '12');
+            shape.setAttribute('ry', '12');
+            shape.setAttribute('tabindex', '0');
 
-            const stepAngle = ringSpan / ringSectors.length;
-            const maxPadding = Math.max(0, stepAngle - 0.9);
-            const anglePadding = Math.min(stepAngle * 0.22, 2.4, maxPadding);
+            const sectorPrice = Number(sector?.pivot?.precio ?? 0);
+            const title = document.createElementNS(svgNS, 'title');
+            title.textContent = `${sector.nombre} - ${sectorPrice.toFixed(2)} EUR`;
+            shape.appendChild(title);
 
-            ringSectors.forEach((sector, index) => {
-                const startAngle = ringStart + stepAngle * index + anglePadding * 0.5;
-                const endAngle = ringStart + stepAngle * (index + 1) - anglePadding * 0.5;
-
-                const path = document.createElementNS(svgNS, 'path');
-                path.classList.add('stadium-sector-shape');
-                path.dataset.sectorId = String(sector.id);
-                path.style.setProperty('--sector-color', sector.color_hex || '#f53003');
-                path.setAttribute('d', this.buildSectorPath(
-                    cx,
-                    cy,
-                    outerRx,
-                    outerRy,
-                    innerRx,
-                    innerRy,
-                    startAngle,
-                    endAngle
-                ));
-                path.setAttribute('tabindex', '0');
-
-                const sectorPrice = Number(sector?.pivot?.precio ?? 0);
-                const title = document.createElementNS(svgNS, 'title');
-                title.textContent = `${sector.nombre} - ${sectorPrice.toFixed(2)} EUR`;
-                path.appendChild(title);
-
-                path.addEventListener('click', () => setActiveSector(sector));
-                path.addEventListener('keydown', event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        setActiveSector(sector);
-                    }
-                });
-
-                svg.appendChild(path);
-                sectorShapeMap.set(String(sector.id), path);
-
-                if (stepAngle >= 11) {
-                    const midAngle = (startAngle + endAngle) * 0.5;
-                    const labelPoint = this.getEllipsePoint(
-                        cx,
-                        cy,
-                        (outerRx + innerRx) * 0.5,
-                        (outerRy + innerRy) * 0.5,
-                        midAngle
-                    );
-
-                    const label = document.createElementNS(svgNS, 'text');
-                    label.classList.add('stadium-sector-label-text');
-                    label.setAttribute('x', labelPoint.x.toFixed(2));
-                    label.setAttribute('y', labelPoint.y.toFixed(2));
-                    label.textContent = sector.nombre.length > 9
-                        ? `${sector.nombre.slice(0, 9)}...`
-                        : sector.nombre;
-                    svg.appendChild(label);
+            shape.addEventListener('click', () => setActiveSector(sector));
+            // Accesibilidad: permite selección con teclado.
+            shape.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setActiveSector(sector);
                 }
             });
+
+            svg.appendChild(shape);
+            sectorShapeMap.set(String(sector.id), shape);
+
+            const label = document.createElementNS(svgNS, 'text');
+            label.classList.add('stadium-sector-label-text');
+            label.setAttribute('x', (slot.x + slot.width / 2).toFixed(2));
+            label.setAttribute('y', (slot.y + slot.height / 2).toFixed(2));
+            label.textContent = sector.nombre.length > 10
+                ? `${sector.nombre.slice(0, 10)}...`
+                : sector.nombre;
+            svg.appendChild(label);
         });
 
         canvas.appendChild(svg);
@@ -197,6 +179,7 @@ class SeatMapManager {
         const sectorList = document.createElement('div');
         sectorList.className = 'stadium-sector-list';
 
+        // Lista inferior de sectores (alternativa de interacción al SVG).
         sectores.forEach(sector => {
             const sectorId = String(sector.id);
             const sectorPrice = Number(sector?.pivot?.precio ?? 0);
@@ -218,52 +201,91 @@ class SeatMapManager {
 
         stadiumView.appendChild(sectorList);
 
+        // Selecciona el primer sector por defecto para mostrar asientos al cargar.
         setActiveSector(sectores[0]);
     }
 
-    distributeSectorsInRings(sectores) {
-        const total = sectores.length;
-        const ringCount = Math.max(2, Math.min(5, Math.ceil(total / 12)));
-        const rings = [];
-
-        let offset = 0;
-        for (let ringIndex = 0; ringIndex < ringCount; ringIndex++) {
-            const remaining = total - offset;
-            const ringsLeft = ringCount - ringIndex;
-            const sectorsInRing = Math.ceil(remaining / ringsLeft);
-
-            rings.push(sectores.slice(offset, offset + sectorsInRing));
-            offset += sectorsInRing;
+    // Crea slots de sectores para lateral derecho, inferior, lateral izquierdo y zona interior.
+    buildStadiumSlots(total, frame) {
+        if (!Number.isFinite(total) || total <= 0) {
+            return [];
         }
 
-        return rings.filter(ring => ring.length > 0);
-    }
+        const sideGap = 8;
+        const offset = 12;
+        const horizontalThickness = 56;
+        const verticalThickness = 64;
+        const centerColumns = 3;
+        const centerGap = 12;
 
-    getEllipsePoint(cx, cy, rx, ry, angleDeg) {
-        const radians = (angleDeg * Math.PI) / 180;
+        const rightCount = Math.max(1, Math.round(total * 0.25));
+        const bottomCount = Math.max(1, Math.round(total * 0.25));
+        const leftCount = Math.max(1, Math.round(total * 0.25));
+        const centerCount = Math.max(1, total - rightCount - bottomCount - leftCount);
 
-        return {
-            x: cx + rx * Math.cos(radians),
-            y: cy + ry * Math.sin(radians)
+        const adjustedBottomCount = Math.max(1, total - rightCount - leftCount - centerCount);
+        const slots = [];
+
+        const buildHorizontal = (count, y) => {
+            const width = (frame.width - sideGap * (count - 1)) / count;
+
+            for (let i = 0; i < count; i++) {
+                slots.push({
+                    x: frame.x + i * (width + sideGap),
+                    y,
+                    width,
+                    height: horizontalThickness
+                });
+            }
         };
+
+        const buildVertical = (count, x) => {
+            const height = (frame.height - sideGap * (count - 1)) / count;
+
+            for (let i = 0; i < count; i++) {
+                slots.push({
+                    x,
+                    y: frame.y + i * (height + sideGap),
+                    width: verticalThickness,
+                    height
+                });
+            }
+        };
+
+        buildVertical(rightCount, frame.x + frame.width + offset);
+        buildHorizontal(adjustedBottomCount, frame.y + frame.height + offset);
+        buildVertical(leftCount, frame.x - verticalThickness - offset);
+
+        const buildCenter = count => {
+            const innerWidth = frame.width * 0.56;
+            const innerHeight = frame.height * 0.46;
+            const innerX = frame.x + (frame.width - innerWidth) / 2;
+            const innerY = frame.y + (frame.height - innerHeight) / 2;
+
+            const columns = Math.max(1, Math.min(centerColumns, count));
+            const rows = Math.max(1, Math.ceil(count / columns));
+            const cellWidth = (innerWidth - centerGap * (columns - 1)) / columns;
+            const cellHeight = (innerHeight - centerGap * (rows - 1)) / rows;
+
+            for (let i = 0; i < count; i++) {
+                const col = i % columns;
+                const row = Math.floor(i / columns);
+
+                slots.push({
+                    x: innerX + col * (cellWidth + centerGap),
+                    y: innerY + row * (cellHeight + centerGap),
+                    width: cellWidth,
+                    height: cellHeight
+                });
+            }
+        };
+
+        buildCenter(centerCount);
+
+        return slots.slice(0, total);
     }
 
-    buildSectorPath(cx, cy, outerRx, outerRy, innerRx, innerRy, startAngle, endAngle) {
-        const startOuter = this.getEllipsePoint(cx, cy, outerRx, outerRy, startAngle);
-        const endOuter = this.getEllipsePoint(cx, cy, outerRx, outerRy, endAngle);
-        const endInner = this.getEllipsePoint(cx, cy, innerRx, innerRy, endAngle);
-        const startInner = this.getEllipsePoint(cx, cy, innerRx, innerRy, startAngle);
-        const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
-
-        return [
-            `M ${startOuter.x.toFixed(2)} ${startOuter.y.toFixed(2)}`,
-            `A ${outerRx.toFixed(2)} ${outerRy.toFixed(2)} 0 ${largeArcFlag} 1 ${endOuter.x.toFixed(2)} ${endOuter.y.toFixed(2)}`,
-            `L ${endInner.x.toFixed(2)} ${endInner.y.toFixed(2)}`,
-            `A ${innerRx.toFixed(2)} ${innerRy.toFixed(2)} 0 ${largeArcFlag} 0 ${startInner.x.toFixed(2)} ${startInner.y.toFixed(2)}`,
-            'Z'
-        ].join(' ');
-    }
-
+    // Carga y renderiza asientos del sector activo, con cache y control de carrera entre peticiones.
     async renderSectorSeats(sector) {
         const container = document.getElementById('sectorSeats');
         container.innerHTML = '';
@@ -281,6 +303,7 @@ class SeatMapManager {
         grid.className = 'seats-grid';
         const sectorPrice = Number(sector?.pivot?.precio ?? 0);
         const sectorId = String(sector.id);
+        // ID incremental: si llega una respuesta vieja, se ignora.
         const requestId = ++this.activeSectorRequestId;
 
         let apiSeats = this.seatsCacheBySector.get(sectorId);
@@ -296,6 +319,7 @@ class SeatMapManager {
                 apiSeats = payload?.data?.asientos ?? [];
                 this.seatsCacheBySector.set(sectorId, apiSeats);
             } catch (error) {
+                // Si el usuario ya cambió de sector, no sobrescribimos la vista actual.
                 if (requestId !== this.activeSectorRequestId) {
                     return;
                 }
@@ -313,6 +337,7 @@ class SeatMapManager {
         loadingState.remove();
 
         const asientos = Array.isArray(apiSeats) ? [...apiSeats] : [];
+        // Orden natural por fila y luego por número para una lectura consistente.
         asientos.sort((a, b) => {
             const filaA = String(a.fila);
             const filaB = String(b.fila);
@@ -339,6 +364,7 @@ class SeatMapManager {
         }
 
         asientos.forEach(apiSeat => {
+            // Normaliza el asiento de API al formato que consume la UI.
             const asiento = {
                 id: String(apiSeat.id),
                 fila: apiSeat.fila,
@@ -360,6 +386,7 @@ class SeatMapManager {
 
 
 
+    // Método legado: genera asientos sintéticos por matriz (actualmente no se usa en el flujo principal).
     createSectorElement(sector) {
         const sectorDiv = document.createElement('div');
         sectorDiv.className = 'sector-group';
@@ -407,6 +434,7 @@ class SeatMapManager {
     }
 
 
+    // Crea el nodo DOM de un asiento y enlaza click solo si está disponible.
     createSeatElement(asiento) {
         const seat = document.createElement('div');
         seat.className = `seat seat-${asiento.estado}`;
@@ -425,6 +453,7 @@ class SeatMapManager {
         return seat;
     }
 
+    // Añade o quita un asiento de la selección y sincroniza toda la UI.
     toggleSeat(asiento) {
         const seatId = String(asiento.id);
         const normalizedSeat = {
@@ -446,6 +475,7 @@ class SeatMapManager {
         this.saveCartToStorage();
     }
 
+    // Aplica clase visual de seleccionado en todos los asientos renderizados.
     updateSeatVisuals() {
         document.querySelectorAll('.seat').forEach(seat => {
             const seatId = seat.dataset.seatId;
@@ -457,6 +487,7 @@ class SeatMapManager {
         });
     }
 
+    // Punto central de actualización del resumen de compra.
     updateCart() {
         const seatCount = this.selectedSeats.size;
         document.getElementById('seatCount').textContent =
@@ -475,6 +506,7 @@ class SeatMapManager {
         document.getElementById('confirmBtn').disabled = seatCount === 0;
     }
 
+    // Muestra lista de asientos elegidos y botón para eliminarlos uno a uno.
     updateSelectionSummary() {
         const summary = document.getElementById('selectionSummary');
 
@@ -500,6 +532,7 @@ class SeatMapManager {
         });
     }
 
+    // Calcula subtotal por sector y lo pinta en el desglose de precios.
     updatePriceBreakdown() {
         const breakdown = document.getElementById('priceBreakdown');
         breakdown.innerHTML = '';
@@ -528,6 +561,7 @@ class SeatMapManager {
         });
     }
 
+    // Calcula el total general sumando el precio de todos los asientos seleccionados.
     updateTotal() {
         const total = Array.from(this.selectedSeats.values())
             .reduce((sum, asiento) => sum + parseFloat(asiento.precio), 0);
@@ -536,6 +570,7 @@ class SeatMapManager {
             `${total.toFixed(2)}€`;
     }
 
+    // Persiste el carrito en localStorage para mantener selección entre recargas.
     saveCartToStorage() {
         const cartData = {
             eventoId: this.eventoId,
@@ -544,6 +579,7 @@ class SeatMapManager {
         localStorage.setItem('seatmap_cart', JSON.stringify(cartData));
     }
 
+    // Restaura selección previa si corresponde al mismo evento actual.
     loadCartFromStorage() {
         const stored = localStorage.getItem('seatmap_cart');
         if (!stored) return;
@@ -569,6 +605,7 @@ class SeatMapManager {
                 });
             });
 
+            // Refresca estado visual y totales tras hidratar el carrito.
             this.updateSeatVisuals();
             this.updateCart();
         } catch (error) {
@@ -577,24 +614,31 @@ class SeatMapManager {
         }
     }
 
+    // Enlaza acciones de la vista con métodos de la clase.
     setupEventListeners() {
         const confirmBtn = document.getElementById('confirmBtn');
         confirmBtn.addEventListener('click', () => this.proceedToCheckout());
     }
 
+    // Envía selección al backend para iniciar el flujo de confirmación/checkout.
     proceedToCheckout() {
         const cartData = {
-            evento_id: this.eventoId,
-            asientos: Array.from(this.selectedSeats.keys())
+            // evento_id: this.eventoId,
+            // asientos: Array.from(this.selectedSeats.keys())
+
+            //user_id:
         };
 
         // Enviar al backend para confirmar compra
-        fetch('/api/compra/confirmar', {
+        const token = localStorage.getItem('sanctum_token');
+        fetch('/api/compras/confirmar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Authorization': token ? `Bearer ${token}` : ''
             },
+            credentials: 'include',
             body: JSON.stringify(cartData)
         })
         .then(response => response.json())

@@ -51,19 +51,20 @@ Route::get('/artistas/buscar', [ArtistaController::class, 'buscar']);
 // ============================================
 
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     // Usuario autenticado
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    
+
     // Reservas (carrito de compras)
     Route::get('/reservas', [ReservaController::class, 'index']);
     Route::post('/reservas', [ReservaController::class, 'store']);
     Route::delete('/reservas/{id}', [ReservaController::class, 'destroy']);
-    
+
     // Compras
     Route::post('/compras', [CompraController::class, 'store']);
-    
+    Route::post('/compras/confirmar', [CompraController::class, 'confirmarCompra']);
+
     // Entradas
     Route::get('/entradas', [EntradaController::class, 'index']);
     Route::get('/entradas/{id}', [EntradaController::class, 'show']);
@@ -74,17 +75,17 @@ Route::middleware('auth:sanctum')->group(function () {
 // ============================================
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    
+
     // Eventos (CRUD completo)
     Route::post('/eventos', [EventoController::class, 'store']);
     Route::put('/eventos/{id}', [EventoController::class, 'update']);
     Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
-    
+
     // Sectores (CRUD completo)
     Route::post('/sectores', [SectorController::class, 'store']);
     Route::put('/sectores/{id}', [SectorController::class, 'update']);
     Route::delete('/sectores/{id}', [SectorController::class, 'destroy']);
-    
+
     // Artistas (CRUD completo)
     Route::post('/artistas', [ArtistaController::class, 'store']);
     Route::put('/artistas/{id}', [ArtistaController::class, 'update']);

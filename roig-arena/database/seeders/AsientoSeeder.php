@@ -33,8 +33,8 @@ class AsientoSeeder extends Seeder
     {
         $asientos = [];
 
-        // Sectores 101-122 y 301-323: 20 filas x 15 asientos = 300 asientos
-        if (preg_match('/^Sector (10[1-9]|1[1-2][0-9]|30[1-9]|3[1-2][0-9])$/', $sector->nombre)) {
+        // Oeste 401, 402, 403: 3 filas x 5 asientos = 15 asientos por sector
+        if (preg_match('/^Oeste (401|402|403)$/i', $sector->nombre)) {
             for ($fila = 1; $fila <= 3; $fila++) {
                 for ($numero = 1; $numero <= 5; $numero++) {
                     $asientos[] = Asiento::create([
@@ -45,8 +45,35 @@ class AsientoSeeder extends Seeder
                 }
             }
         }
-        // Palcos: 1 fila x 8 asientos = 8 asientos
-        elseif (str_starts_with($sector->nombre, 'Palco')) {
+
+        // Sur 301, 302, 303: 3 filas x 5 asientos = 15 asientos por sector
+        elseif (preg_match('/^Sur (301|302|303)$/i', $sector->nombre)) {
+            for ($fila = 1; $fila <= 3; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
+                    $asientos[] = Asiento::create([
+                        'sector_id' => $sector->id,
+                        'fila' => (string) $fila,
+                        'numero' => $numero,
+                    ]);
+                }
+            }
+        }
+
+        // Este 201, 202, 203: 3 filas x 5 asientos = 15 asientos por sector
+        elseif (preg_match('/^Este (201|202|203)$/i', $sector->nombre)) {
+            for ($fila = 1; $fila <= 3; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
+                    $asientos[] = Asiento::create([
+                        'sector_id' => $sector->id,
+                        'fila' => (string) $fila,
+                        'numero' => $numero,
+                    ]);
+                }
+            }
+        }
+
+        // Pistas: 1 fila x 8 asientos = 8 asientos
+        elseif (str_starts_with($sector->nombre, 'PISTA')) {
             for ($numero = 1; $numero <= 8; $numero++) {
                 $asientos[] = Asiento::create([
                     'sector_id' => $sector->id,
