@@ -18,6 +18,7 @@
 
         <nav class="home-hero-actions" aria-label="Acciones principales">
             <a class="btn" href="{{ route('eventos.index', [], false) }}">Ver eventos</a>
+            <a class="btn btn-alt" href="{{ route('login', [], false) }}">Iniciar sesión</a>
         </nav>
     </section>
 @endsection

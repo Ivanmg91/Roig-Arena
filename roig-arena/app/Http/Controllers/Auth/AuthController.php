@@ -20,6 +20,10 @@ class AuthController extends Controller
             'apellido' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            /*
+                En Laravel, confirmed significa que además de password debe venir un campo llamado password_confirmation con el mismo valor.
+                Si no existe ese campo, o no coincide, falla la validación 422.
+            */
         ]);
 
         $user = User::create([

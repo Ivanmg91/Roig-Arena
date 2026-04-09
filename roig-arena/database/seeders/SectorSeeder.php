@@ -9,28 +9,27 @@ class SectorSeeder extends Seeder
 {
     public function run(): void
     {
-        $sectores = [];
+        $sectores = [
+            // Lateral derecho.
+            ['nombre' => 'ESTE 201', 'descripcion' => 'Grada lateral este', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#4E87D9', 'activo' => true],
+            ['nombre' => 'ESTE 202', 'descripcion' => 'Grada lateral este', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#447BCA', 'activo' => true],
+            ['nombre' => 'ESTE 203', 'descripcion' => 'Grada lateral este', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#3C6FBA', 'activo' => true],
 
-        // Sectores 101-103
-        for ($i = 101; $i <= 103; $i++) {
-            $sectores[] = ['nombre' => "Sector $i", 'descripcion' => 'Grada lateral', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#CCCCCC', 'activo' => true];
-        }
+            // Banda inferior.
+            ['nombre' => 'SUR 301', 'descripcion' => 'Anillo sur opuesto al escenario', 'cantidad_filas' => 12, 'cantidad_columnas' => 14, 'color_hex' => '#46AA73', 'activo' => true],
+            ['nombre' => 'SUR 302', 'descripcion' => 'Anillo sur opuesto al escenario', 'cantidad_filas' => 12, 'cantidad_columnas' => 14, 'color_hex' => '#3E9B67', 'activo' => true],
+            ['nombre' => 'SUR 303', 'descripcion' => 'Anillo sur opuesto al escenario', 'cantidad_filas' => 12, 'cantidad_columnas' => 14, 'color_hex' => '#378C5D', 'activo' => true],
 
-        // Sectores 301-303
-        for ($i = 301; $i <= 303; $i++) {
-            $sectores[] = ['nombre' => "Sector $i", 'descripcion' => 'Grada superior', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#DDDDDD', 'activo' => false];
-        }
+            // Lateral izquierdo.
+            ['nombre' => 'OESTE 401', 'descripcion' => 'Grada lateral oeste', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#8D74D1', 'activo' => true],
+            ['nombre' => 'OESTE 402', 'descripcion' => 'Grada lateral oeste', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#7C63BE', 'activo' => true],
+            ['nombre' => 'OESTE 403', 'descripcion' => 'Grada lateral oeste', 'cantidad_filas' => 10, 'cantidad_columnas' => 12, 'color_hex' => '#6E56AB', 'activo' => true],
 
-        // Palcos 1-202
-        for ($i = 1; $i <= 3; $i++) {
-            $sectores[] = ['nombre' => "Palco $i", 'descripcion' => 'Palco VIP', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#EEEEEE', 'activo' => false];
-        }
-
-        // Sectores especiales
-        $sectores[] = ['nombre' => 'CLUB', 'descripcion' => 'Zona Club', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#FF0000', 'activo' => true];
-        $sectores[] = ['nombre' => 'JOHNNIE WALKER', 'descripcion' => 'Zona Johnnie Walker', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#00FF00', 'activo' => false];
-        $sectores[] = ['nombre' => 'PISTA', 'descripcion' => 'Pista central', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#0000FF', 'activo' => false];
-        $sectores[] = ['nombre' => 'FRONT STAGE', 'descripcion' => 'Frente al escenario', 'cantidad_filas' => 10, 'cantidad_columnas' => 10, 'color_hex' => '#FFFF00', 'activo' => false];
+            // Zona interior (pista) como sectores de asientos.
+            ['nombre' => 'PISTA A', 'descripcion' => 'Sector interior de pista', 'cantidad_filas' => 8, 'cantidad_columnas' => 10, 'color_hex' => '#E07F3F', 'activo' => true],
+            ['nombre' => 'PISTA B', 'descripcion' => 'Sector interior de pista', 'cantidad_filas' => 8, 'cantidad_columnas' => 10, 'color_hex' => '#D67236', 'activo' => true],
+            ['nombre' => 'PISTA C', 'descripcion' => 'Sector interior de pista', 'cantidad_filas' => 8, 'cantidad_columnas' => 10, 'color_hex' => '#C9652E', 'activo' => true],
+        ];
 
         foreach ($sectores as $sector) {
             Sector::create($sector);
