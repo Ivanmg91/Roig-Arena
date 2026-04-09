@@ -1,24 +1,24 @@
-/* eventos.css - estilos específicos para las vistas de eventos */
+/* eventos.css – estilos para el listado y tarjetas de eventos */
 
 .event-card {
   display: flex;
   flex-direction: column;
   text-decoration: none;
   background: var(--color-card);
-  color: #ededec;
+  color: var(--color-primary);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   transition: var(--transition);
   overflow: hidden;
   position: relative;
   height: 100%;
-  min-height: 100%;
 }
 
 .event-card:hover {
-  border-color: var(--color-accent);
-  box-shadow: 0 3px 12px rgba(245, 48, 3, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(245, 48, 3, 0.5);
+  box-shadow: 0 6px 24px rgba(245, 48, 3, 0.12);
+  transform: translateY(-3px);
+  opacity: 1;
 }
 
 .event-card:active {
@@ -27,24 +27,32 @@
 
 .event-card-image {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-bottom: 1px solid var(--color-border);
-  transition: var(--transition);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block;
 }
 
 .event-card:hover .event-card-image {
-  opacity: 0.95;
+  transform: scale(1.03);
+  opacity: 0.94;
+}
+
+.event-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.1rem 1.2rem 1.2rem;
 }
 
 .event-card-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--color-accent);
-  letter-spacing: 0.01em;
-  padding: 1.2rem 1rem;
-  margin: 0;
-  line-height: 1.3;
+  color: var(--color-primary);
+  letter-spacing: -0.005em;
+  margin: 0 0 0.6rem;
+  line-height: 1.35;
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -53,101 +61,108 @@
 }
 
 .event-meta {
-  color: #A1A09A;
-  font-size: 0.85rem;
-  padding: 0 1rem 1rem 1rem;
+  color: var(--color-muted);
+  font-size: 0.82rem;
   margin: 0;
   line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
+.event-meta strong {
+  color: rgba(237, 237, 236, 0.78);
+  font-weight: 600;
+}
+
+/* Cabecera sección de listado */
+.eventos-header {
+  margin-bottom: 1.75rem;
+}
+
+.eventos-header h1 {
+  margin-bottom: 0.4rem;
+}
+
+/* Detalle evento */
 .event-detail-title {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   font-weight: 800;
-  margin-bottom: 0.5rem;
-  color: var(--color-accent);
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .event-detail-description {
-  color: #A1A09A;
+  color: var(--color-muted);
   font-size: 1rem;
-  margin-bottom: 0;
-  line-height: 1.6;
-  background: none;
-  border-radius: 0;
-  padding: 0;
+  line-height: 1.68;
+  margin: 0;
 }
 
 /* Tabla refinada */
-.card h2, .card p {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 table {
   display: block;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 1.5rem;
-  background: var(--color-bg);
-  border-radius: 8px;
+  margin-top: 0;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   overflow-x: auto;
-  color: #ededec;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
 }
 
 table thead,
 table tbody {
   display: table;
   width: 100%;
-  min-width: 480px;
+  min-width: 420px;
   table-layout: fixed;
 }
 
 th, td {
-  padding: 1rem;
+  padding: 0.9rem 1rem;
   border-bottom: 1px solid var(--color-border);
   text-align: left;
-  font-size: 0.95rem;
-  color: #ededec;
+  font-size: 0.9rem;
+  color: var(--color-primary);
   line-height: 1.5;
 }
 
 th {
   background: var(--color-card);
   font-weight: 700;
-  color: var(--color-accent);
-  letter-spacing: 0.02em;
-  font-size: 0.85rem;
+  font-size: 0.72rem;
+  color: var(--color-muted);
   text-transform: uppercase;
-}
-
-tr:hover td {
-  background: rgba(245, 48, 3, 0.05);
+  letter-spacing: 0.08em;
 }
 
 tr:last-child td {
   border-bottom: none;
 }
 
+tr:hover td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
 @media (max-width: 600px) {
   .event-card-image {
-    height: 160px;
+    aspect-ratio: 2 / 1;
+  }
+
+  .event-card-body {
+    padding: 0.9rem 1rem 1rem;
   }
 
   .event-card-title {
-    font-size: 1rem;
-    padding: 1rem 0.8rem;
+    font-size: 0.97rem;
   }
 
   .event-detail-title {
-    font-size: 1.5rem;
-  }
-
-  table, th, td {
-    font-size: 0.85rem;
-    padding: 0.75rem;
+    font-size: 1.35rem;
   }
 }

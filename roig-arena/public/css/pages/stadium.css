@@ -1,7 +1,7 @@
-/* stadium.css - estilos del estadio interactivo y asientos */
+/* stadium.css – estadio interactivo y grid de asientos */
 
 .stadium-layout {
-  margin: 0 auto 1.25rem auto;
+  margin: 0 auto 1.25rem;
   max-width: 860px;
 }
 
@@ -9,18 +9,18 @@
   width: min(100%, 860px);
   margin: 0 auto;
   display: grid;
-  gap: 0.85rem;
-  border-radius: 18px;
+  gap: 0.75rem;
+  border-radius: var(--radius);
   background: linear-gradient(180deg, #0b131f 0%, #070c15 56%, #090f18 100%);
-  padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 36px rgba(0, 0, 0, 0.35);
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 32px rgba(0, 0, 0, 0.38);
 }
 
 .stadium-canvas {
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   background: linear-gradient(180deg, #172332 0%, #0f1827 55%, #0b1019 100%);
 }
 
@@ -30,28 +30,29 @@
   height: auto;
 }
 
+/* SVG shapes */
 .stadium-shell {
   fill: rgba(8, 14, 24, 0.84);
-  stroke: rgba(255, 255, 255, 0.24);
+  stroke: rgba(255, 255, 255, 0.22);
   stroke-width: 2.5;
 }
 
 .stadium-floor {
   fill: #1f6549;
-  stroke: rgba(255, 255, 255, 0.22);
+  stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 2;
 }
 
 .stadium-inner-guide {
   fill: rgba(31, 101, 73, 0.14);
-  stroke: rgba(255, 255, 255, 0.2);
+  stroke: rgba(255, 255, 255, 0.18);
   stroke-width: 1.8;
   stroke-dasharray: 10 8;
 }
 
 .stadium-stage {
-  fill: rgba(245, 48, 3, 0.26);
-  stroke: rgba(245, 48, 3, 0.82);
+  fill: rgba(245, 48, 3, 0.24);
+  stroke: rgba(245, 48, 3, 0.78);
   stroke-width: 2.4;
 }
 
@@ -65,16 +66,16 @@
 
 .stadium-sector-shape {
   fill: var(--sector-color, #f53003);
-  opacity: 0.78;
-  stroke: rgba(255, 255, 255, 0.28);
+  opacity: 0.76;
+  stroke: rgba(255, 255, 255, 0.24);
   stroke-width: 1.1;
   cursor: pointer;
-  transition: opacity 0.2s ease, filter 0.2s ease, stroke-width 0.2s ease;
+  transition: opacity 0.18s ease, filter 0.18s ease, stroke-width 0.18s ease;
 }
 
 .stadium-sector-shape:hover,
 .stadium-sector-shape:focus-visible {
-  opacity: 0.95;
+  opacity: 0.94;
   outline: none;
 }
 
@@ -82,7 +83,7 @@
   opacity: 1;
   stroke: #ffffff;
   stroke-width: 2;
-  filter: drop-shadow(0 0 8px rgba(245, 48, 3, 0.4));
+  filter: drop-shadow(0 0 8px rgba(245, 48, 3, 0.44));
 }
 
 .stadium-sector-label-text {
@@ -93,74 +94,82 @@
   dominant-baseline: middle;
   pointer-events: none;
   paint-order: stroke;
-  stroke: rgba(7, 12, 20, 0.7);
+  stroke: rgba(7, 12, 20, 0.72);
   stroke-width: 2px;
 }
 
+/* Lista de sectores */
 .stadium-sector-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.55rem;
-  max-height: 188px;
+  gap: 0.5rem;
+  max-height: 190px;
   overflow-y: auto;
-  padding-right: 0.2rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
 .stadium-sector-chip {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
-  color: #f5f7fb;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  color: rgba(237, 237, 236, 0.9);
   text-align: left;
-  padding: 0.52rem 0.6rem;
+  padding: 0.5rem 0.6rem;
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+  font-family: inherit;
 }
 
 .stadium-sector-chip:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.32);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .stadium-sector-chip.active {
   border-color: var(--sector-color, #f53003);
-  background: rgba(245, 48, 3, 0.2);
-  box-shadow: 0 0 0 1px rgba(245, 48, 3, 0.48);
+  background: rgba(245, 48, 3, 0.18);
+  box-shadow: 0 0 0 1px rgba(245, 48, 3, 0.4);
 }
 
 .stadium-sector-chip-name {
   display: block;
   font-size: 0.76rem;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .stadium-sector-chip-price {
   display: block;
   margin-top: 0.1rem;
   font-size: 0.67rem;
-  opacity: 0.82;
+  opacity: 0.78;
 }
 
+/* Estado vacío */
 .stadium-empty {
   text-align: center;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.92rem;
   padding: 2rem 1rem;
   background: linear-gradient(160deg, #101a28 0%, #0b111b 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
 }
 
+/* Sección de asientos */
 #sectorSeats {
-  margin-top: 1.1rem;
+  margin-top: 1rem;
 }
 
 .seats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 32px);
-  gap: 6px;
+  gap: 5px;
 }
 
+/* Asiento individual */
 .seat {
   width: 32px;
   height: 32px;
@@ -169,42 +178,58 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: .8rem;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .seat-disponible,
 .seat-available {
-  background: #264236;
-  border-color: #2c644c;
-  color: #d3eadf;
+  background: #1e4d38;
+  border-color: #2a6650;
+  color: #b8dece;
+}
+
+.seat-disponible:hover,
+.seat-available:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 2px rgba(42, 102, 80, 0.6);
 }
 
 .seat-reservado,
 .seat-reserved {
-  background: #5a5a57;
-  border-color: #666662;
-  color: #eeeeec;
+  background: #3a3a37;
+  border-color: #4a4a47;
+  color: #8a8a84;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .seat-ocupado,
 .seat-occupied {
-  background: #603232;
-  border-color: #7d3a3a;
-  color: #ffd7d7;
+  background: #4a1e1e;
+  border-color: #6b2828;
+  color: #e09090;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .seat-selected {
   background: var(--color-accent);
   color: #fff;
   border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(245, 48, 3, 0.4);
+}
+
+.seat-selected:hover {
+  transform: scale(1.08);
 }
 
 @media (max-width: 768px) {
   .stadium-view {
-    border-radius: 14px;
-    padding: 0.7rem;
+    border-radius: var(--radius-sm);
+    padding: 0.65rem;
   }
 
   .stadium-sector-list {
@@ -213,17 +238,17 @@
   }
 
   .stadium-sector-chip {
-    padding: 0.45rem 0.5rem;
+    padding: 0.42rem 0.5rem;
   }
 
   .seats-grid {
-    grid-template-columns: repeat(auto-fill, 30px);
-    gap: 5px;
+    grid-template-columns: repeat(auto-fill, 28px);
+    gap: 4px;
   }
 
   .seat {
-    width: 30px;
-    height: 30px;
-    font-size: 0.72rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.68rem;
   }
 }
