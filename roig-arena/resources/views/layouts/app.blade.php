@@ -18,18 +18,16 @@
                 <a class="link" href="{{ route('home', [], false) }}">Inicio</a>
                 <a class="link" href="{{ route('eventos.index', [], false) }}">Eventos</a>
                 @guest
-                    <a class="link" href="{{ route('login', [], false) }}">Login</a>
+                    <a class="link link-cta" href="{{ route('login', [], false) }}">Acceder</a>
                 @endguest
 
                 @auth
                     <a class="link" href="{{ route('dashboard', [], false) }}">{{ auth()->user()->nombre }} {{ auth()->user()->apellido }}</a>
                     <form method="POST" action="{{ route('logout.post', [], false) }}" style="display:inline; margin:0;">
                         @csrf
-                        <button class="link" type="submit" style="background:none; border:0; padding:0; cursor:pointer;">Salir</button>
+                        <button class="link" type="submit" style="background:none; border:0; font-family:inherit; cursor:pointer;">Salir</button>
                     </form>
                 @endauth
-
-                <a class="link" href="{{ route('welcome', [], false) }}">Welcome original</a>
 
             </nav>
         </div>
