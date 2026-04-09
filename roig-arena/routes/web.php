@@ -13,10 +13,16 @@ Route::get('/compra/{evento}', [CompraController::class, 'show'])->name('compra.
 
 // Rutas de autenticación y registro
 Route::view('/login', 'auth.login')->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/login', [AuthController::class, 'loginWeb'])->name('login.post');
 
 Route::view('/register', 'auth.register')->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::post('/logout', [AuthController::class, 'logoutWeb'])->middleware('auth')->name('logout.post');
+
+Route::view('/dashboard', 'auth.dashboard')->middleware('auth')->name('dashboard');
+
+
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
 Route::view('/welcome', 'welcome')->name('welcome');
