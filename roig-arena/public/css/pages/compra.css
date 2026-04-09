@@ -1,69 +1,79 @@
-/* compra.css - estilos específicos para la vista de compra */
+/* compra.css – estilos para la pantalla de compra de entradas */
 
+/* Cabecera */
 .compra-header {
   background: var(--color-card);
   border-radius: var(--radius);
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.5rem;
   border: 1px solid var(--color-border);
-  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .compra-header h1 {
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
   font-weight: 800;
-  color: var(--color-accent);
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 0.02em;
+  color: var(--color-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .compra-header p {
   color: var(--color-muted);
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
+/* Layout principal */
 .seatmap-container {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
-  gap: clamp(1rem, 2.4vw, 2rem);
+  gap: clamp(1rem, 2.4vw, 1.75rem);
   margin-bottom: 2rem;
   align-items: start;
 }
 
+/* Área del mapa */
 .seatmap-area {
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: clamp(1rem, 2.6vw, 1.8rem);
+  padding: clamp(1rem, 2.6vw, 1.75rem);
 }
 
 .seatmap-area h2 {
-  margin: 0 0 1rem 0;
-  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
+/* Leyenda */
 .legend {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.7rem 1.2rem;
-  margin-bottom: 1rem;
-  padding: 0.7rem 0.9rem;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.65rem 0.9rem;
   border: 1px solid var(--color-border-light);
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .legend-item {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   color: var(--color-muted);
+  font-weight: 500;
 }
 
+/* Checkout sidebar */
 .checkout-sidebar {
   background: var(--color-card);
   border: 1px solid var(--color-border);
@@ -80,52 +90,64 @@
   justify-content: space-between;
   gap: 0.8rem;
   border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.8rem;
-  margin-bottom: 0.8rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.9rem;
 }
 
 .checkout-header h3 {
   margin: 0;
-  font-size: 1.04rem;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
 .seat-count {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   color: var(--color-muted);
+  white-space: nowrap;
 }
 
 .selection-summary {
   max-height: 220px;
   overflow-y: auto;
-  padding-right: 0.15rem;
+  padding-right: 0.1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
 }
 
 .selected-item {
-  padding: 0.52rem 0.62rem;
+  padding: 0.5rem 0.65rem;
   background: var(--color-bg);
-  border-radius: 8px;
-  margin-bottom: 0.48rem;
-  font-size: 0.84rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  margin-bottom: 0.45rem;
+  font-size: 0.82rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
 }
 
 .selected-item-remove {
   background: none;
-  border: 0;
+  border: 1px solid transparent;
   color: var(--color-muted);
   cursor: pointer;
   width: 22px;
   height: 22px;
-  border-radius: 99px;
+  border-radius: 50%;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 
 .selected-item-remove:hover {
   background: rgba(245, 48, 3, 0.14);
-  color: #fff;
+  border-color: rgba(245, 48, 3, 0.3);
+  color: #ff6040;
 }
 
 .price-breakdown {
@@ -140,56 +162,63 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 0.6rem;
-  margin: 0.35rem 0;
-  font-size: 0.88rem;
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
 }
 
 .total-section {
   text-align: center;
-  margin: 0.9rem 0 1.2rem;
+  margin: 0.9rem 0 1.1rem;
 }
 
 .total-label {
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   color: var(--color-muted);
-  margin: 0;
+  margin: 0 0 0.35rem;
+  font-weight: 500;
 }
 
 .total-amount {
-  margin: 0.35rem 0 0;
-  font-size: clamp(1.35rem, 3.7vw, 1.8rem);
+  margin: 0;
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
   color: var(--color-accent);
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .checkout-actions {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .btn-secondary {
   background: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  box-shadow: none;
 }
 
 .btn-secondary:hover {
-  background: var(--color-accent);
-  color: #fff;
+  background: var(--color-card-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: none;
 }
 
 .empty-state {
-  margin: 0;
   text-align: center;
   color: var(--color-muted);
-  font-size: 0.88rem;
-  padding: 1.2rem 0.45rem;
+  font-size: 0.85rem;
+  padding: 1.25rem 0.5rem;
+  margin: 0;
 }
 
+/* Layout compra por sectores (buy.blade) */
 .compra-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  gap: 1.75rem;
   margin-bottom: 2rem;
 }
 
@@ -205,15 +234,15 @@
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 2rem;
+  padding: 1.75rem;
   height: fit-content;
   position: sticky;
-  top: 100px;
+  top: calc(var(--nav-height) + 1rem);
   transition: var(--transition);
 }
 
 .sector-group {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .sector-group:last-child {
@@ -221,24 +250,26 @@
 }
 
 .sector-title {
-  font-size: 1rem;
+  font-size: 0.97rem;
   font-weight: 700;
   color: var(--color-accent);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.01em;
 }
 
 .sector-description {
   color: var(--color-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  margin-bottom: 0.9rem;
+  line-height: 1.55;
 }
 
 .precio-display {
   background: var(--color-bg);
   border-left: 3px solid var(--color-accent);
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 0.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -247,11 +278,11 @@
 
 .precio-label {
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .precio-value {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--color-accent);
 }
@@ -262,10 +293,10 @@
   align-items: center;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  transition: var(--transition);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  margin-bottom: 0.9rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .cantidad-selector:focus-within {
@@ -280,13 +311,14 @@
   font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
 }
 
 .cantidad-btn:hover {
@@ -296,7 +328,7 @@
 }
 
 .cantidad-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .cantidad-display {
@@ -304,16 +336,17 @@
   text-align: center;
   color: var(--color-primary);
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .resumen-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--color-border);
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--color-border-light);
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .resumen-item:last-child {
@@ -324,75 +357,63 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  margin-top: 1rem;
+  padding: 1rem 0 0;
+  margin-top: 0.75rem;
   border-top: 2px solid var(--color-accent);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--color-accent);
 }
 
 .acciones {
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
   flex-wrap: wrap;
 }
 
 .btn-full {
   flex: 1;
-  min-width: 150px;
+  min-width: 140px;
 }
 
 .info-message {
   background: var(--color-bg);
   border-left: 3px solid var(--color-accent);
-  padding: 1.2rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-  color: var(--color-primary);
+  padding: 1rem 1.1rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 1.25rem;
+  color: rgba(237, 237, 236, 0.8);
   font-size: 0.9rem;
   line-height: 1.6;
-  transition: var(--transition);
 }
 
-@media (max-width: 768px) {
-  .compra-header {
-    padding: 1.5rem;
-  }
-
-  .compra-header h1 {
-    font-size: 1.3rem;
-  }
-
-  .compra-content,
-  .seatmap-container {
+@media (max-width: 900px) {
+  .seatmap-container,
+  .compra-content {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 1.25rem;
   }
 
-  .seatmap-area {
-    padding: 1rem;
+  .checkout-sidebar,
+  .compra-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .compra-header {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .seatmap-area,
+  .compra-main,
+  .compra-sidebar {
+    padding: 1.25rem;
   }
 
   .legend {
-    gap: 0.55rem 0.8rem;
-    padding: 0.55rem 0.65rem;
-  }
-
-  .checkout-sidebar {
-    position: static;
-    padding: 1rem;
-  }
-
-  .compra-main {
-    padding: 1.5rem;
-  }
-
-  .compra-sidebar {
-    position: static;
-    padding: 1.5rem;
+    gap: 0.4rem 0.75rem;
   }
 
   .acciones {
@@ -403,5 +424,4 @@
     min-width: auto;
     width: 100%;
   }
-
 }
