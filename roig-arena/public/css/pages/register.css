@@ -1,185 +1,199 @@
+/* register.css – estilos para la pantalla de registro */
+
 .register-page .main {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
+  padding: 0;
+}
 
-		.register-page .main > .container {
-			max-width: none;
-			padding: 0;
-		}
+.register-page .main > .container {
+  max-width: none;
+  padding: 0;
+}
 
-		.register-shell {
-			min-height: calc(100dvh - var(--nav-height));
-			display: grid;
-			grid-template-columns: minmax(0, 1.1fr) minmax(320px, 420px);
-			gap: clamp(1.5rem, 4vw, 3rem);
-			align-items: center;
-			padding: clamp(1.25rem, 4vw, 4rem);
-			background:
-				radial-gradient(circle at top left, rgba(245, 48, 3, 0.18), transparent 30%),
-				radial-gradient(circle at bottom right, rgba(104, 68, 255, 0.12), transparent 28%),
-				linear-gradient(135deg, #0f0f10 0%, #161615 56%, #111111 100%);
-		}
+.register-shell {
+  min-height: calc(100dvh - var(--nav-height));
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 440px);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  background:
+    radial-gradient(ellipse 55% 60% at 0% 50%, rgba(245, 48, 3, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 100% 100%, rgba(120, 40, 255, 0.08) 0%, transparent 60%),
+    var(--color-bg);
+}
 
-		.register-copy {
-			max-width: 680px;
-		}
+.register-copy {
+  max-width: 560px;
+}
 
-		.register-kicker {
-			margin: 0 0 0.9rem;
-			text-transform: uppercase;
-			letter-spacing: 0.22em;
-			color: var(--color-accent);
-			font-size: 0.8rem;
-			font-weight: 700;
-		}
+.register-kicker {
+  display: inline-block;
+  margin: 0 0 1rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
 
-		.register-title {
-			margin: 0;
-			font-size: clamp(2.3rem, 5vw, 4.5rem);
-			line-height: 0.98;
-			letter-spacing: -0.04em;
-			color: #f4f3f0;
-			text-wrap: balance;
-		}
+.register-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #f4f3f0;
+  margin: 0 0 1.25rem;
+}
 
-		.register-text {
-			margin: 1.2rem 0 0;
-			max-width: 56ch;
-			color: rgba(237, 237, 236, 0.82);
-			font-size: 1.05rem;
-			line-height: 1.7;
-		}
+.register-text {
+  color: rgba(237, 237, 236, 0.68);
+  font-size: 1rem;
+  line-height: 1.72;
+  margin: 0;
+  max-width: 54ch;
+}
 
-		.register-card {
-			position: relative;
-			overflow: hidden;
-			border-radius: 24px;
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			background: rgba(27, 27, 24, 0.92);
-			box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-			backdrop-filter: blur(18px);
-		}
+.register-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
 
-		.register-card::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(180deg, rgba(245, 48, 3, 0.16), transparent 24%);
-			pointer-events: none;
-		}
+.register-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), #ff7a5a 60%, transparent);
+  pointer-events: none;
+}
 
-		.register-form {
-			position: relative;
-			z-index: 1;
-			display: grid;
-			gap: 1rem;
-			padding: clamp(1.5rem, 3vw, 2.2rem);
-		}
+.register-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+}
 
-		.register-field {
-			display: grid;
-			gap: 0.45rem;
-		}
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
 
-		.register-field span {
-			color: rgba(237, 237, 236, 0.86);
-			font-size: 0.95rem;
-			font-weight: 600;
-		}
+.register-field > span {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(237, 237, 236, 0.78);
+  letter-spacing: 0.01em;
+}
 
-		.register-field input {
-			width: 100%;
-			border-radius: 14px;
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			background: rgba(10, 10, 10, 0.56);
-			color: #f4f3f0;
-			padding: 0.95rem 1rem;
-			font-size: 1rem;
-			transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-		}
+.register-field input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-primary);
+  padding: 0.88rem 1rem;
+  font-size: 0.97rem;
+  font-family: inherit;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  outline: none;
+}
 
-		.register-field input::placeholder {
-			color: rgba(237, 237, 236, 0.35);
-		}
+.register-field input::placeholder {
+  color: rgba(237, 237, 236, 0.25);
+}
 
-		.register-field input:focus {
-			outline: none;
-			border-color: var(--color-accent);
-			box-shadow: 0 0 0 4px rgba(245, 48, 3, 0.16);
-		}
+.register-field input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(245, 48, 3, 0.14);
+}
 
-		.register-error {
-			margin: 0;
-			min-height: 1.2em;
-			color: #ffb4a2;
-			font-size: 0.92rem;
-		}
+.register-error {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #ffb0a0;
+  min-height: 1.1em;
+}
 
-		.register-alert {
-			padding: 0.9rem 1rem;
-			border-radius: 14px;
-			background: rgba(245, 48, 3, 0.08);
-			border: 1px solid rgba(245, 48, 3, 0.26);
-			color: #ffd4ca;
-		}
+.register-alert {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: rgba(245, 48, 3, 0.08);
+  border: 1px solid rgba(245, 48, 3, 0.22);
+  color: #ffd4ca;
+  font-size: 0.9rem;
+}
 
-		.register-submit {
-			margin-top: 0.25rem;
-			border: 0;
-			border-radius: 999px;
-			padding: 0.95rem 1.25rem;
-			background: linear-gradient(135deg, #f53003, #ff5f2a);
-			color: white;
-			font-size: 1rem;
-			font-weight: 800;
-			letter-spacing: 0.02em;
-			cursor: pointer;
-			box-shadow: 0 18px 30px rgba(245, 48, 3, 0.28);
-			transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-		}
+.register-submit {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.92rem;
+  background: linear-gradient(135deg, #f53003, #ff6240);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(245, 48, 3, 0.3);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  margin-top: 0.3rem;
+}
 
-		.register-submit:hover {
-			transform: translateY(-1px);
-			box-shadow: 0 22px 34px rgba(245, 48, 3, 0.34);
-			filter: brightness(1.03);
-		}
+.register-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(245, 48, 3, 0.38);
+  filter: brightness(1.05);
+}
 
-		.register-submit:disabled {
-			opacity: 0.7;
-			cursor: wait;
-			transform: none;
-		}
+.register-submit:active {
+  transform: translateY(0);
+}
 
-		.register-note {
-			margin: 0.2rem 0 0;
-			font-size: 0.94rem;
-			color: rgba(237, 237, 236, 0.8);
-		}
+.register-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
 
-		.register-note a {
-			color: #ff8b66;
-			font-weight: 700;
-			text-decoration: none;
-		}
+.register-note {
+  font-size: 0.88rem;
+  color: rgba(237, 237, 236, 0.62);
+  margin: 0;
+  text-align: center;
+}
 
-		.register-note a:hover {
-			text-decoration: underline;
-		}
+.register-note a {
+  color: #ff8060;
+  font-weight: 700;
+}
 
-		@media (max-width: 920px) {
-			.register-shell {
-				grid-template-columns: 1fr;
-				align-items: start;
-			}
-		}
+.register-note a:hover {
+  color: #ff9880;
+}
 
-		@media (max-width: 640px) {
-			.register-shell {
-				padding: 1rem;
-			}
+@media (max-width: 900px) {
+  .register-shell {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .register-copy {
+    max-width: none;
+  }
+}
 
-			.register-card {
-				border-radius: 18px;
-			}
-		}
+@media (max-width: 560px) {
+  .register-shell {
+    padding: 1.25rem 1rem;
+  }
+  .register-card {
+    border-radius: var(--radius);
+  }
+}
