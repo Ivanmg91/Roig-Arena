@@ -11,6 +11,9 @@ class SeatMapManager {
         // Payload completo del evento recibido desde backend.
         this.data = null;
 
+        this.reservasActivas = [];   // [{id, reservado_hasta}, ...]
+        this.paymentTimerInterval = null;
+
         // Arranca el ciclo de carga inicial de la pantalla.
         this.init();
     }
@@ -616,8 +619,13 @@ class SeatMapManager {
 
     // Enlaza acciones de la vista con métodos de la clase.
     setupEventListeners() {
-        const confirmBtn = document.getElementById('confirmBtn');
-        confirmBtn.addEventListener('click', () => this.proceedToCheckout());
+        document.getElementById('confirmBtn').addEventListener('click', () => this.proceedToCheckout());
+        document.getElementById('payBtn').addEventListener('click', () => this.confirmPayment());
+        document.getElementById('closePaymentModal').addEventListener('click', () => this.closePaymentModal());
+        // Cerrar al pulsar fuera del modal
+        document.getElementById('paymentModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) this.closePaymentModal();
+        });
     }
 
     // Reserva primero los asientos seleccionados y luego confirma la compra.
@@ -629,7 +637,6 @@ class SeatMapManager {
 
         const token = localStorage.getItem('sanctum_token');
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-
         const headers = {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
@@ -639,54 +646,136 @@ class SeatMapManager {
         const asientos = Array.from(this.selectedSeats.values());
 
         try {
-            // Paso 1: crear reservas activas en backend para cada asiento seleccionado.
+            // Paso 1: Reservar todos los asientos
+            this.reservasActivas = [];
+
             for (const asiento of asientos) {
-                const reservaResponse = await fetch('/api/reservas', {
-                    method: 'POST',
-                    headers,
-                    credentials: 'include',
+                const res = await fetch('/api/reservas', {
+                    method: 'POST', headers, credentials: 'include',
                     body: JSON.stringify({
                         evento_id: Number(this.eventoId),
                         asiento_id: Number(asiento.id)
                     })
                 });
-
-                if (!reservaResponse.ok) {
-                    const reservaError = await reservaResponse.json().catch(() => ({}));
-                    const detalle = reservaError.error || reservaError.message || `HTTP ${reservaResponse.status}`;
-                    throw new Error(`No se pudo reservar el asiento ${asiento.fila}${asiento.columna}: ${detalle}`);
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.message || `Error reservando asiento ${asiento.fila}-${asiento.columna}`);
                 }
+                const data = await res.json();
+                this.reservasActivas.push(data.data); // guarda id y reservado_hasta
             }
-
-            // Paso 2: confirmar compra sobre reservas activas.
-            const confirmResponse = await fetch('/api/compras/confirmar', {
-                method: 'POST',
-                headers,
-                credentials: 'include',
-                body: JSON.stringify({
-                    metodo_pago: 'tarjeta'
-                })
-            });
-
-            const data = await confirmResponse.json().catch(() => ({}));
-
-            if (!confirmResponse.ok || !data.success) {
-                const detalle = data.message || `HTTP ${confirmResponse.status}`;
-                throw new Error(detalle);
-            }
-
-            localStorage.removeItem('seatmap_cart');
-            this.selectedSeats.clear();
-            this.updateSeatVisuals();
-            this.updateCart();
-
-            alert(`Compra confirmada. Total: ${Number(data.total || 0).toFixed(2)}€`);
-            window.location.href = '/eventos';
         } catch (error) {
-            console.error('Error al procesar checkout:', error);
-            alert('Error al procesar la compra: ' + error.message);
+            console.error('Error al reservar:', error);
+            alert('Error al reservar los asientos: ' + error.message);
         }
     }
+
+    openPaymentModal() {
+        const modal = document.getElementById('paymentModal');
+        const summary = document.getElementById('paymentSummary');
+        const totalEl = document.getElementById('paymentTotal');
+
+        // Resumen asientos
+        summary.innerHTML = '';
+        let total = 0;
+        this.selectedSeats.array.forEach(seat => {
+            const precio = Number(seat.precio || 0);
+            total += precio;
+            const row = document.createElement('div');
+            row.className = 'payment-seat-row';
+            row.innerHTML = `<span>Fila ${seat.fila} · Asiento ${seat.columna} · ${seat.sector_nombre || ''}</span><span>${precio.toFixed(2)}€</span>`;
+            summary.appendChild(row);
+        });
+        totalEl.textContent = total.toFixed(2).replace('.', ',') + '€';
+
+        // Calcular tiempo restante desde reservado_hasta de la primera reserva
+        const primeraReserva = this.reservasActivas[0];
+        const expira = primeraReserva?.reservado_hasta
+            ? new Date(primeraReserva.reservado_hasta)
+            : new Date(Date.now() + 15 * 60 * 1000);
+
+        // Arrancar countdown
+        this.startCountdown(expira);
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    startCountdown(expiresAt) {
+        clearInterval(this.paymentTimerInterval);
+        const el = document.getElementById('paymentCountdown');
+
+        const tick = () => {
+            const remaining = Math.max(0, expiresAt - Date.now());
+            const mins = Math.floor(remaining / 60000);
+            const secs = Math.floor((remaining % 60000) / 1000);
+            el.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+            if (remaining <= 0) {
+                clearInterval(this.paymentTimerInterval);
+                el.textContent = '00:00';
+                document.getElementById('payBtn').disabled = true;
+                alert('El tiempo de reserva ha expirado. Por favor, vuelve a seleccionar tus asientos.');
+                this.closePaymentModal();
+            }
+        };
+
+        tick();
+        this.paymentTimerInterval = setInterval(tick, 1000);
+    }
+
+    closePaymentModal() {
+        clearInterval(this.paymentTimerInterval);
+        document.getElementById('paymentModal').style.display = 'none';
+        document.body.style.overflow = '';
+        // La reserva permanece en backend durante 15 min (mecánica de reservado_hasta)
+        // El usuario puede volver a abrir la página y ver sus asientos reservados
+    }
+
+    async confirmPayment() {
+        const payBtn = document.getElementById('payBtn');
+        payBtn.disabled = true;
+        payBtn.textContent = 'Procesando...';
+
+        const token = localStorage.getItem('sanctum_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        const headers = {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Authorization': token ? `Bearer ${token}` : ''
+        };
+
+        try {
+            const res = await fetch('/api/compras/confirmar', {
+                method: 'POST', headers, credentials: 'include',
+                body: JSON.stringify({ metodo_pago: 'tarjeta' })
+            });
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.message || `HTTP ${res.status}`);
+            }
+
+            clearInterval(this.paymentTimerInterval);
+            localStorage.removeItem('seatmap_cart');
+            this.selectedSeats.clear();
+            this.reservasActivas = [];
+            this.updateSeatVisuals();
+            this.updateCart();
+            this.closePaymentModal();
+
+            alert(`¡Compra confirmada! Total: ${Number(data.total || 0).toFixed(2)}€`);
+            window.location.href = '/eventos';
+
+        } catch (error) {
+            console.error('Error al confirmar pago:', error);
+            alert('Error al procesar el pago: ' + error.message);
+            payBtn.disabled = false;
+            payBtn.textContent = 'Pagar ahora';
+        }
+    }
+
+
 }
 
 // Inicializar cuando la página carga
