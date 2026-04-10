@@ -227,3 +227,12 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [Laravel Sanctum](https://laravel.com/docs/sanctum) (autenticación API)
 - MySQL 8
 - PHPUnit (tests)
+
+
+
+
+
+
+
+
+AL COMPRAR DEBERIA SALIR UN POPUP PARA PAGAR Y SI SALES DE EL Q SE MANTENGA EN RESERVADO PARA TI 15 MINS. ERROR: EL POPUP NO SE ABRE PERO CREO Q SE REALIZA LA COMPRA
