@@ -19,26 +19,26 @@ class CompraService
         try {
             foreach ($reservasIds as $reservaId) {
                 $reserva = $this->obtenerReserva($reservaId, $userId);
-                
+
                 // Verificar expiración
                 $this->verificarNoExpirada($reserva);
-                
+
                 // Obtener precio
                 $precio = $this->obtenerPrecio($reserva);
-                
+
                 // Marcar como vendido
                 $reserva->marcarComoVendido();
-                
+
                 // Crear entrada y cargar relaciones
                 $entrada = $this->crearEntrada($reserva, $precio, $userId);
                 $entrada->load(['evento', 'asiento.sector']);
-                
+
                 $entradas[] = $entrada;
             }
             DB::commit();
-            
+
             return collect($entradas);
-            
+
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -73,11 +73,11 @@ class CompraService
     private function obtenerPrecio($reserva)
     {
         $precio = $reserva->evento->precioDelSector($reserva->asiento->sector_id);
-        
+
         if (!$precio) {
             throw new \Exception('No se encontró el precio para el sector');
         }
-        
+
         return $precio;
     }
 

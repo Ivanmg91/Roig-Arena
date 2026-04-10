@@ -620,37 +620,72 @@ class SeatMapManager {
         confirmBtn.addEventListener('click', () => this.proceedToCheckout());
     }
 
-    // Envía selección al backend para iniciar el flujo de confirmación/checkout.
-    proceedToCheckout() {
-        const cartData = {
-            // evento_id: this.eventoId,
-            // asientos: Array.from(this.selectedSeats.keys())
+    // Reserva primero los asientos seleccionados y luego confirma la compra.
+    async proceedToCheckout() {
+        if (this.selectedSeats.size === 0) {
+            alert('Selecciona al menos un asiento para continuar.');
+            return;
+        }
 
-            //user_id:
+        const token = localStorage.getItem('sanctum_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Authorization': token ? `Bearer ${token}` : ''
         };
 
-        // Enviar al backend para confirmar compra
-        const token = localStorage.getItem('sanctum_token');
-        fetch('/api/compras/confirmar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Authorization': token ? `Bearer ${token}` : ''
-            },
-            credentials: 'include',
-            body: JSON.stringify(cartData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Redirigir a confirmación de pago
-                window.location.href = data.redirect_url;
-            } else {
-                alert('Error al procesar la compra: ' + data.message);
+        const asientos = Array.from(this.selectedSeats.values());
+
+        try {
+            // Paso 1: crear reservas activas en backend para cada asiento seleccionado.
+            for (const asiento of asientos) {
+                const reservaResponse = await fetch('/api/reservas', {
+                    method: 'POST',
+                    headers,
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        evento_id: Number(this.eventoId),
+                        asiento_id: Number(asiento.id)
+                    })
+                });
+
+                if (!reservaResponse.ok) {
+                    const reservaError = await reservaResponse.json().catch(() => ({}));
+                    const detalle = reservaError.error || reservaError.message || `HTTP ${reservaResponse.status}`;
+                    throw new Error(`No se pudo reservar el asiento ${asiento.fila}${asiento.columna}: ${detalle}`);
+                }
             }
-        })
-        .catch(error => console.error('Error:', error));
+
+            // Paso 2: confirmar compra sobre reservas activas.
+            const confirmResponse = await fetch('/api/compras/confirmar', {
+                method: 'POST',
+                headers,
+                credentials: 'include',
+                body: JSON.stringify({
+                    metodo_pago: 'tarjeta'
+                })
+            });
+
+            const data = await confirmResponse.json().catch(() => ({}));
+
+            if (!confirmResponse.ok || !data.success) {
+                const detalle = data.message || `HTTP ${confirmResponse.status}`;
+                throw new Error(detalle);
+            }
+
+            localStorage.removeItem('seatmap_cart');
+            this.selectedSeats.clear();
+            this.updateSeatVisuals();
+            this.updateCart();
+
+            alert(`Compra confirmada. Total: ${Number(data.total || 0).toFixed(2)}€`);
+            window.location.href = '/eventos';
+        } catch (error) {
+            console.error('Error al procesar checkout:', error);
+            alert('Error al procesar la compra: ' + error.message);
+        }
     }
 }
 
