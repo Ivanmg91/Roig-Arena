@@ -87,5 +87,50 @@
     </div>
     
     <div id="eventoData" data-evento-id="{{ $evento->id }}"></div>
-    <script src="/js/pages/compra.js"></script> 
+
+    <!-- Modal de simulación de pago -->
+    <div id="paymentModal" class="payment-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+        <div class="payment-modal">
+            <div class="payment-modal-header">
+                <h2 id="paymentModalTitle">Simulación de pago</h2>
+                <button id="closePaymentModal" class="payment-modal-close" aria-label="Cerrar">&times;</button>
+            </div>
+
+            <div class="payment-timer">
+                <span>Asientos reservados durante: </span>
+                <strong id="paymentCountdown">15:00</strong>
+            </div>
+
+            <div id="paymentSummary" class="payment-summary"></div>
+
+            <div class="payment-form">
+                <h3>Datos de tarjeta</h3>
+                <div class="payment-field">
+                    <label for="cardNumber">Número de tarjeta</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number">
+                </div>
+                <div class="payment-field-row">
+                    <div class="payment-field">
+                        <label for="cardExpiry">Caducidad</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp">
+                    </div>
+                    <div class="payment-field">
+                        <label for="cardCvv">CVV</label>
+                        <input type="text" id="cardCvv" placeholder="123" maxlength="3" autocomplete="cc-csc">
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="cardName">Titular</label>
+                    <input type="text" id="cardName" placeholder="Nombre en la tarjeta" autocomplete="cc-name">
+                </div>
+            </div>
+
+            <div class="payment-modal-footer">
+                <p class="payment-total">Total: <strong id="paymentTotal">0,00€</strong></p>
+                <button id="payBtn" class="btn btn-primary payment-pay-btn">Pagar ahora</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/pages/compra.js"></script>
 @endsection
