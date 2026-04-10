@@ -27,7 +27,7 @@
 
 .event-card-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1 / 0;
   object-fit: cover;
   border-bottom: 1px solid var(--color-border);
   transition: transform 0.3s ease, opacity 0.3s ease;

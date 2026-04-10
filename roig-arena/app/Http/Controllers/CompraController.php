@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Entrada;
 use App\Models\EstadoAsiento;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
 {
@@ -35,7 +36,6 @@ class CompraController extends Controller
         $reservas = EstadoAsiento::whereIn('id', $request->reservas)->get();
 
         foreach ($reservas as $reserva) {
-
             // ❌ Expirada
             if ($reserva->reservado_hasta < now()) {
                 return response()->json(['error' => 'Reserva expirada'], 400);
@@ -66,7 +66,7 @@ class CompraController extends Controller
             'message' => 'Compra procesada exitosamente',
         ], 201);
     }
-    
+
 
     /**
      * API endpoint para traer asientos por sector (JSON)
@@ -75,7 +75,7 @@ class CompraController extends Controller
     {
         $evento = Evento::findOrFail($eventoId);
         $sectores = $evento->sectores()->with('asientos')->get();
-        
+
         return response()->json([
             'success' => true,
             'data' => $sectores
@@ -89,7 +89,7 @@ class CompraController extends Controller
     {
         $sector = Sector::findOrFail($sectorId);
         $asientos = $sector->asientos()->where('disponible', true)->get();
-        
+
         return response()->json([
             'success' => true,
             'data' => $asientos
@@ -108,7 +108,7 @@ class CompraController extends Controller
 
         $carrito = session()->get('carrito', []);
         $asientoId = $request->asiento_id;
-        
+
         if (!isset($carrito[$asientoId])) {
             $asiento = Asiento::find($asientoId);
             $carrito[$asientoId] = [
@@ -119,9 +119,9 @@ class CompraController extends Controller
                 'precio' => $asiento->precio
             ];
         }
-        
+
         session()->put('carrito', $carrito);
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Asiento añadido al carrito',
@@ -140,12 +140,12 @@ class CompraController extends Controller
 
         $carrito = session()->get('carrito', []);
         $asientoId = $request->asiento_id;
-        
+
         if (isset($carrito[$asientoId])) {
             unset($carrito[$asientoId]);
             session()->put('carrito', $carrito);
         }
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Asiento removido del carrito',
@@ -160,7 +160,7 @@ class CompraController extends Controller
     {
         $carrito = session()->get('carrito', []);
         $total = collect($carrito)->sum('precio');
-        
+
         return response()->json([
             'success' => true,
             'carrito' => $carrito,
@@ -175,7 +175,7 @@ class CompraController extends Controller
     public function obtenerSectoresDisponibles($eventoId) {
         $evento = Evento::findOrFail($eventoId);
         $sectoresDisponibles = $evento->sectores()->activos()->get();
-        
+
         return response()->json([
             'success' => true,
             'data' => $sectoresDisponibles
@@ -189,32 +189,61 @@ class CompraController extends Controller
     public function confirmarCompra(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'metodo_pago' => 'required|in:tarjeta,efectivo,transferencia'
         ]);
 
-        $carrito = session()->get('carrito', []);
-        
-        if (empty($carrito)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'El carrito está vacío'
-            ], 400);
-        }
+        $user = $request->user();
 
         try {
-            // Crear compra y procesar pago
-            $total = collect($carrito)->sum('precio');
-            
-            // Aquí iría la lógica de crear la compra en BD
-            // y marcar asientos como no disponibles
-            
-            session()->forget('carrito');
-            
+            $resultado = DB::transaction(function () use ($user) {
+                $reservas = EstadoAsiento::with('asiento')
+                    ->where('user_id', $user->id)
+                    ->where('estado', 'RESERVADO')
+                    ->where('reservado_hasta', '>', now())
+                    ->lockForUpdate()
+                    ->get();
+
+                if ($reservas->isEmpty()) {
+                    return null;
+                }
+
+                $total = 0;
+
+                foreach ($reservas as $reserva) {
+                    $precioAsiento = (float) ($reserva->asiento->precio ?? 0);
+                    $total += $precioAsiento;
+
+                    Entrada::create([
+                        'user_id' => $user->id,
+                        'evento_id' => $reserva->evento_id,
+                        'asiento_id' => $reserva->asiento_id,
+                        'precio_pagado' => $precioAsiento,
+                        'codigo_qr' => Str::random(32),
+                    ]);
+
+                    $reserva->update([
+                        'estado' => 'OCUPADO',
+                    ]);
+                }
+
+                return [
+                    'total' => $total,
+                    'cantidad_entradas' => $reservas->count(),
+                ];
+            });
+
+            if ($resultado === null) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El carrito está vacío'
+                ], 400);
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Compra confirmada exitosamente',
-                'total' => $total
+                'total' => $resultado['total'],
+                'cantidad_entradas' => $resultado['cantidad_entradas']
             ]);
         } catch (\Exception $e) {
             return response()->json([

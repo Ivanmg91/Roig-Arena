@@ -10,7 +10,7 @@ class Asiento extends Model
     use HasFactory;
 
     protected $table = 'asientos';
-    
+
     protected $fillable = [
         'sector_id',
         'fila',
@@ -70,8 +70,8 @@ class Asiento extends Model
         ->where('reservado_hasta', '>', now())
         ->exists();
     }
-    
-    public function estaOcupado($eventoId) { 
+
+    public function estaOcupado($eventoId) {
         return $this->estadoAsientos()
         ->where('evento_id', $eventoId)
         ->where('estado', 'OCUPADO')
