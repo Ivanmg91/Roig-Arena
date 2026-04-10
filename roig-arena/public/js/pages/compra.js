@@ -10,6 +10,10 @@ class SeatMapManager {
         this.activeSectorRequestId = 0;
         // Payload completo del evento recibido desde backend.
         this.data = null;
+        // Reservas activas creadas en el paso previo al pago (array de objetos ReservaResource).
+        this.reservasActivas = [];
+        // Referencia al intervalo del countdown del modal de pago.
+        this.paymentTimerInterval = null;
 
         this.reservasActivas = [];   // [{id, reservado_hasta}, ...]
         this.paymentTimerInterval = null;
@@ -628,7 +632,7 @@ class SeatMapManager {
         });
     }
 
-    // Reserva primero los asientos seleccionados y luego confirma la compra.
+    // Reserva los asientos seleccionados y abre el modal de pago simulado.
     async proceedToCheckout() {
         if (this.selectedSeats.size === 0) {
             alert('Selecciona al menos un asiento para continuar.');
