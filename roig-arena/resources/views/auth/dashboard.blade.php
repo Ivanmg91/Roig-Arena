@@ -22,6 +22,10 @@
             <a href="#" class="dashboard-action">Mis datos</a>
             <a href="#" class="dashboard-action">Mis compras</a>
             <a href="#" class="dashboard-action">Mis entradas</a>
+            <form method="POST" class="dashboard-action-form" action="{{ route('logout.post', [], false) }}">
+                @csrf
+                <button class="dashboard-action dashboard-action--danger" type="submit">Cerrar sesión</button>
+            </form>
         </div>
     </section>
 @endsection

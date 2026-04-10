@@ -23,10 +23,6 @@
 
                 @auth
                     <a class="link" href="{{ route('dashboard', [], false) }}">{{ auth()->user()->nombre }} {{ auth()->user()->apellido }}</a>
-                    <form method="POST" action="{{ route('logout.post', [], false) }}" style="display:inline; margin:0;">
-                        @csrf
-                        <button class="link" type="submit">Salir</button>
-                    </form>
                 @endauth
 
             </nav>

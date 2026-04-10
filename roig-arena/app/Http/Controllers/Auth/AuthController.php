@@ -36,6 +36,12 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth-token')->plainTextToken;
 
+        // Si la ruta es de registro, iniciar sesión automáticamente
+        if ($request->routeIs('register.post')) {
+            Auth::login($user);
+            $request->session()->regenerate();
+        }
+
         return response()->json([
             'user' => $user,
             'token' => $token,

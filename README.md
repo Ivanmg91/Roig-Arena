@@ -49,26 +49,109 @@ bash arena.sh
 
 ## Estructura del proyecto
 
-```
+La aplicación sigue una estructura clásica de Laravel, pero organizada para separar claramente la capa HTTP, la lógica de negocio, el acceso a datos y la preparación de respuestas JSON. El flujo general es este:
+
+1. La petición entra por `routes/api.php` o `routes/web.php`.
+2. El controlador valida los datos recibidos y decide qué caso de uso ejecutar.
+3. Si la operación tiene reglas de negocio más complejas, el controlador delega en un `Service`.
+4. El `Model` encapsula relaciones, scopes y métodos útiles del dominio.
+5. Los `Resource` transforman los modelos a JSON con una salida consistente.
+6. Las migraciones, seeders y factories preparan y alimentan la base de datos.
+
+```text
 Roig-Arena/
-├── setup-arena.sh        # Setup inicial del entorno (ejecutar una vez)
-├── arena.sh              # Reinicio completo del entorno
-└── roig-arena/           # Aplicación Laravel
+├── setup-arena.sh              # Setup inicial del entorno
+├── arena.sh                    # Reinicio completo del entorno
+└── roig-arena/                 # Aplicación Laravel
     ├── app/
     │   ├── Http/
-    │   │   ├── Controllers/   # Controladores de la API
-    │   │   └── Resources/     # Recursos JSON
-    │   └── Models/            # Modelos Eloquent
+    │   │   ├── Controllers/
+    │   │   │   ├── Auth/       # Login, registro y cierre de sesión
+    │   │   │   └── Web/        # Vistas web puntuales
+    │   │   ├── Middleware/      # Ej. protección de rutas de admin
+    │   │   └── Resources/      # Formateo de respuestas JSON
+    │   ├── Models/              # Modelo de dominio y relaciones Eloquent
+    │   └── Services/            # Lógica de negocio más compleja
+    ├── bootstrap/               # Arranque de la aplicación
+    ├── config/                  # Configuración de Laravel y paquetes
     ├── database/
-    │   ├── migrations/        # Migraciones
-    │   ├── factories/         # Factories para tests/seeders
-    │   └── seeders/           # Seeders de datos iniciales
+    │   ├── migrations/          # Esquema de tablas
+    │   ├── factories/           # Datos falsos para tests/seeders
+    │   └── seeders/             # Carga inicial de datos
+    ├── public/                  # Entrada pública y assets compilados
+    ├── resources/               # Vistas, CSS y JS fuente
     ├── routes/
-    │   └── api.php            # Rutas de la API
-    ├── tests/                 # Tests de PHPUnit
-    ├── compose.yaml           # Configuración de Docker / Sail
-    └── .env.example           # Variables de entorno de ejemplo
+    │   ├── api.php              # Rutas REST de la API
+    │   ├── web.php              # Rutas web
+    │   └── console.php          # Tareas de consola
+    └── tests/                   # Tests de PHPUnit
 ```
+
+### Qué hace cada capa
+
+- `routes/api.php`: define el mapa de endpoints públicos, protegidos por `auth:sanctum` y administradores con `admin`.
+- `app/Http/Controllers/`: recibe la petición, valida entrada y devuelve la respuesta. Aquí viven los controladores de autenticación, eventos, reservas, compras, artistas, asientos y sectores.
+- `app/Http/Resources/`: formatea la salida JSON para que la API no exponga directamente toda la estructura interna del modelo.
+- `app/Services/`: concentra reglas de negocio que no deberían vivir en el controlador. Por ejemplo, la reserva bloquea un asiento con transacción y control de concurrencia.
+- `app/Models/`: representa las tablas y relaciones Eloquent. Aquí están las reglas de consulta, scopes y métodos como disponibilidad de eventos, estado de asientos o generación de códigos QR.
+- `database/migrations/`: define el esquema físico. La migración principal crea sectores, asientos, eventos, artistas, precios, estados de asientos y entradas.
+- `database/seeders/`: introduce datos base para poder arrancar el proyecto y probar la API desde el principio.
+- `database/factories/`: genera datos de prueba para tests y cargas masivas.
+- `tests/`: contiene la batería de PHPUnit que verifica endpoints y reglas principales.
+
+### Flujo funcional de la aplicación
+
+#### 1. Autenticación
+
+El usuario se registra o inicia sesión contra `AuthController`. En el registro se crea el usuario, se genera un token de Sanctum y se devuelve junto con los datos del usuario. En el login API se validan credenciales, se invalidan tokens anteriores y se emite uno nuevo.
+
+#### 2. Consulta pública
+
+Las rutas públicas permiten listar eventos, consultar su detalle, ver sectores, asientos y artistas. En esta capa el controlador suele apoyarse en relaciones Eloquent como `precios`, `sectores` o `artistas` y en recursos como `EventoResource` para devolver una respuesta limpia y homogénea.
+
+#### 3. Reserva de asientos
+
+Cuando un usuario autenticado reserva un asiento, `ReservaController` delega en `ReservaService`. Ese servicio abre una transacción, bloquea el registro para evitar carreras simultáneas, comprueba que el sector esté disponible para el evento y crea un registro en `estado_asientos` con estado `RESERVADO` y una caducidad de 15 minutos.
+
+#### 4. Compra y confirmación
+
+La compra convierte una reserva temporal en una venta definitiva. `CompraController` valida las reservas, verifica que no hayan expirado y que pertenezcan al usuario autenticado, crea una entrada en `entradas` y marca el asiento como `OCUPADO`. La entrada guarda el código QR que luego servirá para validación.
+
+#### 5. Administración
+
+Las rutas de administración están protegidas con `auth:sanctum` y el middleware `admin`. Desde ahí se pueden crear, editar o eliminar eventos, sectores y artistas. La eliminación de un evento está restringida si ya tiene entradas vendidas.
+
+### Archivos clave del dominio
+
+- `app/Models/Evento.php`: centraliza la lógica del evento, sus relaciones con precios, sectores, artistas, estados de asientos y entradas, además de scopes como eventos futuros.
+- `app/Models/Sector.php`: representa las zonas del recinto y permite consultar sus asientos y su disponibilidad.
+- `app/Models/Asiento.php`: modela cada butaca física y expone métodos para saber si está libre, reservada u ocupada para un evento concreto.
+- `app/Models/EstadoAsiento.php`: controla el ciclo de vida de cada asiento por evento, incluyendo reservas temporales y ventas definitivas.
+- `app/Models/Entrada.php`: representa la compra confirmada y genera automáticamente el código QR único.
+- `app/Services/ReservaService.php`: concentra la lógica crítica de bloqueo y expiración de reservas.
+- `database/seeders/DatabaseSeeder.php`: ejecuta los seeders en orden para que primero existan sectores, luego eventos, asientos, usuarios, precios y artistas.
+
+### Orden de carga de datos iniciales
+
+El orden de los seeders importa, porque varias tablas dependen de otras:
+
+1. `SectorSeeder` crea las zonas base del recinto.
+2. `EventoSeeder` crea los eventos.
+3. `AsientoSeeder` genera los asientos físicos por sector.
+4. `UserSeeder` crea usuarios de prueba o administradores.
+5. `PrecioSeeder` asigna precios por evento y sector.
+6. `ArtistaSeeder` vincula artistas con sus eventos.
+
+Este orden permite que la base de datos quede lista para consumir la API y para ejecutar tests sin pasos manuales adicionales.
+
+### Resumen rápido del flujo
+
+- Un cliente consume la API por `routes/api.php`.
+- Los controladores validan y responden.
+- Los servicios resuelven la lógica sensible de reservas y compras.
+- Los modelos representan el estado real de eventos, asientos y entradas.
+- Los recursos estandarizan la salida JSON.
+- Los seeders y migraciones dejan el entorno preparado para desarrollo y pruebas.
 
 ---
 
@@ -134,60 +217,6 @@ Una vez levantado el entorno, puedes usar Sail desde dentro de `roig-arena/`:
 | GET    | `/api/compras`                        | Ver mis compras                   | Sí   |
 
 La autenticación usa **Laravel Sanctum** (Bearer token).
-
----
-
-## Diseño Del Estadio Interactivo (Pasos Recomendados)
-
-Para llegar a un estadio visualmente limpio y que siga funcionando bien cuando hay muchos sectores, estos son los pasos que se deberían haber seguido:
-
-1. Definir criterios de UX antes de programar.
-    - Objetivo visual: que parezca un graderio real, no un circulo con bloques sueltos.
-    - Objetivo funcional: seleccionar sector en 1 clic y ver asientos sin perder contexto.
-    - Escalabilidad: soportar pocos sectores y tambien eventos con muchos sectores.
-
-2. Estandarizar los datos minimos por sector desde la API.
-    - Campos necesarios: id, nombre, color_hex, pivot.precio, cantidad_filas y cantidad_columnas.
-    - Con eso se puede dibujar el mapa, mostrar precio y renderizar asientos del sector activo.
-
-3. Elegir SVG como base de renderizado del mapa.
-    - SVG permite dibujar formas elipticas y segmentos con precision.
-    - Es mas mantenible y escalable que posicionar botones absolutos alrededor de un contenedor.
-
-4. Repartir sectores en anillos dinámicos.
-    - Calcular el numero de anillos segun el total de sectores.
-    - Distribuir sectores de forma equilibrada por anillo para evitar saturacion.
-    - Limitar ángulos útiles del graderío para reservar zona de escenario.
-
-5. Dibujar cada sector como un segmento real de graderio.
-    - Cada segmento se construye con arco exterior + arco interior + cierres laterales.
-    - Aplicar separacion angular minima para que se distingan incluso cuando hay muchos sectores.
-    - Mantener estados visuales claros: normal, hover y activo.
-
-6. Añadir una segunda capa de navegación para alta densidad.
-    - Debajo del mapa, mostrar una lista compacta de sectores (chips).
-    - Sincronizar siempre mapa y lista: seleccionar en uno activa el otro.
-    - Esto evita problemas de usabilidad cuando los segmentos son pequenos.
-
-7. Centralizar la logica de estado activo.
-    - Una sola funcion debe activar el sector y disparar render de asientos.
-    - Esa misma funcion debe actualizar estilos del segmento SVG y del chip de lista.
-
-8. Cuidar responsive y accesibilidad.
-    - En movil, priorizar lectura del mapa y mantener scroll controlado en la lista.
-    - Permitir selección por teclado en segmentos del SVG (Enter y Espacio).
-    - Incluir title o aria-label para mejorar contexto en lectores y tooltips.
-
-9. Validar comportamiento con escenarios reales.
-    - Probar eventos con pocos, medianos y muchos sectores.
-    - Revisar que no haya solapes, que la seleccion sea estable y que la carga sea fluida.
-    - Confirmar que el flujo completo (sector -> asientos -> carrito) no se rompe.
-
-Archivos clave de referencia en esta implementacion:
-
-- `roig-arena/public/js/pages/compra.js`
-- `roig-arena/public/css/pages/compra.css`
-- `roig-arena/public/css/pages/setmap.css`
 
 ---
 
