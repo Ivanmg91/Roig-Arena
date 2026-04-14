@@ -83,8 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				return;
 			}
 
-			localStorage.removeItem('sanctum_token');
-			localStorage.removeItem('sanctum_user');
+			if (data.token) {
+				localStorage.setItem('sanctum_token', data.token);
+			} else {
+				localStorage.removeItem('sanctum_token');
+			}
+
+			if (data.user) {
+				localStorage.setItem('sanctum_user', JSON.stringify(data.user));
+			} else {
+				localStorage.removeItem('sanctum_user');
+			}
 
 			window.location.href = getRedirectTo();
 		} catch (error) {

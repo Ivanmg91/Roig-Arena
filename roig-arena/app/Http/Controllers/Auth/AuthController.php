@@ -89,9 +89,16 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
+        $user = $request->user();
+        // Eliminar tokens anteriores y crear uno nuevo para uso en la SPA
+        $user->tokens()->delete();
+        $token = $user->createToken('auth-token')->plainTextToken;
+
         return response()->json([
             'message' => 'Login correcto',
-            'user' => $request->user(),
+            'user' => $user,
+            'token' => $token,
+            'token_type' => 'Bearer',
         ]);
     }
 
@@ -110,6 +117,9 @@ class AuthController extends Controller
 
     public function logoutWeb(Request $request)
     {
+        // Eliminar todos los tokens de Sanctum para invalidar cualquier token guardado en el cliente
+        $request->user()->tokens()->delete();
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
