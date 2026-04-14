@@ -9,7 +9,7 @@
 
 @section('content')
 	@php
-		$redirectTo = request('redirect', route('home', [], false));
+		$redirectTo = request('redirect', url()->previous());
 	@endphp
 
 	<section class="login-shell" aria-label="Acceso de usuario">

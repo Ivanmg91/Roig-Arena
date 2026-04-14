@@ -642,6 +642,7 @@ class SeatMapManager {
         const token = localStorage.getItem('sanctum_token');
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const headers = {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
             'Authorization': token ? `Bearer ${token}` : ''
@@ -661,11 +662,30 @@ class SeatMapManager {
                         asiento_id: Number(asiento.id)
                     })
                 });
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({}));
-                    throw new Error(err.message || `Error reservando asiento ${asiento.fila}-${asiento.columna}`);
+                // Si el servidor responde 401, redirige a login
+                if (res.status === 401) {
+                    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                    return;
                 }
+
+                // Si es un 302, probablemente no autenticado
+                if (res.status === 302) {
+                    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                    return;
+                }
+
+                // Si no es JSON, lee el texto y lanza un error amigable
+                const contentType = res.headers.get('content-type') || '';
+                    if (!contentType.includes('application/json')) {
+                    const text = await res.text();
+                    throw new Error(`Respuesta del servidor inesperada (HTTP ${res.status}):\n` + text.slice(0, 200));
+                }
+
+                // Si es JSON, ahora sí:
                 const data = await res.json();
+                    if (!res.ok) {
+                    throw new Error(data.message || `HTTP ${res.status}`);
+                }
                 this.reservasActivas.push(data.data); // guarda id y reservado_hasta
             }
         } catch (error) {
@@ -682,7 +702,7 @@ class SeatMapManager {
         // Resumen asientos
         summary.innerHTML = '';
         let total = 0;
-        this.selectedSeats.array.forEach(seat => {
+        Array.from(this.selectedSeats.values()).forEach(seat => {
             const precio = Number(seat.precio || 0);
             total += precio;
             const row = document.createElement('div');
@@ -744,6 +764,7 @@ class SeatMapManager {
         const token = localStorage.getItem('sanctum_token');
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const headers = {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
             'Authorization': token ? `Bearer ${token}` : ''
@@ -754,9 +775,29 @@ class SeatMapManager {
                 method: 'POST', headers, credentials: 'include',
                 body: JSON.stringify({ metodo_pago: 'tarjeta' })
             });
-            const data = await res.json().catch(() => ({}));
 
-            if (!res.ok || !data.success) {
+            // Si el servidor responde 401, redirige a login
+            if (res.status === 401) {
+                window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                return;
+            }
+
+            // Si es un 302, probablemente no autenticado
+            if (res.status === 302) {
+                window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                return;
+            }
+
+            // Si no es JSON, lee el texto y lanza un error amigable
+            const contentType = res.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                const text = await res.text();
+                throw new Error(`Respuesta del servidor inesperada (HTTP ${res.status}):\n` + text.slice(0, 200));
+            }
+
+            // Si es JSON, ahora sí:
+            const data = await res.json();
+            if (!res.ok) {
                 throw new Error(data.message || `HTTP ${res.status}`);
             }
 
