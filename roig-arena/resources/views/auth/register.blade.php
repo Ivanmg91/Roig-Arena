@@ -9,7 +9,7 @@
 
 @section('content')
 	@php
-		$redirectTo = request('redirect', route('home', [], false));
+		$redirectTo = request('redirect', url()->previous());
 	@endphp
 
 	<section class="register-shell" aria-label="Registro de usuario">
