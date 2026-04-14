@@ -118,7 +118,7 @@ class AuthController extends Controller
     public function logoutWeb(Request $request)
     {
         // Eliminar todos los tokens de Sanctum para invalidar cualquier token guardado en el cliente
-        $request->user()->tokens()->delete();
+        $request->user()?->tokens()->delete();
 
         Auth::logout();
         $request->session()->invalidate();
