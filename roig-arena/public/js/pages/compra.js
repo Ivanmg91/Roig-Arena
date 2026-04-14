@@ -632,6 +632,19 @@ class SeatMapManager {
         });
     }
 
+    // Redirige al login con un mensaje claro cuando la API devuelve 401/419.
+    handleUnauthenticated() {
+        alert('Debes iniciar sesión para reservar asientos.');
+        window.location.href = `/login?redirect=/compra/${this.eventoId}`;
+    }
+
+    // Parsea JSON de una respuesta sólo si el Content-Type lo indica; si no, devuelve {}.
+    async parseJsonSafe(res) {
+        const contentType = res.headers.get('Content-Type') || '';
+        if (!contentType.includes('application/json')) return {};
+        return res.json().catch(() => ({}));
+    }
+
     // Reserva los asientos seleccionados y abre el modal de pago simulado.
     async proceedToCheckout() {
         if (this.selectedSeats.size === 0) {
@@ -643,6 +656,7 @@ class SeatMapManager {
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const headers = {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
             'Authorization': token ? `Bearer ${token}` : ''
         };
@@ -661,13 +675,28 @@ class SeatMapManager {
                         asiento_id: Number(asiento.id)
                     })
                 });
+                if (res.status === 401 || res.status === 419) {
+                    this.handleUnauthenticated();
+                    return;
+                }
                 if (!res.ok) {
+                    const contentType = res.headers.get('Content-Type') || '';
+                    if (!contentType.includes('application/json')) {
+                        throw new Error(`Error reservando asiento ${asiento.fila}-${asiento.columna} (HTTP ${res.status})`);
+                    }
                     const err = await res.json().catch(() => ({}));
                     throw new Error(err.message || `Error reservando asiento ${asiento.fila}-${asiento.columna}`);
+                }
+                const contentType = res.headers.get('Content-Type') || '';
+                if (!contentType.includes('application/json')) {
+                    throw new Error(`Respuesta inesperada del servidor al reservar asiento ${asiento.fila}-${asiento.columna}`);
                 }
                 const data = await res.json();
                 this.reservasActivas.push(data.data); // guarda id y reservado_hasta
             }
+
+            // Paso 2: Abrir el modal de pago con el resumen de la reserva
+            this.openPaymentModal();
         } catch (error) {
             console.error('Error al reservar:', error);
             alert('Error al reservar los asientos: ' + error.message);
@@ -682,7 +711,7 @@ class SeatMapManager {
         // Resumen asientos
         summary.innerHTML = '';
         let total = 0;
-        this.selectedSeats.array.forEach(seat => {
+        Array.from(this.selectedSeats.values()).forEach(seat => {
             const precio = Number(seat.precio || 0);
             total += precio;
             const row = document.createElement('div');
@@ -745,6 +774,7 @@ class SeatMapManager {
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const headers = {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
             'Authorization': token ? `Bearer ${token}` : ''
         };
@@ -754,7 +784,11 @@ class SeatMapManager {
                 method: 'POST', headers, credentials: 'include',
                 body: JSON.stringify({ metodo_pago: 'tarjeta' })
             });
-            const data = await res.json().catch(() => ({}));
+            if (res.status === 401 || res.status === 419) {
+                this.handleUnauthenticated();
+                return;
+            }
+            const data = await this.parseJsonSafe(res);
 
             if (!res.ok || !data.success) {
                 throw new Error(data.message || `HTTP ${res.status}`);
