@@ -702,6 +702,11 @@ class SeatMapManager {
         const modal = document.getElementById('paymentModal');
         const summary = document.getElementById('paymentSummary');
         const totalEl = document.getElementById('paymentTotal');
+        const payBtn = document.getElementById('payBtn');
+
+        // Rehabilita el botón por si en un intento anterior el contador expiró.
+        payBtn.disabled = false;
+        payBtn.textContent = 'Pagar ahora';
 
         // Resumen asientos
         summary.innerHTML = '';
@@ -745,9 +750,8 @@ class SeatMapManager {
                 document.getElementById('payBtn').disabled = true;
                 alert('El tiempo de reserva ha expirado. Por favor, vuelve a seleccionar tus asientos.');
 
-                this.cancelarReservasActivas();
-
-                this.closePaymentModal();
+                // Ejecuta limpieza completa para sincronizar UI y backend tras expirar.
+                this.handleReservationExpiration();
             }
         };
 
@@ -781,6 +785,39 @@ class SeatMapManager {
 
         await Promise.allSettled(peticiones);
         this.reservasActivas = [];
+    }
+
+    async handleReservationExpiration() {
+        try {
+            await this.cancelarReservasActivas();
+        } catch (error) {
+            console.error('Error cancelando reservas expiradas:', error);
+        }
+
+        this.selectedSeats.clear();
+        localStorage.removeItem('seatmap_cart');
+        this.updateSeatVisuals();
+        this.updateCart();
+        this.closePaymentModal();
+
+        // Invalida cache para traer estado real de asientos tras expirar.
+        this.seatsCacheBySector.clear();
+        this.refreshActiveSectorSeats();
+    }
+
+    refreshActiveSectorSeats() {
+        const activeSectorButton = document.querySelector('.stadium-sector-chip.active');
+        if (!activeSectorButton) {
+            return;
+        }
+
+        const activeSectorId = String(activeSectorButton.dataset.sectorId);
+        const sectores = this.data?.data?.sectores_disponibles ?? [];
+        const activeSector = sectores.find(sector => String(sector.id) === activeSectorId);
+
+        if (activeSector) {
+            this.renderSectorSeats(activeSector);
+        }
     }
 
     closePaymentModal() {
