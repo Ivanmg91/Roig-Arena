@@ -70,7 +70,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/entradas/{id}', [EntradaController::class, 'show']);
 
     // Eventos del usuario
-    Route::get('/mis-eventos', [EventoController::class, 'misEventos']);
+    // Route::get('/mis-eventos', [EventoController::class, 'misEventos']);
+    // Route::get('/mis-eventos-info', [EventoController::class, 'misEventosInfo']);
 });
 
 // ============================================
