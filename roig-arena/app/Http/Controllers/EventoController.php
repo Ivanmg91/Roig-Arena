@@ -93,7 +93,7 @@ class EventoController extends Controller
     public function destroy($id)
     {
         $evento = Evento::findOrFail($id);
-        
+
         // Verificar que no tenga entradas vendidas
         if ($evento->totalEntradasVendidas() > 0) {
             return response()->json([

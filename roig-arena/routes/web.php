@@ -21,7 +21,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 Route::post('/logout', [AuthController::class, 'logoutWeb'])->middleware('auth')->name('logout.post');
 
 Route::view('/dashboard', 'auth.dashboard')->middleware('auth')->name('dashboard');
-
+Route::view('/profile', 'auth.profile')->middleware('auth')->name('profile');
+Route::get('/mis-eventos', [PaginaController::class, 'misEventos'])->middleware('auth')->name('mis-eventos');
 
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.

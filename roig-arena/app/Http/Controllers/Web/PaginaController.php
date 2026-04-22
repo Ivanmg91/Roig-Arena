@@ -36,4 +36,18 @@ class PaginaController extends Controller
             'evento' => $evento,
         ]);
     }
+
+    public function misEventos()
+    {
+        $miseventos = Evento::whereHas('entradas', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with(['precios.sector'])
+            ->orderBy('fecha', 'asc')
+            ->paginate(9);
+
+        return view('auth.mis-eventos', [
+            'miseventos' => $miseventos,
+        ]);
+    }
 }
