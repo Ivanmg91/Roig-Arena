@@ -56,6 +56,7 @@
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -82,6 +83,56 @@
 
 .eventos-header h1 {
   margin-bottom: 0.4rem;
+}
+
+/* Tarjetas de entradas en horizontal */
+.ticket-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ticket-card {
+  margin: 0;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ticket-main {
+  min-width: 0;
+}
+
+.ticket-side {
+  display: grid;
+  gap: 0.35rem;
+  text-align: right;
+}
+
+.ticket-event-name {
+  margin: 0 0 0.45rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.ticket-seat {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.ticket-code {
+  color: var(--color-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.ticket-download-btn {
+  margin-top: 0.45rem;
 }
 
 /* Detalle evento */
@@ -164,5 +215,23 @@ tr:hover td {
 
   .event-detail-title {
     font-size: 1.35rem;
+  }
+
+  .ticket-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ticket-side {
+    text-align: left;
+  }
+
+  .ticket-code {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .ticket-download-btn {
+    width: 100%;
   }
 }
