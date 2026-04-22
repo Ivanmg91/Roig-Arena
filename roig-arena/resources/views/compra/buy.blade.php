@@ -100,7 +100,7 @@
             {{-- Temporizador reserva --}}
             <div class="payment-timer">
                 <span>Tus asientos están reservados durante: </span>
-                <strong id="paymentCountdown">15:00</strong>
+                <strong id="paymentCountdown">01:00</strong>
             </div>
 
             {{-- Resumen de asientos (rellenado por Js) --}}
@@ -136,6 +136,6 @@
             </div>
         </div>
     </div>
-    
+
     <script src="/js/pages/compra.js"></script>
 @endsection

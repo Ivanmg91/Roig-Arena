@@ -29,7 +29,7 @@ class ReservaController extends Controller
                 'data' => new ReservaResource($reserva),
                 'message' => 'Asiento reservado por 15 minutos',
             ], 201);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -58,7 +58,7 @@ class ReservaController extends Controller
             return response()->json([
                 'message' => 'Reserva cancelada correctamente',
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

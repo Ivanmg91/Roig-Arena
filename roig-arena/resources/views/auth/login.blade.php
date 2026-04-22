@@ -63,7 +63,7 @@
 
                 <p class="login-note">
                     ¿No tienes una cuenta?
-                    <a href="{{ route('register', [], false) }}">Regístrate</a>
+					<a href="{{ route('register', array_filter(['redirect' => $redirectTo]), false) }}">Regístrate</a>
                 </p>
 
 				<p class="login-note">
