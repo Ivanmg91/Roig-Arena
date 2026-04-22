@@ -54,10 +54,32 @@ class Asiento extends Model
      */
     public function estaDisponible($eventoId): bool
     {
-        return $this->estadoAsientos()
-        ->where('evento_id', $eventoId)
-        ->where('estado', 'DISPONIBLE')
-        ->exists();
+        $estadoActual = $this->estadoAsientos()
+            ->where('evento_id', $eventoId)
+            ->latest('id')
+            ->first();
+
+        // Sin estado creado todavía => disponible.
+        if (!$estadoActual) {
+            return true;
+        }
+
+        // Vendido => nunca disponible.
+        if ($estadoActual->estado === 'OCUPADO') {
+            return false;
+        }
+
+        // Reservado y vigente => no disponible.
+        if (
+            $estadoActual->estado === 'RESERVADO' &&
+            $estadoActual->reservado_hasta &&
+            $estadoActual->reservado_hasta->isFuture()
+        ) {
+            return false;
+        }
+
+        // Cualquier otro caso (reserva expirada, disponible explícito, etc.) => disponible.
+        return true;
     }
 
      /**
