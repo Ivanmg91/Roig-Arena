@@ -104,7 +104,7 @@
 
 				<p class="register-note">
 					¿Ya tienes una cuenta?
-					<a href="{{ route('login', [], false) }}">Iniciar sesión</a>
+					<a href="{{ route('login', array_filter(['redirect' => $redirectTo]), false) }}">Iniciar sesión</a>
 				</p>
 
                 <p class="register-note">

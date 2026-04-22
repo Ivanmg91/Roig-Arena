@@ -676,17 +676,21 @@ class SeatMapManager {
 
                 // Si no es JSON, lee el texto y lanza un error amigable
                 const contentType = res.headers.get('content-type') || '';
-                    if (!contentType.includes('application/json')) {
+                if (!contentType.includes('application/json')) {
                     const text = await res.text();
                     throw new Error(`Respuesta del servidor inesperada (HTTP ${res.status}):\n` + text.slice(0, 200));
                 }
 
                 // Si es JSON, ahora sí:
                 const data = await res.json();
-                    if (!res.ok) {
+                if (!res.ok) {
                     throw new Error(data.message || `HTTP ${res.status}`);
                 }
                 this.reservasActivas.push(data.data); // guarda id y reservado_hasta
+            }
+
+            if (this.reservasActivas.length > 0) {
+                this.openPaymentModal();
             }
         } catch (error) {
             console.error('Error al reservar:', error);
@@ -716,7 +720,7 @@ class SeatMapManager {
         const primeraReserva = this.reservasActivas[0];
         const expira = primeraReserva?.reservado_hasta
             ? new Date(primeraReserva.reservado_hasta)
-            : new Date(Date.now() + 15 * 60 * 1000);
+            : new Date(Date.now() + 1 * 60 * 1000);
 
         // Arrancar countdown
         this.startCountdown(expira);
@@ -740,6 +744,9 @@ class SeatMapManager {
                 el.textContent = '00:00';
                 document.getElementById('payBtn').disabled = true;
                 alert('El tiempo de reserva ha expirado. Por favor, vuelve a seleccionar tus asientos.');
+
+                this.cancelarReservasActivas();
+
                 this.closePaymentModal();
             }
         };
@@ -748,11 +755,39 @@ class SeatMapManager {
         this.paymentTimerInterval = setInterval(tick, 1000);
     }
 
+    async cancelarReservasActivas() {
+        if (!Array.isArray(this.reservasActivas) || this.reservasActivas.length === 0) {
+            return;
+        }
+
+        const token = localStorage.getItem('sanctum_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Authorization': token ? `Bearer ${token}` : ''
+        };
+
+        const peticiones = this.reservasActivas
+            .filter(reserva => Number.isFinite(Number(reserva?.id)))
+            .map(reserva =>
+                fetch(`/api/reservas/${reserva.id}`, {
+                    method: 'DELETE',
+                    headers,
+                    credentials: 'include'
+                })
+            );
+
+        await Promise.allSettled(peticiones);
+        this.reservasActivas = [];
+    }
+
     closePaymentModal() {
         clearInterval(this.paymentTimerInterval);
         document.getElementById('paymentModal').style.display = 'none';
         document.body.style.overflow = '';
-        // La reserva permanece en backend durante 15 min (mecánica de reservado_hasta)
+        // La reserva permanece en backend durante 1 min (mecánica de reservado_hasta)
         // El usuario puede volver a abrir la página y ver sus asientos reservados
     }
 
