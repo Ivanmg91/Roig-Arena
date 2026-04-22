@@ -19,9 +19,8 @@
         </p>
 
         <div class="dashboard-actions">
-            <a href="#" class="dashboard-action">Mis datos</a>
-            <a href="#" class="dashboard-action">Mis compras</a>
-            <a href="#" class="dashboard-action">Mis entradas</a>
+            <a href="{{ route('profile', [], false) }}" class="dashboard-action">Mi perfil</a>
+            <a href="{{ route('mis-eventos', [], false) }}" class="dashboard-action">Mis eventos</a>
             <form method="POST" class="dashboard-action-form" action="{{ route('logout.post', [], false) }}">
                 @csrf
                 <button class="dashboard-action dashboard-action--danger" type="submit">Cerrar sesión</button>
