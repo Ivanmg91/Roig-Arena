@@ -688,9 +688,52 @@ class SeatMapManager {
                 }
                 this.reservasActivas.push(data.data); // guarda id y reservado_hasta
             }
+
+            // Paso 2: Abrir modal de pago con el countdown
+            this.openPaymentModal();
         } catch (error) {
             console.error('Error al reservar:', error);
             alert('Error al reservar los asientos: ' + error.message);
+        }
+    }
+
+    // Cancela todas las reservas activas en el backend y limpia el estado local.
+    async cancelarReservas() {
+        if (this.reservasActivas.length === 0) return;
+
+        const token = localStorage.getItem('sanctum_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        const headers = {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Authorization': token ? `Bearer ${token}` : ''
+        };
+
+        // Borrar cache de sectores afectados para que el próximo render pida datos frescos.
+        this.selectedSeats.forEach(asiento => {
+            this.seatsCacheBySector.delete(String(asiento.sector_id));
+        });
+
+        // Cancelar cada reserva en el backend (en paralelo).
+        await Promise.allSettled(
+            this.reservasActivas.map(reserva =>
+                fetch(`/api/reservas/${reserva.id}`, {
+                    method: 'DELETE', headers, credentials: 'include'
+                })
+            )
+        );
+
+        // Limpiar estado local.
+        this.reservasActivas = [];
+        this.selectedSeats.clear();
+        localStorage.removeItem('seatmap_cart');
+
+        // Refrescar la vista de asientos actual para reflejar disponibilidad.
+        this.updateSeatVisuals();
+        this.updateCart();
+        const activeSectorEl = document.querySelector('.stadium-sector-chip.active');
+        if (activeSectorEl) {
+            activeSectorEl.click();
         }
     }
 
@@ -739,8 +782,11 @@ class SeatMapManager {
                 clearInterval(this.paymentTimerInterval);
                 el.textContent = '00:00';
                 document.getElementById('payBtn').disabled = true;
-                alert('El tiempo de reserva ha expirado. Por favor, vuelve a seleccionar tus asientos.');
-                this.closePaymentModal();
+                // Cancelar reservas en backend y limpiar estado para que los asientos vuelvan a estar disponibles.
+                this.cancelarReservas().then(() => {
+                    this.closePaymentModal(false);
+                    alert('El tiempo de reserva ha expirado. Por favor, vuelve a seleccionar tus asientos.');
+                });
             }
         };
 
@@ -748,12 +794,13 @@ class SeatMapManager {
         this.paymentTimerInterval = setInterval(tick, 1000);
     }
 
-    closePaymentModal() {
+    closePaymentModal(cancelReservas = true) {
         clearInterval(this.paymentTimerInterval);
         document.getElementById('paymentModal').style.display = 'none';
         document.body.style.overflow = '';
-        // La reserva permanece en backend durante 15 min (mecánica de reservado_hasta)
-        // El usuario puede volver a abrir la página y ver sus asientos reservados
+        if (cancelReservas) {
+            this.cancelarReservas();
+        }
     }
 
     async confirmPayment() {
@@ -807,7 +854,7 @@ class SeatMapManager {
             this.reservasActivas = [];
             this.updateSeatVisuals();
             this.updateCart();
-            this.closePaymentModal();
+            this.closePaymentModal(false);
 
             alert(`¡Compra confirmada! Total: ${Number(data.total || 0).toFixed(2)}€`);
             window.location.href = '/eventos';
