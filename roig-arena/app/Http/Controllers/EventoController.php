@@ -107,4 +107,45 @@ class EventoController extends Controller
             'message' => 'Evento eliminado correctamente',
         ]);
     }
+
+    /**
+     * Listar eventos del usuario autenticado (público)
+     */
+    public function misEventos()
+    {
+        $miseventos = Evento::whereHas('entradas', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with(['precios.sector'])
+            ->orderBy('fecha', 'asc')
+            ->paginate(9);
+
+        return view('auth.mis-eventos', [
+            'miseventos' => $miseventos,
+        ]);
+    }
+
+    /**
+     * Información detallada de eventos del usuario autenticado (público)
+     */
+    public function misEventosInfo()
+    {
+        $miseventos = Evento::whereHas('entradas', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with([
+                'precios.sector',
+                'artistas',
+                'entradas' => function ($q) {
+                    $q->where('user_id', auth()->id());
+                },
+                'entradas.asiento.sector'
+            ])
+            ->orderBy('fecha', 'asc')
+            ->get();
+
+        return view('auth.mis-eventos-info', [
+            'miseventos' => $miseventos,
+        ]);
+    }
 }

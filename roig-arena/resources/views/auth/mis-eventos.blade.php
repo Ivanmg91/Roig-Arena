@@ -14,7 +14,7 @@
 
     <section class="grid grid-gap-bottom">
         @forelse ($miseventos as $evento)
-                <a href="{{ route('eventos.show', ['evento' => $evento], false) }}" class="event-card">
+                <a href="{{ route('mis-eventos.info', [], false) }}" class="event-card">
                     <img src="{{ $evento->poster_url }}" alt="{{ $evento->nombre }}" class="event-card-image">
                     <div class="event-card-body">
                         <h2 class="event-card-title">{{ $evento->nombre }}</h2>
@@ -32,6 +32,10 @@
     </section>
 
     <section class="card">
-        {{ $miseventos->links() }}
+        <div class="card-body">
+            <h2>¿Quieres ver más detalles de tus eventos?</h2>
+            <p>Haz clic en el botón de abajo para ver información detallada de cada evento, incluyendo los asientos reservados.</p>
+            <a href="{{ route('mis-eventos.info', [], false) }}" class="button">Ver Mis Eventos Detallados</a>
+        </div>
     </section>
 @endsection
