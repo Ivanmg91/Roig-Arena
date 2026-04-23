@@ -64,7 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Compras
     Route::post('/compras', [CompraController::class, 'store']);
     Route::post('/compras/confirmar', [CompraController::class, 'confirmarCompra']);
-
+    Route::post('/entradas/pago-pendiente', [CompraController::class, 'procesarPagoPendiente']);
     // Entradas
     Route::get('/entradas', [EntradaController::class, 'index']);
     Route::get('/entradas/{id}', [EntradaController::class, 'show']);
