@@ -148,4 +148,27 @@ class EventoController extends Controller
             'miseventos' => $miseventos,
         ]);
     }
+
+    /*
+    * Información detallada de un evento del usuario autenticado (público)
+     */
+    public function miEventoInfo($id)
+    {
+        $evento = Evento::whereHas('entradas', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->with([
+                'precios.sector',
+                'artistas',
+                'entradas' => function ($q) use ($id) {
+                    $q->where('user_id', auth()->id())->where('evento_id', $id);
+                },
+                'entradas.asiento.sector'
+            ])
+            ->findOrFail($id);
+
+        return view('auth.mi-evento-info', [
+            'evento' => $evento,
+        ]);
+    }
 }

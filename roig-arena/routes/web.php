@@ -28,6 +28,7 @@ Route::view('/dashboard', 'auth.dashboard')->middleware('auth')->name('dashboard
 Route::view('/profile', 'auth.profile')->middleware('auth')->name('profile');
 Route::get('/mis-eventos', [EventoController::class, 'misEventos'])->middleware('auth')->name('mis-eventos');
 Route::get('/mis-eventos-info', [EventoController::class, 'misEventosInfo'])->middleware('auth')->name('mis-eventos.info');
+Route::get('/mi-evento-info/{id}', [EventoController::class, 'miEventoInfo'])->middleware('auth')->name('mi-evento.info');
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
 Route::view('/welcome', 'welcome')->name('welcome');
