@@ -324,7 +324,7 @@ class CompraController extends Controller
     {
         $request->validate([
             'reservas_ids' => 'required|array',
-            // 'reservas_ids.*' => 'exists:estado_asientos,id',
+            'reservas_ids.*' => 'exists:estado_asientos,id',
             'metodo_pago' => 'required|in:tarjeta,efectivo,transferencia'
         ]);
 

@@ -32,6 +32,7 @@ Route::get('/mi-evento-info/{id}', [EventoController::class, 'miEventoInfo'])->m
 
 // Rutas de pagos pendientes
 Route::get('/mis-pagos-pendientes', [CompraController::class, 'misPagosPendientes'])->middleware('auth')->name('mis-pagos-pendientes');
+Route::post('/mis-pagos-pendientes/pagar', [CompraController::class, 'procesarPagoPendiente'])->middleware('auth')->name('mis-pagos-pendientes.pagar');
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
 Route::view('/welcome', 'welcome')->name('welcome');
