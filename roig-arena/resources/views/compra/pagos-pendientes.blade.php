@@ -237,7 +237,7 @@
 
             const reservasIds = currentReservas.map(r => r.id);
 
-            fetch('/api/entradas/pago-pendiente', {
+            fetch('/mis-pagos-pendientes/pagar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
