@@ -67,4 +67,58 @@ class EntradaController extends Controller
             'message' => 'Entrada creada correctamente',
         ], 201);
     }
+
+    /**
+     * Marcar una entrada como descargada
+     */
+    public function marcarDescargada($id)
+    {
+        $entrada = Entrada::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $entrada->update(['descargada' => true]);
+
+        return response()->json([
+            'data' => $entrada,
+            'message' => 'Entrada marcada como descargada. Ya no podrás cancelar esta compra.',
+        ]);
+    }
+
+    /**
+     * Cancelar una compra de entrada (solo si no está descargada)
+     */
+    public function cancelarCompra($id)
+    {
+        $entrada = Entrada::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        if ($entrada->descargada) {
+            return response()->json([
+                'message' => 'No se puede cancelar una entrada ya descargada.',
+            ], 409);
+        }
+
+        // Liberar el asiento
+        $estadoAsiento = $entrada->asiento->estadoAsientos()
+            ->where('evento_id', $entrada->evento_id)
+            ->where('estado', 'OCUPADO')
+            ->latest('id')
+            ->first();
+
+        if ($estadoAsiento) {
+            $estadoAsiento->update([
+                'estado' => 'DISPONIBLE',
+                'user_id' => null,
+                'reservado_hasta' => null,
+            ]);
+        }
+
+        $entrada->delete();
+
+        return response()->json([
+            'message' => 'Compra cancelada correctamente.',
+        ]);
+    }
 }

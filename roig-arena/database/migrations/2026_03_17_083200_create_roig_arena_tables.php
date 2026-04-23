@@ -14,7 +14,7 @@ return new class extends Migration
         // ============================================
         // 1. INFRAESTRUCTURA FÍSICA DEL ESTADIO
         // ============================================
-        
+
         // Tabla de sectores (zonas del estadio)
         Schema::create('sectores', function (Blueprint $table) {
             $table->id();
@@ -40,7 +40,7 @@ return new class extends Migration
         // ============================================
         // 2. LÓGICA DE EVENTOS (TEMPORAL)
         // ============================================
-        
+
         // Tabla de eventos
         Schema::create('eventos', function (Blueprint $table) {
             $table->id();
@@ -85,13 +85,14 @@ return new class extends Migration
             $table->enum('estado', ['DISPONIBLE', 'RESERVADO', 'OCUPADO'])->default('DISPONIBLE');
             $table->timestamp('reservado_hasta')->nullable(); // Temporizador de reserva
             $table->unique(['evento_id', 'asiento_id']); // Un estado por asiento/evento
+
             $table->timestamps();
         });
 
         // ============================================
         // 3. VENTAS DEFINITIVAS
         // ============================================
-        
+
         // Tabla de entradas (ventas confirmadas)
         Schema::create('entradas', function (Blueprint $table) {
             $table->id();
@@ -101,6 +102,8 @@ return new class extends Migration
             $table->decimal('precio_pagado', 10, 2); // Precio al momento de la compra
             $table->string('codigo_qr')->unique(); // Código QR único para validación
             $table->unique(['evento_id', 'asiento_id']); // Una entrada por asiento/evento
+            $table->boolean('descargada')->default(false); // Para control de acceso
+            $table->boolean('utilizada')->default(false); // Para control de acceso
             $table->timestamps();
         });
     }

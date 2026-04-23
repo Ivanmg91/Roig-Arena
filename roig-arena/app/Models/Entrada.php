@@ -11,13 +11,15 @@ class Entrada extends Model
     use HasFactory;
 
     protected $table = 'entradas';
-    
+
     protected $fillable = [
         'user_id',
         'evento_id',
         'asiento_id',
         'precio_pagado',
         'codigo_qr',
+        'descargada',
+        'utilizada',
     ];
 
     /**
