@@ -37,20 +37,32 @@
                 <div class="ticket-side">
                     <p class="muted no-margin">Entrada #{{ $entrada->id }}</p>
                     <p class="muted no-margin">Precio: {{ number_format((float) $entrada->precio_pagado, 2, ',', '.') }} €</p>
-                    <button
-                        type="button"
-                        class="btn btn-sm ticket-download-btn"
-                        data-ticket-download
-                        data-evento="{{ $evento->nombre }}"
-                        data-fecha="{{ $evento->fecha ? $evento->fecha->format('d/m/Y') : 'Por confirmar' }}"
-                        data-hora="{{ $evento->hora ? $evento->hora->format('H:i') : 'Por confirmar' }}"
-                        data-asiento="{{ $nombreAsiento }}"
-                        data-entrada="{{ $entrada->id }}"
-                        data-precio="{{ number_format((float) $entrada->precio_pagado, 2, ',', '.') }} €"
-                        data-codigo="{{ $entrada->codigo_qr }}"
-                    >
-                        Descargar PDF
-                    </button>
+                    <div class="ticket-actions">
+                        <button
+                            type="button"
+                            class="btn btn-sm ticket-download-btn"
+                            data-ticket-download
+                            data-evento="{{ $evento->nombre }}"
+                            data-fecha="{{ $evento->fecha ? $evento->fecha->format('d/m/Y') : 'Por confirmar' }}"
+                            data-hora="{{ $evento->hora ? $evento->hora->format('H:i') : 'Por confirmar' }}"
+                            data-asiento="{{ $nombreAsiento }}"
+                            data-entrada="{{ $entrada->id }}"
+                            data-precio="{{ number_format((float) $entrada->precio_pagado, 2, ',', '.') }} €"
+                            data-codigo="{{ $entrada->codigo_qr }}"
+                        >
+                            Descargar PDF
+                        </button>
+                        @if (!$entrada->descargada)
+                            <button
+                                type="button"
+                                class="btn btn-sm ticket-cancel-btn"
+                                data-ticket-cancel
+                                data-entrada="{{ $entrada->id }}"
+                            >
+                                Cancelar compra
+                            </button>
+                        @endif
+                    </div>
                 </div>
             </article>
         @endforeach

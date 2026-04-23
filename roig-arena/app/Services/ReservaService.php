@@ -33,13 +33,13 @@ class ReservaService
                     'asiento_id' => $asientoId,
                     'user_id' => $userId,
                     'estado' => 'RESERVADO',
-                    'reservado_hasta' => now()->addMinutes(1),
+                    'reservado_hasta' => now()->addMinutes(15),
                 ]);
             } elseif ($estadoAsiento->estado === 'DISPONIBLE') {
                 $estadoAsiento->update([
                     'user_id' => $userId,
                     'estado' => 'RESERVADO',
-                    'reservado_hasta' => now()->addMinutes(1),
+                    'reservado_hasta' => now()->addMinutes(15),
                 ]);
                 $reserva = $estadoAsiento->fresh();
             } elseif ($estadoAsiento->estado === 'RESERVADO') {
@@ -50,7 +50,7 @@ class ReservaService
                     $estadoAsiento->update([
                         'user_id' => $userId,
                         'estado' => 'RESERVADO',
-                        'reservado_hasta' => now()->addMinutes(1),
+                        'reservado_hasta' => now()->addMinutes(15),
                     ]);
                     $reserva = $estadoAsiento->fresh();
                 } else {

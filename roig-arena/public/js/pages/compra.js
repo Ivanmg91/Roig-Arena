@@ -725,7 +725,7 @@ class SeatMapManager {
         const primeraReserva = this.reservasActivas[0];
         const expira = primeraReserva?.reservado_hasta
             ? new Date(primeraReserva.reservado_hasta)
-            : new Date(Date.now() + 1 * 60 * 1000);
+            : new Date(Date.now() + 15 * 60 * 1000);
 
         // Arrancar countdown
         this.startCountdown(expira);

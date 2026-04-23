@@ -65,9 +65,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/compras', [CompraController::class, 'store']);
     Route::post('/compras/confirmar', [CompraController::class, 'confirmarCompra']);
     Route::post('/entradas/pago-pendiente', [CompraController::class, 'procesarPagoPendiente']);
+
     // Entradas
     Route::get('/entradas', [EntradaController::class, 'index']);
     Route::get('/entradas/{id}', [EntradaController::class, 'show']);
+    Route::post('/entradas/{id}/descargar', [EntradaController::class, 'marcarDescargada']);
+    Route::delete('/entradas/{id}/cancelar', [EntradaController::class, 'cancelarCompra']);
 
     // Eventos del usuario
     // Route::get('/mis-eventos', [EventoController::class, 'misEventos']);
