@@ -30,5 +30,8 @@ Route::get('/mis-eventos', [EventoController::class, 'misEventos'])->middleware(
 Route::get('/mis-eventos-info', [EventoController::class, 'misEventosInfo'])->middleware('auth')->name('mis-eventos.info');
 Route::get('/mi-evento-info/{id}', [EventoController::class, 'miEventoInfo'])->middleware('auth')->name('mi-evento.info');
 
+// Rutas de pagos pendientes
+Route::get('/mis-pagos-pendientes', [CompraController::class, 'misPagosPendientes'])->middleware('auth')->name('mis-pagos-pendientes');
+
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
 Route::view('/welcome', 'welcome')->name('welcome');

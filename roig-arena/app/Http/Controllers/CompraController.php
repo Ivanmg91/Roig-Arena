@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Evento;
 use App\Models\Asiento;
 use App\Models\Sector;
+use App\Models\Precio;
 use Illuminate\Http\Request;
 use App\Models\Entrada;
 use App\Models\EstadoAsiento;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class CompraController extends Controller
 {
@@ -249,6 +251,146 @@ class CompraController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error al procesar la compra: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Mostrar pagos pendientes del usuario
+     */
+    public function misPagosPendientes()
+    {
+        $user = auth()->user();
+
+        // Obtener reservas activas del usuario agrupadas por evento
+        $reservasPorPagar = EstadoAsiento::where('user_id', $user->id)
+            ->where('estado', 'RESERVADO')
+            ->where('reservado_hasta', '>', now())
+            ->with(['evento', 'asiento.sector'])
+            ->orderBy('reservado_hasta')
+            ->get()
+            ->groupBy('evento_id');
+
+        // Transformar datos para la vista
+        $pagosPendientes = collect();
+        foreach ($reservasPorPagar as $eventoId => $reservas) {
+            $evento = $reservas->first()->evento;
+            $montoPendiente = 0;
+            $reservasConPrecio = [];
+
+            foreach ($reservas as $reserva) {
+                $precio = Precio::where('evento_id', $eventoId)
+                    ->where('sector_id', $reserva->asiento->sector_id)
+                    ->value('precio') ?? 0;
+
+                $montoPendiente += $precio;
+
+                $reservasConPrecio[] = [
+                    'id' => $reserva->id,
+                    'asiento' => [
+                        'fila' => $reserva->asiento->fila,
+                        'numero' => $reserva->asiento->numero,
+                        'sector' => [
+                            'nombre' => $reserva->asiento->sector->nombre,
+                        ],
+                    ],
+                    'precio_asiento' => (float) $precio,
+                    'reservado_hasta' => optional($reserva->reservado_hasta)?->toIso8601String(),
+                ];
+            }
+
+            $expiraTimestamp = $reservas->min(function ($reserva) {
+                return optional($reserva->reservado_hasta)->timestamp;
+            });
+
+            $pagosPendientes->push([
+                'evento' => $evento,
+                'reservas' => $reservasConPrecio,
+                'total' => count($reservasConPrecio),
+                'montoPendiente' => $montoPendiente,
+                'reservado_hasta' => $expiraTimestamp
+                    ? Carbon::createFromTimestamp($expiraTimestamp)->toIso8601String()
+                    : null,
+            ]);
+        }
+
+        return view('compra.pagos-pendientes', compact('pagosPendientes'));
+    }
+
+    /**
+     * Procesar pago de entradas pendientes (API endpoint)
+     */
+    public function procesarPagoPendiente(Request $request)
+    {
+        $request->validate([
+            'reservas_ids' => 'required|array',
+            // 'reservas_ids.*' => 'exists:estado_asientos,id',
+            'metodo_pago' => 'required|in:tarjeta,efectivo,transferencia'
+        ]);
+
+        $user = $request->user();
+        $reservasIds = $request->reservas_ids;
+
+        try {
+            $resultado = DB::transaction(function () use ($user, $reservasIds) {
+                $reservas = EstadoAsiento::whereIn('id', $reservasIds)
+                    ->where('user_id', $user->id)
+                    ->where('estado', 'RESERVADO')
+                    ->where('reservado_hasta', '>', now())
+                    ->with('asiento')
+                    ->lockForUpdate()
+                    ->get();
+
+                if ($reservas->count() !== count($reservasIds)) {
+                    return null;
+                }
+
+                $total = 0;
+
+                foreach ($reservas as $reserva) {
+                    $precio = (float) (Precio::where('evento_id', $reserva->evento_id)
+                        ->where('sector_id', $reserva->asiento->sector_id)
+                        ->value('precio') ?? 0);
+
+                    Entrada::create([
+                        'user_id' => $user->id,
+                        'evento_id' => $reserva->evento_id,
+                        'asiento_id' => $reserva->asiento_id,
+                        'precio_pagado' => $precio,
+                        'codigo_qr' => Str::random(32),
+                    ]);
+
+                    $reserva->update([
+                        'estado' => 'OCUPADO',
+                        'reservado_hasta' => null,
+                    ]);
+
+                    $total += $precio;
+                }
+
+                return [
+                    'cantidad' => $reservas->count(),
+                    'total' => $total,
+                ];
+            });
+
+            if ($resultado === null) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Hay reservas expiradas o no autorizadas. Recarga la página.'
+                ], 409);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Pago procesado exitosamente',
+                'cantidad' => $resultado['cantidad'],
+                'total' => $resultado['total']
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al procesar el pago: ' . $e->getMessage()
             ], 500);
         }
     }

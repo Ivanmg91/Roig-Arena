@@ -21,6 +21,7 @@
         <div class="dashboard-actions">
             <a href="{{ route('profile', [], false) }}" class="dashboard-action">Mi perfil</a>
             <a href="{{ route('mis-eventos', [], false) }}" class="dashboard-action">Mis eventos</a>
+            <a href="{{ route('mis-pagos-pendientes', [], false) }}" class="dashboard-action">Pagos Pendientes</a>
             <form method="POST" class="dashboard-action-form" action="{{ route('logout.post', [], false) }}">
                 @csrf
                 <button class="dashboard-action dashboard-action--danger" type="submit">Cerrar sesión</button>
