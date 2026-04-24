@@ -20,16 +20,25 @@
 
     <section class="grid grid-gap-bottom">
         @forelse ($eventos as $evento)
-                <a href="{{ route('eventos.show', ['evento' => $evento], false) }}" class="event-card">
-                    <img src="{{ $evento->poster_url }}" alt="{{ $evento->nombre }}" class="event-card-image">
-                    <div class="event-card-body">
-                        <h2 class="event-card-title">{{ $evento->nombre }}</h2>
-                        <p class="event-meta">
-                            <strong>{{ optional($evento->fecha)->format('d/m/Y') }}</strong>
-                            @if($evento->hora) · {{ optional($evento->hora)->format('H:i') }} @endif
-                        </p>
-                    </div>
-                </a>
+                <article class="event-card-wrapper">
+                    <a href="{{ route('eventos.show', ['evento' => $evento], false) }}" class="event-card">
+                        <img src="{{ $evento->poster_url }}" alt="{{ $evento->nombre }}" class="event-card-image">
+                        <div class="event-card-body">
+                            <h2 class="event-card-title">{{ $evento->nombre }}</h2>
+                            <p class="event-meta">
+                                <strong>{{ $evento->fecha?->format('d/m/Y') }}</strong>
+                                @if($evento->hora) · {{ $evento->hora?->format('H:i') }} @endif
+                            </p>
+                        </div>
+                    </a>
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <button type="button" class="event-card-trash" aria-label="Eliminar evento">
+                                🗑️
+                            </button>
+                        @endif
+                    @endauth
+                </article>
         @empty
             <article class="card">
                 <p class="no-margin">No hay eventos disponibles.</p>
