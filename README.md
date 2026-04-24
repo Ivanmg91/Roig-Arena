@@ -228,11 +228,6 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - MySQL 8
 - PHPUnit (tests)
 
+## Otros
 
-
-
-
-
-ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.
-
-AL COMPRAR DEBERIA SALIR UN POPUP PARA PAGAR Y SI SALES DE EL Q SE MANTENGA EN RESERVADO PARA TI 15 MINS. ERROR: EL POPUP NO SE ABRE PERO CREO Q SE REALIZA LA COMPRA
+- ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.

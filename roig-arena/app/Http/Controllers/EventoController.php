@@ -44,7 +44,7 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion_corta' => 'required|string|max:255',
             'descripcion_larga' => 'required|string',
@@ -54,12 +54,17 @@ class EventoController extends Controller
             'hora' => 'required|date_format:H:i',
         ]);
 
-        $evento = Evento::create($request->all());
+        $evento = Evento::create($validated);
 
-        return response()->json([
-            'data' => $evento,
-            'message' => 'Evento creado correctamente',
-        ], 201);
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'data' => $evento,
+                'message' => 'Evento creado correctamente',
+            ], 201);
+        }
+
+        return redirect(route('admin.eventos.create', [], false))
+            ->with('success', 'Evento creado correctamente.');
     }
 
     /**
@@ -69,8 +74,8 @@ class EventoController extends Controller
     {
         $evento = Evento::findOrFail($id);
 
-        $request->validate([
-            'nombre' => 'sometimes|string|max:255',
+        $validated = $request->validate([
+            'nombre' => 'sometimes|required|string|max:255',
             'descripcion_corta' => 'sometimes|string|max:255',
             'descripcion_larga' => 'sometimes|string',
             'poster_url' => 'nullable|url',
@@ -79,12 +84,16 @@ class EventoController extends Controller
             'hora' => 'sometimes|date_format:H:i',
         ]);
 
-        $evento->update($request->all());
+        $evento->update($validated);
 
-        return response()->json([
-            'data' => $evento,
-            'message' => 'Evento actualizado correctamente',
-        ]);
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'data' => $evento,
+                'message' => 'Evento actualizado correctamente',
+            ]);
+        }
+
+        return back()->with('success', 'Evento actualizado correctamente.');
     }
 
     /**

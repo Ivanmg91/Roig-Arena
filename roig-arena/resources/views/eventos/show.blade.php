@@ -24,7 +24,32 @@
     <div class="event-info-grid">
         <!-- Información del evento -->
         <section class="event-info-section">
-            <h2>{{ $evento->nombre }}</h2>
+            <div class="event-title-editor" data-event-title-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
+                <h2 class="event-title-display" data-event-title-display>{{ $evento->nombre }}</h2>
+
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <button type="button" class="event-title-edit-button" data-event-title-toggle aria-label="Editar nombre del evento">
+                            ✎
+                        </button>
+
+                        <form class="event-title-form" data-event-title-form hidden>
+                            @csrf
+                            @method('PATCH')
+                            <input
+                                type="text"
+                                name="nombre"
+                                value="{{ $evento->nombre }}"
+                                maxlength="255"
+                                required
+                                class="event-title-input"
+                                data-event-title-input
+                                aria-label="Nombre del evento"
+                            >
+                        </form>
+                    @endif
+                @endauth
+            </div>
 
             @if($evento->fecha || $evento->hora)
                 <div class="event-meta-item">
@@ -152,4 +177,107 @@
             </a>
         </section>
     @endif
+
+@endsection
+
+@section('page_scripts')
+    @auth
+        @if(auth()->user()->isAdmin())
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const editor = document.querySelector('[data-event-title-editor]');
+
+                    if (!editor) {
+                        return;
+                    }
+
+                    const toggleButton = editor.querySelector('[data-event-title-toggle]');
+                    const titleDisplay = editor.querySelector('[data-event-title-display]');
+                    const form = editor.querySelector('[data-event-title-form]');
+                    const input = editor.querySelector('[data-event-title-input]');
+                    const updateUrl = editor.dataset.updateUrl;
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
+
+                    if (!toggleButton || !titleDisplay || !form || !input || !updateUrl || !csrfToken) {
+                        return;
+                    }
+
+                    const openEditor = () => {
+                        titleDisplay.hidden = true;
+                        toggleButton.hidden = true;
+                        form.hidden = false;
+                        input.hidden = false;
+                        input.value = titleDisplay.textContent.trim();
+                        input.focus();
+                        input.select();
+                    };
+
+                    const closeEditor = () => {
+                        form.hidden = true;
+                        input.hidden = true;
+                        toggleButton.hidden = false;
+                        titleDisplay.hidden = false;
+                        input.setCustomValidity('');
+                    };
+
+                    toggleButton.addEventListener('click', openEditor);
+
+                    input.addEventListener('input', () => {
+                        input.setCustomValidity('');
+                    });
+
+                    input.addEventListener('keydown', (event) => {
+                        if (event.key === 'Escape') {
+                            event.preventDefault();
+                            input.value = titleDisplay.textContent.trim();
+                            closeEditor();
+                        }
+                    });
+
+                    form.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+
+                        const newName = input.value.trim();
+
+                        if (!newName) {
+                            input.setCustomValidity('El nombre no puede estar vacío.');
+                            input.reportValidity();
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch(updateUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken,
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                    'Accept': 'application/json',
+                                },
+                                body: new FormData(form),
+                            });
+
+                            const payload = await response.json().catch(() => ({}));
+
+                            if (!response.ok) {
+                                const message = payload?.message || payload?.error || 'No se pudo actualizar el nombre.';
+                                input.setCustomValidity(message);
+                                input.reportValidity();
+                                input.focus();
+                                return;
+                            }
+
+                            const updatedName = payload?.data?.nombre ?? newName;
+                            titleDisplay.textContent = updatedName;
+                            input.value = updatedName;
+                            document.title = `${updatedName} | Roig Arena`;
+                            closeEditor();
+                        } catch (error) {
+                            input.setCustomValidity('Error de red al actualizar el evento.');
+                            input.reportValidity();
+                        }
+                    });
+                });
+            </script>
+        @endif
+    @endauth
 @endsection
