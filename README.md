@@ -228,6 +228,12 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - MySQL 8
 - PHPUnit (tests)
 
+---
+
 ## Otros
 
 - ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.
+
+### Errores detectados
+
+- Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
