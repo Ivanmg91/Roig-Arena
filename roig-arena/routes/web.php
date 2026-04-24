@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\PaginaController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\EntradaController;
 
 Route::get('/', [PaginaController::class, 'home'])->name('home');
 Route::get('/eventos', [PaginaController::class, 'eventosIndex'])->name('eventos.index');
@@ -29,10 +30,21 @@ Route::view('/profile', 'auth.profile')->middleware('auth')->name('profile');
 Route::get('/mis-eventos', [EventoController::class, 'misEventos'])->middleware('auth')->name('mis-eventos');
 Route::get('/mis-eventos-info', [EventoController::class, 'misEventosInfo'])->middleware('auth')->name('mis-eventos.info');
 Route::get('/mi-evento-info/{id}', [EventoController::class, 'miEventoInfo'])->middleware('auth')->name('mi-evento.info');
+Route::delete('/entradas/{id}', [EntradaController::class, 'destroy'])->middleware('auth')->name('entradas.destroy');
 
 // Rutas de pagos pendientes
 Route::get('/mis-pagos-pendientes', [CompraController::class, 'misPagosPendientes'])->middleware('auth')->name('mis-pagos-pendientes');
 Route::post('/mis-pagos-pendientes/pagar', [CompraController::class, 'procesarPagoPendiente'])->middleware('auth')->name('mis-pagos-pendientes.pagar');
+
+// Rutas admin (web)
+Route::middleware(['auth', 'admin'])
+	->prefix('admin')
+	->name('admin.')
+	->group(function () {
+		Route::view('/eventos/create', 'eventos.create')->name('eventos.create');
+		Route::post('/eventos', [EventoController::class, 'store'])->name('eventos.store');
+		Route::patch('/eventos/{id}', [EventoController::class, 'update'])->name('eventos.update');
+	});
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
 Route::view('/welcome', 'welcome')->name('welcome');

@@ -12,10 +12,10 @@ class UserSeeder extends Seeder
     {
         // Usuario administrador
         User::create([
-            'nombre' => 'Admin',
-            'apellido' => 'Sistema',
-            'email' => 'admin@roigarena.com',
-            'password' => Hash::make('admin123'),
+            'nombre' => 'admin',
+            'apellido' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin'),
             'is_admin' => true,
         ]);
 

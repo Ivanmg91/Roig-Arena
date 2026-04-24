@@ -8,7 +8,13 @@
 
 @section('content')
     <div class="eventos-header">
-        <h1>Eventos</h1>
+        <h1>Eventos
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.eventos.create', [], false) }}" class="btn btn-primary" aria-label="+">+</a>
+                @endif
+            @endauth
+        </h1>
         <p class="muted no-margin">Próximos conciertos y espectáculos en el Roig Arena.</p>
     </div>
 

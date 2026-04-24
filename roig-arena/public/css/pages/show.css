@@ -53,14 +53,82 @@
 
 .event-info-section h2 {
   /* uses .section-heading pattern from site.css */
-  font-size: 0.72rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--color-primary);
   margin: 0 0 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--color-border);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.event-title-editor {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.event-title-display {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.event-title-edit-button {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-primary);
+  border-radius: 999px;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.event-title-edit-button:hover,
+.event-title-edit-button:focus-visible {
+  border-color: rgba(245, 48, 3, 0.45);
+  color: var(--color-accent);
+  background: rgba(245, 48, 3, 0.08);
+}
+
+.event-title-form {
+  flex: 1;
+}
+
+.event-title-input {
+  width: 100%;
+  min-height: 2.5rem;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.event-title-input:focus {
+  border-color: rgba(245, 48, 3, 0.45);
+  box-shadow: 0 0 0 3px rgba(245, 48, 3, 0.12);
 }
 
 /* Meta items */
