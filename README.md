@@ -247,10 +247,11 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Administrador
 
 - [x] Todo lo anterior +
-- [x] Crear eventos (sin problemas detectados)
+- [x] Crear eventos (por completar)
 - [ ] Crear artistas (sin completar)
 - [ ] Asignar artistas a eventos (sin completar)
-- [ ] Actualizar eventos (sin completar)
+- [x] Asignar sectores a eventos (sin problemas detectados)
+- [ ] Actualizar eventos todos sus campos (sin completar)
 - [x] Eliminar eventos (sin problemas detectados)
 - [ ] Crear sectores (por hacer)
 - [ ] Actualizar sectores (por hacer)
@@ -282,3 +283,4 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Errores detectados
 
 - Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
+- Cuando se agotan un sector de un evento se cambian de posicion en el mapa.
