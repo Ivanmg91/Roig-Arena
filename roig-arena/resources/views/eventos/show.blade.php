@@ -132,23 +132,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($sectores as $sector)
-                    @php
-                        $precio = $evento->precioDelSector($sector->id);
-                    @endphp
+                @foreach($precios as $precio)
                     <tr>
                         <td>
-                            <strong>{{ $sector->nombre }}</strong>
-                            @if($sector->descripcion)
+                            <strong>{{ $precio->sector->nombre }}</strong>
+                            @if($precio->sector->descripcion)
                                 <br>
-                                <span class="muted">{{ $sector->descripcion }}</span>
+                                <span class="muted">{{ $precio->sector->descripcion }}</span>
                             @endif
                         </td>
                         <td class="price-highlight">
                             {{ number_format($precio->precio, 2, ',', '.') }}€
                         </td>
                         <td>
-                            @if($sector->pivot->disponible)
+                            @if($precio->disponible)
                                 <span class="badge badge-success">Disponible</span>
                             @else
                                 <span class="badge badge-danger">Agotado</span>

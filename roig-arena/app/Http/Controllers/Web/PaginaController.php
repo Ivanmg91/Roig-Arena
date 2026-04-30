@@ -32,13 +32,16 @@ class PaginaController extends Controller
     {
         $evento->load(['precios.sector', 'artistas']);
 
-        $sectores = $evento->sectores()
-            ->where('sectores.activo', true)
+        $precios = $evento->precios()
+            ->whereHas('sector', function ($query) {
+                $query->where('activo', true);
+            })
+            ->with('sector')
             ->get();
 
         return view('eventos.show', [
             'evento' => $evento,
-            'sectores' => $sectores,
+            'precios' => $precios,
         ]);
     }
 }
