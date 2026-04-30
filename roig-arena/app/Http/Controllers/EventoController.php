@@ -130,8 +130,8 @@ class EventoController extends Controller
             ], 201);
         }
 
-        return redirect(route('admin.eventos.create', [], false))
-            ->with('success', 'Evento creado correctamente.');
+        return redirect(route('eventos.show', ['evento' => $evento->id], false))
+            ->with('success', 'Evento creado correctamente. Ya está disponible en el catálogo.');
     }
 
     /**
