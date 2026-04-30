@@ -53,6 +53,83 @@ class Evento extends Model
     }
 
     /**
+     * Marcar sector como agotado (disponible=false)
+     */
+    public function marcarSectorAgotado($sectorId)
+    {
+        $this->sectores()->updateExistingPivot($sectorId, ['disponible' => false]);
+    }
+
+    /**
+     * Actualizar el campo disponible de un sector para este evento.
+     */
+    public function actualizarDisponibilidadSector($sectorId, bool $disponible): bool
+    {
+        $precio = $this->precios()
+            ->where('sector_id', $sectorId)
+            ->first();
+
+        if (!$precio) {
+            return false;
+        }
+
+        if ($precio->disponible === $disponible) {
+            return $disponible;
+        }
+
+        $this->sectores()->updateExistingPivot($sectorId, ['disponible' => $disponible]);
+
+        return $disponible;
+    }
+
+    /**
+     * Comprobar el evento y ajustar la disponibilidad de todos sus sectores.
+     *
+     * Esto permite reutilizar la comprobación tras compras u otras acciones
+     * y mantener el campo `disponible` en la tabla `precios` sincronizado.
+     *
+     * @return bool True si el evento tiene al menos un sector disponible.
+     */
+    public function comprobarEvento(): bool
+    {
+        $sectores = $this->sectores()
+            ->where('sectores.activo', true)
+            ->get();
+
+        $hayDisponibilidad = false;
+
+        foreach ($sectores as $sector) {
+            $sectorDisponible = $this->sectorTieneAsientosDisponibles($sector->id);
+            $this->actualizarDisponibilidadSector($sector->id, $sectorDisponible);
+
+            if ($sectorDisponible) {
+                $hayDisponibilidad = true;
+            }
+        }
+
+        return $hayDisponibilidad;
+    }
+
+    /**
+     * Verificar si quedan asientos libres para un sector en este evento.
+     */
+    public function sectorTieneAsientosDisponibles($sectorId): bool
+    {
+        return Asiento::where('sector_id', $sectorId)
+            ->whereDoesntHave('estadoAsientos', function ($query) {
+                $query->where('evento_id', $this->id)
+                      ->where(function ($query) {
+                          $query->where('estado', 'OCUPADO')
+                                ->orWhere(function ($query) {
+                                    $query->where('estado', 'RESERVADO')
+                                          ->where('reservado_hasta', '>', now());
+                                });
+                      });
+            })
+            ->exists();
+    }
+
+    /**
      * Un evento tiene muchos estados de asientos
      */
     public function estadoAsientos()

@@ -117,46 +117,49 @@
     @endif
 
     <!-- Precios y disponibilidad -->
-    @if($evento->sectoresDisponibles()->count() > 0)
-        <section class="card section-gap">
-            <div class="section-divider">
-                <span>PRECIOS</span>
-            </div>
-            <p class="muted event-prices-intro">Selecciona tu sector y compra tu entrada</p>
+    <section class="card section-gap">
+        <div class="section-divider">
+            <span>PRECIOS</span>
+        </div>
+        <p class="muted event-prices-intro">Selecciona tu sector y compra tu entrada</p>
 
-            <table class="pricing-table">
-                <thead>
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>Sector</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($sectores as $sector)
+                    @php
+                        $precio = $evento->precioDelSector($sector->id);
+                    @endphp
                     <tr>
-                        <th>Sector</th>
-                        <th>Precio</th>
-                        <th>Estado</th>
+                        <td>
+                            <strong>{{ $sector->nombre }}</strong>
+                            @if($sector->descripcion)
+                                <br>
+                                <span class="muted">{{ $sector->descripcion }}</span>
+                            @endif
+                        </td>
+                        <td class="price-highlight">
+                            {{ number_format($precio->precio, 2, ',', '.') }}€
+                        </td>
+                        <td>
+                            @if($sector->pivot->disponible)
+                                <span class="badge badge-success">Disponible</span>
+                            @else
+                                <span class="badge badge-danger">Agotado</span>
+                            @endif
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($evento->sectoresDisponibles() as $sector)
-                        @php
-                            $precio = $evento->precioDelSector($sector->id);
-                        @endphp
-                        <tr>
-                            <td>
-                                <strong>{{ $sector->nombre }}</strong>
-                                @if($sector->descripcion)
-                                    <br>
-                                    <span class="muted">{{ $sector->descripcion }}</span>
-                                @endif
-                            </td>
-                            <td class="price-highlight">
-                                {{ number_format($precio->precio, 2, ',', '.') }}€
-                            </td>
-                            <td>
-                                <span class="badge">Disponible</span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                @endforeach
+            </tbody>
+        </table>
 
-            <!-- Botón de compra -->
+        @if($evento->sectoresDisponibles()->count() > 0)
             <div class="cta-section">
                 <a href="{{ route('compra.buy', ['evento' => $evento->id], false) }}" class="btn btn-primary">
                     Comprar Entradas
@@ -165,18 +168,15 @@
                     Volver
                 </a>
             </div>
-        </section>
-    @else
-        <section class="card section-gap">
-            <div class="section-divider">
-                <span>ESTADO</span>
+        @else
+            <div class="cta-section">
+                <p class="muted">No hay entradas disponibles para este evento en este momento.</p>
+                <a href="{{ route('eventos.index', [], false) }}" class="btn btn-alt">
+                    Volver al listado
+                </a>
             </div>
-            <p class="muted">No hay entradas disponibles para este evento en este momento.</p>
-            <a href="{{ route('eventos.index', [], false) }}" class="btn">
-                Volver al listado
-            </a>
-        </section>
-    @endif
+        @endif
+    </section>
 
 @endsection
 

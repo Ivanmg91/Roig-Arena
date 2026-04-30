@@ -27,7 +27,7 @@ class CompraController extends Controller
 
 
     public function store(Request $request)
-{
+    {
         $request->validate([
             'reservas' => 'required|array',
             'reservas.*' => 'exists:estado_asientos,id',
@@ -36,6 +36,7 @@ class CompraController extends Controller
         $user = auth()->user();
 
         $reservas = EstadoAsiento::whereIn('id', $request->reservas)->get();
+        $evento = null;
 
         foreach ($reservas as $reserva) {
             // ❌ Expirada
@@ -61,6 +62,14 @@ class CompraController extends Controller
             $reserva->update([
                 'estado' => 'OCUPADO',
             ]);
+
+            if (!$evento) {
+                $evento = $reserva->evento;
+            }
+        }
+
+        if ($evento) {
+            $evento->comprobarEvento();
         }
 
         return response()->json([
@@ -174,15 +183,18 @@ class CompraController extends Controller
     /**
      * Obtener sectores disponibles para un evento
      */
-    public function obtenerSectoresDisponibles($eventoId) {
+    public function obtenerSectoresDisponibles($eventoId)
+    {
         $evento = Evento::findOrFail($eventoId);
-        $sectoresDisponibles = $evento->sectores()->activos()->get();
+        $sectoresDisponibles = $evento->sectores()
+            ->activos()
+            ->wherePivot('disponible', true)
+            ->get();
 
         return response()->json([
             'success' => true,
             'data' => $sectoresDisponibles
         ]);
-
     }
 
     /**
@@ -211,6 +223,8 @@ class CompraController extends Controller
 
                 $total = 0;
 
+                $evento = null;
+
                 foreach ($reservas as $reserva) {
                     $precioAsiento = (float) ($reserva->asiento->precio ?? 0);
                     $total += $precioAsiento;
@@ -226,6 +240,14 @@ class CompraController extends Controller
                     $reserva->update([
                         'estado' => 'OCUPADO',
                     ]);
+
+                    if (!$evento) {
+                        $evento = $reserva->evento;
+                    }
+                }
+
+                if ($evento) {
+                    $evento->comprobarEvento();
                 }
 
                 return [
@@ -347,6 +369,8 @@ class CompraController extends Controller
 
                 $total = 0;
 
+                $evento = null;
+
                 foreach ($reservas as $reserva) {
                     $precio = (float) (Precio::where('evento_id', $reserva->evento_id)
                         ->where('sector_id', $reserva->asiento->sector_id)
@@ -365,7 +389,15 @@ class CompraController extends Controller
                         'reservado_hasta' => null,
                     ]);
 
+                    if (!$evento) {
+                        $evento = $reserva->evento;
+                    }
+
                     $total += $precio;
+                }
+
+                if ($evento) {
+                    $evento->comprobarEvento();
                 }
 
                 return [
