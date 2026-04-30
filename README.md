@@ -284,3 +284,8 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 
 - Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
 - Cuando se agotan un sector de un evento se cambian de posicion en el mapa.
+
+### Por hacer ahora que recuerde
+
+- La x para quitar sectores de un evento
+- Un + para asociar sectores a un evento
