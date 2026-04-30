@@ -86,7 +86,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     // Eventos (CRUD completo)
     Route::post('/eventos', [EventoController::class, 'store']);
     Route::put('/eventos/{id}', [EventoController::class, 'update']);
-    Route::delete('/eventos/{id}', [EventoController::class, 'destroy']);
+    Route::delete('/eventos/{id}', [EventoController::class, 'destroy']); // --- IGNORE --- (ya existe en web.php, pero se mantiene aquí para la API REST)
 
     // Sectores (CRUD completo)
     Route::post('/sectores', [SectorController::class, 'store']);

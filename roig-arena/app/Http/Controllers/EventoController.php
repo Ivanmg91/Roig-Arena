@@ -99,22 +99,30 @@ class EventoController extends Controller
     /**
      * Eliminar evento (admin)
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $evento = Evento::findOrFail($id);
 
         // Verificar que no tenga entradas vendidas
         if ($evento->totalEntradasVendidas() > 0) {
-            return response()->json([
-                'error' => 'No se puede eliminar un evento con entradas vendidas',
-            ], 400);
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'error' => 'No se puede eliminar un evento con entradas vendidas',
+                ], 400);
+            } else {
+                return back()->with('error', 'No se puede eliminar un evento con entradas vendidas');
+            }
         }
 
         $evento->delete();
 
-        return response()->json([
-            'message' => 'Evento eliminado correctamente',
-        ]);
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'message' => 'Evento eliminado correctamente',
+            ]);
+        } else {
+            return back()->with('success', 'Evento eliminado correctamente');
+        }
     }
 
     /**
