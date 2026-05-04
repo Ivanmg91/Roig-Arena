@@ -228,6 +228,64 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - MySQL 8
 - PHPUnit (tests)
 
+---
+
+## Finalización del proyecto
+
+### Usuario
+
+- [x] Registro (sin problemas detectados)
+- [x] Inicio sesión (sin problemas detectados)
+- [x] Ver eventos disponibles (sin problemas detectados)
+- [x] Ver sectores y precios (sin problemas detectados)
+- [x] Ver asientos disponibles (sin problemas detectados)
+- [x] Reservar asientos (sin problemas detectados)
+- [x] Cancelar compra (sin problemas detectados)
+- [x] Ver entrada con QR (sin problemas detectados)
+- [x] Cerrar sesión (sin problemas detectados)
+
+### Administrador
+
+- [x] Todo lo anterior +
+- [x] Crear eventos (por completar)
+- [ ] Crear artistas (sin completar)
+- [ ] Asignar artistas a eventos (sin completar)
+- [x] Asignar sectores a eventos (sin problemas detectados)
+- [ ] Actualizar eventos todos sus campos (sin completar)
+- [x] Eliminar eventos (sin problemas detectados)
+- [ ] Crear sectores (por hacer)
+- [ ] Actualizar sectores (por hacer)
+- [ ] Eliminar sectores (por hacer)
+
+### Sistema automatico
+
+- [x] Liberar reservas expiradas cada minuto (sin problemas detectados)
+- [ ] Protección contra race condition lockForUpdate (por hacer)
+- [ ] Transacciones DB (por hacer)
+- [ ] Logs de operaciones (por hacer)
+
+### Seguridad
+
+- [ ] Autenticación con Laravel Sanctum tokens Bearer (revisar)
+- [ ] Middleware IsAdmin para rutas protegidas (revisar)
+- [ ] Validaciones en todos los endpoints (revisar)
+- [ ] Protección contra race condition lockForUpdate (revisar)
+- [ ] Transacciones DB para operaciones críticas (revisar)
+- [ ] Ocultación de datos sensibles password, tokens (revisar)
+- [ ] Soft deletes en users y eventos (revisar)
+- [x] Hash de contraseñas (sin problemas detectados)
+- [ ] Códigos HTTP correctos 200, 201, 400, 401, 403, 404 (revisar)
+
 ## Otros
 
 - ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.
+
+### Errores detectados
+
+- Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
+- Cuando se agotan un sector de un evento se cambian de posicion en el mapa.
+
+### Por hacer ahora que recuerde
+
+- La x para quitar sectores de un evento
+- Un + para asociar sectores a un evento
