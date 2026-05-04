@@ -36,16 +36,7 @@
                         <form class="event-title-form" data-event-title-form hidden>
                             @csrf
                             @method('PATCH')
-                            <input
-                                type="text"
-                                name="nombre"
-                                value="{{ $evento->nombre }}"
-                                maxlength="255"
-                                required
-                                class="event-title-input"
-                                data-event-title-input
-                                aria-label="Nombre del evento"
-                            >
+                            <input type="text" name="nombre" value="{{ $evento->nombre }}" maxlength="255" required class="event-title-input" data-event-title-input aria-label="Nombre del evento">
                         </form>
                     @endif
                 @endauth
@@ -191,8 +182,8 @@
                         return;
                     }
 
-                    const toggleButton = editor.querySelector('[data-event-title-toggle]');
-                    const titleDisplay = editor.querySelector('[data-event-title-display]');
+                    const toggleButton = editor.querySelector('[data-event-title-toggle]'); // Botón lápiz
+                    const titleDisplay = editor.querySelector('[data-event-title-display]'); // H2
                     const form = editor.querySelector('[data-event-title-form]');
                     const input = editor.querySelector('[data-event-title-input]');
                     const updateUrl = editor.dataset.updateUrl;
@@ -220,6 +211,10 @@
                         input.setCustomValidity('');
                     };
 
+
+                    /*
+                        LISTENERS
+                    */
                     toggleButton.addEventListener('click', openEditor);
 
                     input.addEventListener('input', () => {
