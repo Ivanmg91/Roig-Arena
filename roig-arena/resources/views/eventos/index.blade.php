@@ -33,9 +33,13 @@
                     </a>
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <button type="button" class="event-card-trash" aria-label="Eliminar evento">
-                                🗑️
-                            </button>
+                            <form action="{{ route('admin.eventos.destroy', ['id' => $evento->id], false) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="event-card-trash" aria-label="Eliminar evento" onclick="return confirm('¿Estás seguro de que quieres eliminar este evento?')">
+                                    🗑️
+                                </button>
+                            </form>
                         @endif
                     @endauth
                 </article>

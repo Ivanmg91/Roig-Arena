@@ -41,9 +41,10 @@ Route::middleware(['auth', 'admin'])
 	->prefix('admin')
 	->name('admin.')
 	->group(function () {
-		Route::view('/eventos/create', 'eventos.create')->name('eventos.create');
+		Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
 		Route::post('/eventos', [EventoController::class, 'store'])->name('eventos.store');
 		Route::patch('/eventos/{id}', [EventoController::class, 'update'])->name('eventos.update');
+		Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 	});
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
