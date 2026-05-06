@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artista;
 use App\Models\Evento;
 use App\Models\Precio;
 use App\Models\Sector;
@@ -191,6 +192,25 @@ class EventoController extends Controller
         } else {
             return back()->with('success', 'Evento eliminado correctamente');
         }
+    }
+
+    /**
+     * Quitar un artista de un evento (admin).
+     */
+    public function detachArtista(Request $request, $eventoId, $artistaId)
+    {
+        $evento = Evento::findOrFail($eventoId);
+        Artista::findOrFail($artistaId);
+
+        $evento->artistas()->detach($artistaId);
+
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'message' => 'Artista quitado del evento correctamente',
+            ]);
+        }
+
+        return back()->with('success', 'Artista quitado del evento correctamente.');
     }
 
     /**

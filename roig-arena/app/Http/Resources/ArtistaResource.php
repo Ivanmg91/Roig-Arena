@@ -14,8 +14,7 @@ class ArtistaResource extends JsonResource
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'imagen_url' => $this->imagen_url,
-            'evento' => new EventoResource($this->whenLoaded('evento')),
-            'evento_id' => $this->evento_id,
+            'eventos' => EventoResource::collection($this->whenLoaded('eventos')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

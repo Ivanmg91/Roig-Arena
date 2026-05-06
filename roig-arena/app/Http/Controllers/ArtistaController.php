@@ -14,7 +14,7 @@ class ArtistaController extends Controller
      */
     public function index()
     {
-        $artistas = Artista::with('evento')->get();
+        $artistas = Artista::with('eventos')->get();
 
         return response()->json([
             'data' => ArtistaResource::collection($artistas),
@@ -39,7 +39,7 @@ class ArtistaController extends Controller
      */
     public function show($id)
     {
-        $artista = Artista::with('evento')->findOrFail($id);
+        $artista = Artista::with('eventos')->findOrFail($id);
 
         return response()->json([
             'data' => new ArtistaResource($artista),
@@ -58,7 +58,13 @@ class ArtistaController extends Controller
             'imagen_url' => 'nullable|url',
         ]);
 
-        $artista = Artista::create($request->all());
+        // Crear artista en catálogo
+        $artista = Artista::create($request->only(['nombre', 'descripcion', 'imagen_url']));
+
+        // Asociar al evento indicado
+        if ($request->filled('evento_id')) {
+            $artista->eventos()->attach($request->input('evento_id'));
+        }
 
         return response()->json([
             'data' => new ArtistaResource($artista),
@@ -80,7 +86,15 @@ class ArtistaController extends Controller
             'imagen_url' => 'nullable|url',
         ]);
 
-        $artista->update($request->all());
+        $artista->update($request->only(['nombre', 'descripcion', 'imagen_url']));
+
+        // Si llega evento_id, sincronizar asociación con ese evento (añadir si falta)
+        if ($request->has('evento_id')) {
+            $eventoId = $request->input('evento_id');
+            if ($eventoId) {
+                $artista->eventos()->syncWithoutDetaching([$eventoId]);
+            }
+        }
 
         return response()->json([
             'data' => new ArtistaResource($artista),
@@ -107,7 +121,7 @@ class ArtistaController extends Controller
     public function buscar(Request $request)
     {
         $query = $request->input('q');
-        
+
         if (!$query) {
             return response()->json([
                 'error' => 'El parámetro "q" es requerido',

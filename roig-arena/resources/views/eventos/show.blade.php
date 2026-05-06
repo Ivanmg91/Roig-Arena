@@ -180,6 +180,17 @@
                             @endif
                         </div>
                     </div>
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <form action="{{ route('admin.eventos.artistas.destroy', ['eventoId' => $evento->id, 'artistaId' => $artista->id], false) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="event-card-trash" aria-label="Quitar artista del evento" onclick="return confirm('¿Estás seguro de que quieres quitar este artista de este evento?')">
+                                    🗑️
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             @empty
                 <p class="muted">No hay artistas asignados a este evento.</p>

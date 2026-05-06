@@ -59,10 +59,20 @@ return new class extends Migration
         Schema::create('artistas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
+            // ahora los artistas son un catálogo independiente; las relaciones con eventos
+            // se gestionan en la tabla pivote `artista_evento` creada más abajo
             $table->text('descripcion')->nullable();
             $table->string('imagen_url')->nullable();
             $table->timestamps();
+        });
+
+        // Tabla pivote artista_evento (artistas reutilizables en varios eventos)
+        Schema::create('artista_evento', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('artista_id')->constrained('artistas')->onDelete('cascade');
+            $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
+            $table->timestamps();
+            $table->unique(['artista_id', 'evento_id']);
         });
 
         // Tabla de precios (precio por sector en cada evento)
@@ -117,6 +127,7 @@ return new class extends Migration
         Schema::dropIfExists('entradas');
         Schema::dropIfExists('estado_asientos');
         Schema::dropIfExists('precios');
+        Schema::dropIfExists('artista_evento');
         Schema::dropIfExists('eventos');
         Schema::dropIfExists('artistas');
         Schema::dropIfExists('asientos');

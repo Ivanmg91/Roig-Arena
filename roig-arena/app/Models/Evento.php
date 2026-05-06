@@ -148,9 +148,10 @@ class Evento extends Model
     /**
      * Un evento tiene muchos artistas
      */
-    public function artistas()
+    public function artistas() // CON ESTO BORRO EN LA TABLA PIVOTE, NO EL ARTISTA EN SÍ
     {
-        return $this->hasMany(Artista::class);
+        return $this->belongsToMany(Artista::class, 'artista_evento')
+                    ->withTimestamps();
     }
 
     // ============================================

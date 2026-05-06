@@ -13,7 +13,8 @@ class ArtistaFactory extends Factory
     {
         return [
             'nombre' => $this->faker->sentence(3),
-            'evento_id' => Evento::factory(),
+            // ahora el artista es un catálogo independiente; la asociación con eventos
+            // se hace mediante la tabla pivote `artista_evento` o en seeders/tests
             'descripcion' => $this->faker->paragraphs(3, true),
             'imagen_url' => $this->faker->imageUrl(640, 480, 'artists', true),
         ];

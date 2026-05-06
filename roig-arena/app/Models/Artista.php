@@ -13,7 +13,6 @@ class Artista extends Model
     
     protected $fillable = [
         'nombre',
-        'evento_id',
         'descripcion',
         'imagen_url',
     ];
@@ -21,8 +20,9 @@ class Artista extends Model
     /**
      * Relación con Evento
      */
-    public function evento()
+    public function eventos()
     {
-        return $this->belongsTo(Evento::class);
+        return $this->belongsToMany(Evento::class, 'artista_evento')
+                    ->withTimestamps();
     }
 }

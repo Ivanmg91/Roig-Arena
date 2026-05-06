@@ -40,7 +40,14 @@ class ArtistaSeeder extends Seeder
         ];
 
         foreach ($artistas as $artista) {
-            Artista::create($artista);
+            $eventoId = $artista['evento_id'] ?? null;
+            unset($artista['evento_id']);
+
+            $a = Artista::create($artista);
+
+            if ($eventoId) {
+                $a->eventos()->attach($eventoId);
+            }
         }
 
         $this->command->info('✅ Artistas creados: ' . count($artistas));
