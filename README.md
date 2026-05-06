@@ -256,6 +256,8 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [ ] Crear sectores (por hacer)
 - [ ] Actualizar sectores (por hacer)
 - [ ] Eliminar sectores (por hacer)
+- [x] Actualizar sectores de un evento (solo el precio por ahora) (sin problemas detectados)
+- [x] Eliminar (deshabilitar) sectores de un evento (sin problemas detectados)
 
 ### Sistema automatico
 
@@ -276,10 +278,6 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [x] Hash de contraseñas (sin problemas detectados)
 - [ ] Códigos HTTP correctos 200, 201, 400, 401, 403, 404 (revisar)
 
-## Otros
-
-- ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.
-
 ### Errores detectados
 
 - Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
@@ -287,5 +285,10 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 
 ### Por hacer ahora que recuerde
 
-- La x para quitar sectores de un evento
+- La x para quitar sectores de un evento (no borrarlos para siempre)
+
 - Un + para asociar sectores a un evento
+
+## Otros
+
+- ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.

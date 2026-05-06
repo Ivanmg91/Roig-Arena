@@ -220,6 +220,16 @@
   margin-top: 0;
 }
 
+.pricing-table-actions {
+  text-align: center;
+}
+
+.pricing-table-actions .event-card-trash {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
 /* Precio destacado */
 .price-highlight {
   font-weight: 800;

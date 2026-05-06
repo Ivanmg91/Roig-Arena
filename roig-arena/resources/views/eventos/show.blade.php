@@ -164,6 +164,11 @@
                     <th>Sector</th>
                     <th>Precio</th>
                     <th>Estado</th>
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <th>Acciones</th>
+                        @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -177,7 +182,9 @@
                             @endif
                         </td>
                         <td class="price-highlight">
-                            {{ number_format($precio->precio, 2, ',', '.') }}€
+                            <span id="sector-price-display-{{ $precio->id }}" data-sector-price-display>
+                                {{ number_format($precio->precio, 2, ',', '.') }}€
+                            </span>
                         </td>
                         <td>
                             @if($precio->disponible)
@@ -186,6 +193,57 @@
                                 <span class="badge badge-danger">Agotado</span>
                             @endif
                         </td>
+                        @auth
+                            @if(auth()->user()->isAdmin())
+                                <td class="pricing-table-actions">
+                                    <form action="{{ route('admin.sectores.disable', ['id' => $precio->id], false) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="event-card-trash" aria-label="Eliminar sector" onclick="return confirm('¿Estás seguro de que quieres desactivar este sector?')">
+                                            🗑️
+                                        </button> <!-- Para borrar (deshabilitar) eliminamos de la tabla precios -->
+                                    </form>
+                                    <button type="button" class="event-title-edit-button" data-sector_price-toggle aria-label="Editar precio del sector">
+                                        ✎
+                                    </button>
+                                    <form
+                                        class="event-sector_price-form"
+                                        data-sector-price-editor
+                                        data-sector-price-display="#sector-price-display-{{ $precio->id }}"
+                                        action="{{ route('admin.precios.update', ['id' => $precio->id], false) }}"
+                                        method="POST"
+                                        hidden
+                                    >
+                                        @csrf
+                                        @method('PATCH')
+                                        <input
+                                            type="number"
+                                            name="precio"
+                                            value="{{ number_format((float) $precio->precio, 2, '.', '') }}"
+                                            min="0"
+                                            step="0.01"
+                                            required
+                                            class="event-sector_price-input"
+                                            data-sector-price-input
+                                            aria-label="Precio del sector {{ $precio->sector->nombre }}"
+                                        >
+                                    </form>
+
+                                    <label for="sector-price-select-{{ $precio->id }}" style="display: inline-flex; align-items: center; gap: 0.35rem; margin-right: 0.75rem;">
+                                        <input
+                                            type="checkbox"
+                                            id="sector-price-select-{{ $precio->id }}"
+                                            name="precios_seleccionados[]"
+                                            value="{{ $precio->id }}"
+                                            data-sector-price-checkbox
+                                            data-sector-id="{{ $precio->sector_id }}"
+                                            data-precio-id="{{ $precio->id }}"
+                                        >
+                                        {{-- <span class="muted">Seleccionar</span> --}}
+                                    </label>
+                                </td>
+                            @endif
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>
@@ -215,7 +273,8 @@
 @section('page_scripts')
     @auth
         @if(auth()->user()->isAdmin())
-            <script src="/js/pages/updateShow.js"></script>
+            <script src="/js/pages/updateFieldText.js"></script>
+            <script src="/js/pages/updateFieldPrice.js"></script>
         @endif
     @endauth
 @endsection

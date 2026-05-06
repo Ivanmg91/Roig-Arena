@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\Precio;
 use App\Models\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -53,7 +54,7 @@ class EventoController extends Controller
 
     /**
      * Crear evento (admin)
-     * 
+     *
      * Flujo:
      * 1. Valida todos los campos del formulario (evento + sectores + precios)
      * 2. Crea el evento en BD con datos básicos (nombre, fecha, hora, etc)
@@ -254,5 +255,38 @@ class EventoController extends Controller
         return view('auth.mi-evento-info', [
             'evento' => $evento,
         ]);
+    }
+
+    /**
+     * Deshabilitar sector de un evento (admin) (borra de la tabla precios, no de sectores.)
+     */
+    public function disableSector($id) {
+        $precio = Precio::findOrFail($id);
+        $precio->delete();
+
+        return back()->with('success', 'Sector deshabilitado correctamente para este evento.');
+    }
+
+    /**
+     * Actualizar el precio de un sector de un evento (admin)
+     */
+    public function updateSectorPrice(Request $request, $id)
+    {
+        $precio = Precio::findOrFail($id);
+
+        $validated = $request->validate([
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+        $precio->update($validated);
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'data' => $precio->load('sector'),
+                'message' => 'Precio actualizado correctamente',
+            ]);
+        }
+
+        return back()->with('success', 'Precio actualizado correctamente.');
     }
 }
