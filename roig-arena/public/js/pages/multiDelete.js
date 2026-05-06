@@ -1,7 +1,6 @@
 // Habilita o deshabilita los controles de acciones (editar/borrar) de una fila concreta.
 // - checkbox: checkbox de la fila actual.
 // - isEnabled: true para habilitar acciones, false para deshabilitarlas.
-
 function setRowActionsState(checkbox, isEnabled) {
 	// Localiza la fila completa donde vive el checkbox.
 	const row = checkbox.closest('tr');

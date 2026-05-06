@@ -36,35 +36,98 @@
                         <form class="event-title-form" data-event-title-form hidden>
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="nombre" value="{{ $evento->nombre }}" maxlength="255" required class="event-title-input" data-event-title-input aria-label="Nombre del evento">
+                            <div class="event-form-content">
+                                <input type="text"
+                                    name="nombre"
+                                    value="{{ $evento->nombre }}"
+                                    maxlength="255"
+                                    required class="event-title-input"
+                                    data-event-title-input
+                                    aria-label="Nombre del evento"
+                                >
+                                <button type="submit" class="event-title-edit-button" aria-label="Guardar cambios">
+                                    ✓
+                                </button>
+                            </div>
                         </form>
                     @endif
                 @endauth
             </div>
 
             @if($evento->fecha || $evento->hora)
-                <div class="event-meta-item">
+                <div class="event-meta-item event-date-editor" data-date-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
                     <span class="event-meta-label">Fecha</span>
-                    <span class="event-meta-value">
+                    <span class="event-meta-value" data-date-display>
                         @if($evento->fecha)
                             {{ $evento->fecha->format('d/m/Y') }}
                         @else
                             Por confirmar
                         @endif
                     </span>
-                </div>
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <button type="button" class="event-title-edit-button" data-date-toggle aria-label="Editar fecha del evento">
+                                ✎
+                            </button>
 
-                <div class="event-meta-item">
-                    <span class="event-meta-label">Hora</span>
-                    <span class="event-meta-value">
-                        @if($evento->hora)
-                            {{ $evento->hora->format('H:i') }}
-                        @else
-                            Por confirmar
+                            <form class="event-date-form" data-date-form hidden>
+                                @csrf
+                                @method('PATCH')
+                                <div class="event-form-content">
+                                    <input
+                                        type="date"
+                                        name="fecha"
+                                        value="{{ $evento->fecha ? $evento->fecha->format('Y-m-d') : '' }}"
+                                        required
+                                        class="event-date-input"
+                                        data-date-input
+                                        aria-label="Fecha del evento"
+                                    >
+                                    <button type="submit" class="event-title-edit-button" aria-label="Guardar cambios">
+                                        ✓
+                                    </button>
+                                </div>
+                            </form>
                         @endif
-                    </span>
+                    @endauth
                 </div>
             @endif
+            <div class="event-meta-item event-hour-editor" data-hour-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
+                <span class="event-meta-label">Hora</span>
+                <span class="event-meta-value" data-hour-display>
+                    @if($evento->hora)
+                        {{ $evento->hora->format('H:i') }}
+                    @else
+                        Por confirmar
+                    @endif
+                </span>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <button type="button" class="event-title-edit-button" data-hour-toggle aria-label="Editar hora del evento">
+                            ✎
+                        </button>
+
+                        <form class="event-hour-form" data-hour-form hidden>
+                            @csrf
+                            @method('PATCH')
+                            <div class="event-form-content">
+                                <input
+                                    type="time"
+                                    name="hora"
+                                    value="{{ $evento->hora ? $evento->hora->format('H:i') : '' }}"
+                                    required
+                                    class="event-hour-input"
+                                    data-hour-input
+                                    aria-label="Hora del evento"
+                                >
+                                <button type="submit" class="event-title-edit-button" aria-label="Guardar cambios">
+                                    ✓
+                                </button>
+                            </div>
+                        </form>
+                    @endif
+                @endauth
+            </div>
 
             @if($evento->descripcion_corta)
                 <div class="event-description-block" data-description-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
@@ -78,16 +141,21 @@
                             <form class="event-description-form" data-description-form hidden>
                                 @csrf
                                 @method('PATCH')
-                                <input
-                                    type="text"
-                                    name="descripcion_corta"
-                                    value="{{ $evento->descripcion_corta }}"
-                                    maxlength="255"
-                                    required
-                                    class="event-description-input"
-                                    data-description-input
-                                    aria-label="Descripción corta del evento"
-                                >
+                                <div class="event-form-content">
+                                    <input
+                                        type="text"
+                                        name="descripcion_corta"
+                                        value="{{ $evento->descripcion_corta }}"
+                                        maxlength="255"
+                                        required
+                                        class="event-description-input"
+                                        data-description-input
+                                        aria-label="Descripción corta del evento"
+                                    >
+                                    <button type="submit" class="event-title-edit-button" aria-label="Guardar cambios">
+                                        ✓
+                                    </button>
+                                </div>
                             </form>
                         @endif
                     @endauth
@@ -121,34 +189,39 @@
 
     <!-- Descripción detallada -->
     @if($evento->descripcion_larga)
-            <section class="card section-gap" class="event-description_long-block" data-description_long-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
-                <div class="section-divider">
-                    <span>SOBRE EL EVENTO</span>
-                </div>
-                <p class="event-description_long" data-description_long-display>{{ $evento->descripcion_larga }}</p>
-                @auth
-                        @if(auth()->user()->isAdmin())
-                            <button type="button" class="event-title-edit-button" data-description_long-toggle aria-label="Editar descripción corta del evento">
-                                ✎
-                            </button>
+        <section class="card section-gap" class="event-description_long-block" data-description_long-editor data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}">
+            <div class="section-divider">
+                <span>SOBRE EL EVENTO</span>
+            </div>
+            <p class="event-description_long" data-description_long-display>{{ $evento->descripcion_larga }}</p>
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <button type="button" class="event-title-edit-button" data-description_long-toggle aria-label="Editar descripción larga del evento">
+                        ✎
+                    </button>
 
-                            <form class="event-description_long-form" data-description_long-form hidden>
-                                @csrf
-                                @method('PATCH')
-                                <input
-                                    type="text"
-                                    name="descripcion_larga"
-                                    value="{{ $evento->descripcion_larga }}"
-                                    maxlength="255"
-                                    required
-                                    class="event-description_long-input"
-                                    data-description_long-input
-                                    aria-label="Descripción corta del evento"
-                                >
-                            </form>
-                        @endif
-                    @endauth
-            </section>
+                    <form class="event-description_long-form" data-description_long-form hidden>
+                        @csrf
+                        @method('PATCH')
+                        <div class="event-form-content">
+                            <input
+                                type="text"
+                                name="descripcion_larga"
+                                value="{{ $evento->descripcion_larga }}"
+                                maxlength="255"
+                                required
+                                class="event-description_long-input"
+                                data-description_long-input
+                                aria-label="Descripción corta del evento"
+                            >
+                            <button type="submit" class="event-title-edit-button" aria-label="Guardar cambios">
+                                ✓
+                            </button>
+                        </div>
+                    </form>
+                @endif
+            @endauth
+        </section>
     @endif
 
     <!-- Precios y disponibilidad -->

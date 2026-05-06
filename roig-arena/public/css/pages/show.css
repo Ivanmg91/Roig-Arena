@@ -1,5 +1,10 @@
 /* show.css – estilos para el detalle de evento */
 
+/* Asegurar que elementos hidden se oculten correctamente */
+[hidden] {
+  display: none !important;
+}
+
 /* Hero imagen */
 .event-hero {
   position: relative;
@@ -106,6 +111,19 @@
 }
 
 .event-title-form {
+  flex: 1;
+}
+
+.event-form-content {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.event-form-content .event-title-input,
+.event-form-content .event-date-input,
+.event-form-content .event-description-input,
+.event-form-content .event-description_long-input {
   flex: 1;
 }
 
