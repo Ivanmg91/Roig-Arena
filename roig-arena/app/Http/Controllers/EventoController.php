@@ -289,4 +289,29 @@ class EventoController extends Controller
 
         return back()->with('success', 'Precio actualizado correctamente.');
     }
+
+    /**
+     * Borrado masivo de precios (admin)
+     * Espera un array `ids` con los ids de precio a eliminar.
+     */
+    public function bulkDeletePrecios(Request $request)
+    {
+        $validated = $request->validate([
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'integer|exists:precios,id',
+        ]);
+
+        $ids = $validated['ids'];
+
+        Precio::whereIn('id', $ids)->delete();
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'deleted' => $ids,
+                'message' => 'Precios eliminados correctamente',
+            ]);
+        }
+
+        return back()->with('success', 'Precios eliminados correctamente.');
+    }
 }

@@ -32,6 +32,24 @@ function setRowActionsState(checkbox, isEnabled) {
 	row.classList.toggle('row-actions-disabled', !isEnabled);
 }
 
+// --- Gestión de selección de precios (para el borrar seleccionados) ---
+// Conservar en memoria los ids de `precio` seleccionados por checkbox.
+// Usamos un Set para evitar duplicados y acceder/actualizar eficientemente.
+const selectedPrecioIds = new Set();
+
+/**
+ * Devuelve un array con los ids de precio actualmente seleccionados.
+ * Uso: `window.multiDelete.getSelectedPrecioIds()`
+ */
+function getSelectedPrecioIds() {
+	return Array.from(selectedPrecioIds).map((id) => Number(id));
+}
+
+// Exponer API mínima global para que otras partes puedan leer la selección.
+window.multiDelete = window.multiDelete || {};
+window.multiDelete.getSelectedPrecioIds = getSelectedPrecioIds;
+
+
 // Sincroniza la zona de acciones globales (cabecera "Acciones").
 // Solo se muestra cuando TODOS los checkboxes están marcados.
 function syncBulkActions(checkboxes) {
@@ -58,17 +76,89 @@ function initMultiDeleteUI() {
 	// 1) Aplica estado inicial al cargar.
 	// 2) Escucha cambios para actualizar fila + acciones globales.
 	checkboxes.forEach((checkbox) => {
+		// Estado inicial: si viene marcada, la añadimos al Set de selección.
+		const precioId = checkbox.dataset.precioId;
+		if (checkbox.checked && precioId) {
+			selectedPrecioIds.add(precioId);
+		}
 		applyState(checkbox);
 
 		checkbox.addEventListener('change', () => {
+			// Mantener el Set de ids actualizado.
+			if (precioId) {
+				if (checkbox.checked) selectedPrecioIds.add(precioId);
+				else selectedPrecioIds.delete(precioId);
+			}
+
 			// Al cambiar una checkbox, se recalcula su fila y el estado global.
 			applyState(checkbox);
 			syncBulkActions(checkboxes);
+
+			// Emitir evento DOM para listeners externos interesados en cambios de selección.
+			document.dispatchEvent(new CustomEvent('multiDelete.selectionChanged', { detail: getSelectedPrecioIds() }));
 		});
 	});
 
 	// Sincroniza estado global al inicio (por si la vista carga con checks marcados).
 	syncBulkActions(checkboxes);
+
+	// Conectar botón de borrado masivo (cabecera).
+	const bulkDeleteBtn = document.querySelector('[data-bulk-delete]');
+	if (bulkDeleteBtn) {
+		bulkDeleteBtn.addEventListener('click', async (e) => {
+			e.preventDefault();
+			const ids = getSelectedPrecioIds();
+			if (!ids || ids.length === 0) {
+				alert('No hay precios seleccionados.');
+				return;
+			}
+
+			if (!confirm('¿Deseas eliminar los ' + ids.length + ' precios seleccionados? Esta acción no se puede deshacer.')) return;
+
+			const url = bulkDeleteBtn.dataset.bulkDeleteUrl;
+			if (!url) {
+				console.error('URL de borrado masivo no encontrada en el botón.');
+				return;
+			}
+
+			const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+			try {
+				const res = await fetch(url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Accept': 'application/json',
+						'X-CSRF-TOKEN': csrfToken,
+					},
+					body: JSON.stringify({ ids }),
+				});
+
+				if (!res.ok) {
+					const text = await res.text();
+					throw new Error(text || 'Error en la petición');
+				}
+
+				// Eliminar visualmente las filas afectadas y limpiar selección.
+				ids.forEach((id) => {
+					const checkbox = document.querySelector('[data-precio-id="' + id + '"]');
+					if (checkbox) {
+						const row = checkbox.closest('tr');
+						if (row) row.remove();
+					}
+					selectedPrecioIds.delete(String(id));
+				});
+
+				// Emitir evento y recalcular UI.
+				document.dispatchEvent(new CustomEvent('multiDelete.selectionChanged', { detail: getSelectedPrecioIds() }));
+				syncBulkActions(checkboxes);
+				alert('Precios eliminados correctamente.');
+			} catch (err) {
+				console.error(err);
+				alert('Error al eliminar precios seleccionados. Comprueba la consola para más detalles.');
+			}
+		});
+	}
 }
 
 // Espera a que el DOM esté listo antes de buscar elementos y enlazar eventos.

@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin'])
 		Route::patch('/eventos/{id}', [EventoController::class, 'update'])->name('eventos.update');
 		Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 		Route::patch('/precios/{id}', [EventoController::class, 'updateSectorPrice'])->name('precios.update');
+		Route::post('/precios/bulk-delete', [EventoController::class, 'bulkDeletePrecios'])->name('precios.bulkDelete');
         Route::delete('/precios/{id}', [EventoController::class, 'disableSector'])->name('sectores.disable');
 	});
 

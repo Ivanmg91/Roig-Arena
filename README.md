@@ -286,6 +286,7 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Por hacer ahora que recuerde
 
 - Un + para asociar sectores a un evento
+- Al borrar un evento no borra los precios asociados de la tabla Precios
 
 ## Otros
 

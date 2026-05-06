@@ -169,10 +169,7 @@
                             <th>
                                 <span>Acciones</span>
                                 <span id="bulk-actions-controls" style="display: none; margin-left: 0.5rem;">
-                                    <button type="button" class="event-title-edit-button" data-bulk-edit aria-label="Acción masiva editar">
-                                        ✎
-                                    </button>
-                                    <button type="button" class="event-card-trash" data-bulk-delete aria-label="Acción masiva eliminar">
+                                    <button type="button" class="event-card-trash" data-bulk-delete data-bulk-delete-url="{{ route('admin.precios.bulkDelete', [], false) }}" aria-label="Eliminar seleccionados">
                                         🗑️
                                     </button>
                                 </span>
