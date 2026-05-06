@@ -68,6 +68,22 @@
   text-transform: none;
 }
 
+.event-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.event-section-header h2 {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
 .event-title-editor {
   display: flex;
   align-items: center;

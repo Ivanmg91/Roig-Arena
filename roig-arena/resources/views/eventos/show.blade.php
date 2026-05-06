@@ -165,7 +165,23 @@
 
         <!-- Artistas -->
         <section class="event-info-section">
-            <h2>Artistas</h2>
+            <div class="event-section-header">
+                <h2>Artistas</h2>
+
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <button
+                            type="button"
+                            class="btn btn-ghost btn-sm"
+                            data-add-artista-button
+                            aria-label="Añadir artista al evento"
+                        >
+                            <span aria-hidden="true">＋</span>
+                            Añadir
+                        </button>
+                    @endif
+                @endauth
+            </div>
 
             @forelse($evento->artistas as $artista)
                 <div class="artist-card">
