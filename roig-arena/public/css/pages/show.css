@@ -230,6 +230,46 @@
   right: auto;
 }
 
+#bulk-actions-controls {
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#bulk-actions-controls .event-card-trash {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
+/* Acciones deshabilitadas por selección de fila */
+.pricing-table-actions .event-title-edit-button:disabled,
+.pricing-table-actions .event-card-trash:disabled,
+.pricing-table-actions .event-title-edit-button[aria-disabled="true"],
+.pricing-table-actions .event-card-trash[aria-disabled="true"] {
+  background: #3b3b3b !important;
+  color: #9a9a9a !important;
+  border-color: #5a5a5a !important;
+  cursor: not-allowed !important;
+  opacity: 0.65;
+  filter: grayscale(100%);
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+.pricing-table-actions .event-title-edit-button:disabled:hover,
+.pricing-table-actions .event-card-trash:disabled:hover,
+.pricing-table-actions .event-title-edit-button[aria-disabled="true"]:hover,
+.pricing-table-actions .event-card-trash[aria-disabled="true"]:hover {
+  background: #3b3b3b !important;
+  color: #9a9a9a !important;
+  border-color: #5a5a5a !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Precio destacado */
 .price-highlight {
   font-weight: 800;

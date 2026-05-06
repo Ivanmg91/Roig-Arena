@@ -166,7 +166,17 @@
                     <th>Estado</th>
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <th>Acciones</th>
+                            <th>
+                                <span>Acciones</span>
+                                <span id="bulk-actions-controls" style="display: none; margin-left: 0.5rem;">
+                                    <button type="button" class="event-title-edit-button" data-bulk-edit aria-label="Acción masiva editar">
+                                        ✎
+                                    </button>
+                                    <button type="button" class="event-card-trash" data-bulk-delete aria-label="Acción masiva eliminar">
+                                        🗑️
+                                    </button>
+                                </span>
+                            </th>
                         @endif
                     @endauth
                 </tr>
@@ -196,14 +206,14 @@
                         @auth
                             @if(auth()->user()->isAdmin())
                                 <td class="pricing-table-actions">
-                                    <form action="{{ route('admin.sectores.disable', ['id' => $precio->id], false) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('admin.sectores.disable', ['id' => $precio->id], false) }}" method="POST" style="display: inline;" data-row-delete-form>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="event-card-trash" aria-label="Eliminar sector" onclick="return confirm('¿Estás seguro de que quieres desactivar este sector?')">
+                                        <button type="submit" class="event-card-trash" data-row-delete-button aria-label="Eliminar sector" onclick="return confirm('¿Estás seguro de que quieres desactivar este sector?')">
                                             🗑️
                                         </button> <!-- Para borrar (deshabilitar) eliminamos de la tabla precios -->
                                     </form>
-                                    <button type="button" class="event-title-edit-button" data-sector_price-toggle aria-label="Editar precio del sector">
+                                    <button type="button" class="event-title-edit-button" data-row-edit-button data-sector_price-toggle aria-label="Editar precio del sector">
                                         ✎
                                     </button>
                                     <form
@@ -275,6 +285,7 @@
         @if(auth()->user()->isAdmin())
             <script src="/js/pages/updateFieldText.js"></script>
             <script src="/js/pages/updateFieldPrice.js"></script>
+            <script src="/js/pages/multiDelete.js"></script>
         @endif
     @endauth
 @endsection

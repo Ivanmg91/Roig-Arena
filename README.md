@@ -285,8 +285,6 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 
 ### Por hacer ahora que recuerde
 
-- La x para quitar sectores de un evento (no borrarlos para siempre)
-
 - Un + para asociar sectores a un evento
 
 ## Otros
