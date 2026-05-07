@@ -85,7 +85,18 @@ function initInlineEditor(options) {
         }
         if (event.key === 'Enter') {
             event.preventDefault();
-            form.dispatchEvent(new Event('submit'));
+            if (typeof form.requestSubmit === 'function') {
+                form.requestSubmit();
+                return;
+            }
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.click();
+                return;
+            }
+
+            form.submit();
         }
     });
     form.addEventListener('submit', async (event) => {

@@ -183,6 +183,7 @@
                         <div id="artista-modal" class="modal" hidden
                             data-modal
                             data-attach-url="{{ route('admin.eventos.artistas.store', ['eventoId' => $evento->id], false) }}"
+                            data-detach-url-template="{{ route('admin.eventos.artistas.destroy', ['eventoId' => $evento->id, 'artistaId' => '__ID__'], false) }}"
                             data-existing-artistas='@json($evento->artistas->pluck("id"))'>
                             <div class="modal-backdrop" data-modal-backdrop></div>
                             <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Seleccionar artistas">
@@ -192,9 +193,17 @@
                                 </header>
 
                                 <div class="modal-body">
-                                    <input type="search" id="artista-search" placeholder="Buscar artista..." />
+                                    <div class="search-wrapper">
+                                        <input type="search" id="artista-search" placeholder="Buscar artista..." />
+                                        @auth
+                                            @if(auth()->user()->isAdmin())
+                                                <a href="{{ route('admin.artistas.create', [], false) }}" class="btn btn-primary" aria-label="+">+</a>
+                                            @endif
+                                        @endauth
+                                    </div>
                                     <div id="artista-list" class="artista-list">
                                         <!-- Lista cargada por JS -->
+
                                     </div>
                                 </div>
 

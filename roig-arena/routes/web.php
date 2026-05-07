@@ -6,6 +6,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\ArtistaController;
 
 Route::get('/', [PaginaController::class, 'home'])->name('home');
 Route::get('/eventos', [PaginaController::class, 'eventosIndex'])->name('eventos.index');
@@ -51,6 +52,9 @@ Route::middleware(['auth', 'admin'])
         Route::delete('/precios/{id}', [EventoController::class, 'disableSector'])->name('sectores.disable');
         Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
         Route::post('/eventos/{eventoId}/artistas', [EventoController::class, 'attachArtista'])->name('eventos.artistas.store');
+		Route::get('/artistas/create', [ArtistaController::class, 'create'])->name('artistas.create');
+		Route::post('/artistas', [ArtistaController::class, 'store'])->name('artistas.store');
+		Route::delete('/artistas/{id}', [ArtistaController::class, 'destroy'])->name('artistas.destroy');
 	});
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.

@@ -1,363 +1,342 @@
-    /**
-     * Script: Popup para añadir artistas a eventos
-     *
-     * Funcionalidad:
-     * - Abre un modal con lista de artistas disponibles
-     * - Permite buscar artistas por nombre
-     * - Añade artistas al evento sin recargar la página
-     * - Actualiza la lista en tiempo real
-     */
+/**
+ * Popup para añadir artistas a eventos
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // ─────────────────────────────────────────────────────────────
-    // 1. SELECCIONAR ELEMENTOS DEL DOM
-    // ─────────────────────────────────────────────────────────────
-
-    // Botón "Añadir" que abre el modal
-        const addBtn = document.querySelector('[data-add-artista-button]');
-        if (!addBtn) return; // Salir si el botón no existe
-
-    // Componentes del modal
+    const addBtn = document.querySelector('[data-add-artista-button]');
     const modal = document.querySelector('#artista-modal');
-    const backdrop = modal && modal.querySelector('[data-modal-backdrop]'); // Fondo oscuro
-    const closeButtons = modal && modal.querySelectorAll('[data-modal-close]'); // Botones de cerrar
-    const listEl = modal && modal.querySelector('#artista-list'); // Contenedor de artistas
-    const searchInput = modal && modal.querySelector('#artista-search'); // Input de búsqueda
 
-    // Datos del modal (extraídos de atributos HTML)
-    const attachUrl = modal.getAttribute('data-attach-url'); // URL para POST de añadir artista
-    const existing = JSON.parse(modal.getAttribute('data-existing-artistas') || '[]'); // IDs de artistas ya asociados
+    if (!addBtn || !modal) return;
 
+    const backdrop = modal.querySelector('[data-modal-backdrop]');
+    const closeButtons = modal.querySelectorAll('[data-modal-close]');
+    const listEl = modal.querySelector('#artista-list');
+    const searchInput = modal.querySelector('#artista-search');
+    const searchBtn = modal.querySelector('#artista-search-btn');
+    const attachUrl = modal.getAttribute('data-attach-url') || '';
+    const detachUrlTemplate = modal.getAttribute('data-detach-url-template') || '';
+    const existing = JSON.parse(modal.getAttribute('data-existing-artistas') || '[]').map(Number);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
-    // ─────────────────────────────────────────────────────────────
-    // 2. ABRIR MODAL
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Abre el modal y carga la lista de artistas
-     * - Hace visible el modal (hidden = false)
-     * - Enfoca automáticamente el input de búsqueda
-     * - Carga los artistas disponibles desde la API
-     */
     function openModal() {
         modal.hidden = false;
-        searchInput.focus();
+        if (searchInput) searchInput.focus();
         fetchArtistas();
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 3. CERRAR MODAL
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Cierra el modal y limpia su contenido
-     * - Oculta el modal (hidden = true)
-     * - Limpia la lista de artistas
-     * - Borra el texto de búsqueda
-     */
     function closeModal() {
         modal.hidden = true;
-        listEl.innerHTML = '';
-        searchInput.value = '';
+        if (listEl) listEl.innerHTML = '';
+        if (searchInput) searchInput.value = '';
     }
 
-
-    // ─────────────────────────────────────────────────────────────
-    // 4. CARGAR ARTISTAS DESDE API
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Obtiene la lista de artistas desde la API
-     * @param {string} q - Término de búsqueda (opcional)
-     *
-     * Lógica:
-     * - Si hay búsqueda (q): usa /api/artistas/buscar?q=...
-     * - Si no hay búsqueda: usa /api/artistas (todos)
-     * - Muestra "Cargando..." mientras espera la respuesta
-     * - Si hay error o sin resultados: muestra mensaje
-     * - Si hay resultados: llama a renderList() para mostrarlos
-     */
     function fetchArtistas(q = '') {
-        // Mostrar estado de carga
+        if (!listEl) return;
+
         listEl.innerHTML = '<p class="muted">Cargando artistas...</p>';
 
-        // Construir URL según si hay búsqueda
         const url = q
-        ? '/api/artistas/buscar?q=' + encodeURIComponent(q)
-        : '/api/artistas';
+            ? '/api/artistas/buscar?q=' + encodeURIComponent(q)
+            : '/api/artistas';
 
-        // Hacer request a la API
         fetch(url)
-        .then(r => r.json())
-        .then(data => {
-            const artistas = Array.isArray(data.data) ? data.data : [];
-            if (artistas.length === 0) {
-            listEl.innerHTML = '<p class="muted">No hay artistas disponibles.</p>';
-            } else {
-            renderList(artistas);
-            }
-        })
-        .catch(err => {
-            listEl.innerHTML = '<p class="muted">Error cargando artistas.</p>';
-            console.error(err);
-        });
+            .then(response => response.json())
+            .then(data => {
+                const artistas = Array.isArray(data.data) ? data.data : [];
+                if (artistas.length === 0) {
+                    listEl.innerHTML = '<p class="muted">No hay artistas disponibles.</p>';
+                    return;
+                }
+                renderList(artistas);
+            })
+            .catch(error => {
+                console.error(error);
+                listEl.innerHTML = '<p class="muted">Error cargando artistas.</p>';
+            });
     }
 
+    function isAssociated(id) {
+        return existing.includes(Number(id));
+    }
 
-    // ─────────────────────────────────────────────────────────────
-    // 5. RENDERIZAR LISTA DE ARTISTAS
-    // ─────────────────────────────────────────────────────────────
+    function getDetachUrl(id) {
+        return detachUrlTemplate ? detachUrlTemplate.replace('__ID__', id) : '';
+    }
 
-    /**
-     * Crea el HTML de cada artista y lo añade al modal
-     * @param {array} artistas - Array de datos de artistas
-     *
-     * Para cada artista:
-     * - Extrae id, nombre, descripción e imagen
-     * - Filtra los que ya están asociados (están en array 'existing')
-     * - Crea una tarjeta HTML con foto, nombre, descripción y botón "Añadir"
-     * - Añade listener al botón para asociar el artista
-     */
     function renderList(artistas) {
         listEl.innerHTML = '';
 
         artistas.forEach(item => {
-        // Extraer datos del artista (puede venir envuelto en propiedad 'data')
-        const artista = item.data ? item.data : item;
-        const id = artista.id;
+            const artista = item.data ? item.data : item;
+            const id = Number(artista.id);
+            const associated = isAssociated(id);
 
-        // Filtrar artistas ya asociados al evento (no mostrarlos)
-        if (existing.includes(id)) return;
+            const card = document.createElement('div');
+            card.className = 'artist-row';
+            card.dataset.artistaId = String(id);
 
-        // Crear elemento DOM para la tarjeta del artista
-        const card = document.createElement('div');
-        card.className = 'artist-row';
-        card.innerHTML = `
-            <div class="artist-info">
-            ${artista.imagen_url ? `<img src="${artista.imagen_url}" alt="${escapeHtml(artista.nombre)}" class="artist-thumb">` : ''}
-            <div>
-                <div class="artist-name">${escapeHtml(artista.nombre)}</div>
-                ${artista.descripcion ? `<div class="artist-desc muted">${escapeHtml(artista.descripcion)}</div>` : ''}
-            </div>
-            </div>
-            <button class="btn btn-sm btn-primary add-artista-btn" data-artista-id="${id}">Añadir</button>
-        `;
+            card.innerHTML = `
+                <div class="artist-info">
+                    ${artista.imagen_url ? `<img src="${artista.imagen_url}" alt="${escapeHtml(artista.nombre)}" class="artist-thumb">` : ''}
+                    <div>
+                        <div class="artist-name">${escapeHtml(artista.nombre)}</div>
+                        ${artista.descripcion ? `<div class="artist-desc muted">${escapeHtml(artista.descripcion)}</div>` : ''}
+                    </div>
+                </div>
+                <div class="artist-actions">
+                    <button type="button" class="btn btn-sm btn-primary add-artista-btn" data-artista-id="${id}" ${associated ? 'disabled' : ''}>
+                        ${associated ? 'Añadido' : 'Añadir'}
+                    </button>
+                    ${`<button type="button" class="btn btn-sm btn-danger delete-artista-btn" data-artista-id="${id}">Borrar</button>`}
+                </div>
+            `;
 
-        // Añadir la tarjeta a la lista
-        listEl.appendChild(card);
+            listEl.appendChild(card);
         });
 
-        // Añadir listener a TODOS los botones "Añadir" recién creados
         listEl.querySelectorAll('.add-artista-btn').forEach(btn => {
-        btn.addEventListener('click', onAddArtista);
+            btn.addEventListener('click', onAddArtista);
+        });
+
+        listEl.querySelectorAll('.delete-artista-btn').forEach(btn => {
+            btn.addEventListener('click', onDeleteArtista);
         });
     }
 
+    function markRowAsAssociated(row) {
+        const addBtn = row.querySelector('.add-artista-btn');
+        if (addBtn) {
+            addBtn.disabled = true;
+            addBtn.textContent = 'Añadido';
+        }
 
-    // ─────────────────────────────────────────────────────────────
-    // 6. AÑADIR ARTISTA AL EVENTO (VÍA API)
-    // ─────────────────────────────────────────────────────────────
+        if (!row.querySelector('.delete-artista-btn')) {
+            const id = row.getAttribute('data-artista-id');
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'btn btn-sm btn-danger delete-artista-btn';
+            deleteBtn.setAttribute('data-artista-id', id || '');
+            deleteBtn.textContent = 'Borrar';
+            deleteBtn.addEventListener('click', onDeleteArtista);
+            row.querySelector('.artist-actions')?.appendChild(deleteBtn);
+        }
+    }
 
-    /**
-     * Maneja el clic en un botón "Añadir" de artista
-     * @param {event} e - Evento del clic
-     *
-     * Proceso:
-     * 1. Obtiene el ID del artista del atributo data-artista-id
-     * 2. Deshabilita el botón y muestra "Añadiendo..."
-     * 3. Envía POST a /admin/eventos/{id}/artistas con {artista_id}
-     * 4. Si éxito:
-     *    - Añade el ID a array 'existing' (para no volver a mostrar)
-     *    - Anima la desaparición de la fila en el modal
-     *    - Añade el artista a la lista en la página principal
-     * 5. Si error: restaura el botón y muestra alerta
-     */
     function onAddArtista(e) {
         e.preventDefault();
-        const id = e.currentTarget.getAttribute('data-artista-id');
-        if (!id) return;
 
-        // Desactivar botón durante la petición
         const btn = e.currentTarget;
+        const id = Number(btn.getAttribute('data-artista-id'));
+        if (!id || !attachUrl) return;
+
         btn.disabled = true;
         btn.textContent = 'Añadiendo...';
 
-        // Enviar petición POST al servidor
         fetch(attachUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({ artista_id: id })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+            body: JSON.stringify({ artista_id: id }),
         })
-        .then(res => res.json().then(body => ({ status: res.status, body })))
-        .then(({ status, body }) => {
-            // Si la respuesta fue exitosa (200-299)
-            if (status >= 200 && status < 300) {
-            // Marcar este artista como ya asociado
-            existing.push(parseInt(id, 10));
+            .then(response => response.json().then(body => ({ status: response.status, body })))
+            .then(({ status, body }) => {
+                if (status < 200 || status >= 300) {
+                    throw new Error(body.message || body.error || 'Error al añadir artista');
+                }
 
-            // Animar la desaparición de la fila en el modal
-            const row = btn.closest('.artist-row');
-            row.style.animation = 'slideOut 0.3s ease-out forwards';
+                if (!existing.includes(id)) {
+                    existing.push(id);
+                }
 
-            // Esperar a que termine la animación y remover el elemento
-            setTimeout(() => row.remove(), 300);
-
-            // Actualizar la lista de artistas en la página principal
-            appendArtistCardToPage(body.artista_id || id, btn.closest('.artist-row'));
-            } else {
-            // Si hubo error, mostrar mensaje y restaurar botón
-            alert(body.message || body.error || 'Error al añadir artista');
-            btn.disabled = false;
-            btn.textContent = 'Añadir';
-            }
-        })
-        .catch(err => {
-            // Si hay error de red, mostrar alerta y restaurar botón
-            console.error(err);
-            alert('Error de red al añadir artista');
-            btn.disabled = false;
-            btn.textContent = 'Añadir';
-        });
+                const row = btn.closest('.artist-row');
+                if (row) {
+                    markRowAsAssociated(row);
+                    appendArtistCardToPage(id, row);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                btn.disabled = false;
+                btn.textContent = 'Añadir';
+                alert(error.message || 'Error de red al añadir artista');
+            });
     }
 
+    function onDeleteArtista(e) {
+        e.preventDefault();
 
-    // ─────────────────────────────────────────────────────────────
-    // 7. AÑADIR ARTISTA A LA PÁGINA (SIN RECARGAR)
-    // ─────────────────────────────────────────────────────────────
+        if (!confirm('¿Estás seguro de que quieres borrar definitivamente este artista?')) return;
 
-    /**
-     * Crea una tarjeta de artista en la sección "Artistas" de la página
-     * @param {number} artistaId - ID del artista
-     * @param {element} row - Fila del artista en el modal (para obtener datos)
-     *
-     * Acciones:
-     * - Busca la sección "Artistas" en la página
-     * - Extrae datos del artista (nombre, foto, descripción)
-     * - Crea una tarjeta con el mismo estilo que las existentes
-     * - Incluye un botón para quitar el artista
-     * - Remueve mensaje "No hay artistas" si existe
-     */
+        const btn = e.currentTarget;
+        const id = Number(btn.getAttribute('data-artista-id'));
+        if (!id) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Borrando...';
+
+        const formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('_method', 'DELETE');
+
+        fetch(`/admin/artistas/${id}`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+            .then(response => response.json().then(body => ({ status: response.status, body })))
+            .then(({ status, body }) => {
+                if (status < 200 || status >= 300) {
+                    throw new Error(body.message || body.error || 'Error al borrar artista');
+                }
+
+                const index = existing.indexOf(id);
+                if (index > -1) existing.splice(index, 1);
+
+                removeArtistCardFromPage(id);
+
+                const row = btn.closest('.artist-row');
+                if (row) {
+                    row.remove();
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                btn.disabled = false;
+                btn.textContent = 'Borrar';
+                alert(error.message || 'Error de red al borrar artista');
+            });
+    }
+
+    function removeArtistCardFromPage(artistaId) {
+        const artistsSection = document.querySelector('.event-info-section:nth-of-type(2)');
+        if (!artistsSection) return;
+
+        const cards = Array.from(artistsSection.querySelectorAll('.artist-card'));
+        cards.forEach(card => {
+            const cardId = Number(card.getAttribute('data-artista-id'));
+            const form = card.querySelector('form');
+
+            if (cardId && cardId === Number(artistaId)) {
+                card.remove();
+                return;
+            }
+
+            if (form && form.action.includes(`/artistas/${artistaId}`)) {
+                card.remove();
+            }
+        });
+
+        if (!artistsSection.querySelector('.artist-card')) {
+            const existingEmpty = artistsSection.querySelector('.muted');
+            if (!existingEmpty) {
+                const emptyMsg = document.createElement('p');
+                emptyMsg.className = 'muted';
+                emptyMsg.textContent = 'No hay artistas asignados a este evento.';
+                artistsSection.appendChild(emptyMsg);
+            }
+        }
+    }
+
     function appendArtistCardToPage(artistaId, row) {
-        // Encontrar la sección de artistas en la página (2ª sección)
-        const artistasSection = document.querySelector('.event-info-section:nth-of-type(2)');
-        if (!artistasSection) return;
+        const artistsSection = document.querySelector('.event-info-section:nth-of-type(2)');
+        if (!artistsSection || !row) return;
 
-        // Remover mensaje "No hay artistas asignados" si existe
-        const emptyMsg = artistasSection.querySelector('.muted');
-        if (emptyMsg) emptyMsg.remove();
+        if (artistsSection.querySelector(`.artist-card[data-artista-id="${artistaId}"]`)) {
+            return;
+        }
 
-        // Extraer datos del artista desde la fila del modal
         const nameEl = row.querySelector('.artist-name');
         const imgEl = row.querySelector('img');
         const descEl = row.querySelector('.artist-desc');
+        const deleteUrl = getDetachUrl(artistaId);
 
-        // Crear tarjeta del artista manteniendo el mismo estilo
-        const container = document.createElement('div');
-        container.className = 'artist-card';
-        container.innerHTML = `
-        <div class="artist-card-header">
-            ${imgEl ? `<img src="${imgEl.src}" alt="${escapeHtml(nameEl.textContent)}" class="artist-image">` : ''}
-            <div>
-            <p class="artist-name">${escapeHtml(nameEl.textContent)}</p>
-            ${descEl ? `<p class="artist-description">${escapeHtml(descEl.textContent)}</p>` : ''}
+        const emptyMsg = artistsSection.querySelector('.muted');
+        if (emptyMsg) emptyMsg.remove();
+
+        const card = document.createElement('div');
+        card.className = 'artist-card';
+        card.setAttribute('data-artista-id', String(artistaId));
+
+        card.innerHTML = `
+            <div class="artist-card-header">
+                ${imgEl ? `<img src="${imgEl.src}" alt="${escapeHtml(nameEl ? nameEl.textContent : '')}" class="artist-image">` : ''}
+                <div>
+                    <p class="artist-name">${escapeHtml(nameEl ? nameEl.textContent : '')}</p>
+                    ${descEl ? `<p class="artist-description">${escapeHtml(descEl.textContent)}</p>` : ''}
+                </div>
             </div>
-        </div>
-        <form action="{{ route('admin.eventos.artistas.destroy', ['eventoId' => $evento->id, 'artistaId' => 'REPLACE_ID'], false) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="event-card-trash" aria-label="Quitar artista del evento" onclick="return confirm('¿Estás seguro?')">🗑️</button>
-        </form>
         `;
 
-        // Reemplazar el ID placeholder en la URL para quitar artista
-        const form = container.querySelector('form');
-        if (form) {
-        form.action = form.action.replace('REPLACE_ID', artistaId);
+        if (deleteUrl) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = deleteUrl;
+            form.style.display = 'inline';
+
+            const tokenInput = document.createElement('input');
+            tokenInput.type = 'hidden';
+            tokenInput.name = '_token';
+            tokenInput.value = csrfToken;
+            form.appendChild(tokenInput);
+
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'DELETE';
+            form.appendChild(methodInput);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'submit';
+            deleteButton.className = 'event-card-trash';
+            deleteButton.setAttribute('aria-label', 'Quitar artista del evento');
+            deleteButton.textContent = 'Borrar';
+
+            form.appendChild(deleteButton);
+            card.appendChild(form);
         }
 
-        // Añadir la tarjeta al final de la sección
-        artistasSection.appendChild(container);
+        artistsSection.appendChild(card);
     }
 
-
-    // ─────────────────────────────────────────────────────────────
-    // 8. FUNCIÓN AUXILIAR: ESCAPAR HTML
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Escapa caracteres especiales HTML para evitar inyecciones XSS
-     * @param {string} text - Texto a escapar
-     * @returns {string} Texto con caracteres escapados
-     *
-     * Reemplaza:
-     * & → &amp;
-     * < → &lt;
-     * > → &gt;
-     * " → &quot;
-     * ' → &#39;
-     */
     function escapeHtml(text) {
         if (!text) return '';
-        return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 9. LISTENERS Y EVENTOS
-    // ─────────────────────────────────────────────────────────────
-
-    // Abrir modal al hacer clic en botón "Añadir"
     addBtn.addEventListener('click', openModal);
-
-    // Cerrar modal al hacer clic en fondo oscuro
     backdrop?.addEventListener('click', closeModal);
+    closeButtons.forEach(button => button.addEventListener('click', closeModal));
 
-    // Cerrar modal al hacer clic en botones "X" (cerrar)
-    closeButtons?.forEach(b => b.addEventListener('click', closeModal));
-
-    // Búsqueda en tiempo real (con debounce de 300ms)
     if (searchInput) {
-        let timeout;
+        let timeoutId;
         searchInput.addEventListener('input', function () {
-        clearTimeout(timeout); // Cancelar búsqueda anterior
-        timeout = setTimeout(() => {
-            // Esperar 300ms después de que el usuario deje de escribir
-            fetchArtistas(searchInput.value.trim());
-        }, 300);
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                fetchArtistas(searchInput.value.trim());
+            }, 300);
         });
     }
 
-    // Cerrar modal presionando tecla ESC
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            fetchArtistas(searchInput ? searchInput.value.trim() : '');
+        });
+    }
+
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !modal.hidden) {
-        closeModal();
+            closeModal();
         }
     });
 });
-
-// ─────────────────────────────────────────────────────────────
-// 10. ESTILOS DE ANIMACIÓN
-// ─────────────────────────────────────────────────────────────
-
-/**
- * Inyecta animación CSS para que las filas desaparezcan suavemente
- * cuando se añade un artista al evento
- */
-const style = document.createElement('style');
-style.textContent = `
-@keyframes slideOut {
-    to {
-    opacity: 0;
-    transform: slideOutLeft 0.3s ease-out;
-    }
-}
-`;
-document.head.appendChild(style);

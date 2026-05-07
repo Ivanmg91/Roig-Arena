@@ -49,11 +49,15 @@ class ArtistaController extends Controller
     /**
      * Crear artista (admin)
      */
+    public function create()
+    {
+        return view('artistas.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'evento_id' => 'required|exists:eventos,id',
             'descripcion' => 'nullable|string',
             'imagen_url' => 'nullable|url',
         ]);
@@ -66,10 +70,14 @@ class ArtistaController extends Controller
             $artista->eventos()->attach($request->input('evento_id'));
         }
 
-        return response()->json([
-            'data' => new ArtistaResource($artista),
-            'message' => 'Artista creado correctamente',
-        ], 201);
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'data' => new ArtistaResource($artista),
+                'message' => 'Artista creado correctamente',
+            ], 201);
+        }
+
+        return redirect()->route('admin.artistas.create')->with('success', 'Artista creado correctamente.');
     }
 
     /**
@@ -108,6 +116,7 @@ class ArtistaController extends Controller
     public function destroy($id)
     {
         $artista = Artista::findOrFail($id);
+        $artista->eventos()->detach();
         $artista->delete();
 
         return response()->json([

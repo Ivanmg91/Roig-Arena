@@ -247,11 +247,12 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Administrador
 
 - [x] Todo lo anterior +
-- [x] Crear eventos (por completar)
-- [ ] Crear artistas (sin completar)
-- [ ] Asignar artistas a eventos (sin completar)
-- [ ] Eliminar artistas de eventos (sin completar)
-- [ ] Asignar artistas (sin completar)
+- [x] Crear eventos (sin problemas detectados)
+- [x] Eliminar eventos (sin problemas detectados)
+- [x] Crear artistas (sin problemas detectados)
+- [x] Eliminar artistas (sin problemas detectados)
+- [x] Asignar artistas a eventos (sin problemas detectados)
+- [x] Eliminar artistas de eventos (sin problemas detectados)
 - [x] Asignar sectores a eventos (sin problemas detectados)
 - [ ] Actualizar eventos todos sus campos (sin completar)
 - [x] Eliminar eventos (sin problemas detectados)
@@ -290,8 +291,9 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - Un + para asociar sectores a un evento
 - Al borrar un evento no borra los precios asociados de la tabla Precios
 - Boton que marque y desmarque todos los eventos de golpe
-- Que funcione el boton de añadir
 
 ## Otros
 
 - ACLARACIÓN ESTADOS: Reservado -> aun no se ha pagado, se podra comprar por otra persona si expira el tiempo. Ocupado -> pagado, no se podra comprar a no ser q el comprador cancele la reserva.
+
+- Usuario admin. Usuario: admin@admin.com - Contraseña: admin
