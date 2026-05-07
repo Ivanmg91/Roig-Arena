@@ -46,7 +46,7 @@
 
             <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="{{ route('eventos.index', [], false) }}" class="btn">Cancelar</a>
+                <a href="{{ url()->previous() }}" class="btn">Cancelar</a>
             </div>
         </form>
     </section>
