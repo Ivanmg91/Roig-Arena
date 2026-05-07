@@ -75,6 +75,10 @@ function initMultiDeleteUI() {
 	// 1) Aplica estado inicial al cargar.
 	// 2) Escucha cambios para actualizar fila + acciones globales.
 	checkboxes.forEach((checkbox) => {
+		if (checkbox.dataset.multiDeleteInitialized === 'true') {
+			return;
+		}
+
 		// Estado inicial: si viene marcada, la añadimos al Set de selección.
 		const precioId = checkbox.dataset.precioId;
 		if (checkbox.checked && precioId) {
@@ -96,6 +100,8 @@ function initMultiDeleteUI() {
 			// Emitir evento DOM para listeners externos interesados en cambios de selección.
 			document.dispatchEvent(new CustomEvent('multiDelete.selectionChanged', { detail: getSelectedPrecioIds() }));
 		});
+
+		checkbox.dataset.multiDeleteInitialized = 'true';
 	});
 
 	// Sincroniza estado global al inicio (por si la vista carga con checks marcados).
@@ -103,7 +109,7 @@ function initMultiDeleteUI() {
 
 	// Conectar botón de borrado masivo (cabecera).
 	const bulkDeleteBtn = document.querySelector('[data-bulk-delete]');
-	if (bulkDeleteBtn) {
+	if (bulkDeleteBtn && bulkDeleteBtn.dataset.bulkDeleteInitialized !== 'true') {
 		bulkDeleteBtn.addEventListener('click', async (e) => {
 			e.preventDefault();
 			const ids = getSelectedPrecioIds();
@@ -157,8 +163,11 @@ function initMultiDeleteUI() {
 				alert('Error al eliminar precios seleccionados. Comprueba la consola para más detalles.');
 			}
 		});
+
+		bulkDeleteBtn.dataset.bulkDeleteInitialized = 'true';
 	}
 }
 
 // Espera a que el DOM esté listo antes de buscar elementos y enlazar eventos.
 document.addEventListener('DOMContentLoaded', initMultiDeleteUI);
+window.initMultiDeleteUI = initMultiDeleteUI;

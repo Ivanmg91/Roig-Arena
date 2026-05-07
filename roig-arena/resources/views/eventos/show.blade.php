@@ -355,6 +355,44 @@
             <span>PRECIOS</span>
         </div>
         <p class="muted event-prices-intro">Selecciona tu sector y compra tu entrada</p>
+        @auth
+            @if(auth()->user()->isAdmin())
+                <button type="button"
+                        class="event-title-edit-button event-poster-edit-button"
+                        data-add-sector-button
+                        aria-label="Agregar sectores al evento">
+                    +
+                </button>
+                <!-- Popup lista sectores -->
+                <div id="sector-modal" class="modal" hidden
+                    data-modal
+                    data-attach-url="{{ route('admin.eventos.sectores.store', ['eventoId' => $evento->id], false) }}"
+                    data-detach-url-template="{{ route('admin.eventos.sectores.destroy', ['eventoId' => $evento->id, 'sectorId' => '__ID__'], false) }}"
+                    data-existing-sectores='@json($evento->sectores->pluck("id"))'>
+                    <div class="modal-backdrop" data-modal-backdrop></div>
+                    <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Seleccionar sectores">
+                        <header class="modal-header">
+                            <h3>Agregar sectores al evento</h3>
+                            <button type="button" data-modal-close aria-label="Cerrar">✕</button>
+                        </header>
+
+                        <div class="modal-body">
+                            <div class="search-wrapper">
+                                <input type="search" id="sector-search" placeholder="Buscar sector..." />
+                            </div>
+                            <div id="sector-list" class="sector-list">
+                                <!-- Lista cargada por JS -->
+
+                            </div>
+                        </div>
+
+                        <footer class="modal-footer">
+                            <button type="button" data-modal-close class="btn btn-alt">Cerrar</button>
+                        </footer>
+                    </div>
+                </div>
+            @endif
+        @endauth
 
         <table class="pricing-table">
             <thead>
@@ -482,6 +520,7 @@
             <script src="/js/pages/updateFieldPrice.js"></script>
             <script src="/js/pages/multiDelete.js"></script>
             <script src="/js/pages/popUps.js"></script>
+            <script src="/js/pages/popUpSectores.js"></script>
             <script src="/js/pages/posterEditor.js"></script>
         @endif
     @endauth

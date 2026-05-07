@@ -359,4 +359,62 @@ class EventoController extends Controller
 
         return back()->with('success', 'Artista añadido al evento correctamente.');
     }
+
+    /**
+     * Añadir sector a un evento (admin)
+     */
+    public function attachSector(Request $request, $eventoId)
+    {
+        $request->validate([
+            'sector_id' => 'required|exists:sectores,id',
+        ]);
+
+        $evento = Evento::findOrFail($eventoId);
+        $sectorId = $request->input('sector_id');
+
+        // Evita duplicados: verifica si el sector ya está asociado
+        $precio = Precio::firstOrCreate(
+            [
+                'evento_id' => $eventoId,
+                'sector_id' => $sectorId,
+            ],
+            [
+                'precio' => 0,
+                'disponible' => true,
+            ]
+        );
+
+        $precio->load('sector');
+
+        if ($request->expectsJson() || $request->is('api/*') || $request->ajax()) {
+            return response()->json([
+                'message' => 'Sector añadido al evento correctamente',
+                'data' => $precio,
+            ]);
+        }
+
+        return back()->with('success', 'Sector añadido al evento correctamente.');
+    }
+
+    /**
+     * Quitar sector de un evento (admin)
+     */
+    public function detachSector(Request $request, $eventoId, $sectorId)
+    {
+        $evento = Evento::findOrFail($eventoId);
+        Sector::findOrFail($sectorId);
+
+        // Elimina la entrada en 'precios' que vincula el evento con el sector
+        Precio::where('evento_id', $eventoId)
+            ->where('sector_id', $sectorId)
+            ->delete();
+
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'message' => 'Sector quitado del evento correctamente',
+            ]);
+        }
+
+        return back()->with('success', 'Sector quitado del evento correctamente.');
+    }
 }

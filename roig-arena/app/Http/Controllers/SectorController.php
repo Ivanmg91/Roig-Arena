@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sector;
+use App\Http\Resources\SectorResource;
 use Illuminate\Http\Request;
 
 class SectorController extends Controller
@@ -67,7 +68,7 @@ class SectorController extends Controller
     public function destroy($id)
     {
         $sector = Sector::findOrFail($id);
-        
+
         // Verificar que no tenga asientos
         if ($sector->totalAsientos() > 0) {
             return response()->json([
@@ -79,6 +80,28 @@ class SectorController extends Controller
 
         return response()->json([
             'message' => 'Sector eliminado correctamente',
+        ]);
+    }
+
+    /**
+     * Buscar sector por nombre
+     */
+    public function buscar(Request $request)
+    {
+        $query = $request->input('q');
+
+        if (!$query) {
+            return response()->json([
+                'error' => 'El parámetro "q" es requerido',
+            ], 400);
+        }
+
+        $sectores = Sector::where('nombre', 'like', "%{$query}%")
+            ->with('eventos')
+            ->get();
+
+        return response()->json([
+            'data' => SectorResource::collection($sectores),
         ]);
     }
 }

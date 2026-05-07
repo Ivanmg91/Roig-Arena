@@ -16,6 +16,8 @@ function initPriceInlineEditors() {
     if (!csrfToken) return;
 
     document.querySelectorAll('[data-sector-price-editor]').forEach((form) => {
+        if (form.dataset.priceEditorInitialized === 'true') return;
+
         const container = form.closest('td, .pricing-table-actions, .event-price-editor') || form.parentElement;
         const toggleButton = container?.querySelector('[data-sector_price-toggle], [data-sector-price-toggle]');
         const input = form.querySelector('[data-sector-price-input]');
@@ -92,7 +94,10 @@ function initPriceInlineEditors() {
                 input.reportValidity();
             }
         });
+
+        form.dataset.priceEditorInitialized = 'true';
     });
 }
 
 document.addEventListener('DOMContentLoaded', initPriceInlineEditors);
+window.initPriceInlineEditors = initPriceInlineEditors;

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\ArtistaController;
+use App\Http\Controllers\SectorController;
 
 Route::get('/', [PaginaController::class, 'home'])->name('home');
 Route::get('/eventos', [PaginaController::class, 'eventosIndex'])->name('eventos.index');
@@ -47,14 +48,23 @@ Route::middleware(['auth', 'admin'])
 		Route::patch('/eventos/{id}', [EventoController::class, 'update'])->name('eventos.update');
 		Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 		Route::delete('/eventos/{eventoId}/artistas/{artistaId}', [EventoController::class, 'detachArtista'])->name('eventos.artistas.destroy');
+		Route::post('/eventos/{eventoId}/sectores', [EventoController::class, 'attachSector'])->name('eventos.sectores.store');
+		Route::delete('/eventos/{eventoId}/sectores/{sectorId}', [EventoController::class, 'detachSector'])->name('eventos.sectores.destroy');
+
 		Route::patch('/precios/{id}', [EventoController::class, 'updateSectorPrice'])->name('precios.update');
 		Route::post('/precios/bulk-delete', [EventoController::class, 'bulkDeletePrecios'])->name('precios.bulkDelete');
         Route::delete('/precios/{id}', [EventoController::class, 'disableSector'])->name('sectores.disable');
+
         Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
         Route::post('/eventos/{eventoId}/artistas', [EventoController::class, 'attachArtista'])->name('eventos.artistas.store');
+
 		Route::get('/artistas/create', [ArtistaController::class, 'create'])->name('artistas.create');
 		Route::post('/artistas', [ArtistaController::class, 'store'])->name('artistas.store');
 		Route::delete('/artistas/{id}', [ArtistaController::class, 'destroy'])->name('artistas.destroy');
+
+        Route::post('/sectores', [SectorController::class, 'store'])->name('sectores.store');
+        Route::delete('/sectores/{id}', [SectorController::class, 'destroy'])->name('sectores.destroy');
+
 	});
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.
