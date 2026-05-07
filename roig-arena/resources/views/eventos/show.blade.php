@@ -9,16 +9,81 @@
 
 @section('content')
     <!-- Imagen hero del evento -->
-    <div class="event-hero">
+    <div class="event-hero event-poster-editor"
+        data-poster-editor
+        data-update-url="{{ route('admin.eventos.update', ['id' => $evento->id], false) }}"
+        data-current-poster-url="{{ $evento->poster_url }}"
+        data-current-poster-ancho-url="{{ $evento->poster_ancho_url }}">
         @if($evento->poster_ancho_url)
-            <img src="{{ $evento->poster_ancho_url }}" alt="{{ $evento->nombre }}" class="event-hero-image">
+            <img src="{{ $evento->poster_ancho_url }}" alt="{{ $evento->nombre }}" class="event-hero-image" data-poster-preview="poster_ancho_url">
         @else
-            <div class="event-hero-image event-no-image">
+            <div class="event-hero-image event-no-image" data-poster-preview="poster_ancho_url">
                 Sin imagen disponible
             </div>
         @endif
+
+        @auth
+            @if(auth()->user()->isAdmin())
+                <button type="button"
+                        class="event-title-edit-button event-poster-edit-button"
+                        data-poster-toggle="poster_ancho_url"
+                        aria-label="Editar póster ancho">
+                    ✎
+                </button>
+            @endif
+        @endauth
+
         <div class="event-hero-overlay"></div>
     </div>
+    <!-- POPUP DE SUBIDA DE IMAGENES EN JS -->
+    @auth
+        @if(auth()->user()->isAdmin())
+            <div id="poster-modal" class="modal" hidden data-poster-modal>
+                <div class="modal-backdrop" data-modal-backdrop></div>
+
+                <div class="modal-panel modal-panel--wide" role="dialog" aria-modal="true" aria-label="Editar pósters del evento">
+                    <header class="modal-header">
+                        <h3>Editar pósters del evento</h3>
+                        <button type="button" data-modal-close aria-label="Cerrar">✕</button>
+                    </header>
+
+                    <form class="modal-body" data-poster-form>
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="poster-field-group">
+                            <label for="poster_url"><strong>URL del póster</strong></label>
+                            <input
+                                id="poster_url"
+                                name="poster_url"
+                                type="url"
+                                placeholder="https://..."
+                                class="poster-url-input"
+                                data-poster-input="poster_url"
+                            >
+                        </div>
+
+                        <div class="poster-field-group">
+                            <label for="poster_ancho_url"><strong>URL del póster ancho</strong></label>
+                            <input
+                                id="poster_ancho_url"
+                                name="poster_ancho_url"
+                                type="url"
+                                placeholder="https://..."
+                                class="poster-url-input"
+                                data-poster-input="poster_ancho_url"
+                            >
+                        </div>
+
+                        <footer class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-alt" data-modal-close>Cancelar</button>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        @endif
+    @endauth
 
     <!-- Información principal del evento -->
     <div class="event-info-grid">
@@ -417,6 +482,7 @@
             <script src="/js/pages/updateFieldPrice.js"></script>
             <script src="/js/pages/multiDelete.js"></script>
             <script src="/js/pages/popUps.js"></script>
+            <script src="/js/pages/posterEditor.js"></script>
         @endif
     @endauth
 @endsection
