@@ -129,7 +129,7 @@ class ArtistaController extends Controller
         }
 
         $artistas = Artista::where('nombre', 'like', "%{$query}%")
-            ->with('evento')
+            ->with('eventos')
             ->get();
 
         return response()->json([

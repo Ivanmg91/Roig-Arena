@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin'])
 		Route::post('/precios/bulk-delete', [EventoController::class, 'bulkDeletePrecios'])->name('precios.bulkDelete');
         Route::delete('/precios/{id}', [EventoController::class, 'disableSector'])->name('sectores.disable');
         Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
+        Route::post('/eventos/{eventoId}/artistas', [EventoController::class, 'attachArtista'])->name('eventos.artistas.store');
 	});
 
 // Ruta opcional para conservar la vista inicial de Laravel como referencia.

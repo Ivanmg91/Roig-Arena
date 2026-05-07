@@ -179,6 +179,30 @@
                             <span aria-hidden="true">＋</span>
                             Añadir
                         </button>
+                        <!-- Popup lista artistas -->
+                        <div id="artista-modal" class="modal" hidden
+                            data-modal
+                            data-attach-url="{{ route('admin.eventos.artistas.store', ['eventoId' => $evento->id], false) }}"
+                            data-existing-artistas='@json($evento->artistas->pluck("id"))'>
+                            <div class="modal-backdrop" data-modal-backdrop></div>
+                            <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Seleccionar artistas">
+                                <header class="modal-header">
+                                    <h3>Agregar artistas al evento</h3>
+                                    <button type="button" data-modal-close aria-label="Cerrar">✕</button>
+                                </header>
+
+                                <div class="modal-body">
+                                    <input type="search" id="artista-search" placeholder="Buscar artista..." />
+                                    <div id="artista-list" class="artista-list">
+                                        <!-- Lista cargada por JS -->
+                                    </div>
+                                </div>
+
+                                <footer class="modal-footer">
+                                    <button type="button" data-modal-close class="btn btn-alt">Cerrar</button>
+                                </footer>
+                            </div>
+                        </div>
                     @endif
                 @endauth
             </div>
@@ -383,6 +407,7 @@
             <script src="/js/pages/updateFieldText.js"></script>
             <script src="/js/pages/updateFieldPrice.js"></script>
             <script src="/js/pages/multiDelete.js"></script>
+            <script src="/js/pages/popUps.js"></script>
         @endif
     @endauth
 @endsection

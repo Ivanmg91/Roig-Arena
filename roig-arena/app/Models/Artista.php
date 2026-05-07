@@ -10,7 +10,7 @@ class Artista extends Model
     use HasFactory;
 
     protected $table = 'artistas';
-    
+
     protected $fillable = [
         'nombre',
         'descripcion',
@@ -25,4 +25,5 @@ class Artista extends Model
         return $this->belongsToMany(Evento::class, 'artista_evento')
                     ->withTimestamps();
     }
+
 }

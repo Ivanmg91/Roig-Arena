@@ -42,9 +42,9 @@ Route::get('/eventos/{eventoId}/sectores/{sectorId}/asientos', [AsientoControlle
 
 // Artistas (consulta pública)
 Route::get('/artistas', [ArtistaController::class, 'index']);
+Route::get('/artistas/buscar', [ArtistaController::class, 'buscar']);
 Route::get('/artistas/{id}', [ArtistaController::class, 'show']);
 Route::get('/eventos/{eventoId}/artistas', [ArtistaController::class, 'porEvento']);
-Route::get('/artistas/buscar', [ArtistaController::class, 'buscar']);
 
 // ============================================
 // RUTAS PROTEGIDAS (requieren autenticación)

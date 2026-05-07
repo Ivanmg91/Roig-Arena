@@ -334,4 +334,29 @@ class EventoController extends Controller
 
         return back()->with('success', 'Precios eliminados correctamente.');
     }
+
+    /**
+     * Añadir (asociar) un artista a un evento (admin).
+     */
+    public function attachArtista(Request $request, $eventoId)
+    {
+        $request->validate([
+            'artista_id' => 'required|exists:artistas,id',
+        ]);
+
+        $evento = Evento::findOrFail($eventoId);
+        $artistaId = $request->input('artista_id');
+
+        // Evita duplicados
+        $evento->artistas()->syncWithoutDetaching([$artistaId]);
+
+        if ($request->expectsJson() || $request->is('api/*') || $request->ajax()) {
+            return response()->json([
+                'message' => 'Artista añadido al evento correctamente',
+                'artista_id' => $artistaId,
+            ]);
+        }
+
+        return back()->with('success', 'Artista añadido al evento correctamente.');
+    }
 }

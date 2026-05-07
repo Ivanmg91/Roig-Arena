@@ -250,6 +250,8 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [x] Crear eventos (por completar)
 - [ ] Crear artistas (sin completar)
 - [ ] Asignar artistas a eventos (sin completar)
+- [ ] Eliminar artistas de eventos (sin completar)
+- [ ] Asignar artistas (sin completar)
 - [x] Asignar sectores a eventos (sin problemas detectados)
 - [ ] Actualizar eventos todos sus campos (sin completar)
 - [x] Eliminar eventos (sin problemas detectados)
