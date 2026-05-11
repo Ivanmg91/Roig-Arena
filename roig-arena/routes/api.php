@@ -34,8 +34,9 @@ Route::get('/eventos/{id}', [EventoController::class, 'show']);
 // Sectores (consulta pública)
 Route::get('/sectores', [SectorController::class, 'index']);
 Route::get('/sectores/buscar', [SectorController::class, 'buscar']);
-Route::get('/eventos/{eventoId}/sectores/', [AsientoController::class, 'porEvento']);
-Route::get('/eventos/{eventoId}/sectores/{sectorId}', [AsientoController::class, 'porSector']);
+// Nuevo endpoint: listar sectores vinculados a un evento.
+// Devuelve id, nombre, color_hex y límites; acepta `include_asientos=1`.
+Route::get('/eventos/{eventoId}/sectores', [SectorController::class, 'porEvento']);
 
 // Asientos (consulta pública)
 Route::get('/eventos/{eventoId}/asientos', [AsientoController::class, 'porEvento']);
@@ -93,6 +94,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::post('/sectores', [SectorController::class, 'store']);
     Route::put('/sectores/{id}', [SectorController::class, 'update']);
     Route::delete('/sectores/{id}', [SectorController::class, 'destroy']);
+    Route::post('/sectores/validar-rectangulo', [SectorController::class, 'validarRectangulo']);
 
     // Artistas (CRUD completo)
     Route::post('/artistas', [ArtistaController::class, 'store']);

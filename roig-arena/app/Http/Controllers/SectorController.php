@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asiento;
 use App\Models\Sector;
+use App\Models\Evento;
 use App\Http\Resources\SectorResource;
 use App\Services\SectorGeometryService;
 use Illuminate\Http\Request;
@@ -14,6 +15,96 @@ class SectorController extends Controller
 {
     public function __construct(private SectorGeometryService $sectorGeometryService)
     {
+    }
+
+    /**
+     * Validar un rectángulo antes de guardar o redimensionar un sector.
+     * Devuelve si el rectángulo es válido, si hay solape y sus dimensiones.
+     */
+    public function validarRectangulo(Request $request)
+    {
+        $validated = $request->validate([
+            'inicio' => ['required', 'array'],
+            'inicio.fila' => ['required', 'integer', 'min:1'],
+            'inicio.columna' => ['required', 'integer', 'min:1'],
+            'fin' => ['required', 'array'],
+            'fin.fila' => ['required', 'integer', 'min:1'],
+            'fin.columna' => ['required', 'integer', 'min:1'],
+            'sector_id' => ['sometimes', 'integer', 'exists:sectores,id'],
+        ]);
+
+        $rectangulo = $this->sectorGeometryService->normalizarRectangulo(
+            $validated['inicio'],
+            $validated['fin']
+        );
+
+        $sectorId = $validated['sector_id'] ?? null;
+        $haySolapamiento = $this->sectorGeometryService->existeSolapamiento($rectangulo, $sectorId);
+
+        return response()->json([
+            'data' => [
+                'valido' => !$haySolapamiento,
+                'solapamiento' => $haySolapamiento,
+                'rectangulo' => $rectangulo,
+                'total_asientos' => $rectangulo['total_asientos'],
+            ],
+        ]);
+    }
+
+    /**
+     * Listar sectores vinculados a un evento (JSON).
+     * Query param opcional: `include_asientos=1` para devolver los asientos agrupados por fila.
+     */
+    public function porEvento($eventoId, Request $request)
+    {
+        $evento = Evento::findOrFail($eventoId);
+
+        // Cargamos los precios del evento para obtener los sectores asociados.
+        $precios = $evento->precios()->with('sector')->get();
+
+        $includeAsientos = $request->boolean('include_asientos', false);
+
+        $data = $precios->map(function ($precio) use ($eventoId, $includeAsientos) {
+            $sector = $precio->sector;
+            if (!$sector) {
+                return null;
+            }
+
+            $item = [
+                'id' => $sector->id,
+                'nombre' => $sector->nombre,
+                'color_hex' => $sector->color_hex,
+                'fila_inicio' => $sector->fila_inicio,
+                'fila_fin' => $sector->fila_fin,
+                'columna_inicio' => $sector->columna_inicio,
+                'columna_fin' => $sector->columna_fin,
+            ];
+
+            if ($includeAsientos) {
+                $asientos = $sector->asientos()
+                    ->orderBy('fila')
+                    ->orderBy('numero')
+                    ->get()
+                    ->map(function ($a) use ($eventoId) {
+                        return [
+                            'id' => $a->id,
+                            'fila' => $a->fila,
+                            'numero' => $a->numero,
+                            'disponible' => $a->estaDisponible($eventoId),
+                        ];
+                    })
+                    ->groupBy('fila')
+                    ->map(function ($group) {
+                        return array_values($group->toArray());
+                    });
+
+                $item['asientos'] = $asientos;
+            }
+
+            return $item;
+        })->filter()->values();
+
+        return response()->json(['data' => $data]);
     }
 
     /**

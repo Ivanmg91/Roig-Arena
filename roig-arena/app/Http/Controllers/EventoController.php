@@ -54,6 +54,26 @@ class EventoController extends Controller
     }
 
     /**
+     * Mostrar el editor visual de sectores de un evento.
+     */
+    public function sectorEditor($eventoId)
+    {
+        $evento = Evento::with(['precios.sector'])
+            ->findOrFail($eventoId);
+
+        $sectoresIniciales = $evento->precios
+            ->pluck('sector')
+            ->filter()
+            ->values();
+
+        return view('eventos.sectores-editor', [
+            'evento' => $evento,
+            'eventoId' => $evento->id,
+            'sectoresIniciales' => $sectoresIniciales,
+        ]);
+    }
+
+    /**
      * Crear evento (admin)
      *
      * Flujo:

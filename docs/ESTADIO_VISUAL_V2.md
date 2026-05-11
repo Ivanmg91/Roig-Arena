@@ -628,12 +628,12 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. En `routes/web.php`, define las rutas de administración que se usarán desde el editor visual. Deben vivir detrás de autenticación de admin o del middleware que ya use el panel.
-2. Crea una ruta GET para cargar el editor de sectores de un evento. Esa vista debe recibir el `evento_id` y, si hace falta, el listado inicial de sectores.
-3. Crea una ruta GET o POST para listar sectores del evento en formato JSON. Esa respuesta debe devolver `id`, `nombre`, `color_hex`, límites del sector y, si lo necesitas, los asientos agrupados.
-4. Crea una ruta POST para guardar un sector nuevo. Esa ruta debe recibir los datos del rectángulo y el metadato del sector.
-5. Crea una ruta PATCH para editar un sector. Úsala para cambios de nombre, color, descripción y, si lo permites, límites.
-6. Crea una ruta DELETE para borrar un sector. Debe devolver error claro si el sector no puede eliminarse.
+1. En `routes/web.php`, define las rutas de administración que se usarán desde el editor visual. Deben vivir detrás de autenticación de admin o del middleware que ya use el panel. (hecho)
+2. Crea una ruta GET para cargar el editor de sectores de un evento. Esa vista debe recibir el `evento_id` y, si hace falta, el listado inicial de sectores.(hecho)
+3. Crea una ruta GET o POST para listar sectores del evento en formato JSON. Esa respuesta debe devolver `id`, `nombre`, `color_hex`, límites del sector y, si lo necesitas, los asientos agrupados.(hecho)
+4. Crea una ruta POST para guardar un sector nuevo. Esa ruta debe recibir los datos del rectángulo y el metadato del sector. (hecho)
+5. Crea una ruta PATCH para editar un sector. Úsala para cambios de nombre, color, descripción y, si lo permites, límites. (hecho)
+6. Crea una ruta DELETE para borrar un sector. Debe devolver error claro si el sector no puede eliminarse. (hecho)
 7. En `routes/api.php`, crea una ruta para consultar los asientos de un sector concreto con su estado. Esa respuesta la usará la pantalla de compra.
 8. Añade una ruta de validación previa si te viene bien separar la previsualización del guardado final. Esa ruta debería devolver si hay solape, si el rectángulo es válido y cuántos asientos generaría.
 9. Mantén nombres de rutas claros y coherentes. Si una ruta es de admin, que se vea; si es de compra, que quede separada; si es de validación, que no se mezcle con la de guardado.

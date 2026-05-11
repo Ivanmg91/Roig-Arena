@@ -55,6 +55,9 @@ Route::middleware(['auth', 'admin'])
 		Route::post('/precios/bulk-delete', [EventoController::class, 'bulkDeletePrecios'])->name('precios.bulkDelete');
         Route::delete('/precios/{id}', [EventoController::class, 'disableSector'])->name('sectores.disable');
 
+		// Ruta de administración para abrir el editor visual de sectores. Recibe evento_id en el controller
+		Route::get('/eventos/{eventoId}/sectores/editor', [EventoController::class, 'sectorEditor'])->name('eventos.sectores.editor');
+
         Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
         Route::post('/eventos/{eventoId}/artistas', [EventoController::class, 'attachArtista'])->name('eventos.artistas.store');
 
@@ -62,7 +65,11 @@ Route::middleware(['auth', 'admin'])
 		Route::post('/artistas', [ArtistaController::class, 'store'])->name('artistas.store');
 		Route::delete('/artistas/{id}', [ArtistaController::class, 'destroy'])->name('artistas.destroy');
 
+        // Ruta POST para guardar un sector nuevo. Esta ruta recibe los datos del rectángulo y el metadato del sector.
         Route::post('/sectores', [SectorController::class, 'store'])->name('sectores.store');
+        // Ruta PATCH para editar un sector. Usada para cambios de nombre, color, descripción y, si lo permite, límites.
+        Route::patch('/sectores/{id}', [SectorController::class, 'update'])->name('sectores.update');
+        // Ruta DELETE para borrar un sector. Devolver error claro si el sector no puede eliminarse.
         Route::delete('/sectores/{id}', [SectorController::class, 'destroy'])->name('sectores.destroy');
 
 	});
