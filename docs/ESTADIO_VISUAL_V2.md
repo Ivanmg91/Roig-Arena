@@ -609,14 +609,14 @@ Qué hacer:
 
 1. En `app/Models/Sector.php`, crea un método para calcular la posición rectangular del sector a partir de dos coordenadas. Ese método debe recibir los dos extremos y devolver siempre los límites ordenados, es decir, cuál es el inicio real y cuál es el final real aunque el usuario pinche primero abajo y luego arriba. (hecho)
 2. En ese mismo modelo, añade un método que te diga cuántas filas y cuántas columnas ocupa ese rectángulo a partir de los límites. La idea es que no tengas que repetir la cuenta en varios sitios. (hecho)
-3. Añade un método para generar la lista de asientos que pertenecen a ese rectángulo. Ese método debe recorrer todas las filas y columnas del bloque y devolver la colección que luego insertará el backend.
-4. Añade un método para comprobar si un nuevo rectángulo se solapa con algún sector existente. Ese método debe comparar rangos de filas y columnas, no solo posiciones visuales.
-5. En el controlador que uses para sectores, crea una acción para guardar un sector nuevo. Esa acción debe recibir el rectángulo, validar los datos y llamar a los métodos del modelo.
-6. En el mismo controlador, crea una acción para editar un sector. Esa acción debe permitir cambiar nombre, color y descripción sin tocar la geometría si no hace falta.
-7. Si quieres permitir cambiar la geometría, esa misma acción debe volver a validar el rectángulo y regenerar los asientos solo si no rompe reservas ni ventas.
-8. Añade una acción para borrar un sector. Esa acción debe comprobar primero si hay reservas o ventas asociadas; si las hay, debe bloquear el borrado.
-9. Si prefieres no meter toda la lógica en el controlador, crea un service dedicado, por ejemplo `SectorGeometryService`, que se encargue de calcular límites, solapes y generación de asientos. El controlador solo recibiría la request y llamaría al service.
-10. Mantén la lógica de negocio centralizada en un solo sitio. No dupliques el cálculo del rectángulo en el modelo, el controlador y el frontend porque eso te acabará creando desajustes.
+3. Añade un método para generar la lista de asientos que pertenecen a ese rectángulo. Ese método debe recorrer todas las filas y columnas del bloque y devolver la colección que luego insertará el backend. (hecho)
+4. Añade un método para comprobar si un nuevo rectángulo se solapa con algún sector existente. Ese método debe comparar rangos de filas y columnas, no solo posiciones visuales. (hecho)
+5. En el controlador que uses para sectores, crea una acción para guardar un sector nuevo. Esa acción debe recibir el rectángulo, validar los datos y llamar a los métodos del modelo. (hecho)
+6. En el mismo controlador, crea una acción para editar un sector. Esa acción debe permitir cambiar nombre, color y descripción sin tocar la geometría si no hace falta. (hecho, no se si bien o mal)
+7. Si quieres permitir cambiar la geometría, esa misma acción debe volver a validar el rectángulo y regenerar los asientos solo si no rompe reservas ni ventas. (hecho)
+8. Añade una acción para borrar un sector. Esa acción debe comprobar primero si hay reservas o ventas asociadas; si las hay, debe bloquear el borrado. (hecho)
+9. Si prefieres no meter toda la lógica en el controlador, crea un service dedicado, por ejemplo `SectorGeometryService`, que se encargue de calcular límites, solapes y generación de asientos. El controlador solo recibiría la request y llamaría al service. (hecho)
+10. Mantén la lógica de negocio centralizada en un solo sitio. No dupliques el cálculo del rectángulo en el modelo, el controlador y el frontend porque eso te acabará creando desajustes. (hecho)
 
 ### Paso 3: exponer endpoints claros
 

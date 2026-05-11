@@ -4,11 +4,14 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use App\Models\Sector;
+use App\Services\SectorGeometryService;
 
 class SectorDimensionsTest extends TestCase
 {
     public function test_compute_dimensions_basic()
     {
+        $service = new SectorGeometryService();
+
         $s = new Sector([
             'fila_inicio' => 1,
             'fila_fin' => 3,
@@ -16,7 +19,7 @@ class SectorDimensionsTest extends TestCase
             'columna_fin' => 6,
         ]);
 
-        $dims = $s->computeDimensions();
+        $dims = $service->calcularDimensiones($s);
 
         $this->assertEquals(3, $dims['cantidad_filas']);
         $this->assertEquals(4, $dims['cantidad_columnas']);
