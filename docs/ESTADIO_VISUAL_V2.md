@@ -1,594 +1,749 @@
-# Estadio Visual v2: Distribución de Asientos Controlada
+# Estadio Visual v2: editor rectangular de sectores y mapa de asientos
 
 ## Resumen Ejecutivo
 
-**Estadio Visual v2** es una actualización del sistema de sectores y asientos de Roig Arena que permite al administrador **definir sectores como matrices exactas (filas × columnas) con posiciones fijas**, eliminando la posibilidad de asientos sueltos sin sector y proporcionando una **experiencia de compra visual basada en rejillas numeradas**.
+Este documento redefine la actualización de Roig Arena para que el sistema de sectores sea realmente utilizable por un administrador sin obligarlo a trabajar con catálogos rígidos. El objetivo es que el admin pueda abrir un mapa visual del estadio, pulsar un asiento como inicio, pulsar otro como fin y que el área rectangular entre ambos se convierta en un sector.
 
-En lugar de que el admin solo añada sectores precreados de un catálogo, podrá **crear sectores nuevos dinámicamente** definiendo su geometría. La compra de entradas cambia: en lugar de mostrar asientos en lista, los muestra en una **rejilla interactiva** donde el usuario puede seleccionar asientos individuales o hacer selección rectangular (arrastrando para seleccionar un bloque).
+El cambio clave es este: un sector deja de ser solo una ficha con filas y columnas escritas a mano y pasa a ser una región rectangular seleccionada sobre un plano de asientos. Eso hace la gestión más natural, reduce errores y encaja mejor con una compra visual por parte del usuario final.
 
----
-
-## Problema que Resuelve
-
-### Estado Actual (v1)
-- ✗ Los sectores son estáticos, preexisten en un catálogo global
-- ✗ No hay control sobre la distribución física en el mapa
-- ✗ Posible tener asientos "sueltos" sin sector si la matriz no es perfecta  
-- ✗ La experiencia de compra es poco intuitiva (lista de asientos sin visualización espacial)
-- ✗ El admin no puede iterar rápidamente sobre la geometría del estadio
-
-### Solución v2
-- ✓ Los sectores se crean bajo demanda con parámetros simples (filas, columnas, color, precio)
-- ✓ Matriz perfecta = nunca hay asientos sueltos (si el sector es 3×4, exactamente 12 asientos)
-- ✓ La distribución es **editable y reutilizable** por evento
-- ✓ Experiencia de compra visual: rejilla de asientos numerados, selección por click o rectángulo
-- ✓ Velocidad de iteración: cambiar un sector toma segundos
+Para implementarlo de forma sólida en este proyecto, la recomendación es mantener el stack actual de Laravel, Vite, Blade y JavaScript modular, y construir el editor sobre SVG y DOM nativo. No hace falta meter React o Vue solo para esto. Si más adelante el editor crece mucho, se puede valorar una librería pequeña de interacción, pero el primer corte debe ser simple, mantenible y coherente con el código que ya existe.
 
 ---
 
-## Arquitectura Conceptual
+## Qué quiere conseguir el producto
 
-### Nivel de Datos
+### Objetivo funcional
 
-```
-Sector (actualizado)
-├── id
-├── nombre
-├── descripcion
-├── cantidad_filas         ← Mantiene esto
-├── cantidad_columnas      ← Mantiene esto
-├── color_hex
-├── activo
-└── (NEW) posicion_x       ← Opcional: para futuros layouts gráficos
-└── (NEW) posicion_y       ← Opcional: para futuros layouts gráficos
+- El admin ve un mapa del estadio.
+- El admin selecciona dos asientos del mapa.
+- El sistema calcula el rectángulo mínimo que los contiene.
+- Ese rectángulo se guarda como un nuevo sector.
+- El sector queda coloreado, nombrado y listo para asignarle precio.
+- El comprador entra al evento, ve los sectores sobre el mapa y después abre la rejilla del sector para elegir asientos individuales.
+- En la compra, los asientos se ven dibujados y cada click añade o quita asientos del carrito.
 
-Asiento (sin cambios en estructura)
-├── id
-├── sector_id
-├── fila                   ← Letra o número (A, B, C, etc.)
-├── numero                 ← 1, 2, 3, etc.
+### Regla de negocio principal
 
-Precio (sin cambios)
-├── evento_id
-├── sector_id
-├── precio
-├── disponible
-
-EstadoAsiento (sin cambios)
-├── evento_id
-├── asiento_id
-├── estado (DISPONIBLE, RESERVADO, OCUPADO)
-└── reservado_hasta
-```
-
-### Flujo de Usuario: Admin (Creación de Evento)
-
-```
-1. Admin crea Evento
-   └─> Accede a "Gestionar Sectores"
-
-2. Modal/Editor de Sectores (NUEVO)
-   └─> Botón "+ Crear Sector"
-       └─> Form:
-           - Nombre: "Zona Roja Premium"
-           - Filas: 5
-           - Columnas: 8
-           - Color: #FF5733
-           - Descripción: (opcional)
-   └─> Backend: genera 40 asientos (5×8) automáticamente
-       Filas: A, B, C, D, E
-       Columnas: 1, 2, 3, 4, 5, 6, 7, 8
-   └─> Asientos creados: A1, A2, ..., A8, B1, ..., E8
-
-3. Admin define precios (igual que hoy)
-   └─> Tabla: Sector | Precio | Estado | Acciones
-       └─> Editar precio del sector
-
-4. Button "Guardar Cambios" persiste todo
-```
-
-### Flujo de Usuario: Comprador (Selección de Asientos)
-
-```
-1. Accede a "/eventos/{evento}/comprar"
-   
-2. Vista "Entra al Estadio" - Mapa de Sectores (igual que hoy)
-   └─> SVG con sectores dibujados
-   └─> Click en un sector → carga rejilla de asientos
-
-3. (NUEVO) Rejilla de Asientos del Sector
-   ┌─────────────────────────────────┐
-   │  Zona Roja Premium              │
-   │                                 │
-   │   1  2  3  4  5  6  7  8        │
-   │ A ☐  ☐  ☑  ☑  ☐  ☐  ☐  ☐ A    │
-   │ B ☐  ☐  ☐  ☐  ☐  ☐  ☐  ☐ B    │
-   │ C ☑  ☐  ☐  ☐  ☐  ☑  ☐  ☐ C    │
-   │ D ☐  ☐  ☐  ☐  ☐  ☐  ☐  ☐ D    │
-   │ E ☐  ☐  ☐  ☐  ☐  ☐  ☐  ☐ E    │
-   └─────────────────────────────────┘
-   
-   Leyenda:
-   ☐ = Disponible (click para seleccionar)
-   ☑ = Seleccionado (click para deseleccionar)
-   ▌ = Ocupado/Reservado (gris, no clickable)
-
-4. Formas de Selección
-   a) Click individual: A3 → se selecciona
-   b) Selección por rectángulo (NUEVO)
-      - Click en A3 + Drag a C6 
-      → selecciona A3, A4, A5, A6, B3, B4, B5, B6, C3, C4, C5, C6
-      → útil para familias o grupos
-
-5. Carrito Flotante (igual que hoy)
-   └─> Resumen de selección
-   └─> Total por sector
-   └─> Total general
-   └─> Botón "Confirmar Compra"
-
-6. Checkout (sin cambios)
-   └─> Modal de pago
-   └─> Temporizador de reserva
-```
+Los sectores de esta versión solo pueden ser rectangulares y alineados con la rejilla. No se permiten formas libres ni polígonos irregulares en la primera versión. Esa limitación no es una carencia, es una decisión intencionada para mantener el sistema controlado, predecible y rápido de operar.
 
 ---
 
-## Componentes Técnicos a Modificar
+## Problema actual y solución propuesta
 
-### 1. Backend - Base de Datos
+### Lo que suele fallar en sistemas de este tipo
 
-#### Migrations
-- ✓ Tabla `sectores` ya tiene `cantidad_filas` y `cantidad_columnas`
-- ~ **OPCIONAL**: Agregar `posicion_x`, `posicion_y` para futuras capas visuales de admin
-- ✓ Tabla `asientos` ya tiene la estructura necesaria
-- ✓ Tabla `precios` sin cambios
-- ✓ Tabla `estado_asientos` sin cambios
+- Los sectores se crean en listas o formularios abstractos y nadie visualiza realmente dónde caen.
+- El admin termina adivinando tamaño y posición en vez de ver el mapa.
+- La compra por lista de asientos es poco intuitiva.
+- Si se intenta permitir demasiada libertad desde el principio, el editor se vuelve difícil de mantener.
 
-**Acción**: Considerar migración opcional para posiciones (puede hacerse después de v2 MVP).
+### Lo que proponemos aquí
 
----
-
-### 2. Backend - Lógica
-
-#### Modelo `Sector.php`
-```php
-// NUEVO: Método para generar/validar asientos automáticamente
-public function generarAsientosDesdeMatriz()
-{
-    // Elimina asientos antiguos (o marca como inactivos)
-    $this->asientos()->delete();
-    
-    // Genera nuevos según filas × columnas
-    $asientos = [];
-    $filas = $this->obtenerLetrasFilas($this->cantidad_filas);
-    
-    foreach ($filas as $fila) {
-        for ($col = 1; $col <= $this->cantidad_columnas; $col++) {
-            $asientos[] = [
-                'sector_id' => $this->id,
-                'fila' => $fila,
-                'numero' => $col,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-    }
-    
-    Asiento::insert($asientos);
-}
-
-// Helper para convertir número a letra (1→A, 2→B, etc.)
-private function obtenerLetrasFilas($cantidad): array
-{
-    return array_map(fn($i) => chr(65 + $i), range(0, $cantidad - 1));
-}
-```
-
-#### Controlador `EventoController.php` o nuevo `SectorEventoController.php`
-```php
-// NUEVO endpoint para crear sector dentro de evento
-POST /admin/eventos/{eventoId}/sectores
-{
-    "nombre": "Zona Roja Premium",
-    "cantidad_filas": 5,
-    "cantidad_columnas": 8,
-    "color_hex": "#FF5733",
-    "descripcion": "Primera fila con mejor vista",
-    "precio": 45.50
-}
-
-// Lógica:
-// 1. Crear Sector (cantidad_filas, cantidad_columnas, color)
-// 2. Llamar sector->generarAsientosDesdeMatriz()
-// 3. Crear Precio(evento_id, sector_id, precio, disponible=true)
-// 4. Retornar sector + precios + asientos como JSON
-```
-
-#### API Endpoint Existente (adaptado)
-```php
-GET /api/eventos/{eventoId}/sectores/{sectorId}/asientos
-
-// AHORA retorna asientos organizados por matriz
-// Con estado (disponible, reservado, ocupado)
-{
-    "data": {
-        "sector": {
-            "id": 5,
-            "nombre": "Zona Roja",
-            "cantidad_filas": 5,
-            "cantidad_columnas": 8,
-            "color_hex": "#FF5733"
-        },
-        "matriz": {  // NUEVO
-            "filas": ["A", "B", "C", "D", "E"],
-            "columnas": [1, 2, 3, 4, 5, 6, 7, 8]
-        },
-        "asientos": [
-            {
-                "id": 100,
-                "fila": "A",
-                "numero": 1,
-                "estado": "disponible"
-            },
-            ...
-        ]
-    }
-}
-```
+- Un mapa visual como punto de entrada.
+- Creación de sectores por selección de rango rectangular.
+- Persistencia de sectores como bloques de asientos controlados.
+- Visualización de compra en rejilla.
+- Implementación técnica minimalista y compatible con el proyecto actual.
 
 ---
 
-### 3. Frontend - Vista de Admin
+## Decisión técnica recomendada
 
-#### Nueva Vista: `resources/views/eventos/sectores-editor.blade.php`
+### Recomendación principal
 
-Reemplaza o amplía el modal actual de `popUpSectores.js`.
+Usar la arquitectura actual del proyecto y no migrar a un framework SPA para resolver este caso.
 
-**Componentes:**
-- Tabla de sectores existentes con opciones de editar/eliminar
-- Form "Crear Nuevo Sector":
-  - Input: Nombre
-  - Input: Filas (1-20)
-  - Input: Columnas (1-30)
-  - Input: Color (color picker)
-  - Input: Descripción (opcional)
-  - Button: "Generar Asientos"
+### Por qué
 
-**JavaScript: `public/js/pages/editarSectoresEvento.js`**
-```js
-class SectorEventoEditor {
-    constructor(eventoId) {
-        this.eventoId = eventoId;
-        this.sectores = [];
-    }
+- El proyecto ya está montado con Laravel y Vite.
+- Ya existe JavaScript manual en `public/js/pages/`.
+- La parte crítica no es la navegación de una app compleja, sino dibujar y manipular elementos en un plano.
+- SVG da acceso directo a elementos clicables, accesibles y estilables.
+- El coste de introducir React, Vue o una librería de estado sería mayor que el beneficio para este alcance.
 
-    crearSector(datos) {
-        // POST /admin/eventos/{eventoId}/sectores
-        // Backend genera matriz automáticamente
-    }
+### Stack propuesto
 
-    editarSector(sectorId, nuevosDatos) {
-        // PATCH /admin/eventos/{eventoId}/sectores/{sectorId}
-        // Si cambian filas/columnas, regenera asientos
-    }
+- Backend: Laravel.
+- UI de administración: Blade + JavaScript modular.
+- Mapa visual: SVG.
+- Interacción de selección: Pointer Events nativos, con posibilidad de añadir una librería ligera si en pruebas hace falta mejorar el arrastre o el multiseleccionado.
+- Compra de asientos: grid HTML/CSS renderizado desde JS.
 
-    eliminarSector(sectorId) {
-        // DELETE /admin/eventos/{eventoId}/sectores/{sectorId}
-    }
+### Librería extra: sí, pero solo si aporta valor real
 
-    actualizarPrecio(sectorId, nuevoPrecio) {
-        // PATCH /admin/precios/{precioId}
-        // (ya existe, sin cambios)
-    }
-}
-```
+Si se quiere mejorar la experiencia de selección rectangular en el editor del admin, la única categoría de herramienta que merece la pena es una librería pequeña de interacción, no un framework grande. La prioridad debe ser:
+
+1. SVG y DOM nativo primero.
+2. Librería de interacción ligera solo si el arrastre y la selección se complican.
+3. Framework pesado solo si el editor termina siendo una app dentro de la app, cosa que hoy no parece necesaria.
 
 ---
 
-### 4. Frontend - Experiencia de Compra
+## Flujo del admin
 
-#### Componente: `public/js/components/SeatGrid.js` (NUEVO)
+### 1. Abrir el editor del evento
 
-```js
-class SeatGrid {
-    constructor(containerSelector, sector, asientos) {
-        this.container = document.querySelector(containerSelector);
-        this.sector = sector;
-        this.asientos = asientos;
-        this.selectedSeats = new Set();
-        this.selectionMode = 'individual'; // o 'rectangle'
-    }
+El administrador entra en la edición de un evento y abre el editor visual de sectores. En lugar de ver solo botones o formularios sueltos, ve un plano del estadio con una rejilla de referencia.
 
-    render() {
-        // Genera HTML grid
-        const grid = document.createElement('div');
-        grid.className = 'seats-grid-matrix';
-        grid.style.gridTemplateColumns = `repeat(${this.sector.cantidad_columnas}, 1fr)`;
+### 2. Empezar una selección
 
-        // Renderiza cada asiento
-        this.asientos.forEach(asiento => {
-            const seatEl = this.crearElementoAsiento(asiento);
-            grid.appendChild(seatEl);
-        });
+El admin pulsa sobre el primer asiento de la zona que quiere convertir en sector. Ese punto actúa como esquina inicial del rectángulo.
 
-        this.container.appendChild(grid);
-    }
+### 3. Marcar el segundo asiento
 
-    crearElementoAsiento(asiento) {
-        const seat = document.createElement('button');
-        seat.className = 'seat seat-' + asiento.estado;
-        seat.textContent = asiento.numero;
-        seat.dataset.seatId = asiento.id;
-        seat.dataset.fila = asiento.fila;
-        seat.dataset.numero = asiento.numero;
+Después pulsa otro asiento que define la esquina opuesta. El sistema no guarda solo dos puntos; calcula el rectángulo completo entre ambos.
 
-        if (asiento.estado === 'disponible') {
-            seat.addEventListener('click', () => this.toggleSeat(asiento));
-            seat.addEventListener('mousedown', () => this.startRectangleSelection(asiento));
-        }
+### 4. Previsualizar el sector
 
-        return seat;
-    }
+Antes de guardar, el editor debe mostrar:
 
-    toggleSeat(asiento) {
-        const id = String(asiento.id);
-        if (this.selectedSeats.has(id)) {
-            this.selectedSeats.delete(id);
-        } else {
-            this.selectedSeats.add(id);
-        }
-        this.updateVisuals();
-    }
+- el área resaltada,
+- cuántas filas y columnas contiene,
+- cuántos asientos tendrá,
+- si se solapa con otro sector,
+- y qué color o nombre se le asignará.
 
-    startRectangleSelection(startSeat) {
-        // Guarda point inicial
-        // En mousemove, calcula rectángulo
-        // En mouseup, selecciona todos los asientos del rectángulo
-    }
+### 5. Confirmar y guardar
 
-    updateVisuals() {
-        document.querySelectorAll('.seat').forEach(el => {
-            const id = el.dataset.seatId;
-            el.classList.toggle('seat-selected', this.selectedSeats.has(id));
-        });
-    }
-}
-```
+Si todo es correcto, el admin confirma. El backend crea o actualiza el sector y genera sus asientos de forma coherente con ese rectángulo.
 
-#### Adaptación: `public/js/pages/compra.js`
+### 6. Asignar precio
 
-En `renderSectorSeats()`, cambiar de lista lineal a rejilla:
-
-```js
-async renderSectorSeats(sector) {
-    // ... fetch asientos ...
-    
-    const container = document.getElementById('sectorSeats');
-    container.innerHTML = '';
-    
-    // NUEVO: Usar SeatGrid en lugar de crear elementos sueltos
-    const grid = new SeatGrid('#sectorSeats', sector, asientos);
-    grid.render();
-    
-    // Interconectar con carrito
-    grid.onSelectedSeatsChange = (selectedSeats) => {
-        this.selectedSeats = selectedSeats;
-        this.updateCart();
-    };
-}
-```
-
-#### CSS: `public/css/components/seat-grid.css` (NUEVO)
-
-```css
-.seats-grid-matrix {
-    display: grid;
-    gap: 8px;
-    padding: 1rem;
-    max-width: 500px;
-    align-items: center;
-    justify-items: center;
-}
-
-.seat {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.seat-disponible {
-    background: #1e4d38;
-    border-color: #2a6650;
-    color: #b8dece;
-}
-
-.seat-disponible:hover {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 2px rgba(42, 102, 80, 0.6);
-}
-
-.seat-selected {
-    background: #ff5733;
-    border-color: #ff5733;
-    color: white;
-    box-shadow: 0 0 8px rgba(255, 87, 51, 0.4);
-}
-
-.seat-ocupado,
-.seat-reservado {
-    background: #4a4a47;
-    border-color: #6b6b68;
-    color: #8a8a84;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Etiquetas de fila y columna */
-.seats-grid-matrix::before {
-    content: '';
-    grid-column: 1; /* En la primera columna */
-}
-```
+Una vez creado el sector, el admin le pone precio o ajusta el existente.
 
 ---
 
-### 5. Frontend - Cambios en Vistas Blade
+## Flujo del comprador
 
-#### `resources/views/eventos/show.blade.php`
+### 1. Entrar al evento
 
-- **Reemplazar** el modal `#sector-modal` actual por una nueva sección de edición
-- O agregar un tab/botón "Editor Visual" que abra el nuevo editor
-- Mantener la tabla de precios (casi igual, pero ahora actualiza automáticamente al crear sector)
+El comprador llega a la pantalla de compra del evento.
 
-#### `resources/views/compra/buy.blade.php`
+### 2. Ver el mapa de sectores
 
-- El container `#sectorSeats` ahora recibirá markup generado por `SeatGrid`, no por templates Blade
-- **Sin cambios mayores**: el layout sigue siendo igual, solo cambia cómo se pintan los asientos
+Se muestra el plano del estadio con sectores coloreados. Cada sector se ve con su color de base para que el usuario entienda rápido a qué zona pertenece.
 
----
+### 3. Elegir sector
 
-## Lista de Cambios Detallados
+Cuando pulsa un sector, se abre su rejilla de asientos dibujada encima de ese color de sector.
 
-### Fase 1: Backend (Datos + Lógica)
+### 4. Seleccionar asientos
 
-- [ ] **Modelo `Sector.php`**
-  - [ ] Agregar método `generarAsientosDesdeMatriz()`
-  - [ ] Agregar helper `obtenerLetrasFilas()`
-  - [ ] Validações: `cantidad_filas` y `cantidad_columnas` entre límites razonables (1-30)
+Puede pulsar asientos uno a uno para añadirlos al carrito. El asiento cambia de estado visual al seleccionarse y se mantiene visible el color del sector por debajo o alrededor del bloque, según el diseño final que se aplique.
 
-- [ ] **Controlador (crear o ampliar)**
-  - [ ] Ruta POST `/admin/eventos/{eventoId}/sectores` - crear sector
-  - [ ] Ruta PATCH `/admin/eventos/{eventoId}/sectores/{sectorId}` - editar sector + regenerar asientos
-  - [ ] Ruta DELETE `/admin/eventos/{eventoId}/sectores/{sectorId}` - borrar sector
-  - [ ] Lógica: al crear/editar, llamar `generarAsientosDesdeMatriz()`
+### 5. Ver resumen y pagar
 
-- [ ] **API Controller (adaptar existente)**
-  - [ ] GET `/api/eventos/{eventoId}/sectores/{sectorId}/asientos`
-    - [ ] Retornar también `matriz` con filas/columnas para que front sepa dibujar grid
-    - [ ] Asimismo retornar `estado` de cada asiento (disponible, reservado, ocupado)
-
-- [ ] **Rutas**
-  - [ ] Registrar nuevas rutas en `routes/web.php` (admin)
-  - [ ] Rutas API ya existen, adaptar respuestas
+El carrito se actualiza con la selección actual y el flujo de pago sigue como ya existe o como se debe consolidar en la evolución del proyecto.
 
 ---
 
-### Fase 2: Frontend - UI de Admin
+## Modelo de datos recomendado
 
-- [ ] **Nueva vista**: `resources/views/eventos/sectores-editor.blade.php`
-  - [ ] Form para crear sector (nombre, filas, columnas, color, descripción)
-  - [ ] Tabla de sectores existentes
-  - [ ] Botones: Editar, Eliminar, Previsualizar
+### Sector
 
-- [ ] **Nuevo JS**: `public/js/pages/editarSectoresEvento.js`
-  - [ ] Clase `SectorEventoEditor`
-  - [ ] Métodos: crear, editar, eliminar, actualizarPrecio
-  - [ ] Validación cliente (filas/columnas dentro de rangos)
-  - [ ] Feedback visual (loading, error, success)
+El sector debería guardar la información necesaria para poder reconstruir su rectángulo y dibujarlo sin ambigüedad.
 
-- [ ] **Actualizar**: `resources/views/eventos/show.blade.php`
-  - [ ] Reemplazar modal antiguo o crear nueva sección
-  - [ ] Link a editar sectores (modal o página nueva)
-  - [ ] Tabla de precios: mantener como está (el precio se liga al sector igual que hoy)
+Campos recomendados:
 
----
+- `id`
+- `evento_id`
+- `nombre`
+- `descripcion`
+- `color_hex`
+- `activo`
+- `fila_inicio`
+- `fila_fin`
+- `columna_inicio`
+- `columna_fin`
+- `cantidad_filas`
+- `cantidad_columnas`
+- `orden_visual` o `prioridad_visual` si hace falta ordenar el mapa
 
-### Fase 3: Frontend - UI de Compra
+### Asiento
 
-- [ ] **Nuevo componente**: `public/js/components/SeatGrid.js`
-  - [ ] Clase `SeatGrid` con métodos: `render()`, `crearElementoAsiento()`, `toggleSeat()`, `startRectangleSelection()`, `updateVisuals()`
-  - [ ] Gestionar estado de selección internally
-  - [ ] Emitir evento cuando cambia selección (para actualizar carrito)
+Cada asiento sigue siendo la unidad vendible.
 
-- [ ] **Nuevo CSS**: `public/css/components/seat-grid.css`
-  - [ ] Estilos para grid de asientos
-  - [ ] Estados: disponible, seleccionado, ocupado, reservado
-  - [ ] Hover effects, transiciones suaves
+Campos recomendados:
 
-- [ ] **Adaptar**: `public/js/pages/compra.js`
-  - [ ] Modificar `renderSectorSeats()` para usar `SeatGrid` en lugar de pintar elementos sueltos
-  - [ ] Pasar asientos ordenados por matriz (ya vienen de API con fila/número)
-  - [ ] Mantener lógica de `toggleSeat()`, `updateCart()`, etc. sin cambios mayores
+- `id`
+- `sector_id`
+- `fila`
+- `numero`
+- `estado_base` o derivación del estado por evento
+- `created_at`
+- `updated_at`
 
-- [ ] **Adaptar**: `resources/views/compra/buy.blade.php`
-  - [ ] El container `#sectorSeats` recibe markup de JS, no de Blade templates
-  - [ ] Sin cambios de estructura HTML, el JS genera el grid dinámicamente
+### Precio
 
----
+No necesita grandes cambios, salvo asegurar que sigue ligado al sector y al evento.
 
-### Fase 4: Validación y Pruebas
+### Estado del asiento
 
-- [ ] **Pruebas de unidad** (Backend)
-  - [ ] `generarAsientosDesdeMatriz()` crea exactamente `filas × columnas` asientos
-  - [ ] Asientos numerados correctamente (A1, A2, ..., ZZ99)
-  - [ ] Validaciones de límites (no < 1, no > 30)
+Se mantiene la lógica de disponibilidad por evento:
 
-- [ ] **Pruebas de integración** (API)
-  - [ ] POST crear sector → retorna sector + precios iniciales
-  - [ ] GET asientos del sector → retorna matriz con estados
+- disponible,
+- reservado,
+- ocupado.
 
-- [ ] **Pruebas de UI** (Frontend)
-  - [ ] Grid se renderiza con correcta cantidad de columnas
-  - [ ] Click en asiento cambia estado visual
-  - [ ] Selección rectangular selecciona rango correcto
-  - [ ] Carrito actualiza con asientos seleccionados
-  - [ ] Checkout no se rompe, reservas y compra funcionan
+### Nota importante de diseño
+
+Si hoy la base de datos ya separa sectores, asientos y estado, no conviene introducir una estructura nueva innecesaria. Lo mejor es añadir coordenadas y límites al sector, no reinventar todo el modelo.
 
 ---
 
-### Fase 5: Documentación y Deploy
+## Comportamiento del editor rectangular
 
-- [ ] Actualizar documentos existentes (si los hay)
-- [ ] Crear guía para admins: "Cómo crear y gestionar sectores"
-- [ ] Notas de release
-- [ ] Considera migration path: ¿qué pasa con sectores antiguos? (mantener compatibilidad o migrar)
+### Regla del rectángulo
+
+Cualquier selección de dos asientos define un rectángulo alineado a la rejilla.
+
+Ejemplo:
+
+- primer clic: A3
+- segundo clic: C6
+
+Resultado:
+
+- filas A, B y C,
+- columnas 3, 4, 5 y 6,
+- 12 asientos en total.
+
+### Validaciones necesarias
+
+- No permitir seleccionar un área vacía fuera de la rejilla.
+- No permitir crear un sector que se solape con otro sector ya definido, salvo que el negocio lo permita expresamente.
+- No permitir sectores con ancho o alto cero.
+- No permitir sectores con número de asientos inferior o superior a los límites del negocio.
+- No permitir cambiar el tamaño de un sector si eso rompe ventas ya asociadas sin una confirmación clara.
+
+### Cómo debe verse la experiencia
+
+- Primer clic: se marca la esquina inicial.
+- Segundo clic o arrastre: se dibuja la previsualización.
+- Panel lateral: nombre, color, precio, resumen de tamaño y validaciones.
+- Botón de confirmar: crea el sector.
 
 ---
 
-## Ventajas Clave de v2
+## Backend: plan de actualización
 
-| Aspecto | v1 (Actual) | v2 (Propuesta) |
-|--------|-----------|-------------|
-| **Creación de Sectores** | Catálogo global precreado | Dinámico, bajo demanda |
-| **Control de Distribución** | Limitado a una matriz predefinida | Ajustable (filas, cols) por evento |
-| **Asientos Sueltos** | Posible si matriz no es perfecta | Imposible (siempre matriz completa) |
-| **UX Compra** | Lista de asientos | Rejilla numerada visual |
-| **Selección Múltiple** | Click individual | Click o rectángulo |
-| **Velocidad de Iteración** | Lenta (crear sector global) | Rápida (crear por evento) |
-| **Reusabilidad** | Baja (sectores globales) | Media (puedes guardar "plantillas") |
+### 1. Endpoints de administración
+
+Se recomienda exponer una API clara para el editor de sectores:
+
+- crear sector a partir de una selección rectangular,
+- editar un sector existente,
+- eliminar un sector,
+- listar sectores del evento,
+- consultar asientos de un sector,
+- consultar conflictos o solapes antes de guardar.
+
+### 2. Flujo de creación
+
+1. El frontend envía el evento, el rectángulo seleccionado y los metadatos del sector.
+2. El backend valida que el rectángulo sea consistente.
+3. El backend comprueba si el área se superpone con un sector ya existente.
+4. Si es válido, guarda el sector y genera o vincula los asientos necesarios.
+5. Si el sector ya existía, lo actualiza y, si hace falta, regenera su cobertura.
+
+### 3. Flujo de edición
+
+La edición debe ser conservadora:
+
+- cambiar nombre y color debe ser inmediato,
+- cambiar límites debe requerir validación,
+- cambiar tamaño debe disparar revisión de asientos afectados,
+- si existen ventas o reservas, no debe hacerse sin control.
+
+### 4. Flujo de borrado
+
+Un sector solo debería borrarse si no tiene asientos comprometidos por reservas o compras en curso. Si los tiene, el sistema debe bloquear la operación o exigir una sustitución controlada.
 
 ---
 
-## Consideraciones de Compatibilidad
+## Frontend: plan de actualización
 
-- **Datos existentes**: Los sectores antiguos siguen funcionando (tienen filas/columnas)
-- **Compras en progreso**: No afectadas (se venden asientos igual que hoy)
-- **APIs**: Nuevos endpoints, respuestas ampliadas (backward compatible si usas `.data.sectores` como antes)
-- **Migraciones**: Mínimas, no destructivas
+### Área de administración
+
+La vista de administración debería tener dos zonas:
+
+- el mapa visual del estadio,
+- el panel de propiedades del sector.
+
+#### Componentes recomendados
+
+- `SectorMapEditor`: controla clics, selección rectangular y previsualización.
+- `SectorSidebarForm`: muestra nombre, color, precio, filas, columnas y estado.
+- `SectorList`: lista sectores existentes y permite seleccionar uno para editarlo.
+
+### Área de compra
+
+#### Componentes recomendados
+
+- `SeatMapManager`: coordina la carga del evento y los sectores.
+- `SeatGrid`: dibuja la rejilla del sector seleccionado y gestiona el click sobre cada asiento.
+- `SeatLegend`: muestra estados y colores.
+- `CartSummary`: refleja la selección.
+
+### Representación visual
+
+Para compra y para admin no hace falta la misma capa visual exacta.
+
+- En admin importa más la selección y edición.
+- En compra importa más la claridad, el rendimiento y la lectura del estado de cada asiento.
+- El color del sector debe seguir siendo visible en la compra como referencia visual del bloque de asientos.
+- Los asientos deben verse como elementos clicables encima de esa base de color, no como una lista suelta.
 
 ---
 
-## Roadmap Futuro (Después de v2)
+## Decisión de implementación por fases
 
-1. **v2.1**: Agregar posiciones XY para edición visual del estadio (drag & drop de sectores en mapa)
-2. **v2.2**: Plantillas de sectores reutilizables entre eventos
-3. **v3**: Editor visual WYSIWYG (dibuja el estadio en UI)
-4. **v3+**: Soporte para formas irregulares, rotación de sectores
+### Fase 1: Base técnica
+
+Objetivo: dejar listo el terreno para el editor.
+
+- Definir modelo de datos para límites del sector.
+- Crear endpoints básicos de listar, crear, editar y borrar.
+- Dejar preparada la respuesta de asientos con estado.
+- Añadir validaciones de solape y tamaño.
+
+### Fase 2: Editor visual del admin
+
+Objetivo: que el admin pueda dibujar sectores.
+
+- Crear vista Blade del editor.
+- Dibujar el mapa del estadio en SVG.
+- Implementar selección inicial y final.
+- Pintar previsualización del rectángulo.
+- Crear panel lateral de datos.
+- Guardar sector desde el editor.
+
+### Fase 3: Compra visual
+
+Objetivo: que el comprador vea y use asientos individuales.
+
+- Renderizar sectores como bloques coloreados.
+- Al pulsar un sector, cargar su rejilla de asientos visibles.
+- Permitir selección por click sobre cada asiento.
+- Mostrar el estado visual del asiento seleccionado, disponible o no disponible.
+- Mantener visible el color del sector como base visual del área.
+- Sincronizar carrito y total.
+
+### Fase 4: Robustez y UX
+
+Objetivo: hacer el sistema fiable.
+
+- Gestión de carga y errores.
+- Estados vacíos y mensajes claros.
+- Prevención de dobles clics.
+- Cache de asientos por sector.
+- Validaciones visuales de conflicto.
+
+### Fase 5: Pruebas y endurecimiento
+
+Objetivo: evitar regresiones.
+
+- tests de modelo,
+- tests de API,
+- tests de creación por rectángulo,
+- tests de no solape,
+- tests de compra y carrito.
+
+---
+
+## Reglas de negocio detalladas
+
+### Regla 1: sectores rectangulares solamente
+
+La primera versión no debe admitir formas raras. Esto simplifica el cálculo, el render y la edición.
+
+### Regla 2: el mapa manda
+
+La geometría visible es la fuente de verdad operativa del editor.
+
+### Regla 3: no romper ventas existentes
+
+Si un sector ya tiene asientos reservados o vendidos, cualquier modificación debe ser segura o bloqueada.
+
+### Regla 4: el precio sigue siendo por sector
+
+El objetivo no es convertir cada asiento en una tarifa distinta salvo que el negocio lo pida después.
+
+### Regla 5: compatibilidad progresiva
+
+Los sectores ya existentes deben poder seguir funcionando aunque no hayan sido creados con el nuevo editor.
+
+---
+
+## Qué cambiaría respecto al documento anterior
+
+### Lo que se mantiene
+
+- compra por rejilla,
+- asiento individual seleccionable,
+- sectores coloreados,
+- compatibilidad con el sistema actual,
+- almacenamiento de estado por evento.
+
+### Lo que cambia
+
+- el admin ya no crea sectores por un formulario de filas y columnas como flujo principal,
+- el admin crea sectores seleccionando un rectángulo sobre el mapa,
+- el plan técnico deja de centrarse en matrices abstractas y se centra en geometría visual,
+- la solución se apoya más en SVG y menos en interfaces genéricas de catálogo.
+
+---
+
+## Riesgos y cómo reducirlos
+
+### Riesgo 1: solapes entre sectores
+
+Mitigación: validar intersecciones antes de guardar.
+
+### Riesgo 2: editor confuso para el admin
+
+Mitigación: mostrar preview inmediata, resumen de tamaño y mensajes claros.
+
+### Riesgo 3: demasiada complejidad de frontend
+
+Mitigación: evitar frameworks pesados y mantener un módulo por responsabilidad.
+
+### Riesgo 4: asientos ya vendidos afectados por cambios de geometría
+
+Mitigación: bloquear edición destructiva cuando existan reservas o ventas.
+
+### Riesgo 5: rendimiento en mapas grandes
+
+Mitigación: cachear sectores, no renderizar más de lo necesario y usar SVG/DOM con estructuras ligeras.
+
+---
+
+## Criterios de aceptación
+
+El cambio puede considerarse bien resuelto si se cumple todo esto:
+
+- El admin puede crear un sector seleccionando dos asientos del mapa.
+- El sistema convierte esa selección en un rectángulo.
+- El sector se guarda con nombre, color y precio.
+- El sistema evita solapes o los maneja de forma explícita.
+- El comprador ve los sectores por colores.
+- El comprador puede abrir un sector, ver sus asientos dibujados y pulsar cada asiento para añadirlo al carrito.
+- El color del sector sigue siendo visible debajo o como base del grupo de asientos.
+- La compra y el carrito siguen funcionando.
+- El sistema no obliga a migrar la app a un framework grande.
+
+---
+
+## Roadmap futuro
+
+### v2.1
+
+- arrastre de bordes para redimensionar sectores,
+- edición visual de nombres y colores directamente sobre el plano,
+- mejor soporte de zonas premium y etiquetas internas.
+
+### v2.2
+
+- plantillas de sectores reutilizables,
+- duplicar zonas entre eventos,
+- copiado rápido de geometrías frecuentes.
+
+### v3
+
+- editor visual más libre,
+- capas por zona,
+- soporte para geometrías no rectangulares si el negocio lo necesita de verdad.
 
 ---
 
 ## Conclusión
 
-**Estadio Visual v2** es una mejora directa al flujo actual que:
-- Elimina la fricción de crear eventos (gestión de sectores in-situ)
-- Mejora la UX de compra (visualización espacial)
-- Previene errores (matrices exactas, sin asientos sueltos)
-- Mantiene compatibilidad (casi ningún cambio destructivo)
+La mejor versión de este proyecto no es la más ambiciosa técnicamente, sino la que resuelve bien el flujo real del negocio. Para Roig Arena, eso significa un editor visual que permita al admin definir un sector con dos clics sobre un mapa, guardar ese rectángulo como bloque de asientos y seguir vendiendo con una experiencia clara y rápida.
 
-El effort es **medio-bajo** porque reutiliza la infraestructura existente de asientos y simplemente la mejora en presentación y flujo.
+La dirección recomendada es clara: mantener Laravel y JavaScript modular, usar SVG para el mapa, reservar las librerías externas para casos concretos de interacción y construir un sistema sencillo de entender, fácil de mantener y suficientemente robusto para crecer después.
+
+---
+
+## Guía paso a paso para implementar el update
+
+Esta sección es la hoja de ruta práctica para ir tocando el proyecto sin perder el control. La idea es avanzar por capas: primero datos y backend, después editor visual, y por último la compra.
+
+### Paso 1: decidir y fijar el modelo de datos
+
+Archivos a tocar:
+
+- `database/migrations/*`
+- `app/Models/Sector.php`
+- `app/Models/Asiento.php`
+
+### Campos exactos que ya existen hoy
+
+#### `sectores`
+
+Estos son los campos que ya tienes en la base de datos actual:
+
+- `id`
+- `nombre`
+- `descripcion`
+- `cantidad_filas`
+- `cantidad_columnas`
+- `color_hex`
+- `activo`
+- `created_at`
+- `updated_at`
+
+#### `asientos`
+
+Estos son los campos que ya tienes hoy para cada asiento:
+
+- `id`
+- `sector_id`
+- `fila`
+- `numero`
+- `created_at`
+- `updated_at`
+
+#### `precios`
+
+Campos actuales que se mantienen:
+
+- `id`
+- `evento_id`
+- `sector_id`
+- `precio`
+- `disponible`
+- `created_at`
+- `updated_at`
+
+#### `estado_asientos`
+
+Campos actuales que se mantienen:
+
+- `id`
+- `evento_id`
+- `asiento_id`
+- `user_id`
+- `estado`
+- `reservado_hasta`
+- `created_at`
+- `updated_at`
+
+### Campos exactos que deberías añadir
+
+Para que el editor rectangular funcione bien y puedas reconstruir el bloque del sector sin inventar posiciones, lo recomendable es añadir estos campos a `sectores`:
+
+- `fila_inicio` `string` o `integer` según la estrategia de filas que elijas.
+- `fila_fin` `string` o `integer`.
+- `columna_inicio` `integer`.
+- `columna_fin` `integer`.
+- `posicion_x` `decimal` o `integer`, si quieres guardar la posición del sector en el mapa visual.
+- `posicion_y` `decimal` o `integer`, si quieres guardar la posición del sector en el mapa visual.
+- `orden_visual` `integer`, si quieres controlar en qué orden se pintan los sectores.
+
+### Qué conviene guardar y qué conviene calcular
+
+Lo más limpio para este proyecto es esto:
+
+- Guardar siempre el rectángulo exacto: inicio y fin de filas/columnas.
+- Calcular a partir de eso `cantidad_filas` y `cantidad_columnas`.
+- Mantener `cantidad_filas` y `cantidad_columnas` si ya te vienen bien para consultas y vistas.
+- Usar `posicion_x` y `posicion_y` solo si más adelante quieres arrastrar sectores por el mapa o guardar una posición absoluta dentro del lienzo.
+
+### Recomendación práctica de diseño
+
+Si quieres ir a lo seguro, la primera versión debería añadir como mínimo estos 4 campos:
+
+- `fila_inicio`
+- `fila_fin`
+- `columna_inicio`
+- `columna_fin`
+
+Y dejar `posicion_x`, `posicion_y` y `orden_visual` como opcionales para después, salvo que ya tengas claro que el mapa visual los va a necesitar desde el primer día.
+
+Qué hacer:
+
+1. Revisar cómo están hoy las tablas de sectores, asientos, precios y estado de asientos.
+2. Añadir al sector los campos que permitan guardar el rectángulo: `fila_inicio`, `fila_fin`, `columna_inicio`, `columna_fin`.
+3. Decidir si también necesitas `posicion_x`, `posicion_y` y `orden_visual` desde esta versión o si los dejas para una iteración posterior.
+4. Ver si hace falta una migración nueva o si basta con reutilizar lo que ya existe.
+5. Confirmar que un asiento sigue siendo la unidad vendible y que el sector solo define el bloque visual y lógico.
+
+### Ejemplo de migración para esta fase
+
+Si decides dejarlo cerrado desde ya, la migración de `sectores` debería quedar conceptualmente así:
+
+```php
+Schema::table('sectores', function (Blueprint $table) {
+	$table->string('fila_inicio')->nullable()->after('activo');
+	$table->string('fila_fin')->nullable()->after('fila_inicio');
+	$table->integer('columna_inicio')->nullable()->after('fila_fin');
+	$table->integer('columna_fin')->nullable()->after('columna_inicio');
+	$table->decimal('posicion_x', 10, 2)->nullable()->after('columna_fin');
+	$table->decimal('posicion_y', 10, 2)->nullable()->after('posicion_x');
+	$table->integer('orden_visual')->nullable()->after('posicion_y');
+});
+```
+
+Si quieres mantenerlo todavía más simple, puedes quitar `posicion_x`, `posicion_y` y `orden_visual` y dejar solo los cuatro límites del rectángulo.
+
+### Paso 2: preparar la lógica del backend
+
+Archivos a tocar:
+
+- `app/Models/Sector.php`
+- `app/Http/Controllers/...`
+- `app/Services/...` si quieres separar lógica de negocio
+
+Qué hacer:
+
+1. Crear la lógica para calcular un rectángulo a partir de dos asientos seleccionados.
+2. Añadir validación de solapes con sectores existentes.
+3. Crear métodos para crear, editar y borrar sectores de forma segura.
+4. Definir qué pasa si un sector ya tiene asientos reservados o vendidos.
+5. Si el proyecto empieza a crecer, mover esta lógica a un service para no ensuciar el controlador.
+
+### Paso 3: exponer endpoints claros
+
+Archivos a tocar:
+
+- `routes/web.php`
+- `routes/api.php`
+- el controlador de sectores que uses
+
+Qué hacer:
+
+1. Crear ruta para listar sectores del evento.
+2. Crear ruta para guardar un sector nuevo a partir del rectángulo.
+3. Crear ruta para editar un sector.
+4. Crear ruta para borrar un sector.
+5. Crear ruta para devolver los asientos de un sector con su estado.
+6. Crear una ruta o endpoint auxiliar para validar conflictos antes de guardar.
+
+### Paso 4: construir el editor visual del admin
+
+Archivos a tocar:
+
+- `resources/views/eventos/show.blade.php`
+- una nueva vista como `resources/views/eventos/sectores-editor.blade.php`
+- `public/js/pages/editarSectoresEvento.js`
+- `public/js/components/...` si quieres separar piezas
+
+Qué hacer:
+
+1. Añadir en la vista del evento un botón o acceso al editor visual.
+2. Dibujar el mapa base del estadio en SVG.
+3. Pintar los sectores existentes con color.
+4. Permitir que el admin haga click en un asiento inicial y otro final.
+5. Mostrar en pantalla la previsualización del rectángulo.
+6. Crear un panel lateral con nombre, color, precio y resumen del sector.
+7. Enviar la selección al backend cuando el admin confirme.
+
+### Paso 5: adaptar la compra para que se vean y se pulseen los asientos
+
+Archivos a tocar:
+
+- `public/js/pages/compra.js`
+- `resources/views/compra/buy.blade.php`
+- `public/css/...` o los estilos que ya use el proyecto
+
+Qué hacer:
+
+1. Mantener el mapa de sectores por colores.
+2. Al pulsar un sector, mostrar su rejilla de asientos.
+3. Dibujar cada asiento como un elemento clicable.
+4. Hacer que al pulsar un asiento se añada o quite del carrito.
+5. Pintar claramente el estado del asiento: disponible, ocupado, reservado o seleccionado.
+6. Mantener visible el color del sector como base del bloque para que el usuario entienda la zona.
+
+### Paso 6: ajustar estilos y comportamiento visual
+
+Archivos a tocar:
+
+- `public/css/components/seat-grid.css` o equivalente
+- cualquier CSS del mapa o del editor visual
+
+Qué hacer:
+
+1. Definir cómo se ve el asiento disponible.
+2. Definir cómo se ve el asiento seleccionado.
+3. Definir cómo se ve el asiento no disponible.
+4. Asegurar que el color del sector no desaparece cuando se muestran los asientos.
+5. Cuidar el hover, el foco y la accesibilidad básica.
+
+### Paso 7: conectar el carrito y los totales
+
+Archivos a tocar:
+
+- `public/js/pages/compra.js`
+
+Qué hacer:
+
+1. Asegurar que la selección visual y el carrito usan la misma fuente de verdad.
+2. Actualizar el resumen de selección en cada click.
+3. Recalcular total y subtotal por sector.
+4. Evitar que el usuario pueda seguir con el checkout si no hay asientos válidos seleccionados.
+
+### Paso 8: añadir validaciones y casos de borde
+
+Archivos a tocar:
+
+- modelos
+- requests o validators si los usas
+- controladores
+
+Qué hacer:
+
+1. Bloquear sectores que se solapen.
+2. Bloquear rectángulos vacíos o mal formados.
+3. Bloquear borrados peligrosos.
+4. Bloquear cambios que rompan reservas existentes.
+5. Mostrar mensajes de error claros al admin.
+
+### Paso 9: probar antes de seguir creciendo
+
+Archivos a tocar:
+
+- `tests/Feature/...`
+- `tests/Unit/...`
+
+Qué hacer:
+
+1. Probar que un rectángulo genera exactamente los asientos esperados.
+2. Probar que no se crean sectores solapados.
+3. Probar que la compra muestra los asientos y permite seleccionarlos.
+4. Probar que el carrito se actualiza correctamente.
+5. Probar que los sectores antiguos siguen funcionando.
+
+### Orden recomendado de trabajo
+
+Si quieres hacerlo sin dispersarte, este es el orden más limpio:
+
+1. Modelo de datos.
+2. Endpoints de backend.
+3. Lógica de rectángulo y validaciones.
+4. Editor visual del admin.
+5. Compra visual con asientos clicables.
+6. Estilos.
+7. Carrito y checkout.
+8. Tests.
+
+### Qué no tocar al principio
+
+Para no complicarte desde el primer día, evita esto al inicio:
+
+- migrar toda la app a React o Vue,
+- permitir formas irregulares,
+- meter edición libre de sectores,
+- separar demasiado la lógica antes de validar el flujo básico,
+- rehacer el checkout completo sin necesidad.
+
+### Resultado esperado al terminar esta hoja de ruta
+
+Al acabar estos pasos tendrás:
+
+- un admin que puede dibujar sectores sobre el mapa,
+- una compra donde el usuario ve asientos reales y los clickea,
+- sectores que conservan su color visual,
+- un carrito sincronizado con la selección,
+- y una base técnica suficientemente limpia para seguir iterando.
 
