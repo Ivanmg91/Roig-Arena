@@ -24,6 +24,15 @@ return new class extends Migration
             $table->integer('cantidad_columnas');
             $table->string('color_hex', 7); // Ej: #FF0000
             $table->boolean('activo')->default(true); // Control global (true = operativo, false = desactivado para TODOS los eventos)
+
+            $table->integer('fila_inicio')->nullable();
+            $table->integer('fila_fin')->nullable();
+            $table->integer('columna_inicio')->nullable();
+            $table->integer('columna_fin')->nullable();
+            $table->decimal('posicion_x', 10, 2)->nullable();
+            $table->decimal('posicion_y', 10, 2)->nullable();
+            $table->integer('orden_visual')->nullable();
+
             $table->timestamps();
         });
 

@@ -26,6 +26,8 @@ Para implementarlo de forma sólida en este proyecto, la recomendación es mante
 
 Los sectores de esta versión solo pueden ser rectangulares y alineados con la rejilla. No se permiten formas libres ni polígonos irregulares en la primera versión. Esa limitación no es una carencia, es una decisión intencionada para mantener el sistema controlado, predecible y rápido de operar.
 
+Además, para simplificar lógica y validaciones, la geometría interna se gestiona en coordenadas numéricas (`fila`, `columna`). Si quieres mostrar letras (A, B, C...) en interfaz, se generan solo en frontend como formato visual.
+
 ---
 
 ## Problema actual y solución propuesta
@@ -173,6 +175,11 @@ Campos recomendados:
 - `created_at`
 - `updated_at`
 
+Nota de implementación recomendada:
+
+- `fila` y `numero` se guardan como enteros en backend.
+- Si quieres mostrar etiqueta tipo `A3`, se calcula en UI (`fila` 1 -> `A`) sin cambiar la fuente de verdad.
+
 ### Precio
 
 No necesita grandes cambios, salvo asegurar que sigue ligado al sector y al evento.
@@ -199,14 +206,16 @@ Cualquier selección de dos asientos define un rectángulo alineado a la rejilla
 
 Ejemplo:
 
-- primer clic: A3
-- segundo clic: C6
+- primer clic: fila 1, columna 3
+- segundo clic: fila 3, columna 6
 
 Resultado:
 
-- filas A, B y C,
+- filas 1, 2 y 3,
 - columnas 3, 4, 5 y 6,
 - 12 asientos en total.
+
+Si en interfaz quieres mostrar letras, esas mismas filas pueden mostrarse como A, B y C, pero internamente siguen siendo 1, 2 y 3.
 
 ### Validaciones necesarias
 
@@ -532,12 +541,12 @@ Campos actuales que se mantienen:
 
 Para que el editor rectangular funcione bien y puedas reconstruir el bloque del sector sin inventar posiciones, lo recomendable es añadir estos campos a `sectores`:
 
-- `fila_inicio` `string` o `integer` según la estrategia de filas que elijas.
-- `fila_fin` `string` o `integer`.
+- `fila_inicio` `integer`.
+- `fila_fin` `integer`.
 - `columna_inicio` `integer`.
 - `columna_fin` `integer`.
-- `posicion_x` `decimal` o `integer`, si quieres guardar la posición del sector en el mapa visual.
-- `posicion_y` `decimal` o `integer`, si quieres guardar la posición del sector en el mapa visual.
+- `posicion_x` `decimal(10,2)`.
+- `posicion_y` `decimal(10,2)`.
 - `orden_visual` `integer`, si quieres controlar en qué orden se pintan los sectores.
 
 ### Qué conviene guardar y qué conviene calcular
@@ -558,6 +567,8 @@ Si quieres ir a lo seguro, la primera versión debería añadir como mínimo est
 - `columna_inicio`
 - `columna_fin`
 
+La decisión recomendada es usar filas numéricas (`integer`) y columnas numéricas (`integer`) como fuente de verdad para cálculo de rectángulos, solapes y generación de asientos. Si quieres mostrar letras en pantalla, conviértelas en frontend solo para presentación. Si guardas posición visual, usa `decimal(10,2)` para `posicion_x` y `posicion_y` porque el SVG y el layout visual suelen necesitar decimales para alinear bien los elementos.
+
 Y dejar `posicion_x`, `posicion_y` y `orden_visual` como opcionales para después, salvo que ya tengas claro que el mapa visual los va a necesitar desde el primer día.
 
 Qué hacer:
@@ -574,13 +585,13 @@ Si decides dejarlo cerrado desde ya, la migración de `sectores` debería quedar
 
 ```php
 Schema::table('sectores', function (Blueprint $table) {
-	$table->string('fila_inicio')->nullable()->after('activo');
-	$table->string('fila_fin')->nullable()->after('fila_inicio');
-	$table->integer('columna_inicio')->nullable()->after('fila_fin');
-	$table->integer('columna_fin')->nullable()->after('columna_inicio');
-	$table->decimal('posicion_x', 10, 2)->nullable()->after('columna_fin');
-	$table->decimal('posicion_y', 10, 2)->nullable()->after('posicion_x');
-	$table->integer('orden_visual')->nullable()->after('posicion_y');
+	$table->integer('fila_inicio')->nullable();
+	$table->integer('fila_fin')->nullable();
+	$table->integer('columna_inicio')->nullable();
+	$table->integer('columna_fin')->nullable();
+	$table->decimal('posicion_x', 10, 2)->nullable();
+	$table->decimal('posicion_y', 10, 2)->nullable();
+	$table->integer('orden_visual')->nullable();
 });
 ```
 
@@ -596,11 +607,16 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Crear la lógica para calcular un rectángulo a partir de dos asientos seleccionados.
-2. Añadir validación de solapes con sectores existentes.
-3. Crear métodos para crear, editar y borrar sectores de forma segura.
-4. Definir qué pasa si un sector ya tiene asientos reservados o vendidos.
-5. Si el proyecto empieza a crecer, mover esta lógica a un service para no ensuciar el controlador.
+1. En `app/Models/Sector.php`, crea un método para calcular la posición rectangular del sector a partir de dos coordenadas. Ese método debe recibir los dos extremos y devolver siempre los límites ordenados, es decir, cuál es el inicio real y cuál es el final real aunque el usuario pinche primero abajo y luego arriba. (hecho)
+2. En ese mismo modelo, añade un método que te diga cuántas filas y cuántas columnas ocupa ese rectángulo a partir de los límites. La idea es que no tengas que repetir la cuenta en varios sitios. (hecho)
+3. Añade un método para generar la lista de asientos que pertenecen a ese rectángulo. Ese método debe recorrer todas las filas y columnas del bloque y devolver la colección que luego insertará el backend.
+4. Añade un método para comprobar si un nuevo rectángulo se solapa con algún sector existente. Ese método debe comparar rangos de filas y columnas, no solo posiciones visuales.
+5. En el controlador que uses para sectores, crea una acción para guardar un sector nuevo. Esa acción debe recibir el rectángulo, validar los datos y llamar a los métodos del modelo.
+6. En el mismo controlador, crea una acción para editar un sector. Esa acción debe permitir cambiar nombre, color y descripción sin tocar la geometría si no hace falta.
+7. Si quieres permitir cambiar la geometría, esa misma acción debe volver a validar el rectángulo y regenerar los asientos solo si no rompe reservas ni ventas.
+8. Añade una acción para borrar un sector. Esa acción debe comprobar primero si hay reservas o ventas asociadas; si las hay, debe bloquear el borrado.
+9. Si prefieres no meter toda la lógica en el controlador, crea un service dedicado, por ejemplo `SectorGeometryService`, que se encargue de calcular límites, solapes y generación de asientos. El controlador solo recibiría la request y llamaría al service.
+10. Mantén la lógica de negocio centralizada en un solo sitio. No dupliques el cálculo del rectángulo en el modelo, el controlador y el frontend porque eso te acabará creando desajustes.
 
 ### Paso 3: exponer endpoints claros
 
@@ -612,12 +628,16 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Crear ruta para listar sectores del evento.
-2. Crear ruta para guardar un sector nuevo a partir del rectángulo.
-3. Crear ruta para editar un sector.
-4. Crear ruta para borrar un sector.
-5. Crear ruta para devolver los asientos de un sector con su estado.
-6. Crear una ruta o endpoint auxiliar para validar conflictos antes de guardar.
+1. En `routes/web.php`, define las rutas de administración que se usarán desde el editor visual. Deben vivir detrás de autenticación de admin o del middleware que ya use el panel.
+2. Crea una ruta GET para cargar el editor de sectores de un evento. Esa vista debe recibir el `evento_id` y, si hace falta, el listado inicial de sectores.
+3. Crea una ruta GET o POST para listar sectores del evento en formato JSON. Esa respuesta debe devolver `id`, `nombre`, `color_hex`, límites del sector y, si lo necesitas, los asientos agrupados.
+4. Crea una ruta POST para guardar un sector nuevo. Esa ruta debe recibir los datos del rectángulo y el metadato del sector.
+5. Crea una ruta PATCH para editar un sector. Úsala para cambios de nombre, color, descripción y, si lo permites, límites.
+6. Crea una ruta DELETE para borrar un sector. Debe devolver error claro si el sector no puede eliminarse.
+7. En `routes/api.php`, crea una ruta para consultar los asientos de un sector concreto con su estado. Esa respuesta la usará la pantalla de compra.
+8. Añade una ruta de validación previa si te viene bien separar la previsualización del guardado final. Esa ruta debería devolver si hay solape, si el rectángulo es válido y cuántos asientos generaría.
+9. Mantén nombres de rutas claros y coherentes. Si una ruta es de admin, que se vea; si es de compra, que quede separada; si es de validación, que no se mezcle con la de guardado.
+10. Evita meter lógica en la ruta. La ruta solo debe apuntar al controlador o al service, no resolver nada por su cuenta.
 
 ### Paso 4: construir el editor visual del admin
 
@@ -630,13 +650,17 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Añadir en la vista del evento un botón o acceso al editor visual.
-2. Dibujar el mapa base del estadio en SVG.
-3. Pintar los sectores existentes con color.
-4. Permitir que el admin haga click en un asiento inicial y otro final.
-5. Mostrar en pantalla la previsualización del rectángulo.
-6. Crear un panel lateral con nombre, color, precio y resumen del sector.
-7. Enviar la selección al backend cuando el admin confirme.
+1. En `resources/views/eventos/show.blade.php`, añade un botón visible para abrir el editor visual. Ese botón debe llevar a una vista específica del editor o abrir un modal grande, pero no debe quedar escondido.
+2. Crea la vista del editor, por ejemplo `resources/views/eventos/sectores-editor.blade.php`. Esa vista debe tener tres zonas: el mapa, el panel lateral y una zona de acciones.
+3. En la parte central, dibuja el mapa base del estadio con SVG. Ese SVG debe mostrar una rejilla o al menos puntos claramente clicables que representen asientos.
+4. Pinta sobre ese mapa los sectores ya existentes con su color. Así el admin ve qué zonas ya están ocupadas antes de crear otra.
+5. Cuando el admin haga click en el primer asiento, marca ese asiento como inicio visual. Debe cambiar de estado para que el usuario vea claramente que ya se ha empezado una selección.
+6. Cuando haga click en el segundo asiento, calcula el rectángulo completo y pinta la previsualización sobre el mapa. Esa previsualización debe enseñar claramente el área que ocupará el sector.
+7. Si el admin mueve el ratón antes de confirmar, actualiza el bloque visual en tiempo real para que vea el tamaño del sector antes de guardarlo.
+8. En el panel lateral, muestra los campos que vas a guardar: nombre, color, descripción y precio. Si quieres, añade también el número de filas, columnas y asientos calculados.
+9. Añade botones claros para “Cancelar selección”, “Guardar sector” y “Limpiar todo”. No mezcles acciones de edición con acciones de creación.
+10. Cuando el usuario pulse guardar, envía al backend el rectángulo, el nombre, el color y el precio. Si el backend devuelve error, muéstralo en pantalla sin perder la selección si el problema es corregible.
+11. Si la petición sale bien, refresca el mapa y muestra el nuevo sector pintado con su color.
 
 ### Paso 5: adaptar la compra para que se vean y se pulseen los asientos
 
@@ -648,12 +672,16 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Mantener el mapa de sectores por colores.
-2. Al pulsar un sector, mostrar su rejilla de asientos.
-3. Dibujar cada asiento como un elemento clicable.
-4. Hacer que al pulsar un asiento se añada o quite del carrito.
-5. Pintar claramente el estado del asiento: disponible, ocupado, reservado o seleccionado.
-6. Mantener visible el color del sector como base del bloque para que el usuario entienda la zona.
+1. En `public/js/pages/compra.js`, mantén la carga inicial del evento y de los sectores como ya está, pero prepara la lógica para que al pulsar un sector se pinte una rejilla de asientos debajo de él.
+2. Cuando el usuario entre en un sector, limpia la zona de asientos anterior y dibuja la nueva rejilla desde cero. Así evitas que queden restos visuales de otro sector.
+3. Cada asiento de la rejilla debe ser un elemento clicable separado. No lo pintes como texto suelto; debe parecer una butaca o celda interactiva.
+4. Al hacer click en un asiento disponible, añade ese asiento al carrito y marca su estado visual como seleccionado.
+5. Si vuelve a hacer click sobre el mismo asiento, quítalo del carrito y devuelve su estado a disponible.
+6. Si un asiento está reservado u ocupado, no debe reaccionar al click. Visualmente debe parecer desactivado o bloqueado.
+7. Mantén el color base del sector detrás de la rejilla o como fondo del contenedor. Eso ayuda a entender que todos esos asientos pertenecen a una misma zona.
+8. En el resumen de compra, refleja siempre cuántos asientos hay seleccionados, cuánto cuesta cada sector y el total general.
+9. Si el usuario cambia de sector, no pierdas la selección que ya haya hecho en otros sectores salvo que el flujo del negocio diga lo contrario.
+10. Asegúrate de que el comprador pueda ver de forma muy clara qué asientos tiene elegidos, cuáles siguen libres y cuáles no se pueden tocar.
 
 ### Paso 6: ajustar estilos y comportamiento visual
 
@@ -664,11 +692,14 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Definir cómo se ve el asiento disponible.
-2. Definir cómo se ve el asiento seleccionado.
-3. Definir cómo se ve el asiento no disponible.
-4. Asegurar que el color del sector no desaparece cuando se muestran los asientos.
-5. Cuidar el hover, el foco y la accesibilidad básica.
+1. Define un estilo base para el asiento disponible. Debe verse claramente como clicable, con un color legible y un borde que lo distinga del fondo.
+2. Define un estilo distinto para el asiento seleccionado. Ese estado tiene que notarse de inmediato sin que el usuario tenga que leer textos.
+3. Define un estilo para asiento reservado u ocupado. Debe verse apagado o bloqueado, y el cursor no debe invitar a hacer click.
+4. Haz que el sector mantenga su color como fondo o capa base, aunque haya asientos encima. Ese color debe seguir ayudando a leer la zona.
+5. Añade un hover claro para los asientos disponibles. El usuario debe notar enseguida que puede pulsarlos.
+6. Añade foco visible para navegación por teclado si quieres que el editor y la compra sean más accesibles.
+7. Revisa el espaciado entre asientos. Si queda demasiado junto, el usuario no distinguirá bien dónde pulsa.
+8. Si usas iconos, sombras o bordes, mantén un lenguaje visual consistente entre admin y compra.
 
 ### Paso 7: conectar el carrito y los totales
 
@@ -678,10 +709,14 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Asegurar que la selección visual y el carrito usan la misma fuente de verdad.
-2. Actualizar el resumen de selección en cada click.
-3. Recalcular total y subtotal por sector.
-4. Evitar que el usuario pueda seguir con el checkout si no hay asientos válidos seleccionados.
+1. En `public/js/pages/compra.js`, usa una única estructura de datos para la selección, por ejemplo un `Map` o un array de asientos seleccionados. No lleves un estado visual por un lado y otro lógico por otro.
+2. Cada vez que se seleccione o deseleccione un asiento, actualiza esa estructura central y desde ahí refresca el carrito.
+3. Recalcula el subtotal por sector agrupando los asientos seleccionados por `sector_id`.
+4. Recalcula el total general sumando todos los asientos seleccionados.
+5. Actualiza el resumen visual con el número de asientos, el nombre del sector y el importe de cada bloque.
+6. Si el usuario borra un asiento seleccionado desde el resumen, devuelve ese asiento a su estado visual anterior en la rejilla.
+7. Bloquea el botón de continuar o confirmar compra si no queda ningún asiento válido seleccionado.
+8. Guarda la selección en localStorage solo si eso encaja con tu flujo actual. Si lo haces, limpia el estado cuando el evento cambie para no mezclar compras.
 
 ### Paso 8: añadir validaciones y casos de borde
 
@@ -693,11 +728,14 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Bloquear sectores que se solapen.
-2. Bloquear rectángulos vacíos o mal formados.
-3. Bloquear borrados peligrosos.
-4. Bloquear cambios que rompan reservas existentes.
-5. Mostrar mensajes de error claros al admin.
+1. Si el usuario intenta crear un rectángulo que quede fuera del mapa, recházalo antes de enviar nada al backend.
+2. Si el rectángulo tiene ancho o alto cero, no lo dejes avanzar.
+3. Si el nuevo sector se solapa con uno existente, devuelve un error claro y marca visualmente el conflicto.
+4. Si intentan borrar un sector con reservas o entradas ya comprometidas, bloquea la acción y explica por qué.
+5. Si intentan cambiar la geometría de un sector que ya tiene ventas, no lo permitas sin una confirmación muy explícita.
+6. En compra, si el backend dice que un asiento ya no está disponible, actualiza la UI y quítalo de la selección si hace falta.
+7. Muestra siempre mensajes de error concretos: qué ha pasado, en qué asiento o sector ha pasado y qué debe hacer el admin para corregirlo.
+8. No dejes que un error silencioso rompa el estado visual del mapa. Si falla algo, el usuario tiene que seguir entendiendo qué está viendo.
 
 ### Paso 9: probar antes de seguir creciendo
 
@@ -708,11 +746,14 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. Probar que un rectángulo genera exactamente los asientos esperados.
-2. Probar que no se crean sectores solapados.
-3. Probar que la compra muestra los asientos y permite seleccionarlos.
-4. Probar que el carrito se actualiza correctamente.
-5. Probar que los sectores antiguos siguen funcionando.
+1. Crea una prueba de unidad para comprobar que un rectángulo A3-C6 genera exactamente 12 asientos y que las coordenadas resultan correctas.
+2. Crea una prueba de unidad para comprobar que el cálculo de límites funciona aunque el usuario pinche primero en la esquina contraria.
+3. Crea una prueba de integración para verificar que al guardar un sector nuevo se persisten el sector y sus asientos.
+4. Crea una prueba de integración para verificar que un solape devuelve error y no guarda nada.
+5. Crea una prueba de compra para asegurar que al pulsar un asiento se añade al carrito y se refleja el cambio visual.
+6. Crea una prueba para verificar que al pulsar de nuevo el mismo asiento se elimina del carrito.
+7. Crea una prueba para comprobar que los sectores antiguos siguen cargando y que no rompes compatibilidad.
+8. Crea una prueba final del flujo completo: abrir evento, seleccionar sector, elegir asiento y confirmar carrito.
 
 ### Orden recomendado de trabajo
 
@@ -746,4 +787,13 @@ Al acabar estos pasos tendrás:
 - sectores que conservan su color visual,
 - un carrito sincronizado con la selección,
 - y una base técnica suficientemente limpia para seguir iterando.
+
+### Siguiente iteración recomendable
+
+Cuando ya tengas esto funcionando, el siguiente paso lógico no es meter más complejidad visual, sino pulir:
+
+- la validación del solape,
+- la experiencia de arrastre,
+- la edición de sectores ya creados,
+- y la respuesta del backend ante asientos bloqueados.
 
