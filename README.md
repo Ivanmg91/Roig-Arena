@@ -292,6 +292,7 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - Al borrar un evento no borra los precios asociados de la tabla Precios
 - Boton que marque y desmarque todos los eventos de golpe
 - Al añadir un sector se añade con precio 0
+- En la nueva implementación de crear sectores, hay que hacer que los sectores sean lso mismos para todos los eventos pero se puedan habilitar y deshabilitar. Actualmente, cuando guardas un nuevo sector creas tambien la entrada pero solo para el evento desde el que lo estas creando, por lo tanto la entrada solo sale para ese evento y no puedes crear ese mismo sector en otro evento porque se solapa, porque ya está creado en otro evento.
 
 ## Otros
 

@@ -48,12 +48,19 @@
                             class="sector-map-editor"
                             data-seat-rows="12"
                             data-seat-cols="20"
+                            data-evento-id="{{ $eventoId }}"
                             data-sectors='@json($sectoresMapData)'>
                             <svg id="sector-map-svg"
                                 class="sector-map-svg"
                                 viewBox="0 0 960 560"
                                 role="img"
                                 aria-label="Mapa de asientos clicables para crear sectores"></svg>
+
+                            <!-- Popup de acciones para sectores (borrar / editar) -->
+                            <div id="sector-action-popup" class="sector-action-popup" hidden>
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-sector-delete>Borrar</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-sector-edit>Editar</button>
+                            </div>
                         </div>
 
                         <div class="sector-selection-summary mt-3">
@@ -64,7 +71,7 @@
                     </div>
                 </div>
 
-                <aside class="col-12 col-md-7 col-xl-3">
+                {{-- <aside class="col-12 col-md-7 col-xl-3">
                     <div class="sector-side-panel p-4 h-100">
                         <p class="mb-3"><strong>Sectores iniciales</strong></p>
 
@@ -86,14 +93,14 @@
                             </ul>
                         @endif
                     </div>
-                </aside>
+                </aside> --}}
 
                 <aside class="col-12 col-md-5 col-xl-2">
                     <div class="sector-side-panel p-4 h-100 d-flex flex-column gap-2">
                         <p class="mb-1"><strong>Acciones</strong></p>
                         <p class="text-muted small mb-3">Base visual lista para conectar con API.</p>
 
-                        <button type="button" class="btn btn-primary btn-sm w-100">Guardar sector</button>
+                        <button type="button" class="btn btn-primary btn-sm w-100" data-save-sector>Guardar sector</button>
                         <button type="button" class="btn btn-alt btn-sm w-100" data-clear-selection>Limpiar seleccion</button>
                         <button type="button" class="btn btn-outline-light btn-sm w-100">Vista previa</button>
 

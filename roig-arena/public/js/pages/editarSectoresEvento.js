@@ -52,11 +52,13 @@
             seats: new Map(),
         };
 
+        // Utilidad para generar una clave unica por asiento (fila-columna).
         function seatKey(fila, columna) {
             // Clave unica por asiento para guardar/consultar en el Map.
             return fila + '-' + columna;
         }
 
+        // Que hace esto: Crea un nodo SVG con atributos dados, para evitar repetir codigo al crear elementos.
         function createSvgNode(tag, attrs) {
             // Crea nodos SVG y aplica sus atributos en una sola utilidad.
             const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -66,6 +68,7 @@
             return node;
         }
 
+        // Para no repetir conversion a numero entero en varias partes del codigo, centralizamos la logica de conversion y validacion en esta funcion.
         function toInt(value) {
             // Convierte a numero entero de forma segura.
             const n = Number(value);
@@ -104,21 +107,22 @@
         }
 
         function drawSectorBackgrounds() {
-            // Pinta cada sector como bloque de color de fondo en el mapa.
+            // Dibuja los sectores en primer plano (encima de asientos).
+            // Eliminamos cualquier rect anterior para evitar duplicados.
+            const previous = svg.querySelectorAll('.sector-zone-foreground, .sector-zone-label');
+            previous.forEach(n => n.remove());
+
             sectors.forEach((sector) => {
-                // Cada sector se valida antes de dibujarlo.
                 const bounds = normalizeSectorBounds(sector);
                 if (!bounds) {
                     return;
                 }
 
-                // Traduce fila/columna de sector a coordenadas reales del SVG.
                 const x1 = padLeft + (bounds.colInicio - 1) * xStep;
                 const x2 = padLeft + (bounds.colFin - 1) * xStep;
                 const y1 = padTop + (bounds.filaInicio - 1) * yStep;
                 const y2 = padTop + (bounds.filaFin - 1) * yStep;
 
-                // Se anade padding para que el fondo respire alrededor de los asientos.
                 const zonePadding = seatRadius + 3;
                 const rectX = x1 - zonePadding;
                 const rectY = y1 - zonePadding;
@@ -126,22 +130,22 @@
                 const rectHeight = (y2 - y1) + zonePadding * 2;
                 const color = sector.color_hex || '#5ba8ff';
 
-                // Rectangulo de fondo del sector.
+                // Rectangulo en primer plano que captura clicks.
                 const sectorRect = createSvgNode('rect', {
                     x: rectX,
                     y: rectY,
                     width: rectWidth,
                     height: rectHeight,
                     rx: 8,
-                    class: 'sector-zone-bg',
+                    class: 'sector-zone-foreground',
                     fill: color,
-                    'fill-opacity': 0.22,
                     stroke: color,
-                    'stroke-opacity': 0.55,
-                    'stroke-width': 1.2,
                 });
+                // Aseguramos que reciba eventos de puntero.
+                sectorRect.setAttribute('pointer-events', 'auto');
+                sectorRect.dataset.sectorId = sector.id || '';
 
-                // Etiqueta del sector para identificar visualmente la zona.
+                // Etiqueta encima del rectangulo.
                 const sectorLabel = createSvgNode('text', {
                     x: rectX + 8,
                     y: rectY + 14,
@@ -150,7 +154,27 @@
                 });
                 sectorLabel.textContent = sector.nombre || 'Sector';
 
-                // Primero se pinta el fondo y luego su etiqueta.
+                // Marcamos los asientos que estan dentro del sector para deshabilitar su click.
+                for (let r = bounds.filaInicio; r <= bounds.filaFin; r++) {
+                    for (let c = bounds.colInicio; c <= bounds.colFin; c++) {
+                        const key = seatKey(r, c);
+                        const seatNode = state.seats.get(key);
+                        if (seatNode) {
+                            seatNode.classList.add('in-sector');
+                        }
+                    }
+                }
+
+                // Click en el rectangulo: mostramos el popup de acciones.
+                sectorRect.addEventListener('click', function (ev) {
+                    ev.stopPropagation();
+                    const rectBox = sectorRect.getBoundingClientRect();
+                    const containerBox = container.getBoundingClientRect();
+                    const x = rectBox.left - containerBox.left + rectBox.width / 2;
+                    const y = rectBox.top - containerBox.top + 6;
+                    showActionPopup(x, y, sectorRect.dataset.sectorId);
+                });
+
                 svg.appendChild(sectorRect);
                 svg.appendChild(sectorLabel);
             });
@@ -294,8 +318,8 @@
             stageLabel.textContent = 'ESCENARIO';
             svg.appendChild(stageLabel);
 
-            // Las zonas de sector se pintan antes de rejilla/asientos para que queden de fondo.
-            drawSectorBackgrounds();
+            // Nota: los sectores se pintarán despues de crear los asientos
+            // para que queden en primer plano y capturen clicks.
 
             // Dibuja filas: etiqueta lateral numerica + linea horizontal.
             for (let row = 1; row <= rows; row++) {
@@ -375,8 +399,215 @@
                 }
             }
 
+            // Pintamos ahora los sectores en primer plano (encima de asientos)
+            drawSectorBackgrounds();
+
             // Muestra resumen inicial vacio.
             updateSummary();
+        }
+
+        // Manejo del popup de acciones de sector
+        const actionPopup = container.querySelector('#sector-action-popup');
+
+        function showActionPopup(x, y, sectorId) {
+            if (!actionPopup) return;
+            actionPopup.removeAttribute('hidden');
+            actionPopup.style.left = x + 'px';
+            actionPopup.style.top = y + 'px';
+            actionPopup.dataset.sectorId = sectorId || '';
+        }
+
+        function hideActionPopup() {
+            if (!actionPopup) return;
+            actionPopup.setAttribute('hidden', '');
+            delete actionPopup.dataset.sectorId;
+        }
+
+        // Cierra popup al clicar fuera
+        document.addEventListener('click', function () {
+            hideActionPopup();
+        });
+
+        // Botones del popup: por ahora solo loguean la accion
+        if (actionPopup) {
+            const delBtn = actionPopup.querySelector('[data-sector-delete]');
+            const editBtn = actionPopup.querySelector('[data-sector-edit]');
+            if (delBtn) delBtn.addEventListener('click', function (ev) {
+                ev.stopPropagation();
+                const id = actionPopup.dataset.sectorId;
+                console.log('Borrar sector (pendiente):', id);
+                hideActionPopup();
+            });
+            if (editBtn) editBtn.addEventListener('click', function (ev) {
+                ev.stopPropagation();
+                const id = actionPopup.dataset.sectorId;
+                console.log('Editar sector (pendiente):', id);
+                hideActionPopup();
+            });
+        }
+
+        // GUARDAR SECTOR: envía la selección al backend y actualiza la vista.
+        const saveButton = document.querySelector('[data-save-sector]');
+        const eventoId = container.dataset.eventoId || null;
+
+        async function saveSector() {
+            if (!state.start || !state.end) {
+                alert('Selecciona asiento inicial y final antes de guardar.');
+                return;
+            }
+
+            const filaInicio = Math.min(state.start.fila, state.end.fila);
+            const filaFin = Math.max(state.start.fila, state.end.fila);
+            const colInicio = Math.min(state.start.columna, state.end.columna);
+            const colFin = Math.max(state.start.columna, state.end.columna);
+
+            const totalFilas = filaFin - filaInicio + 1;
+            const totalColumnas = colFin - colInicio + 1;
+
+            const nombre = window.prompt('Nombre del sector', 'Nuevo sector');
+            if (nombre === null) return; // usuario canceló
+            const color_hex = window.prompt('Color (hex)', '#5ba8ff') || '#5ba8ff';
+
+            const payload = {
+                nombre: nombre,
+                color_hex: color_hex,
+                inicio: { fila: filaInicio, columna: colInicio },
+                fin: { fila: filaFin, columna: colFin },
+            };
+
+            const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+            const csrf = tokenMeta ? tokenMeta.getAttribute('content') : null;
+
+            try {
+                const res = await fetch('/admin/sectores', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrf || '',
+                    },
+                    body: JSON.stringify(payload),
+                    credentials: 'same-origin',
+                });
+
+                if (!res.ok) {
+                    let errText = 'Error guardando sector.';
+                    try {
+                        const j = await res.json();
+                        errText = j.message || (j.errors ? JSON.stringify(j.errors) : errText);
+                    } catch (e) {}
+                    alert(errText);
+                    return;
+                }
+
+                // Intentamos parsear la respuesta JSON con el sector creado.
+                let created = null;
+                try {
+                    created = await res.json();
+                } catch (e) {
+                    // Si no viene JSON, asumimos que fue correcto.
+                }
+
+                // Normalizar la respuesta para obtener un objeto sector con los campos esperados.
+                const maybe = created && (created.data || created) ? (created.data || created) : null;
+                function normalizeServerSector(s) {
+                    if (!s) return null;
+                    const a = s.attributes || s; // por si viene en formato JSON:API
+                    return {
+                        id: a.id || s.id || Date.now(),
+                        nombre: a.nombre || a.name || s.nombre || s.name || nombre,
+                        color_hex: a.color_hex || a.colorHex || s.color_hex || s.colorHex || color_hex,
+                        fila_inicio: a.fila_inicio ?? a.filaInicio ?? s.fila_inicio ?? s.filaInicio ?? filaInicio,
+                        fila_fin: a.fila_fin ?? a.filaFin ?? s.fila_fin ?? s.filaFin ?? filaFin,
+                        columna_inicio: a.columna_inicio ?? a.columnaInicio ?? s.columna_inicio ?? s.columnaInicio ?? colInicio,
+                        columna_fin: a.columna_fin ?? a.columnaFin ?? s.columna_fin ?? s.columnaFin ?? colFin,
+                    };
+                }
+
+                const normalized = normalizeServerSector(maybe);
+
+                const createdSectorId = (maybe && (maybe.id || (maybe.attributes && maybe.attributes.id)))
+                    ? Number(maybe.id || maybe.attributes.id)
+                    : null;
+
+                if (normalized) {
+                    console.log('Sector creado (normalized):', normalized);
+                } else {
+                    console.log('Sector creado (provisional): no normalized data from server, will reload from API');
+                }
+
+                // En el editor visual trabajamos a nivel de EVENTO: el listado de sectores del evento
+                // se basa en la relación via `precios`. Crear el sector globalmente NO lo vincula al evento,
+                // así que primero lo asociamos y luego recargamos los sectores del evento para repintar.
+                if (eventoId) {
+                    if (createdSectorId) {
+                        try {
+                            const attachRes = await fetch('/admin/eventos/' + eventoId + '/sectores', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'X-CSRF-TOKEN': csrf || '',
+                                },
+                                body: JSON.stringify({ sector_id: createdSectorId }),
+                                credentials: 'same-origin',
+                            });
+
+                            if (!attachRes.ok) {
+                                let errText = 'Sector creado, pero no se pudo asociar al evento.';
+                                try {
+                                    const j = await attachRes.json();
+                                    errText = j.message || (j.errors ? JSON.stringify(j.errors) : errText);
+                                } catch (e) {}
+                                console.warn(errText);
+                            }
+                        } catch (e) {
+                            console.error('Error asociando sector al evento:', e);
+                        }
+                    } else {
+                        console.warn('No se pudo obtener el id del sector creado; no se puede asociar al evento automáticamente.');
+                    }
+
+                    try {
+                        const listRes = await fetch('/api/eventos/' + eventoId + '/sectores', {
+                            method: 'GET',
+                            headers: { 'Accept': 'application/json' },
+                            credentials: 'same-origin',
+                        });
+
+                        if (listRes.ok) {
+                            const listJson = await listRes.json();
+                            const data = Array.isArray(listJson.data) ? listJson.data : [];
+                            // Reemplazamos contenido de sectors in-place para mantener la referencia.
+                            sectors.length = 0;
+                            data.forEach(s => sectors.push(s));
+                        } else {
+                            console.warn('No se pudo recargar sectores desde la API, usando dato local.');
+                            if (normalized) sectors.push(normalized);
+                        }
+                    } catch (e) {
+                        console.error('Error recargando sectores:', e);
+                        if (normalized) sectors.push(normalized);
+                    }
+                } else {
+                    if (normalized) sectors.push(normalized);
+                }
+
+                // Redibujamos el mapa para reflejar el nuevo sector.
+                drawGrid();
+                alert('Sector guardado correctamente.');
+                clearSelection();
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión al guardar el sector.');
+            }
+        }
+
+        if (saveButton) {
+            saveButton.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                saveSector();
+            });
         }
 
         // Conecta boton de limpiar (si existe en la vista).
