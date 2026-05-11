@@ -650,9 +650,9 @@ Archivos a tocar:
 
 Qué hacer:
 
-1. En `resources/views/eventos/show.blade.php`, añade un botón visible para abrir el editor visual. Ese botón debe llevar a una vista específica del editor o abrir un modal grande, pero no debe quedar escondido.
-2. Crea la vista del editor, por ejemplo `resources/views/eventos/sectores-editor.blade.php`. Esa vista debe tener tres zonas: el mapa, el panel lateral y una zona de acciones.
-3. En la parte central, dibuja el mapa base del estadio con SVG. Ese SVG debe mostrar una rejilla o al menos puntos claramente clicables que representen asientos.
+1. En `resources/views/eventos/show.blade.php`, añade un botón visible para abrir el editor visual. Ese botón debe llevar a una vista específica del editor o abrir un modal grande, pero no debe quedar escondido. (hecho)
+2. Crea la vista del editor, por ejemplo `resources/views/eventos/sectores-editor.blade.php`. Esa vista debe tener tres zonas: el mapa, el panel lateral y una zona de acciones. (hecho)
+3. En la parte central, dibuja el mapa base del estadio con SVG. Ese SVG debe mostrar una rejilla o al menos puntos claramente clicables que representen asientos. (hecho)
 4. Pinta sobre ese mapa los sectores ya existentes con su color. Así el admin ve qué zonas ya están ocupadas antes de crear otra.
 5. Cuando el admin haga click en el primer asiento, marca ese asiento como inicio visual. Debe cambiar de estado para que el usuario vea claramente que ya se ha empezado una selección.
 6. Cuando haga click en el segundo asiento, calcula el rectángulo completo y pinta la previsualización sobre el mapa. Esa previsualización debe enseñar claramente el área que ocupará el sector.
