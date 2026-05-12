@@ -256,11 +256,12 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [x] Asignar sectores a eventos (sin problemas detectados)
 - [x] Actualizar eventos todos sus campos (sin problemas detectados)
 - [x] Eliminar eventos (sin problemas detectados)
-- [ ] Crear sectores (por hacer)
-- [ ] Actualizar sectores (por hacer)
-- [ ] Eliminar sectores (por hacer)
+- [x] Crear sectores (sin problemas detectados)
+- [x] Actualizar sectores (sin problemas detectados)
+- [x] Eliminar sectores (sin problemas detectados)
 - [x] Actualizar sectores de un evento (solo el precio por ahora) (sin problemas detectados)
 - [x] Eliminar (deshabilitar) sectores de un evento (sin problemas detectados)
+- [ ] Pagos realistas (sin completar)
 
 ### Sistema automatico
 
@@ -289,9 +290,8 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Por hacer ahora que recuerde
 
 - Un + para asociar sectores a un evento
-- Al borrar un evento no borra los precios asociados de la tabla Precios
+- Al borrar un evento no borra los precios asociados de la tabla Precios (solo se ve reflejado en la bd creo)
 - Boton que marque y desmarque todos los eventos de golpe
-- Al añadir un sector se añade con precio 0
 
 ## Otros
 
