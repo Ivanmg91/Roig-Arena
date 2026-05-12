@@ -79,7 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::get('/mis-eventos-info', [EventoController::class, 'misEventosInfo']);
     
     // Asientos
-    Route::get('/eventos/{eventoId}/asientos', [AsientoController::class, 'porEvento']);
+    Route::get('/eventos/{eventoId}/asientos', [AsientoController::class, 'porEvento']); // --- IGNORE --- (ya existe, pero se mantiene aquí para la API REST)
+    Route::get('/eventos/{evento}/asientos', [EventoController::class, 'mostrarTodosLosAsientos']);
 });
 
 // ============================================

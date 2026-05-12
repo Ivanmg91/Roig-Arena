@@ -21,7 +21,7 @@ class AsientoController extends Controller
      *   }
      * }
      */
-    public function porEvento($eventoId)
+    public function porEvento($eventoId) // sin utilizar creo REVISAR
     {
         $evento = Evento::findOrFail($eventoId);
 

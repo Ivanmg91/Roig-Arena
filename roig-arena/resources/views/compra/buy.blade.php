@@ -25,16 +25,8 @@
     <div class="seatmap-container">
         <!-- LADO IZQUIERDO: MAPA DE ASIENTOS -->
         <div class="seatmap-area">
-            <!-- Nueva: Contenedor del mapa SVG completo -->
-            <div class="seat-map-wrapper">
-                <svg id="seatMapSvg" 
-                    class="seat-map-svg"
-                    viewBox="0 0 960 560"
-                    role="img"
-                    aria-label="Mapa interactivo de asientos del evento">
-                </svg>
-            </div>
-            
+            <h2>Selecciona tus asientos</h2>
+
             <!-- Leyenda -->
             <div class="legend">
                 <span class="legend-item">
@@ -47,10 +39,21 @@
                     <div class="seat seat-selected"></div> Seleccionado
                 </span>
             </div>
-            
-            <!-- Info del sector (opcional, si se quiere mantener) -->
+
+            <!-- Mapa SVG interactivo (NUEVO) -->
+            <div class="seat-map-wrapper">
+                <svg id="seatMapSvg" 
+                    class="seat-map-svg"
+                    viewBox="0 0 960 560"
+                    role="img"
+                    aria-label="Mapa interactivo de asientos del evento">
+                </svg>
+            </div>
+
+            <!-- Info del sector actual (opcional) -->
             <div id="sectorInfo" class="sector-info" style="display:none;">
                 <h3 id="sectorTitle"></h3>
+                <p id="sectorDesc"></p>
             </div>
         </div>
 

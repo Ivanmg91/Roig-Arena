@@ -1,14 +1,14 @@
 class SeatMapManager {
     constructor(eventoId) {
         this.eventoId = eventoId;
+        
+        // Datos globales
         this.data = null;
         this.allSeats = new Map();
         this.selectedSeats = new Map();
         this.seatNodeMap = new Map();
-        this.priceBySector = new Map();
-        this.reservasActivas = [];
-        this.paymentTimerInterval = null;
 
+        // Config SVG (debe coincidir con editarSectoresEvento.js)
         this.rows = 12;
         this.cols = 20;
         this.viewWidth = 960;
@@ -24,21 +24,41 @@ class SeatMapManager {
         this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
         this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
 
+        // Reservas y pagos
+        this.priceBySector = new Map();
+        this.reservasActivas = [];
+        this.paymentTimerInterval = null;
+
         this.init();
     }
 
     async init() {
         try {
+            console.log('[SeatMapManager] Inicializando para evento:', this.eventoId);
+
+            // Cargar evento y sectores
             await this.loadEventoData();
+
+            // Cargar todos los asientos
             await this.loadAllSeats();
-            this.computeGridSize();
+
+            // Renderizar mapa
             this.renderSeatMap();
+
+            // Setup event listeners
             this.setupEventListeners();
+
+            // Cargar carrito previo
             this.loadCartFromStorage();
         } catch (error) {
-            console.error('Error inicializando SeatMapManager:', error);
-            this.showError('No se pudo cargar el mapa de asientos. Intenta recargar la página.');
+            console.error('[SeatMapManager] Error en init:', error);
+            this.showError('Error cargando el mapa de asientos');
         }
+    }
+
+    showError(message) {
+        alert(message);
+        console.error(message);
     }
 
     async loadEventoData() {
@@ -50,90 +70,53 @@ class SeatMapManager {
         const data = await response.json();
         this.data = data;
 
-        const sectores = this.data?.data?.sectores_disponibles ?? [];
-        sectores.forEach(sector => {
-            this.priceBySector.set(String(sector.id), Number(sector?.pivot?.precio ?? 0));
-        });
+        console.log('[SeatMapManager] Evento cargado:', this.data);
     }
 
     async loadAllSeats() {
         const response = await fetch(`/api/eventos/${this.eventoId}/asientos`);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-
-        const payload = await response.json();
-        const seats = payload?.data?.asientos ?? [];
-
-        seats.forEach(seat => {
-            const row = this.parseRowValue(seat.fila);
-            const col = Number(seat.numero);
-            const sectorId = String(seat.sector_id ?? '');
-            this.allSeats.set(String(seat.id), {
-                id: String(seat.id),
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const json = await response.json();
+        const asientos = json?.data?.asientos ?? [];
+        
+        console.log(`[SeatMapManager] Cargados ${asientos.length} asientos`);
+        
+        asientos.forEach(seat => {
+            const key = String(seat.id);
+            this.allSeats.set(key, {
+                id: key,
                 fila: seat.fila,
-                filaCoord: row,
-                numero: col,
-                sector_id: sectorId,
+                numero: seat.numero,
+                sector_id: seat.sector_id,
                 sector_nombre: seat.sector_nombre || '',
-                disponible: Boolean(seat.disponible),
+                disponible: seat.disponible,
                 estado: seat.disponible ? 'disponible' : 'ocupado',
-                precio: Number(this.priceBySector.get(sectorId) ?? 0),
+                precio: this.data?.data?.sectores_disponibles?.find(s => s.id == seat.sector_id)?.pivot?.precio || 0
             });
         });
-    }
-
-    computeGridSize() {
-        let maxRow = 0;
-        let maxCol = 0;
-
-        this.allSeats.forEach(seat => {
-            if (Number.isFinite(seat.filaCoord)) {
-                maxRow = Math.max(maxRow, seat.filaCoord);
-            }
-            if (Number.isFinite(seat.numero)) {
-                maxCol = Math.max(maxCol, seat.numero);
-            }
-        });
-
-        if (maxRow > 0) {
-            this.rows = maxRow;
-        }
-        if (maxCol > 0) {
-            this.cols = maxCol;
-        }
-
-        this.seatRadius = Math.max(6, Math.min(13, Math.min(this.gridWidth / Math.max(this.cols, 1), this.gridHeight / Math.max(this.rows, 1)) * 0.28));
-        this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
-        this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
     }
 
     renderSeatMap() {
         const svg = document.getElementById('seatMapSvg');
         if (!svg) {
-            console.error('No se encontró el elemento SVG del mapa de asientos');
+            console.error('[SeatMapManager] SVG no encontrado');
             return;
         }
-
+        
         svg.innerHTML = '';
-        svg.setAttribute('viewBox', `0 0 ${this.viewWidth} ${this.viewHeight}`);
 
-        this.drawBackground(svg);
-        this.drawGridLines(svg);
-        this.drawSectorBackgrounds(svg);
-        this.drawSeatNodes(svg);
-    }
-
-    drawBackground(svg) {
+        // FONDO
         this.createAndAppendSvgNode(svg, 'rect', {
-            x: 0,
-            y: 0,
-            width: this.viewWidth,
-            height: this.viewHeight,
-            rx: 14,
-            class: 'sector-map-bg'
+            x: this.padLeft,
+            y: 8,
+            width: this.gridWidth,
+            height: 20,
+            rx: 10,
+            class: 'sector-map-stage'
         });
 
+        // ESCENARIO
         this.createAndAppendSvgNode(svg, 'rect', {
             x: this.padLeft,
             y: 8,
@@ -151,11 +134,25 @@ class SeatMapManager {
         });
         stageLabel.textContent = 'ESCENARIO';
         svg.appendChild(stageLabel);
+        
+        // GRID (líneas guía)
+        this.drawGridLines(svg);
+        
+        // ASIENTOS (como círculos clicables)
+        this.drawSeatNodes(svg);
+        
+        // OVERLAY DE SECTORES (coloreado, semitransparente)
+        this.drawSectorBackgrounds(svg);
     }
 
     drawGridLines(svg) {
+        // Dibujar líneas horizontales y verticales de referencia
+        // (similar a editarSectoresEvento.js)
+
         for (let row = 1; row <= this.rows; row++) {
             const y = this.padTop + (row - 1) * this.yStep;
+
+            // Etiqueta de fila
             const rowLabel = this.createSvgNode('text', {
                 x: 34,
                 y: y + 4,
@@ -165,6 +162,7 @@ class SeatMapManager {
             rowLabel.textContent = String(row);
             svg.appendChild(rowLabel);
 
+            // Línea horizontal
             this.createAndAppendSvgNode(svg, 'line', {
                 x1: this.padLeft,
                 y1: y,
@@ -176,6 +174,8 @@ class SeatMapManager {
 
         for (let col = 1; col <= this.cols; col++) {
             const x = this.padLeft + (col - 1) * this.xStep;
+
+            // Etiqueta de columna
             const colLabel = this.createSvgNode('text', {
                 x,
                 y: this.viewHeight - 6,
@@ -185,6 +185,7 @@ class SeatMapManager {
             colLabel.textContent = String(col);
             svg.appendChild(colLabel);
 
+            // Línea vertical
             this.createAndAppendSvgNode(svg, 'line', {
                 x1: x,
                 y1: this.padTop,
@@ -195,8 +196,59 @@ class SeatMapManager {
         }
     }
 
+    drawSeatNodes(svg) {
+        this.allSeats.forEach((asiento) => {
+            const [fila, numero] = this.parseAsientoCoords(asiento);
+            if (!fila || !numero) return;
+            
+            const x = this.padLeft + (numero - 1) * this.xStep;
+            const y = this.padTop + (fila - 1) * this.yStep;
+            
+            const seatGroup = this.createSvgNode('g', {
+                class: `seat-node seat-${asiento.estado}`,
+                'data-seat-id': asiento.id,
+                'data-fila': fila,
+                'data-numero': numero,
+                'aria-label': `Asiento fila ${fila} número ${numero}`
+            });
+            
+            const circle = this.createSvgNode('circle', {
+                cx: x,
+                cy: y,
+                r: this.seatRadius,
+                class: 'seat-circle'
+            });
+            
+            seatGroup.appendChild(circle);
+            
+            // Solo si está disponible, permitir click
+            if (asiento.estado === 'disponible') {
+                seatGroup.style.cursor = 'pointer';
+                seatGroup.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleSeat(asiento);
+                });
+                
+                // Hover efecto
+                seatGroup.addEventListener('mouseenter', () => {
+                    circle.style.opacity = '0.8';
+                });
+                seatGroup.addEventListener('mouseleave', () => {
+                    circle.style.opacity = '1';
+                });
+            }
+            
+            svg.appendChild(seatGroup);
+            this.seatNodeMap.set(asiento.id, seatGroup);
+        });
+        
+        console.log(`[SeatMapManager] Dibujados ${this.seatNodeMap.size} asientos`);
+    }
+
     drawSectorBackgrounds(svg) {
+        // Dibujar rectángulos semitransparentes sobre cada sector
         const sectores = this.data?.data?.sectores_disponibles ?? [];
+
         sectores.forEach(sector => {
             const bounds = this.calculateSectorBounds(sector);
             if (!bounds) {
@@ -214,73 +266,74 @@ class SeatMapManager {
             const rectWidth = (x2 - x1) + zonePadding * 2;
             const rectHeight = (y2 - y1) + zonePadding * 2;
 
-            this.createAndAppendSvgNode(svg, 'rect', {
+            const sectorRect = this.createSvgNode('rect', {
                 x: rectX,
                 y: rectY,
                 width: rectWidth,
                 height: rectHeight,
                 rx: 8,
                 class: 'sector-zone-background',
-                fill: sector.color_hex || '#5ba8ff'
+                fill: sector.color_hex || '#5ba8ff',
+                opacity: '0.15',
+                'pointer-events': 'none'
             });
-
+            
+            svg.appendChild(sectorRect);
+            
+            // Etiqueta del sector
             const label = this.createSvgNode('text', {
                 x: rectX + 8,
-                y: rectY + 14,
+                y: rectY + 16,
                 class: 'sector-zone-label',
-                'text-anchor': 'start'
+                'text-anchor': 'start',
+                fill: sector.color_hex || '#5ba8ff',
+                'font-size': '12px',
+                'font-weight': 'bold',
+                'pointer-events': 'none'
             });
-            label.textContent = sector.nombre || 'Sector';
+            label.textContent = sector.nombre;
             svg.appendChild(label);
         });
     }
 
-    drawSeatNodes(svg) {
-        this.seatNodeMap.clear();
-        this.allSeats.forEach(asiento => {
-            if (!Number.isFinite(asiento.filaCoord) || !Number.isFinite(asiento.numero)) {
-                return;
-            }
+    // createSeatElement(asiento) {
+    //     const x = this.padLeft + (asiento.numero - 1) * this.xStep;
+    //     const y = this.padTop + (asiento.filaCoord - 1) * this.yStep;
+        
+    //     const seatGroup = this.createSvgNode('g', {
+    //         class: `seat-node seat-${asiento.estado}`,
+    //         'data-seat-id': asiento.id,
+    //         'data-sector-id': asiento.sector_id,
+    //         'data-fila': asiento.fila,
+    //         'data-numero': asiento.numero,
+    //         tabindex: asiento.disponible ? '0' : '-1',
+    //         'aria-label': `Fila ${asiento.fila}, Asiento ${asiento.numero}`
+    //     });
 
-            const x = this.padLeft + (asiento.numero - 1) * this.xStep;
-            const y = this.padTop + (asiento.filaCoord - 1) * this.yStep;
-            const seatGroup = this.createSvgNode('g', {
-                class: `seat-node seat-${asiento.estado}`,
-                'data-seat-id': asiento.id,
-                'data-sector-id': asiento.sector_id,
-                'data-fila': asiento.fila,
-                'data-numero': asiento.numero,
-                tabindex: asiento.disponible ? '0' : '-1',
-                'aria-label': `Fila ${asiento.fila}, Asiento ${asiento.numero}`
-            });
+    //     const seatCircle = this.createSvgNode('circle', {
+    //         cx: x,
+    //         cy: y,
+    //         r: this.seatRadius
+    //     });
 
-            const seatCircle = this.createSvgNode('circle', {
-                cx: x,
-                cy: y,
-                r: this.seatRadius
-            });
+    //     const title = this.createSvgNode('title', {});
+    //     title.textContent = `${asiento.sector_nombre || 'Sector'} · Fila ${asiento.fila} · Asiento ${asiento.numero}`;
+        
+    //     seatGroup.appendChild(title);
+    //     seatGroup.appendChild(seatCircle);
 
-            const title = this.createSvgNode('title', {});
-            title.textContent = `${asiento.sector_nombre || 'Sector'} · Fila ${asiento.fila} · Asiento ${asiento.numero}`;
-            seatGroup.appendChild(title);
-            seatGroup.appendChild(seatCircle);
+    //     if (asiento.disponible) {
+    //         seatGroup.addEventListener('click', () => this.toggleSeat(asiento));
+    //         seatGroup.addEventListener('keydown', event => {
+    //             if (event.key === 'Enter' || event.key === ' ') {
+    //                 event.preventDefault();
+    //                 this.toggleSeat(asiento);
+    //             }
+    //         });
+    //     }
 
-            if (asiento.disponible) {
-                seatGroup.addEventListener('click', () => this.toggleSeat(asiento));
-                seatGroup.addEventListener('keydown', event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        this.toggleSeat(asiento);
-                    }
-                });
-            }
-
-            svg.appendChild(seatGroup);
-            this.seatNodeMap.set(asiento.id, seatGroup);
-        });
-
-        this.updateSeatVisuals();
-    }
+    //     return seatGroup;
+    // }
 
     calculateSectorBounds(sector) {
         const filaInicioRaw = this.parseRowValue(sector.fila_inicio);
@@ -304,26 +357,28 @@ class SeatMapManager {
         return { filaInicio, filaFin, colInicio, colFin };
     }
 
-    parseRowValue(fila) {
-        if (fila === null || fila === undefined) {
-            return null;
+    parseAsientoCoords(asiento) {
+        // Convertir fila (número) y numero (columna) a coordenadas
+        let fila = asiento.fila;
+        if (typeof fila === 'string') {
+            fila = fila.charCodeAt(0) - 64; // 'A' -> 1, 'B' -> 2, etc
         }
+        return [Number(fila), Number(asiento.numero)];
+    }
 
-        if (typeof fila === 'number' && Number.isFinite(fila)) {
-            return fila;
-        }
+    // Utilities
+    createSvgNode(tag, attrs = {}) {
+        const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        Object.entries(attrs).forEach(([key, value]) => {
+            node.setAttribute(key, String(value));
+        });
+        return node;
+    }
 
-        const parsed = String(fila).trim();
-        if (/^\d+$/.test(parsed)) {
-            return Number(parsed);
-        }
-
-        if (/^[A-Za-z]$/.test(parsed)) {
-            return parsed.toUpperCase().charCodeAt(0) - 64;
-        }
-
-        const numeric = Number(parsed);
-        return Number.isFinite(numeric) ? numeric : null;
+    createAndAppendSvgNode(parent, tag, attrs = {}) {
+        const node = this.createSvgNode(tag, attrs);
+        parent.appendChild(node);
+        return node;
     }
 
     toggleSeat(asiento) {
@@ -333,55 +388,67 @@ class SeatMapManager {
         }
 
         if (this.selectedSeats.has(seatId)) {
+            // Desseleccionar
             this.selectedSeats.delete(seatId);
         } else {
-            this.selectedSeats.set(seatId, {
-                ...asiento,
-                id: seatId
-            });
+            // Seleccionar
+            this.selectedSeats.set(seatId, asiento);
         }
 
+        // Actualizar visuales y carrito
         this.updateSeatVisuals();
         this.updateCart();
         this.saveCartToStorage();
     }
 
     updateSeatVisuals() {
-        this.seatNodeMap.forEach((node, seatId) => {
-            node.classList.toggle('seat-selected', this.selectedSeats.has(seatId));
+        this.seatNodeMap.forEach((seatNode, seatId) => {
+            const circle = seatNode.querySelector('circle');
+            
+            seatNode.classList.remove('seat-selected');
+            
+            if (this.selectedSeats.has(seatId)) {
+                seatNode.classList.add('seat-selected');
+                circle?.style.setProperty('--seat-state', 'selected');
+            }
         });
     }
 
     updateCart() {
         const seatCount = this.selectedSeats.size;
+
         document.getElementById('seatCount').textContent = `${seatCount} asiento${seatCount !== 1 ? 's' : ''}`;
+
         this.updateSelectionSummary();
         this.updatePriceBreakdown();
         this.updateTotal();
+
         document.getElementById('confirmBtn').disabled = seatCount === 0;
     }
 
     updateSelectionSummary() {
         const summary = document.getElementById('selectionSummary');
-
+    
         if (this.selectedSeats.size === 0) {
             summary.innerHTML = '<p class="empty-state">Selecciona asientos para comenzar</p>';
             return;
         }
-
+        
         summary.innerHTML = '';
-        this.selectedSeats.forEach(asiento => {
+        
+        this.selectedSeats.forEach((asiento) => {
+            const [fila, numero] = this.parseAsientoCoords(asiento);
+            
             const item = document.createElement('div');
             item.className = 'selected-item';
             item.innerHTML = `
-                <span>${asiento.sector_nombre || 'Sector'} · Fila ${asiento.fila} · Asiento ${asiento.numero}</span>
-                <button class="selected-item-remove" data-seat-id="${asiento.id}" aria-label="Quitar asiento">✕</button>
+                <span>${asiento.sector_nombre || 'Sector'} - Fila ${fila}, Asiento ${numero}</span>
+                <button class="selected-item-remove" data-seat-id="${asiento.id}">✕</button>
             `;
-
             item.querySelector('.selected-item-remove').addEventListener('click', () => {
                 this.toggleSeat(asiento);
             });
-
+            
             summary.appendChild(item);
         });
     }
@@ -389,33 +456,43 @@ class SeatMapManager {
     updatePriceBreakdown() {
         const breakdown = document.getElementById('priceBreakdown');
         breakdown.innerHTML = '';
-
-        const seatsBySector = {};
+        
+        const asientosPorSector = {};
+        
         this.selectedSeats.forEach(asiento => {
-            if (!seatsBySector[asiento.sector_id]) {
-                seatsBySector[asiento.sector_id] = [];
+            const sectorId = asiento.sector_id;
+            if (!asientosPorSector[sectorId]) {
+                asientosPorSector[sectorId] = [];
             }
-            seatsBySector[asiento.sector_id].push(asiento);
+            asientosPorSector[sectorId].push(asiento);
         });
-
-        Object.entries(seatsBySector).forEach(([sectorId, seats]) => {
-            const price = Number(this.priceBySector.get(sectorId) ?? 0);
-            const subtotal = seats.length * price;
-            const sectorName = seats[0]?.sector_nombre || 'Sector';
-
+        
+        let total = 0;
+        Object.entries(asientosPorSector).forEach(([sectorId, asientos]) => {
+            const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
+            const precioSector = Number(sector?.pivot?.precio || 0);
+            const subtotal = asientos.length * precioSector;
+            total += subtotal;
+            
             const line = document.createElement('div');
             line.className = 'price-line';
-            line.innerHTML = `<span>${sectorName} (${seats.length}x)</span><strong>${subtotal.toFixed(2)}€</strong>`;
+            line.innerHTML = `
+                <span>${sector?.nombre || 'Sector '} (${asientos.length}x)</span>
+                <strong>${subtotal.toFixed(2)}€</strong>
+            `;
             breakdown.appendChild(line);
         });
     }
 
     updateTotal() {
         let total = 0;
-        this.selectedSeats.forEach(asiento => {
-            total += Number(this.priceBySector.get(asiento.sector_id) ?? 0);
+    
+    this.selectedSeats.forEach(asiento => {
+        const sectorId = asiento.sector_id;
+            const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
+            const precio = Number(sector?.pivot?.precio || 0);
+            total += precio;
         });
-        document.getElementById('totalAmount').textContent = `${total.toFixed(2)}€`;
     }
 
     saveCartToStorage() {
@@ -444,10 +521,7 @@ class SeatMapManager {
                 if (this.allSeats.has(seatId)) {
                     const existing = this.allSeats.get(seatId);
                     if (existing && existing.disponible) {
-                        this.selectedSeats.set(seatId, {
-                            ...existing,
-                            precio: Number(existing.precio || 0)
-                        });
+                        this.selectedSeats.set(seatId, existing);
                     }
                 }
             });
@@ -461,30 +535,9 @@ class SeatMapManager {
     }
 
     setupEventListeners() {
-        const confirmBtn = document.getElementById('confirmBtn');
-        const payBtn = document.getElementById('payBtn');
-        const closePaymentModal = document.getElementById('closePaymentModal');
-        const paymentModal = document.getElementById('paymentModal');
-
-        if (confirmBtn) {
-            confirmBtn.addEventListener('click', () => this.proceedToCheckout());
-        }
-
-        if (payBtn) {
-            payBtn.addEventListener('click', () => this.confirmPayment());
-        }
-
-        if (closePaymentModal) {
-            closePaymentModal.addEventListener('click', () => this.closePaymentModal());
-        }
-
-        if (paymentModal) {
-            paymentModal.addEventListener('click', e => {
-                if (e.target === e.currentTarget) {
-                    this.closePaymentModal();
-                }
-            });
-        }
+        document.getElementById('confirmBtn').addEventListener('click', () => this.proceedToCheckout());
+        document.getElementById('payBtn').addEventListener('click', () => this.confirmPayment());
+        document.getElementById('closePaymentModal').addEventListener('click', () => this.closePaymentModal());
     }
 
     async proceedToCheckout() {
@@ -721,20 +774,6 @@ class SeatMapManager {
                 payBtn.textContent = 'Pagar ahora';
             }
         }
-    }
-
-    createSvgNode(tag, attrs = {}) {
-        const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
-        Object.entries(attrs).forEach(([key, value]) => {
-            node.setAttribute(key, String(value));
-        });
-        return node;
-    }
-
-    createAndAppendSvgNode(parent, tag, attrs = {}) {
-        const node = this.createSvgNode(tag, attrs);
-        parent.appendChild(node);
-        return node;
     }
 }
 

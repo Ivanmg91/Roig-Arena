@@ -6,6 +6,7 @@ use App\Models\Artista;
 use App\Models\Evento;
 use App\Models\Precio;
 use App\Models\Sector;
+use App\Models\Asiento;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -432,5 +433,40 @@ class EventoController extends Controller
         }
 
         return back()->with('success', 'Sector quitado del evento correctamente.');
+    }
+
+    public function mostrarTodosLosAsientos(Evento $evento)
+{
+        // SELECT asientos con relación a estado_asientos del evento
+        $asientos = Asiento::whereHas('sector', function ($query) use ($evento) {
+            $query->whereIn('id', $evento->sectores()->pluck('id'));
+        })
+        ->with(['sector', 'estadoAsientos' => function ($query) use ($evento) {
+            $query->where('evento_id', $evento->id);
+        }])
+        ->get()
+        ->map(function ($asiento) use ($evento) {
+            $estado = $asiento->estadoAsientos->firstWhere('evento_id', $evento->id);
+            $disponible = !$estado || 
+                        ($estado->estado !== 'reservado' && $estado->estado !== 'vendido');
+            
+            return [
+                'id' => $asiento->id,
+                'fila' => $asiento->fila,
+                'numero' => $asiento->numero,
+                'sector_id' => $asiento->sector_id,
+                'sector_nombre' => $asiento->sector->nombre,
+                'disponible' => $disponible,
+                'estado' => $disponible ? 'disponible' : 'ocupado'
+            ];
+        });
+
+        return response()->json([
+            'data' => [
+                'total_filas' => 12,    // Obtener del evento o constante
+                'total_columnas' => 20,  // Obtener del evento o constante
+                'asientos' => $asientos
+            ]
+        ]);
     }
 }
