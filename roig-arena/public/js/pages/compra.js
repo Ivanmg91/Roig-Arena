@@ -1,7 +1,7 @@
 class SeatMapManager {
     constructor(eventoId) {
         this.eventoId = eventoId;
-        
+
         // Datos globales
         this.data = null;
         this.allSeats = new Map();
@@ -18,11 +18,7 @@ class SeatMapManager {
         this.padRight = 26;
         this.padBottom = 26;
 
-        this.gridWidth = this.viewWidth - this.padLeft - this.padRight;
-        this.gridHeight = this.viewHeight - this.padTop - this.padBottom;
-        this.seatRadius = Math.max(12, Math.min(20, Math.min(this.gridWidth / this.cols, this.gridHeight / this.rows) * 0.35));
-        this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
-        this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
+        this.recalculateGeometry();
 
         // Reservas y pagos
         this.priceBySector = new Map();
@@ -80,7 +76,7 @@ class SeatMapManager {
     }
 
     async loadEventoData() {
-        const response = await fetch(`/api/eventos/${this.eventoId}/`, {
+        const response = await fetch(`/api/eventos/${this.eventoId}`, {
             headers: this.getAuthHeaders(),
             credentials: 'include'
         });
@@ -100,12 +96,26 @@ class SeatMapManager {
             credentials: 'include'
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        
+
         const json = await response.json();
-        const asientos = json?.data?.asientos ?? [];
-        
+        const asientos = Array.isArray(json?.data?.asientos)
+            ? json.data.asientos
+            : Array.isArray(json?.data)
+                ? json.data.flatMap(sector => Array.isArray(sector?.asientos) ? sector.asientos : [])
+                : [];
+
+        const totalFilas = Number(json?.data?.total_filas);
+        const totalColumnas = Number(json?.data?.total_columnas);
+        if (Number.isFinite(totalFilas) && totalFilas > 0) {
+            this.rows = totalFilas;
+        }
+        if (Number.isFinite(totalColumnas) && totalColumnas > 0) {
+            this.cols = totalColumnas;
+        }
+        this.recalculateGeometry();
+
         console.log(`[SeatMapManager] Cargados ${asientos.length} asientos`);
-        
+
         asientos.forEach(seat => {
             const key = String(seat.id);
             this.allSeats.set(key, {
@@ -127,7 +137,7 @@ class SeatMapManager {
             console.error('[SeatMapManager] SVG no encontrado');
             return;
         }
-        
+
         svg.innerHTML = '';
 
         // FONDO
@@ -158,15 +168,15 @@ class SeatMapManager {
         });
         stageLabel.textContent = 'ESCENARIO';
         svg.appendChild(stageLabel);
-        
+
         // GRID (líneas guía)
         this.drawGridLines(svg);
-        
+
+        // OVERLAY DE SECTORES primero, para que los asientos queden por encima y visibles.
+        this.drawSectorBackgrounds(svg);
+
         // ASIENTOS (como círculos clicables)
         this.drawSeatNodes(svg);
-        
-        // OVERLAY DE SECTORES (coloreado, semitransparente)
-        this.drawSectorBackgrounds(svg);
     }
 
     drawGridLines(svg) {
@@ -224,19 +234,19 @@ class SeatMapManager {
         let count = 0;
         this.allSeats.forEach((asiento) => {
             const [fila, numero] = this.parseAsientoCoords(asiento);
-            if (!fila || !numero) {
+            if (!Number.isFinite(fila) || !Number.isFinite(numero) || fila < 1 || numero < 1) {
                 console.log('Asiento inválido:', asiento);
                 return;
             }
-            
+
             const x = this.padLeft + (numero - 1) * this.xStep;
             const y = this.padTop + (fila - 1) * this.yStep;
-            
+
             if (count < 5) {
                 console.log(`Asiento ${asiento.id}: fila ${fila}, numero ${numero}, x ${x}, y ${y}`);
                 count++;
             }
-            
+
             const seatGroup = this.createSvgNode('g', {
                 class: `seat-node seat-${asiento.estado}`,
                 'data-seat-id': asiento.id,
@@ -246,7 +256,7 @@ class SeatMapManager {
                 tabindex: asiento.estado === 'disponible' ? '0' : '-1',
                 style: 'pointer-events: all;'
             });
-            
+
             const circle = this.createSvgNode('circle', {
                 cx: x,
                 cy: y,
@@ -254,12 +264,12 @@ class SeatMapManager {
                 class: 'seat-circle',
                 style: 'pointer-events: all;'
             });
-            
+
             const title = this.createSvgNode('title', {});
             title.textContent = `Sector ${asiento.sector_nombre || 'N/A'} · Fila ${fila} · Asiento ${numero}`;
             seatGroup.appendChild(title);
             seatGroup.appendChild(circle);
-            
+
             // Solo si está disponible, permitir click
             if (asiento.estado === 'disponible') {
                 seatGroup.style.cursor = 'pointer';
@@ -267,7 +277,7 @@ class SeatMapManager {
                     e.stopPropagation();
                     this.toggleSeat(asiento);
                 });
-                
+
                 // Permitir seleccionar con teclado
                 seatGroup.addEventListener('keydown', (event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
@@ -275,7 +285,7 @@ class SeatMapManager {
                         this.toggleSeat(asiento);
                     }
                 });
-                
+
                 // Hover efecto
                 seatGroup.addEventListener('mouseenter', () => {
                     circle.style.opacity = '0.8';
@@ -284,11 +294,11 @@ class SeatMapManager {
                     circle.style.opacity = '1';
                 });
             }
-            
+
             svg.appendChild(seatGroup);
             this.seatNodeMap.set(asiento.id, seatGroup);
         });
-        
+
         console.log(`[SeatMapManager] Dibujados ${this.seatNodeMap.size} asientos, SVG children:`, svg.children.length);
     }
 
@@ -324,9 +334,9 @@ class SeatMapManager {
                 opacity: '0.15',
                 'pointer-events': 'none'
             });
-            
+
             svg.appendChild(sectorRect);
-            
+
             // Etiqueta del sector
             const label = this.createSvgNode('text', {
                 x: rectX + 8,
@@ -346,7 +356,7 @@ class SeatMapManager {
     // createSeatElement(asiento) {
     //     const x = this.padLeft + (asiento.numero - 1) * this.xStep;
     //     const y = this.padTop + (asiento.filaCoord - 1) * this.yStep;
-        
+
     //     const seatGroup = this.createSvgNode('g', {
     //         class: `seat-node seat-${asiento.estado}`,
     //         'data-seat-id': asiento.id,
@@ -365,7 +375,7 @@ class SeatMapManager {
 
     //     const title = this.createSvgNode('title', {});
     //     title.textContent = `${asiento.sector_nombre || 'Sector'} · Fila ${asiento.fila} · Asiento ${asiento.numero}`;
-        
+
     //     seatGroup.appendChild(title);
     //     seatGroup.appendChild(seatCircle);
 
@@ -406,20 +416,48 @@ class SeatMapManager {
 
     parseAsientoCoords(asiento) {
         // Convertir fila (número) y numero (columna) a coordenadas
-        let fila = asiento.fila;
-        if (typeof fila === 'string') {
-            fila = fila.charCodeAt(0) - 64; // 'A' -> 1, 'B' -> 2, etc
-        }
-        return [Number(fila), Number(asiento.numero)];
+        const fila = this.parseRowValue(asiento.fila);
+        const numero = Number(asiento.numero);
+        return [fila, numero];
     }
 
     parseRowValue(value) {
         // Convertir valor de fila (puede ser número o letra) a número
-        if (typeof value === 'string') {
-            // 'A' -> 1, 'B' -> 2, etc
-            return value.charCodeAt(0) - 64;
+        if (typeof value === 'number') {
+            return Number(value);
         }
+
+        if (typeof value === 'string') {
+            const normalized = value.trim().toUpperCase();
+            if (!normalized) {
+                return Number.NaN;
+            }
+
+            if (/^\d+$/.test(normalized)) {
+                return Number(normalized);
+            }
+
+            // Soporta filas tipo A, B, ... Z, AA, AB, etc.
+            if (/^[A-Z]+$/.test(normalized)) {
+                let result = 0;
+                for (const char of normalized) {
+                    result = result * 26 + (char.charCodeAt(0) - 64);
+                }
+                return result;
+            }
+
+            return Number.NaN;
+        }
+
         return Number(value);
+    }
+
+    recalculateGeometry() {
+        this.gridWidth = this.viewWidth - this.padLeft - this.padRight;
+        this.gridHeight = this.viewHeight - this.padTop - this.padBottom;
+        this.seatRadius = Math.max(12, Math.min(20, Math.min(this.gridWidth / this.cols, this.gridHeight / this.rows) * 0.35));
+        this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
+        this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
     }
 
     // Utilities
@@ -460,9 +498,9 @@ class SeatMapManager {
     updateSeatVisuals() {
         this.seatNodeMap.forEach((seatNode, seatId) => {
             const circle = seatNode.querySelector('circle');
-            
+
             seatNode.classList.remove('seat-selected');
-            
+
             if (this.selectedSeats.has(seatId)) {
                 seatNode.classList.add('seat-selected');
                 circle?.style.setProperty('--seat-state', 'selected');
@@ -484,17 +522,17 @@ class SeatMapManager {
 
     updateSelectionSummary() {
         const summary = document.getElementById('selectionSummary');
-    
+
         if (this.selectedSeats.size === 0) {
             summary.innerHTML = '<p class="empty-state">Selecciona asientos para comenzar</p>';
             return;
         }
-        
+
         summary.innerHTML = '';
-        
+
         this.selectedSeats.forEach((asiento) => {
             const [fila, numero] = this.parseAsientoCoords(asiento);
-            
+
             const item = document.createElement('div');
             item.className = 'selected-item';
             item.innerHTML = `
@@ -504,7 +542,7 @@ class SeatMapManager {
             item.querySelector('.selected-item-remove').addEventListener('click', () => {
                 this.toggleSeat(asiento);
             });
-            
+
             summary.appendChild(item);
         });
     }
@@ -512,9 +550,9 @@ class SeatMapManager {
     updatePriceBreakdown() {
         const breakdown = document.getElementById('priceBreakdown');
         breakdown.innerHTML = '';
-        
+
         const asientosPorSector = {};
-        
+
         this.selectedSeats.forEach(asiento => {
             const sectorId = asiento.sector_id;
             if (!asientosPorSector[sectorId]) {
@@ -522,14 +560,14 @@ class SeatMapManager {
             }
             asientosPorSector[sectorId].push(asiento);
         });
-        
+
         let total = 0;
         Object.entries(asientosPorSector).forEach(([sectorId, asientos]) => {
             const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
             const precioSector = Number(sector?.pivot?.precio || 0);
             const subtotal = asientos.length * precioSector;
             total += subtotal;
-            
+
             const line = document.createElement('div');
             line.className = 'price-line';
             line.innerHTML = `
@@ -542,7 +580,7 @@ class SeatMapManager {
 
     updateTotal() {
         let total = 0;
-    
+
         this.selectedSeats.forEach(asiento => {
             const sectorId = asiento.sector_id;
             const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
