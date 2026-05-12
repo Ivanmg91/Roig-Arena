@@ -39,7 +39,7 @@ class EventoController extends Controller
                 'asientos_disponibles' => $evento->totalAsientosDisponibles(),
                 'entradas_vendidas' => $evento->totalEntradasVendidas(),
                 'evento' => $evento,
-                'sectores_disponibles' => $evento->sectoresDisponibles(),
+                'sectores_disponibles' => $evento->sectoresDisponibles()->get(),
             ],
         ]);
     }

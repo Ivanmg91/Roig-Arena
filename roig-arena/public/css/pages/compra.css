@@ -665,7 +665,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
-    background: #f9f9f9;
+    background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
@@ -692,9 +692,9 @@
 
 /* Disponible */
 .seat-node.seat-disponible circle {
-    fill: #4CAF50;
-    stroke: #2E7D32;
-    stroke-width: 1;
+    fill: #00FF00;
+    stroke: #008000;
+    stroke-width: 2;
 }
 
 .seat-node.seat-disponible:hover circle {

@@ -164,9 +164,9 @@ class Evento extends Model
     public function sectoresDisponibles()
     {
         return $this->sectores()
+            ->select('sectores.*')
             ->where('sectores.activo', true)
-            ->wherePivot('disponible', true)
-            ->get();
+            ->wherePivot('disponible', true);
     }
 
     /**
@@ -195,7 +195,7 @@ class Evento extends Model
      */
     public function totalAsientosDisponibles(): int
     {
-        $sectoresDisponibles = $this->sectoresDisponibles()->pluck('id');
+        $sectoresDisponibles = $this->sectoresDisponibles()->pluck('sectores.id');
 
         if ($sectoresDisponibles->isEmpty()) {
             return 0;

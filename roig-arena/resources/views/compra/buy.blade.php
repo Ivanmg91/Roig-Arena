@@ -45,6 +45,8 @@
                 <svg id="seatMapSvg" 
                     class="seat-map-svg"
                     viewBox="0 0 960 560"
+                    width="960"
+                    height="560"
                     role="img"
                     aria-label="Mapa interactivo de asientos del evento">
                 </svg>

@@ -20,7 +20,7 @@ class SeatMapManager {
 
         this.gridWidth = this.viewWidth - this.padLeft - this.padRight;
         this.gridHeight = this.viewHeight - this.padTop - this.padBottom;
-        this.seatRadius = Math.max(6, Math.min(13, Math.min(this.gridWidth / this.cols, this.gridHeight / this.rows) * 0.28));
+        this.seatRadius = Math.max(12, Math.min(20, Math.min(this.gridWidth / this.cols, this.gridHeight / this.rows) * 0.35));
         this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
         this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
 
@@ -84,10 +84,6 @@ class SeatMapManager {
             headers: this.getAuthHeaders(),
             credentials: 'include'
         });
-        if (response.status === 401) {
-            this.redirectToLogin();
-            return;
-        }
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
@@ -103,10 +99,6 @@ class SeatMapManager {
             headers: this.getAuthHeaders(),
             credentials: 'include'
         });
-        if (response.status === 401) {
-            this.redirectToLogin();
-            return;
-        }
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const json = await response.json();
@@ -229,12 +221,21 @@ class SeatMapManager {
     }
 
     drawSeatNodes(svg) {
+        let count = 0;
         this.allSeats.forEach((asiento) => {
             const [fila, numero] = this.parseAsientoCoords(asiento);
-            if (!fila || !numero) return;
+            if (!fila || !numero) {
+                console.log('Asiento inválido:', asiento);
+                return;
+            }
             
             const x = this.padLeft + (numero - 1) * this.xStep;
             const y = this.padTop + (fila - 1) * this.yStep;
+            
+            if (count < 5) {
+                console.log(`Asiento ${asiento.id}: fila ${fila}, numero ${numero}, x ${x}, y ${y}`);
+                count++;
+            }
             
             const seatGroup = this.createSvgNode('g', {
                 class: `seat-node seat-${asiento.estado}`,
@@ -274,7 +275,7 @@ class SeatMapManager {
             this.seatNodeMap.set(asiento.id, seatGroup);
         });
         
-        console.log(`[SeatMapManager] Dibujados ${this.seatNodeMap.size} asientos`);
+        console.log(`[SeatMapManager] Dibujados ${this.seatNodeMap.size} asientos, SVG children:`, svg.children.length);
     }
 
     drawSectorBackgrounds(svg) {
@@ -396,6 +397,15 @@ class SeatMapManager {
             fila = fila.charCodeAt(0) - 64; // 'A' -> 1, 'B' -> 2, etc
         }
         return [Number(fila), Number(asiento.numero)];
+    }
+
+    parseRowValue(value) {
+        // Convertir valor de fila (puede ser número o letra) a número
+        if (typeof value === 'string') {
+            // 'A' -> 1, 'B' -> 2, etc
+            return value.charCodeAt(0) - 64;
+        }
+        return Number(value);
     }
 
     // Utilities
