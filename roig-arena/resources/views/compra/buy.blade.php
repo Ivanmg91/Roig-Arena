@@ -25,28 +25,33 @@
     <div class="seatmap-container">
         <!-- LADO IZQUIERDO: MAPA DE ASIENTOS -->
         <div class="seatmap-area">
-            <h2>Selecciona tus asientos</h2>
-
+            <!-- Nueva: Contenedor del mapa SVG completo -->
+            <div class="seat-map-wrapper">
+                <svg id="seatMapSvg" 
+                    class="seat-map-svg"
+                    viewBox="0 0 960 560"
+                    role="img"
+                    aria-label="Mapa interactivo de asientos del evento">
+                </svg>
+            </div>
+            
             <!-- Leyenda -->
             <div class="legend">
                 <span class="legend-item">
                     <div class="seat seat-available"></div> Disponible
                 </span>
                 <span class="legend-item">
-                    <div class="seat seat-reserved"></div> Reservado
+                    <div class="seat seat-reserved"></div> Ocupado
                 </span>
                 <span class="legend-item">
                     <div class="seat seat-selected"></div> Seleccionado
                 </span>
             </div>
-
-            <!-- Vista del Estadio por Sector -->
-            <div class="stadium-layout">
-                <div class="stadium-view" id="stadiumView">
-                    <!-- JavaScript generará los sectores aquí -->
-                </div>
+            
+            <!-- Info del sector (opcional, si se quiere mantener) -->
+            <div id="sectorInfo" class="sector-info" style="display:none;">
+                <h3 id="sectorTitle"></h3>
             </div>
-            <div id="sectorSeats" class="sector-seats"></div>
         </div>
 
         <!-- LADO DERECHO: CARRITO FLOTANTE -->
