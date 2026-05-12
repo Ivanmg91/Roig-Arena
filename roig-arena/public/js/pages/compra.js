@@ -61,8 +61,33 @@ class SeatMapManager {
         console.error(message);
     }
 
+    getAuthHeaders() {
+        const token = localStorage.getItem('sanctum_token');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        const headers = {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': csrfToken
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        return headers;
+    }
+
+    redirectToLogin() {
+        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+    }
+
     async loadEventoData() {
-        const response = await fetch(`/api/eventos/${this.eventoId}/`);
+        const response = await fetch(`/api/eventos/${this.eventoId}/`, {
+            headers: this.getAuthHeaders(),
+            credentials: 'include'
+        });
+        if (response.status === 401) {
+            this.redirectToLogin();
+            return;
+        }
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
@@ -74,7 +99,14 @@ class SeatMapManager {
     }
 
     async loadAllSeats() {
-        const response = await fetch(`/api/eventos/${this.eventoId}/asientos`);
+        const response = await fetch(`/api/eventos/${this.eventoId}/asientos`, {
+            headers: this.getAuthHeaders(),
+            credentials: 'include'
+        });
+        if (response.status === 401) {
+            this.redirectToLogin();
+            return;
+        }
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const json = await response.json();
@@ -572,7 +604,7 @@ class SeatMapManager {
                 });
 
                 if (response.status === 401 || response.status === 302) {
-                    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                    this.redirectToLogin();
                     return;
                 }
 
@@ -741,7 +773,7 @@ class SeatMapManager {
             });
 
             if (response.status === 401 || response.status === 302) {
-                window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                this.redirectToLogin();
                 return;
             }
 
