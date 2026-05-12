@@ -242,16 +242,22 @@ class SeatMapManager {
                 'data-seat-id': asiento.id,
                 'data-fila': fila,
                 'data-numero': numero,
-                'aria-label': `Asiento fila ${fila} número ${numero}`
+                'aria-label': `Asiento fila ${fila} número ${numero}`,
+                tabindex: asiento.estado === 'disponible' ? '0' : '-1',
+                style: 'pointer-events: all;'
             });
             
             const circle = this.createSvgNode('circle', {
                 cx: x,
                 cy: y,
                 r: this.seatRadius,
-                class: 'seat-circle'
+                class: 'seat-circle',
+                style: 'pointer-events: all;'
             });
             
+            const title = this.createSvgNode('title', {});
+            title.textContent = `Sector ${asiento.sector_nombre || 'N/A'} · Fila ${fila} · Asiento ${numero}`;
+            seatGroup.appendChild(title);
             seatGroup.appendChild(circle);
             
             // Solo si está disponible, permitir click
@@ -260,6 +266,14 @@ class SeatMapManager {
                 seatGroup.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.toggleSeat(asiento);
+                });
+                
+                // Permitir seleccionar con teclado
+                seatGroup.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        this.toggleSeat(asiento);
+                    }
                 });
                 
                 // Hover efecto
@@ -529,12 +543,17 @@ class SeatMapManager {
     updateTotal() {
         let total = 0;
     
-    this.selectedSeats.forEach(asiento => {
-        const sectorId = asiento.sector_id;
+        this.selectedSeats.forEach(asiento => {
+            const sectorId = asiento.sector_id;
             const sector = this.data.data.sectores_disponibles.find(s => s.id == sectorId);
             const precio = Number(sector?.pivot?.precio || 0);
             total += precio;
         });
+
+        const totalAmount = document.getElementById('totalAmount');
+        if (totalAmount) {
+            totalAmount.textContent = total.toFixed(2).replace('.', ',') + '€';
+        }
     }
 
     saveCartToStorage() {

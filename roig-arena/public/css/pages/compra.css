@@ -682,12 +682,14 @@
 /* Nodos de asientos en SVG */
 .seat-node {
     transition: opacity 0.15s ease;
+    pointer-events: all;
 }
 
 .seat-node circle {
     fill: #e0e0e0;
     stroke: #999;
     stroke-width: 0.5;
+    pointer-events: all;
 }
 
 /* Disponible */

@@ -17,6 +17,7 @@ class AsientoSeeder extends Seeder
         $totalAsientos = 0;
         $this->asientos = [];
 
+        /** @var Sector $sector */
         foreach ($sectores as $sector) {
             $asientosSector = $this->generarAsientosPorSector($sector);
             $this->asientos = array_merge($this->asientos, $asientosSector);
@@ -37,11 +38,7 @@ class AsientoSeeder extends Seeder
         if (preg_match('/^Oeste (401|402|403)$/i', $sector->nombre)) {
             for ($fila = 1; $fila <= 3; $fila++) {
                 for ($numero = 1; $numero <= 5; $numero++) {
-                    $asientos[] = Asiento::create([
-                        'sector_id' => $sector->id,
-                        'fila' => (string) $fila,
-                        'numero' => $numero,
-                    ]);
+                    $asientos[] = $this->crearAsientoSector($sector, $fila, $numero);
                 }
             }
         }
@@ -50,11 +47,7 @@ class AsientoSeeder extends Seeder
         elseif (preg_match('/^Sur (301|302|303)$/i', $sector->nombre)) {
             for ($fila = 1; $fila <= 3; $fila++) {
                 for ($numero = 1; $numero <= 5; $numero++) {
-                    $asientos[] = Asiento::create([
-                        'sector_id' => $sector->id,
-                        'fila' => (string) $fila,
-                        'numero' => $numero,
-                    ]);
+                    $asientos[] = $this->crearAsientoSector($sector, $fila, $numero);
                 }
             }
         }
@@ -63,23 +56,17 @@ class AsientoSeeder extends Seeder
         elseif (preg_match('/^Este (201|202|203)$/i', $sector->nombre)) {
             for ($fila = 1; $fila <= 3; $fila++) {
                 for ($numero = 1; $numero <= 5; $numero++) {
-                    $asientos[] = Asiento::create([
-                        'sector_id' => $sector->id,
-                        'fila' => (string) $fila,
-                        'numero' => $numero,
-                    ]);
+                    $asientos[] = $this->crearAsientoSector($sector, $fila, $numero);
                 }
             }
         }
 
-        // Pistas: 1 fila x 8 asientos = 8 asientos
+        // Pista interior A/B/C: 4 filas x 5 asientos por sector
         elseif (str_starts_with($sector->nombre, 'PISTA')) {
-            for ($numero = 1; $numero <= 8; $numero++) {
-                $asientos[] = Asiento::create([
-                    'sector_id' => $sector->id,
-                    'fila' => 'A',
-                    'numero' => $numero,
-                ]);
+            for ($fila = 1; $fila <= 4; $fila++) {
+                for ($numero = 1; $numero <= 5; $numero++) {
+                    $asientos[] = $this->crearAsientoSector($sector, $fila, $numero);
+                }
             }
         }
         // CLUB: 10 filas x 20 asientos = 200 asientos
@@ -132,6 +119,18 @@ class AsientoSeeder extends Seeder
         }
 
         return $asientos;
+    }
+
+    private function crearAsientoSector(Sector $sector, int $filaRel, int $numeroRel)
+    {
+        $fila = $sector->fila_inicio + $filaRel - 1;
+        $numero = $sector->columna_inicio + $numeroRel - 1;
+
+        return Asiento::create([
+            'sector_id' => $sector->id,
+            'fila' => (string) $fila,
+            'numero' => $numero,
+        ]);
     }
 
     private function generarEstadoAsientosParaEvento($asientos, $eventoId): void
