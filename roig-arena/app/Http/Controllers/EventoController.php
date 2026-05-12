@@ -382,19 +382,20 @@ class EventoController extends Controller
     {
         $request->validate([
             'sector_id' => 'required|exists:sectores,id',
+            'precio' => 'required|numeric|min:0',
         ]);
 
         $evento = Evento::findOrFail($eventoId);
         $sectorId = $request->input('sector_id');
 
-        // Evita duplicados: verifica si el sector ya está asociado
-        $precio = Precio::firstOrCreate(
+        // Crea o actualiza el precio para el sector en este evento
+        $precio = Precio::updateOrCreate(
             [
                 'evento_id' => $eventoId,
                 'sector_id' => $sectorId,
             ],
             [
-                'precio' => 0,
+                'precio' => $request->input('precio'),
                 'disponible' => true,
             ]
         );

@@ -447,7 +447,7 @@
                                         class="event-sector_price-form"
                                         data-sector-price-editor
                                         data-sector-price-display="#sector-price-display-{{ $precio->id }}"
-                                        action="{{ route('admin.precios.update', ['id' => $precio->id]) }}"
+                                        action="{{ route('admin.precios.update', ['id' => $precio->id], false) }}"
                                         method="POST"
                                         hidden
                                     >

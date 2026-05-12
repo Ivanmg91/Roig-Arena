@@ -10,34 +10,61 @@ use Illuminate\Http\Request;
 class AsientoController extends Controller
 {
     /**
-     * Obtener asientos disponibles de un evento
+     * Obtener TODOS los asientos del evento con su estado y sector
+     * 
+     * Respuesta:
+     * {
+     *   "data": {
+     *     "total_filas": 12,
+     *     "total_columnas": 20,
+     *     "asientos": [{id, fila, numero, disponible, estado, sector_id, sector_nombre}, ...]
+     *   }
+     * }
      */
     public function porEvento($eventoId)
     {
         $evento = Evento::findOrFail($eventoId);
 
-        // Obtener sectores disponibles
-        $sectoresDisponibles = $evento->sectoresDisponibles()->pluck('id');
+        // Obtener sectores disponibles del evento
+        $sectoresDisponibles = $evento->sectoresDisponibles()->get();
+        $sectoresDisponiblesIds = $sectoresDisponibles->pluck('id');
 
-        // Obtener asientos de esos sectores
-        $asientos = Asiento::whereIn('sector_id', $sectoresDisponibles)
+        // Obtener TODOS los asientos de esos sectores
+        $asientos = Asiento::whereIn('sector_id', $sectoresDisponiblesIds)
             ->with('sector')
+            ->orderBy('sector_id')
+            ->orderBy('fila')
+            ->orderBy('numero')
             ->get()
             ->map(function ($asiento) use ($eventoId) {
+                $disponible = $asiento->estaDisponible($eventoId);
+                
                 return [
                     'id' => $asiento->id,
-                    'sector' => $asiento->sector->nombre,
                     'fila' => $asiento->fila,
                     'numero' => $asiento->numero,
-                    'disponible' => $asiento->estaDisponible($eventoId),
-                    'precio' => $asiento->sector->precios()
-                        ->where('evento_id', $eventoId)
-                        ->first()?->precio,
+                    'disponible' => $disponible,
+                    'estado' => $disponible ? 'disponible' : 'ocupado',
+                    'sector_id' => $asiento->sector_id,
+                    'sector_nombre' => $asiento->sector->nombre,
                 ];
             });
 
+        // Calcular dimensiones del estadio (12 filas x 20 columnas es estándar)
+        $totalFilas = $evento->sectores()
+            ->pluck('fila_fin')
+            ->max() ?? 12;
+        
+        $totalColumnas = $evento->sectores()
+            ->pluck('columna_fin')
+            ->max() ?? 20;
+
         return response()->json([
-            'data' => $asientos,
+            'data' => [
+                'total_filas' => (int)$totalFilas,
+                'total_columnas' => (int)$totalColumnas,
+                'asientos' => $asientos,
+            ],
         ]);
     }
 

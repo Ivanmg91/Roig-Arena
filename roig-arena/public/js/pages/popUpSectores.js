@@ -132,6 +132,21 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.disabled = true;
         btn.textContent = 'Añadiendo...';
 
+        const precioInput = prompt('Introduce el precio para este sector (en euros):', '0.00');
+        if (precioInput === null) {
+            btn.disabled = false;
+            btn.textContent = 'Añadir';
+            return;
+        }
+
+        const precioValue = parseFloat(precioInput.replace(',', '.'));
+        if (isNaN(precioValue) || precioValue <= 0) {
+            alert('Por favor, introduce un precio válido (número positivo).');
+            btn.disabled = false;
+            btn.textContent = 'Añadir';
+            return;
+        }
+
         fetch(attachUrl, {
             method: 'POST',
             headers: {
@@ -139,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': csrfToken,
             },
-            body: JSON.stringify({ sector_id: id }),
+            body: JSON.stringify({ sector_id: id, precio: precioValue }),
         })
             .then(response => response.json().then(body => ({ status: response.status, body })))
             .then(({ status, body }) => {
