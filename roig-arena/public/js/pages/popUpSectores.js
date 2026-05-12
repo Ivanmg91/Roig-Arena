@@ -4,10 +4,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // El botón abre el modal de gestión de sectores del evento.
-    const addBtn = document.querySelector('[data-add-sector-button]');
+    const addBtns = document.querySelectorAll('[data-add-sector-button]');
     const modal = document.querySelector('#sector-modal');
 
-    if (!addBtn || !modal) return;
+    if (!addBtns.length || !modal) return;
 
     const backdrop = modal.querySelector('[data-modal-backdrop]');
     const closeButtons = modal.querySelectorAll('[data-modal-close]');
@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <button type="button" class="btn btn-sm btn-primary add-sector-btn" data-sector-id="${id}" ${associated ? 'disabled' : ''}>
                         ${associated ? 'Añadido' : 'Añadir'}
                     </button>
-                    ${`<button type="button" class="btn btn-sm btn-danger delete-sector-btn" data-sector-id="${id}">Borrar</button>`}
                 </div>
             `;
 
@@ -119,17 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (addBtn) {
             addBtn.disabled = true;
             addBtn.textContent = 'Añadido';
-        }
-
-        if (!row.querySelector('.delete-sector-btn')) {
-            const id = row.getAttribute('data-sector-id');
-            const deleteBtn = document.createElement('button');
-            deleteBtn.type = 'button';
-            deleteBtn.className = 'btn btn-sm btn-danger delete-sector-btn';
-            deleteBtn.setAttribute('data-sector-id', id || '');
-            deleteBtn.textContent = 'Borrar';
-            deleteBtn.addEventListener('click', onDeleteSector);
-            row.querySelector('.sector-actions')?.appendChild(deleteBtn);
         }
     }
 
@@ -179,54 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn.disabled = false;
                 btn.textContent = 'Añadir';
                 alert(error.message || 'Error de red al añadir sector');
-            });
-    }
-
-    // Elimina el sector globalmente. Si el backend responde bien, también se quita de la tabla.
-    function onDeleteSector(e) {
-        e.preventDefault();
-
-        if (!confirm('¿Estás seguro de que quieres borrar definitivamente este sector?')) return;
-
-        const btn = e.currentTarget;
-        const id = Number(btn.getAttribute('data-sector-id'));
-        if (!id) return;
-
-        btn.disabled = true;
-        btn.textContent = 'Borrando...';
-
-        const formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('_method', 'DELETE');
-
-        fetch(`/admin/sectores/${id}`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json',
-            },
-        })
-            .then(response => response.json().then(body => ({ status: response.status, body })))
-            .then(({ status, body }) => {
-                if (status < 200 || status >= 300) {
-                    throw new Error(body.message || body.error || 'Error al borrar sector');
-                }
-
-                const index = existing.indexOf(id);
-                if (index > -1) existing.splice(index, 1);
-
-                removeSectorRowFromTable(id);
-
-                const row = btn.closest('.sector-row');
-                if (row) {
-                    row.remove();
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                btn.disabled = false;
-                btn.textContent = 'Borrar';
-                alert(error.message || 'Error de red al borrar sector');
             });
     }
 
@@ -341,7 +281,12 @@ document.addEventListener('DOMContentLoaded', function () {
             </td>
         `;
 
-        tableBody.appendChild(row);
+        const addRow = tableBody.querySelector('.pricing-table-add-row');
+        if (addRow) {
+            tableBody.insertBefore(row, addRow);
+        } else {
+            tableBody.appendChild(row);
+        }
     }
 
     // Escapa texto dinámico para evitar inyectar HTML accidentalmente.
@@ -356,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Conecta los eventos del modal.
-    addBtn.addEventListener('click', openModal);
+    addBtns.forEach(button => button.addEventListener('click', openModal));
     backdrop?.addEventListener('click', closeModal);
     closeButtons.forEach(button => button.addEventListener('click', closeModal));
 

@@ -263,6 +263,28 @@
   margin-top: 0;
 }
 
+.pricing-table-add-row td {
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-accent);
+}
+
+.pricing-table-add-row .btn-add-sector-row {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 0;
+  font-weight: 700;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+}
+
+.pricing-table-add-row .btn-add-sector-row:hover,
+.pricing-table-add-row .btn-add-sector-row:focus-visible {
+  opacity: 0.95;
+}
+
 .pricing-table-actions {
   text-align: center;
 }

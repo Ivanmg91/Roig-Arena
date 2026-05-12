@@ -58,13 +58,8 @@ class EventoController extends Controller
      */
     public function sectorEditor($eventoId)
     {
-        $evento = Evento::with(['precios.sector'])
-            ->findOrFail($eventoId);
-
-        $sectoresIniciales = $evento->precios
-            ->pluck('sector')
-            ->filter()
-            ->values();
+        $evento = Evento::findOrFail($eventoId);
+        $sectoresIniciales = Sector::activos()->get();
 
         return view('eventos.sectores-editor', [
             'evento' => $evento,

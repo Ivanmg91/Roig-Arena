@@ -65,7 +65,8 @@ function initPriceInlineEditors() {
 
                 const response = await fetch(form.action, {
                     method: 'POST',
-                    credentials: 'same-origin',
+                    credentials: 'include',
+                    mode: 'cors',
                     headers: {
                         'X-CSRF-TOKEN': csrfToken,
                         'X-Requested-With': 'XMLHttpRequest',

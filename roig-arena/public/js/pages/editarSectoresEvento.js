@@ -423,6 +423,35 @@
             delete actionPopup.dataset.sectorId;
         }
 
+        function deleteSector(sectorId) {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (!csrfToken) {
+                alert('Error: CSRF token no encontrado');
+                return;
+            }
+
+            fetch('/admin/sectores/' + sectorId, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Recargar la página para actualizar el mapa
+                    window.location.reload();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.message || 'Error al borrar el sector');
+                    });
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        }
+
         // Cierra popup al clicar fuera
         document.addEventListener('click', function () {
             hideActionPopup();
@@ -435,7 +464,9 @@
             if (delBtn) delBtn.addEventListener('click', function (ev) {
                 ev.stopPropagation();
                 const id = actionPopup.dataset.sectorId;
-                console.log('Borrar sector (pendiente):', id);
+                if (confirm('¿Estás seguro de que quieres borrar este sector?')) {
+                    deleteSector(id);
+                }
                 hideActionPopup();
             });
             if (editBtn) editBtn.addEventListener('click', function (ev) {
@@ -466,10 +497,12 @@
 
             const nombre = window.prompt('Nombre del sector', 'Nuevo sector');
             if (nombre === null) return; // usuario canceló
+            const desc = window.prompt('Descripción del sector', 'Descripción del sector');
             const color_hex = window.prompt('Color (hex)', '#5ba8ff') || '#5ba8ff';
 
             const payload = {
                 nombre: nombre,
+                descripcion: desc,
                 color_hex: color_hex,
                 inicio: { fila: filaInicio, columna: colInicio },
                 fin: { fila: filaFin, columna: colFin },
@@ -533,43 +566,12 @@
                 if (normalized) {
                     console.log('Sector creado (normalized):', normalized);
                 } else {
-                    console.log('Sector creado (provisional): no normalized data from server, will reload from API');
+                    console.log('Sector creado (provisional): no normalized data from server, will reload desde API');
                 }
 
-                // En el editor visual trabajamos a nivel de EVENTO: el listado de sectores del evento
-                // se basa en la relación via `precios`. Crear el sector globalmente NO lo vincula al evento,
-                // así que primero lo asociamos y luego recargamos los sectores del evento para repintar.
                 if (eventoId) {
-                    if (createdSectorId) {
-                        try {
-                            const attachRes = await fetch('/admin/eventos/' + eventoId + '/sectores', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': csrf || '',
-                                },
-                                body: JSON.stringify({ sector_id: createdSectorId }),
-                                credentials: 'same-origin',
-                            });
-
-                            if (!attachRes.ok) {
-                                let errText = 'Sector creado, pero no se pudo asociar al evento.';
-                                try {
-                                    const j = await attachRes.json();
-                                    errText = j.message || (j.errors ? JSON.stringify(j.errors) : errText);
-                                } catch (e) {}
-                                console.warn(errText);
-                            }
-                        } catch (e) {
-                            console.error('Error asociando sector al evento:', e);
-                        }
-                    } else {
-                        console.warn('No se pudo obtener el id del sector creado; no se puede asociar al evento automáticamente.');
-                    }
-
                     try {
-                        const listRes = await fetch('/api/eventos/' + eventoId + '/sectores', {
+                        const listRes = await fetch('/api/sectores', {
                             method: 'GET',
                             headers: { 'Accept': 'application/json' },
                             credentials: 'same-origin',
@@ -578,7 +580,6 @@
                         if (listRes.ok) {
                             const listJson = await listRes.json();
                             const data = Array.isArray(listJson.data) ? listJson.data : [];
-                            // Reemplazamos contenido de sectors in-place para mantener la referencia.
                             sectors.length = 0;
                             data.forEach(s => sectors.push(s));
                         } else {

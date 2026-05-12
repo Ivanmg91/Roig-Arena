@@ -357,12 +357,6 @@
         <p class="muted event-prices-intro">Selecciona tu sector y compra tu entrada</p>
         @auth
             @if(auth()->user()->isAdmin())
-                <button type="button"
-                        class="event-title-edit-button event-poster-edit-button"
-                        data-add-sector-button
-                        aria-label="Agregar sectores al evento">
-                    +
-                </button>
                 <!-- Popup lista sectores -->
                 <div id="sector-modal" class="modal" hidden
                     data-modal
@@ -453,7 +447,7 @@
                                         class="event-sector_price-form"
                                         data-sector-price-editor
                                         data-sector-price-display="#sector-price-display-{{ $precio->id }}"
-                                        action="{{ route('admin.precios.update', ['id' => $precio->id], false) }}"
+                                        action="{{ route('admin.precios.update', ['id' => $precio->id]) }}"
                                         method="POST"
                                         hidden
                                     >
@@ -489,6 +483,17 @@
                         @endauth
                     </tr>
                 @endforeach
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <tr class="pricing-table-add-row">
+                            <td colspan="4">
+                                <button type="button" class="btn btn-primary btn-add-sector-row" data-add-sector-button aria-label="Agregar sectores al evento">
+                                    + Agregar sectores al evento
+                                </button>
+                            </td>
+                        </tr>
+                    @endif
+                @endauth
             </tbody>
         </table>
 
