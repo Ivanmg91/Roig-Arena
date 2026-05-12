@@ -499,13 +499,6 @@
             if (nombre === null) return; // usuario canceló
             const desc = window.prompt('Descripción del sector', 'Descripción del sector');
             const color_hex = window.prompt('Color (hex)', '#5ba8ff') || '#5ba8ff';
-            const precioInput = window.prompt('Precio del sector para este evento', '0');
-            if (precioInput === null) return;
-            const precio = Number(precioInput);
-            if (!Number.isFinite(precio) || precio < 0) {
-                alert('El precio debe ser un número mayor o igual a 0.');
-                return;
-            }
 
             const payload = {
                 nombre: nombre,
@@ -566,36 +559,6 @@
 
                 const normalized = normalizeServerSector(maybe);
 
-                const createdSectorId = (maybe && (maybe.id || (maybe.attributes && maybe.attributes.id)))
-                    ? Number(maybe.id || maybe.attributes.id)
-                    : null;
-
-                // Si estamos en editor de evento, vinculamos el sector nuevo al evento con su precio.
-                if (eventoId && Number.isFinite(createdSectorId)) {
-                    const attachRes = await fetch('/admin/eventos/' + eventoId + '/sectores', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': csrf || '',
-                        },
-                        body: JSON.stringify({
-                            sector_id: createdSectorId,
-                            precio: precio,
-                        }),
-                        credentials: 'same-origin',
-                    });
-
-                    if (!attachRes.ok) {
-                        let errText = 'Sector creado, pero no se pudo vincular al evento.';
-                        try {
-                            const j = await attachRes.json();
-                            errText = j.message || (j.errors ? JSON.stringify(j.errors) : errText);
-                        } catch (e) {}
-                        alert(errText);
-                    }
-                }
-
                 if (normalized) {
                     console.log('Sector creado (normalized):', normalized);
                 } else {
@@ -604,7 +567,7 @@
 
                 if (eventoId) {
                     try {
-                        const listRes = await fetch('/api/eventos/' + eventoId + '/sectores', {
+                        const listRes = await fetch('/api/sectores', {
                             method: 'GET',
                             headers: { 'Accept': 'application/json' },
                             credentials: 'same-origin',
