@@ -133,7 +133,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Sesión cerrada correctamente']);
         }
 
-        // Redirigir a la página de inicio
-        return redirect('/');
+        // Redirigir a la página de inicio con ruta relativa para evitar host incorrecto detrás de proxy
+        return redirect()->away(route('home', [], false));
     }
 }
