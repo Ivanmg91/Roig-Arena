@@ -140,7 +140,10 @@
             {{-- Total y botón de pago --}}
             <div class="payment-modal-footer">
                 <p class="payment-total">Total: <strong id="paymentTotal">0,00€</strong></p>
-                <button id="payBtn" class="btn btn-primary payment-pay-btn">Pagar ahora</button>
+                <div class="payment-modal-buttons">
+                    <button id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                    <button id="payBtn" class="btn btn-primary payment-pay-btn">Pagar ahora</button>
+                </div>
             </div>
         </div>
     </div>

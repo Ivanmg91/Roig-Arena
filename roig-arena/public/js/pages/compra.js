@@ -651,6 +651,7 @@ class SeatMapManager {
     setupEventListeners() {
         document.getElementById('confirmBtn').addEventListener('click', () => this.proceedToCheckout());
         document.getElementById('payBtn').addEventListener('click', () => this.confirmPayment());
+        document.getElementById('cancelBtn').addEventListener('click', () => this.cancelPayment());
         document.getElementById('closePaymentModal').addEventListener('click', () => this.closePaymentModal());
     }
 
@@ -811,6 +812,21 @@ class SeatMapManager {
             await this.cancelarReservasActivas();
         } catch (error) {
             console.error('Error cancelando reservas expiradas:', error);
+        }
+
+        this.selectedSeats.clear();
+        localStorage.removeItem('seatmap_cart');
+        this.updateSeatVisuals();
+        this.updateCart();
+        this.closePaymentModal();
+        this.renderSeatMap();
+    }
+
+    async cancelPayment() {
+        try {
+            await this.cancelarReservasActivas();
+        } catch (error) {
+            console.error('Error cancelando reservas:', error);
         }
 
         this.selectedSeats.clear();

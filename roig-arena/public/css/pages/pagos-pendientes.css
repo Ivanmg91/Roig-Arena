@@ -362,6 +362,49 @@
   }
 }
 
+/* Estilos para el botón de eliminar entrada */
+.btn-remove-entrada {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid rgba(245, 48, 3, 0.4);
+  border-radius: 50%;
+  background: rgba(245, 48, 3, 0.1);
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-remove-entrada:hover {
+  background: rgba(245, 48, 3, 0.25);
+  border-color: rgba(245, 48, 3, 0.6);
+  transform: scale(1.1);
+}
+
+.btn-remove-entrada:active {
+  transform: scale(0.95);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    max-height: 100%;
+    margin: 0;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .pago-evento-card {
     padding: 1rem;

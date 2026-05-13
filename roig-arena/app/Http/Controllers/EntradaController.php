@@ -115,7 +115,12 @@ class EntradaController extends Controller
             ]);
         }
 
+        $evento = $entrada->evento;
         $entrada->delete();
+
+        if ($evento) {
+            $evento->comprobarEvento();
+        }
 
         return response()->json([
             'message' => 'Compra cancelada correctamente.',

@@ -379,6 +379,17 @@
   min-width: 156px;
 }
 
+.payment-modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.payment-modal-buttons .btn {
+  flex: 1;
+  min-height: 44px;
+}
+
 .seat-map-wrapper {
   position: relative;
   display: flex;

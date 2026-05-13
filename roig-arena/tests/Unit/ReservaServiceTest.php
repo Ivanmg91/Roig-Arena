@@ -100,4 +100,35 @@ class ReservaServiceTest extends TestCase
 
         $this->assertCount(0, $reservas);
     }
+
+    public function test_cancela_reserva_y_actualiza_disponibilidad_del_sector()
+    {
+        $user = User::factory()->create();
+        $evento = Evento::factory()->create();
+        $sector = Sector::factory()->create();
+        $asiento = Asiento::factory()->create(['sector_id' => $sector->id]);
+
+        Precio::factory()->create([
+            'evento_id' => $evento->id,
+            'sector_id' => $sector->id,
+            'disponible' => false,
+        ]);
+
+        $reserva = EstadoAsiento::factory()->create([
+            'evento_id' => $evento->id,
+            'asiento_id' => $asiento->id,
+            'user_id' => $user->id,
+            'estado' => 'RESERVADO',
+        ]);
+
+        $resultado = $this->service->cancelarReserva($reserva->id, $user->id);
+
+        $this->assertTrue($resultado);
+        $this->assertDatabaseMissing('estado_asientos', ['id' => $reserva->id]);
+        $this->assertDatabaseHas('precios', [
+            'evento_id' => $evento->id,
+            'sector_id' => $sector->id,
+            'disponible' => true,
+        ]);
+    }
 }

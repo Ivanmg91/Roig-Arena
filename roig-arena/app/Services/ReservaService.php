@@ -80,7 +80,12 @@ class ReservaService
             ->where('estado', 'RESERVADO')
             ->firstOrFail();
 
+        $evento = $reserva->evento;
         $reserva->delete();
+
+        if ($evento) {
+            $evento->comprobarEvento();
+        }
 
         return true;
     }

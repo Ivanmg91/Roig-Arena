@@ -283,9 +283,10 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 
 ### Errores detectados
 
+- Si se agotan las entradas de un sector el sector estará agotado, pero si esta agotado y cancelas una entrada no vuelve a estar disponible
+
 ### Por hacer ahora que recuerde
 
-- Boton que marque y desmarque todos los eventos de golpe
 - En el popup que se abre para pagar se deberia poder quitar asientos de pagar y poder cancelar todo y quitar el timer
 
 ## Otros

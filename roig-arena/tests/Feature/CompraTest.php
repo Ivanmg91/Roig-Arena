@@ -7,8 +7,11 @@ use App\Models\User;
 use App\Models\Evento;
 use App\Models\Asiento;
 use App\Models\EstadoAsiento;
+use App\Models\Entrada;
 use App\Models\Precio;
+use App\Models\Sector;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 class CompraTest extends TestCase
 {
@@ -110,5 +113,45 @@ class CompraTest extends TestCase
         $entrada = $user->entradas()->first();
         $this->assertNotNull($entrada->codigo_qr);
         $this->assertEquals(32, strlen($entrada->codigo_qr));
+    }
+
+    public function test_al_cancelar_entrada_se_actualiza_disponibilidad_del_sector()
+    {
+        $user = User::factory()->create();
+        $evento = Evento::factory()->create();
+        $sector = Sector::factory()->create();
+        $asiento = Asiento::factory()->create(['sector_id' => $sector->id]);
+
+        Precio::factory()->create([
+            'evento_id' => $evento->id,
+            'sector_id' => $sector->id,
+            'disponible' => false,
+        ]);
+
+        $reserva = EstadoAsiento::factory()->create([
+            'evento_id' => $evento->id,
+            'asiento_id' => $asiento->id,
+            'user_id' => $user->id,
+            'estado' => 'OCUPADO',
+            'reservado_hasta' => null,
+        ]);
+
+        $entrada = Entrada::create([
+            'user_id' => $user->id,
+            'evento_id' => $evento->id,
+            'asiento_id' => $asiento->id,
+            'precio_pagado' => 50,
+            'codigo_qr' => Str::random(32),
+        ]);
+
+        $response = $this->actingAs($user)->deleteJson("/api/entradas/{$entrada->id}/cancelar");
+
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('entradas', ['id' => $entrada->id]);
+        $this->assertDatabaseHas('precios', [
+            'evento_id' => $evento->id,
+            'sector_id' => $sector->id,
+            'disponible' => true,
+        ]);
     }
 }

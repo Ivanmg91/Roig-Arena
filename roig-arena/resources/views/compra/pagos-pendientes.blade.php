@@ -54,6 +54,7 @@
                                     <div class="entrada-precio">
                                         {{ number_format($reserva['precio_asiento'], 2, ',', '.') }} €
                                     </div>
+                                    <button class="btn-remove-entrada" onclick="eliminarEntrada(event, {{ $reserva['id'] }})" aria-label="Eliminar entrada">×</button>
                                 </li>
                             @endforeach
                         </ul>
@@ -120,6 +121,7 @@
             <div class="payment-modal-footer">
                 <p class="payment-total">Total: <strong id="paymentTotal">0,00€</strong></p>
                 <button id="payBtn" class="btn btn-primary payment-pay-btn" onclick="procesarPago()">Pagar ahora</button>
+                <button id="cancelBtn" class="btn btn-secondary">Cancelar Pago</button>
             </div>
         </div>
     </div>
@@ -264,8 +266,95 @@
             });
         }
 
+        /**
+         * Elimina una entrada específica de la tabla estado_asientos
+         */
+        async function eliminarEntrada(event, reservaId) {
+            event.preventDefault();
+            
+            if (!confirm('¿Estás seguro de que deseas eliminar esta entrada?')) {
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('sanctum_token');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                const headers = {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    Authorization: token ? `Bearer ${token}` : ''
+                };
+
+                const response = await fetch(`/api/reservas/${reservaId}`, {
+                    method: 'DELETE',
+                    headers,
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    // Animar y remover el elemento
+                    const entradaItem = document.querySelector(`[data-reserva-id="${reservaId}"]`);
+                    if (entradaItem) {
+                        entradaItem.style.animation = 'fadeOut 0.3s ease-out forwards';
+                        setTimeout(() => {
+                            entradaItem.remove();
+                            // Recargar para actualizar totales
+                            location.reload();
+                        }, 300);
+                    }
+                } else {
+                    alert('Error al eliminar la entrada');
+                }
+            } catch (error) {
+                console.error('Error eliminando entrada:', error);
+                alert('Error al eliminar la entrada');
+            }
+        }
+
+        /**
+         * Cancela todas las reservas pendientes y cierra el modal
+         */
+        async function cancelarPago() {
+            if (!currentReservas || currentReservas.length === 0) {
+                cerrarModalPago();
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('sanctum_token');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                const headers = {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    Authorization: token ? `Bearer ${token}` : ''
+                };
+
+                // Cancelar cada reserva
+                const requests = currentReservas
+                    .filter(reserva => Number.isFinite(Number(reserva?.id)))
+                    .map(reserva => fetch(`/api/reservas/${reserva.id}`, {
+                        method: 'DELETE',
+                        headers,
+                        credentials: 'include'
+                    }));
+
+                await Promise.allSettled(requests);
+                
+                alert('Reservas canceladas');
+                cerrarModalPago();
+                location.reload();
+            } catch (error) {
+                console.error('Error cancelando reservas:', error);
+                alert('Error al cancelar las reservas');
+            }
+        }
+
+
         // Event listeners
         document.getElementById('closePaymentModal')?.addEventListener('click', cerrarModalPago);
+        document.getElementById('cancelBtn')?.addEventListener('click', cancelarPago);
 
         // Cerrar modal al hacer click fuera
         document.getElementById('paymentModal')?.addEventListener('click', (e) => {

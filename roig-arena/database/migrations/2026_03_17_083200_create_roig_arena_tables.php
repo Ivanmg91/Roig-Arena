@@ -56,8 +56,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('descripcion_corta', 255); // Para listados
             $table->text('descripcion_larga'); // Para la página del evento
-            $table->string('poster_url')->nullable(); // URL de la imagen
-            $table->string('poster_ancho_url')->nullable(); // URL de la imagen ancha
+            $table->text('poster_url')->nullable(); // URL de la imagen
+            $table->text('poster_ancho_url')->nullable(); // URL de la imagen ancha
             $table->date('fecha'); // Puede ir a más de un evento por día, pero no a la vez
             $table->time('hora')->nullable(); // Hora del evento
             $table->timestamps();
@@ -71,7 +71,7 @@ return new class extends Migration
             // ahora los artistas son un catálogo independiente; las relaciones con eventos
             // se gestionan en la tabla pivote `artista_evento` creada más abajo
             $table->text('descripcion')->nullable();
-            $table->string('imagen_url')->nullable();
+            $table->text('imagen_url')->nullable();
             $table->timestamps();
         });
 
