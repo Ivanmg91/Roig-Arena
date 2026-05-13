@@ -1,50 +1,37 @@
-/* eventos.css – estilos para el listado y tarjetas de eventos */
+/* eventos.css – estilos para listados, tickets y tablas de eventos */
 
-.event-card {
+.eventos-header {
+  margin-bottom: 1.75rem;
+}
+
+.eventos-header h1 {
   display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  background: var(--color-card);
-  color: var(--color-primary);
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  transition: var(--transition);
-  overflow: hidden;
-  position: relative;
-  height: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
 }
 
 .event-card-wrapper {
   position: relative;
 }
 
-.event-card-trash {
-  position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
-  border: none;
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--color-white);
-  border-radius: 999px;
-  width: 2.4rem;
-  height: 2.4rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.event-card-trash:hover,
-.event-card-trash:focus-visible {
-  background: rgba(0, 0, 0, 0.65);
-  transform: translateY(-1px);
+.event-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-primary);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: var(--transition);
 }
 
 .event-card:hover {
-  border-color: rgba(245, 48, 3, 0.5);
-  box-shadow: 0 6px 24px rgba(245, 48, 3, 0.12);
-  transform: translateY(-3px);
+  border-color: rgba(245, 48, 3, 0.45);
+  box-shadow: 0 8px 28px rgba(245, 48, 3, 0.12);
+  transform: translateY(-2px);
   opacity: 1;
 }
 
@@ -54,33 +41,32 @@
 
 .event-card-image {
   width: 100%;
-  aspect-ratio: 1 / 0;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-bottom: 1px solid var(--color-border);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  object-position: center;
   display: block;
+  border-bottom: 1px solid var(--color-border);
+  transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
 .event-card:hover .event-card-image {
-  transform: scale(1.03);
-  opacity: 0.94;
+  transform: scale(1.025);
+  opacity: 0.95;
 }
 
 .event-card-body {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 0.5rem;
   flex: 1;
-  padding: 1.1rem 1.2rem 1.2rem;
+  padding: 1.05rem 1.15rem 1.15rem;
 }
 
 .event-card-title {
-  font-size: 1.05rem;
+  margin: 0;
+  font-size: 1.03rem;
   font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: -0.005em;
-  margin: 0 0 0.6rem;
   line-height: 1.35;
-  flex-grow: 1;
+  color: var(--color-primary);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -89,30 +75,45 @@
 }
 
 .event-meta {
-  color: var(--color-muted);
-  font-size: 0.82rem;
   margin: 0;
-  line-height: 1.5;
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  color: var(--color-muted);
+  font-size: 0.83rem;
+  line-height: 1.5;
 }
 
 .event-meta strong {
-  color: rgba(237, 237, 236, 0.78);
+  color: rgba(237, 237, 236, 0.84);
   font-weight: 600;
 }
 
-/* Cabecera sección de listado */
-.eventos-header {
-  margin-bottom: 1.75rem;
+.event-card-trash {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(8, 10, 14, 0.62);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.eventos-header h1 {
-  margin-bottom: 0.4rem;
+.event-card-trash:hover,
+.event-card-trash:focus-visible {
+  background: rgba(245, 48, 3, 0.16);
+  border-color: rgba(245, 48, 3, 0.48);
+  color: #ff9e87;
+  transform: translateY(-1px);
 }
 
-/* Tarjetas de entradas en horizontal */
 .ticket-list {
   display: grid;
   gap: 0.75rem;
@@ -134,20 +135,20 @@
 
 .ticket-side {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.42rem;
   text-align: right;
 }
 
 .ticket-event-name {
   margin: 0 0 0.45rem;
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   line-height: 1.3;
 }
 
 .ticket-seat {
   display: block;
-  margin-top: 0.6rem;
-  font-size: 1rem;
+  margin-top: 0.55rem;
+  font-size: 0.98rem;
   line-height: 1.35;
 }
 
@@ -158,90 +159,96 @@
   text-align: right;
 }
 
-.ticket-download-btn {
-  margin-top: 0.45rem;
+.ticket-download-btn,
+.ticket-cancel-btn {
+  margin-top: 0.4rem;
 }
 
-/* Detalle evento */
+.ticket-cancel-btn {
+  border-color: rgba(255, 128, 128, 0.35);
+  color: #ffb1b1;
+  background: rgba(255, 60, 60, 0.08);
+  box-shadow: none;
+}
+
+.ticket-cancel-btn:hover {
+  background: rgba(255, 60, 60, 0.14);
+  border-color: rgba(255, 128, 128, 0.6);
+  color: #ffd2d2;
+}
+
 .event-detail-title {
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-  font-weight: 800;
   margin: 0 0 0.5rem;
   color: var(--color-primary);
-  letter-spacing: -0.02em;
   line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 800;
 }
 
 .event-detail-description {
+  margin: 0;
   color: var(--color-muted);
   font-size: 1rem;
-  line-height: 1.68;
-  margin: 0;
+  line-height: 1.66;
 }
 
-/* Tabla refinada */
-table {
+.pricing-table {
   display: block;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
   margin-top: 0;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
   overflow-x: auto;
-  background: var(--color-bg);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
-table thead,
-table tbody {
+.pricing-table thead,
+.pricing-table tbody {
   display: table;
   width: 100%;
-  min-width: 420px;
+  min-width: 460px;
   table-layout: fixed;
 }
 
-th, td {
+.pricing-table th,
+.pricing-table td {
   padding: 0.9rem 1rem;
   border-bottom: 1px solid var(--color-border);
   text-align: left;
   font-size: 0.9rem;
-  color: var(--color-primary);
   line-height: 1.5;
+  color: var(--color-primary);
 }
 
-th {
+.pricing-table th {
   background: var(--color-card);
-  font-weight: 700;
-  font-size: 0.72rem;
   color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-tr:last-child td {
+.pricing-table tr:last-child td {
   border-bottom: none;
 }
 
-tr:hover td {
+.pricing-table tr:hover td {
   background: rgba(255, 255, 255, 0.025);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .event-card-image {
     aspect-ratio: 2 / 1;
   }
 
   .event-card-body {
-    padding: 0.9rem 1rem 1rem;
+    padding: 0.92rem 1rem 1rem;
   }
 
   .event-card-title {
     font-size: 0.97rem;
-  }
-
-  .event-detail-title {
-    font-size: 1.35rem;
   }
 
   .ticket-card {
@@ -249,16 +256,17 @@ tr:hover td {
     align-items: flex-start;
   }
 
-  .ticket-side {
+  .ticket-side,
+  .ticket-code {
     text-align: left;
   }
 
   .ticket-code {
     white-space: normal;
-    text-align: left;
   }
 
-  .ticket-download-btn {
+  .ticket-download-btn,
+  .ticket-cancel-btn {
     width: 100%;
   }
 }

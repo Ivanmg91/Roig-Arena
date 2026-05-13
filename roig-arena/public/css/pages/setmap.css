@@ -1,52 +1,54 @@
-/* setmap.css – vista de mapa de asientos (setmap.blade.php) */
+/* setmap.css – estilos legacy de mapa de asientos alineados al tema global */
 
 .seatmap-container {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 1.75rem;
-  margin-top: 1.75rem;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 360px);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.seatmap-area {
+.seatmap-area,
+.checkout-sidebar {
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.seatmap-area {
+  padding: 1.5rem;
 }
 
 .seatmap-area h2 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
   color: var(--color-primary);
+  font-size: 1.08rem;
 }
 
-/* Estadio */
 .stadium-layout {
-  margin: 0 auto 1.5rem;
-  max-width: 860px;
+  margin: 0 auto 1.25rem;
+  max-width: 900px;
 }
 
 .stadium-view {
   position: relative;
-  width: min(100%, 860px);
+  width: min(100%, 900px);
   display: grid;
   gap: 0.75rem;
   margin: 0 auto;
   border-radius: var(--radius);
-  background: linear-gradient(180deg, #0b131f 0%, #070c15 56%, #090f18 100%);
+  background: linear-gradient(180deg, #121e2d 0%, #0d1520 48%, #0a1018 100%);
   padding: 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 32px rgba(0, 0, 0, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 14px 30px rgba(0, 0, 0, 0.34);
 }
 
-/* Sector */
 .sector-group {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .sector-group:last-child {
@@ -54,30 +56,28 @@
 }
 
 .sector-title {
-  font-size: 0.97rem;
-  font-weight: 700;
+  margin: 0 0 0.45rem;
   color: var(--color-accent);
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .sector-stats {
-  font-size: 0.82rem;
+  margin: 0 0 0.9rem;
   color: var(--color-muted);
-  margin-bottom: 0.9rem;
+  font-size: 0.82rem;
 }
 
-/* Grid asientos */
 .seats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 32px);
   gap: 5px;
 }
 
-/* Asiento individual */
 .seat {
   width: 32px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,50 +89,48 @@
 }
 
 .seat-available {
-  background: #1e4d38;
-  border-color: #2a6650;
-  color: #b8dece;
+  background: #1f7a58;
+  border-color: #4fc28b;
+  color: #d8f3e9;
 }
 
 .seat-available:hover {
-  transform: scale(1.12);
-  box-shadow: 0 0 0 2px rgba(42, 102, 80, 0.6);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 2px rgba(79, 194, 139, 0.45);
+}
+
+.seat-reserved,
+.seat-occupied {
+  cursor: not-allowed;
 }
 
 .seat-reserved {
-  background: #3a3a37;
-  border-color: #4a4a47;
-  color: #8a8a84;
-  cursor: not-allowed;
-  opacity: 0.7;
+  background: #553235;
+  border-color: #c96a71;
+  color: #f6ced3;
+  opacity: 0.68;
 }
 
 .seat-selected {
   background: var(--color-accent);
+  border-color: #ffb09c;
   color: #fff;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(245, 48, 3, 0.4);
-}
-
-.seat-selected:hover {
-  transform: scale(1.08);
+  box-shadow: 0 0 0 2px rgba(245, 48, 3, 0.35);
 }
 
 .seat-occupied {
-  background: #4a1e1e;
-  border-color: #6b2828;
-  color: #e09090;
-  cursor: not-allowed;
-  opacity: 0.6;
+  background: #3a3a37;
+  border-color: #585854;
+  color: #9d9d99;
+  opacity: 0.72;
 }
 
-/* Leyenda */
 .legend {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
-  margin-bottom: 1.25rem;
-  padding: 0.65rem 0.9rem;
+  margin-bottom: 1.1rem;
+  padding: 0.7rem 0.9rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
@@ -147,16 +145,11 @@
   font-weight: 500;
 }
 
-/* Carrito */
 .checkout-sidebar {
   position: sticky;
   top: calc(var(--nav-height) + 1rem);
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1.4rem;
+  padding: 1.2rem;
   height: fit-content;
-  box-shadow: var(--shadow);
 }
 
 .checkout-header {
@@ -166,52 +159,56 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.7rem;
 }
 
 .checkout-header h3 {
   margin: 0;
-  font-size: 0.97rem;
-  font-weight: 700;
   color: var(--color-primary);
+  font-size: 0.97rem;
 }
 
 .seat-count {
-  font-size: 0.8rem;
   color: var(--color-muted);
+  font-size: 0.8rem;
 }
 
 .selection-summary {
   margin-bottom: 0.75rem;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
 .selected-item {
-  padding: 0.5rem 0.65rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-sm);
-  margin-bottom: 0.45rem;
-  font-size: 0.82rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.45rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.82rem;
 }
 
 .selected-item-remove {
-  background: none;
-  border: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
   color: var(--color-muted);
   cursor: pointer;
   font-size: 0.9rem;
-  transition: color 0.18s ease;
+  transition: var(--transition);
   padding: 0 0.2rem;
 }
 
 .selected-item-remove:hover {
-  color: #ff6040;
+  color: #ff7a5a;
+  border-color: rgba(245, 48, 3, 0.22);
+  background: rgba(245, 48, 3, 0.12);
 }
 
 .price-breakdown {
@@ -224,15 +221,16 @@
 .price-line {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
+  gap: 0.5rem;
   color: var(--color-muted);
+  font-size: 0.85rem;
   margin: 0.3rem 0;
 }
 
 .price-line-total {
-  font-weight: 700;
   color: var(--color-accent);
   font-size: 0.97rem;
+  font-weight: 700;
 }
 
 .total-section {
@@ -241,16 +239,16 @@
 }
 
 .total-label {
-  font-size: 0.8rem;
-  color: var(--color-muted);
   margin: 0 0 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
 }
 
 .total-amount {
+  margin: 0;
+  color: var(--color-accent);
   font-size: clamp(1.4rem, 3.5vw, 1.9rem);
   font-weight: 800;
-  color: var(--color-accent);
-  margin: 0;
   letter-spacing: -0.02em;
 }
 
@@ -280,7 +278,7 @@
 @media (max-width: 600px) {
   .seatmap-area,
   .checkout-sidebar {
-    padding: 1.1rem;
+    padding: 1rem;
   }
 
   .seats-grid {

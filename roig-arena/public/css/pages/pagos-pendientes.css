@@ -1,432 +1,379 @@
-/* ──────────────────────────────────────────────────────
-   PAGOS PENDIENTES - ESTILOS
-   ────────────────────────────────────────────────────── */
+/* pagos-pendientes.css – vista de pagos pendientes alineada con el sistema global */
 
 .pagos-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
+  text-align: center;
+  margin-bottom: 2.25rem;
+  padding: 0.6rem 0;
 }
 
 .pagos-header h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: var(--text-dark, #000);
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  color: var(--color-primary);
 }
-
-.pagos-header .muted {
-    color: var(--text-muted, #666);
-    font-size: 1rem;
-}
-
-/* ─ Contenedor de pagos ────────────────────────────────── */
 
 .pagos-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
 }
 
-/* ─ Card de evento con pago pendiente ──────────────────── */
-
 .pago-evento-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  transition: var(--transition);
 }
 
 .pago-evento-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(245, 48, 3, 0.35);
+  box-shadow: 0 6px 20px rgba(245, 48, 3, 0.1);
+  transform: translateY(-1px);
 }
-
-/* ─ Header del evento ──────────────────────────────────── */
 
 .pago-evento-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    gap: 1rem;
-}
-
-.pago-evento-info {
-    flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .pago-evento-nombre {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-dark, #000);
-    line-height: 1.3;
+  margin: 0 0 0.45rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--color-primary);
 }
 
 .pago-evento-meta {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--text-muted, #666);
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
 }
 
 .pago-fecha {
-    display: block;
+  display: block;
 }
 
-/* ─ Monto pendiente ────────────────────────────────────── */
-
 .pago-evento-monto {
-    text-align: right;
-    padding: 0.75rem;
-    background: #f0f7ff;
-    border-radius: 8px;
-    min-width: 120px;
+  min-width: 130px;
+  text-align: right;
+  padding: 0.72rem 0.82rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(245, 48, 3, 0.25);
+  background: rgba(245, 48, 3, 0.1);
 }
 
 .pago-monto-text {
-    display: block;
-    font-size: 1.5rem;
-    color: #0066cc;
-    margin: 0 0 0.25rem 0;
+  display: block;
+  margin: 0 0 0.25rem;
+  font-size: 1.28rem;
+  color: var(--color-accent);
 }
 
 .pago-evento-monto small {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted, #666);
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.76rem;
 }
 
-/* ─ Listado de entradas ────────────────────────────────── */
-
 .pago-entradas-list {
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.95rem;
 }
 
 .pago-entradas-title {
-    margin: 0 0 0.75rem 0;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-dark, #000);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  margin: 0 0 0.72rem;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .entradas-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
 .entrada-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    background: #f9f9f9;
-    border-radius: 6px;
-    font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
 }
 
 .entrada-info {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
 }
 
 .entrada-asiento {
-    font-size: 1rem;
-    color: #0066cc;
-    min-width: 40px;
+  min-width: 40px;
+  color: var(--color-primary);
+  font-size: 0.94rem;
 }
 
 .entrada-sector {
-    color: var(--text-muted, #666);
-    font-size: 0.85rem;
+  color: var(--color-muted);
+  font-size: 0.84rem;
 }
 
 .entrada-precio {
-    font-weight: 600;
-    color: var(--text-dark, #000);
-    min-width: 60px;
-    text-align: right;
+  min-width: 60px;
+  text-align: right;
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
-/* ─ Footer del card ────────────────────────────────────── */
-
 .pago-evento-footer {
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-    margin-top: auto;
+  margin-top: auto;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--color-border);
 }
 
 .btn-pagar {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    font-weight: 600;
+  width: 100%;
 }
 
-/* ─ Modal de pago reutilizable ────────────────────────── */
-
 .payment-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 1rem;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 10, 14, 0.7);
+  backdrop-filter: blur(4px);
 }
 
 .payment-modal {
-    background: white;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
+  width: min(100%, 520px);
+  max-height: min(90vh, 760px);
+  overflow-y: auto;
+  display: grid;
+  gap: 0;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.payment-modal-header,
+.payment-summary,
+.payment-form,
+.payment-modal-footer {
+  padding: 1.15rem 1.2rem;
 }
 
 .payment-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .payment-modal-header h2 {
-    margin: 0;
-    font-size: 1.3rem;
-    color: var(--text-dark, #000);
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.2rem;
 }
 
 .payment-modal-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted, #666);
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 1.45rem;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .payment-modal-close:hover {
-    background-color: #f0f0f0;
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background: var(--color-card-hover);
 }
 
-/* ─ Timer de pago ──────────────────────────────────────── */
-
 .payment-timer {
-    background: #fff3cd;
-    color: #856404;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #ffc107;
-    text-align: center;
-    font-weight: 500;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  padding: 0.82rem 1.2rem;
+  text-align: center;
+  color: var(--color-muted);
+  background: rgba(245, 48, 3, 0.08);
 }
 
 .payment-timer strong {
-    font-size: 1.3rem;
-    color: #d39e00;
+  font-size: 1.12rem;
+  color: var(--color-accent);
 }
 
-/* ─ Resumen de pago ────────────────────────────────────── */
-
 .payment-summary {
-    padding: 1.5rem;
-    border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .payment-summary h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-    color: var(--text-dark, #000);
+  margin: 0 0 0.35rem;
+  color: var(--color-primary);
+  font-size: 1.02rem;
 }
 
 .payment-summary p {
-    margin: 0 0 1rem 0;
-    color: var(--text-muted, #666);
-    font-size: 0.9rem;
+  margin: 0 0 0.9rem;
+  color: var(--color-muted);
+  font-size: 0.88rem;
 }
 
 .entradas-modal-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: grid;
+  gap: 0.4rem;
 }
 
 .entrada-modal-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    background: #f9f9f9;
-    border-radius: 6px;
-    font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.72rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.88rem;
 }
 
 .entrada-modal-item span {
-    color: var(--text-dark, #000);
+  color: var(--color-primary);
 }
 
 .entrada-modal-item strong {
-    color: #0066cc;
+  color: var(--color-accent);
 }
 
-/* ─ Formulario de pago ────────────────────────────────── */
-
 .payment-form {
-    padding: 1.5rem;
-    border-bottom: 1px solid #eee;
-    flex: 1;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .payment-form h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-dark, #000);
+  margin: 0 0 0.9rem;
+  color: var(--color-primary);
+  font-size: 0.98rem;
 }
 
 .payment-field {
-    margin-bottom: 1rem;
+  display: grid;
+  gap: 0.32rem;
+  margin-bottom: 0.85rem;
 }
 
 .payment-field label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-dark, #000);
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .payment-field input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-family: monospace;
-    transition: border-color 0.2s;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  padding: 0.72rem 0.84rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .payment-field input:focus {
-    outline: none;
-    border-color: #0066cc;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(245, 48, 3, 0.12);
 }
 
 .payment-field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
 .payment-field-row .payment-field {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-/* ─ Footer del modal ───────────────────────────────────── */
-
 .payment-modal-footer {
-    padding: 1.5rem;
-    background: #f9f9f9;
-    border-top: 1px solid #eee;
+  display: grid;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .payment-total {
-    margin: 0 0 1rem 0;
-    font-size: 1.2rem;
-    text-align: right;
-    color: var(--text-dark, #000);
+  margin: 0;
+  text-align: right;
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+
+.payment-total strong {
+  color: var(--color-accent);
+  font-size: 1.18rem;
 }
 
 .payment-pay-btn {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
+  width: 100%;
 }
 
-/* ─ Responsive ────────────────────────────────────────── */
-
 @media (max-width: 768px) {
-    .pagos-container {
-        grid-template-columns: 1fr;
-    }
+  .pagos-container {
+    grid-template-columns: 1fr;
+  }
 
-    .pagos-header h1 {
-        font-size: 2rem;
-    }
+  .pago-evento-header {
+    flex-direction: column;
+  }
 
-    .pago-evento-header {
-        flex-direction: column;
-    }
+  .pago-evento-monto {
+    width: 100%;
+    text-align: left;
+  }
 
-    .pago-evento-monto {
-        width: 100%;
-        text-align: left;
-    }
-
-    .payment-modal {
-        max-width: 90vw;
-    }
-
-    .payment-field-row {
-        grid-template-columns: 1fr;
-    }
+  .payment-field-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
-    .pago-evento-card {
-        padding: 1rem;
-        gap: 1rem;
-    }
+  .pago-evento-card {
+    padding: 1rem;
+  }
 
-    .pagos-header {
-        padding: 1rem 0;
-        margin-bottom: 2rem;
-    }
+  .entrada-item {
+    flex-wrap: wrap;
+  }
 
-    .pagos-header h1 {
-        font-size: 1.5rem;
-    }
-
-    .payment-modal {
-        max-height: 95vh;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .entrada-item {
-        flex-wrap: wrap;
-    }
-
-    .entrada-precio {
-        width: 100%;
-        text-align: left;
-        margin-top: 0.5rem;
-    }
+  .entrada-precio {
+    width: 100%;
+    text-align: left;
+    margin-top: 0.2rem;
+  }
 }
