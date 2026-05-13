@@ -266,25 +266,22 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Sistema automatico
 
 - [x] Liberar reservas expiradas cada minuto (sin problemas detectados)
-- [ ] Protección contra race condition lockForUpdate (por hacer)
 - [ ] Transacciones DB (por hacer)
 - [ ] Logs de operaciones (por hacer)
 
 ### Seguridad
 
-- [ ] Autenticación con Laravel Sanctum tokens Bearer (revisar)
-- [ ] Middleware IsAdmin para rutas protegidas (revisar)
+- [x] Autenticación con Laravel Sanctum tokens Bearer (revisar)
+- [x] Middleware IsAdmin para rutas protegidas (revisar)
 - [ ] Validaciones en todos los endpoints (revisar)
 - [ ] Protección contra race condition lockForUpdate (revisar)
 - [ ] Transacciones DB para operaciones críticas (revisar)
-- [ ] Ocultación de datos sensibles password, tokens (revisar)
+- [x] Ocultación de datos sensibles password, tokens (revisar)
 - [ ] Soft deletes en users y eventos (revisar)
 - [x] Hash de contraseñas (sin problemas detectados)
-- [ ] Códigos HTTP correctos 200, 201, 400, 401, 403, 404 (revisar)
+- [x] Códigos HTTP correctos 200, 201, 400, 401, 403, 404 (revisar)
 
 ### Errores detectados
-
-- Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
 
 ### Por hacer ahora que recuerde
 
