@@ -216,6 +216,10 @@ body {
   color: var(--color-muted);
 }
 
+.text-muted {
+  color: var(--color-muted);
+}
+
 .no-margin {
   margin: 0;
 }
@@ -312,6 +316,32 @@ body {
   box-shadow: none;
 }
 
+.btn-outline-light {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #fff;
+}
+
+.btn-outline-danger {
+  background: transparent;
+  border: 1px solid rgba(255, 110, 110, 0.45);
+  color: #ffb3b3;
+  box-shadow: none;
+}
+
+.btn-outline-danger:hover {
+  background: rgba(255, 60, 60, 0.14);
+  border-color: rgba(255, 130, 130, 0.72);
+  color: #ffd8d8;
+}
+
 .btn-sm {
   padding: 0.48rem 1.1rem;
   font-size: 0.82rem;
@@ -320,6 +350,10 @@ body {
 .btn-lg {
   padding: 0.88rem 2rem;
   font-size: 1rem;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 /* ─── Badge ──────────────────────────────────────────────── */

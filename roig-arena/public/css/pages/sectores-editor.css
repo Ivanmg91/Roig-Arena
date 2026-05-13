@@ -1,139 +1,152 @@
 .sector-map-shell,
 .sector-side-panel {
-    min-height: 460px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 16px;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  min-height: 460px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+  box-shadow: var(--shadow-sm);
 }
 
 .sector-map-editor {
-    width: 100%;
-    border: 1px dashed rgba(255, 255, 255, 0.18);
-    border-radius: 14px;
-    background: radial-gradient(circle at 20% 0%, rgba(241, 146, 70, 0.18), rgba(0, 0, 0, 0));
-    overflow: hidden;
-}
-
-/* Permite posicionar el popup absoluto dentro del contenedor */
-.sector-map-editor {
-    position: relative;
+  position: relative;
+  width: 100%;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: calc(var(--radius) - 2px);
+  background: radial-gradient(circle at 20% 0%, rgba(245, 48, 3, 0.16), rgba(0, 0, 0, 0));
+  overflow: hidden;
 }
 
 .sector-map-svg {
-    width: 100%;
-    height: auto;
-    display: block;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .sector-selection-summary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    color: #c8d0dc;
-    font-size: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  color: rgba(237, 237, 236, 0.88);
+  font-size: 0.9rem;
 }
 
 .sector-map-bg {
-    fill: rgba(5, 9, 18, 0.9);
+  fill: rgba(8, 12, 20, 0.92);
 }
 
 .sector-map-stage {
-    fill: rgba(255, 205, 114, 0.82);
+  fill: rgba(245, 48, 3, 0.2);
+  stroke: rgba(245, 48, 3, 0.65);
+  stroke-width: 1.3;
 }
 
 .sector-map-stage-label {
-    fill: #4b2b00;
-    font-size: 11px;
-    letter-spacing: 1.2px;
-    font-weight: 700;
+  fill: rgba(255, 255, 255, 0.88);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  font-weight: 700;
 }
 
 .sector-map-grid-line {
-    stroke: rgba(216, 226, 248, 0.16);
-    stroke-width: 1;
+  stroke: rgba(216, 226, 248, 0.14);
+  stroke-width: 1;
 }
 
 .sector-map-axis-label {
-    fill: rgba(214, 223, 240, 0.7);
-    font-size: 11px;
-    font-weight: 600;
+  fill: rgba(214, 223, 240, 0.68);
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .seat-node {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .seat-node circle {
-    fill: #69c6ff;
-    stroke: #f4f8ff;
-    stroke-width: 1.6;
-    transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
+  fill: #69c6ff;
+  stroke: #f4f8ff;
+  stroke-width: 1.5;
+  transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
 }
 
-/*.seat-node:hover circle {
-    fill: #9bdbff;
-    transform: scale(1.14);
-}*/
-
 .seat-node.is-preview circle {
-    fill: #2fd4a7;
-    stroke: #dafceb;
+  fill: #2fd4a7;
+  stroke: #dafceb;
 }
 
 .seat-node.is-start circle {
-    fill: #ffd257;
-    stroke: #fff1c5;
+  fill: #ffd257;
+  stroke: #fff1c5;
 }
 
 .seat-node.is-end circle {
-    fill: #ff8f7a;
-    stroke: #ffe2db;
-}
-
-.sector-zone-bg {
-    pointer-events: none;
-}
-
-.sector-zone-label {
-    fill: rgba(240, 245, 255, 0.85);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    pointer-events: none;
-}
-
-.seat-node {
-    cursor: pointer;
+  fill: #ff8f7a;
+  stroke: #ffe2db;
 }
 
 /* Asientos que forman parte de un sector: no son clicables individualmente */
 .seat-node.in-sector {
-    pointer-events: none;
-    opacity: 0.92;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.sector-zone-bg {
+  pointer-events: none;
+}
+
+.sector-zone-label {
+  fill: rgba(240, 245, 255, 0.86);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  pointer-events: none;
 }
 
 /* Zonas de sector dibujadas en primer plano (encima de asientos) */
 .sector-zone-foreground {
-    stroke-width: 1.2;
-    /* stroke-opacity: 0.9; */
-    /*fill-opacity: 0.12;*/
-    rx: 8;
-    cursor: pointer;
+  stroke-width: 1.2;
+  rx: 8;
+  cursor: pointer;
 }
 
 /* Popup con acciones sobre el sector */
 .sector-action-popup {
-    position: absolute;
-    display: flex;
-    gap: 0.5rem;
-    z-index: 40;
-    transform: translate(-50%, -100%);
-    background: rgba(6, 10, 18, 0.9);
-    padding: 0.35rem;
-    border-radius: 6px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  gap: 0.5rem;
+  transform: translate(-50%, -100%);
+  background: rgba(8, 12, 20, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.4rem;
+  box-shadow: var(--shadow);
 }
 
 .sector-action-popup button {
-    white-space: nowrap;
+  white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+  .sector-map-shell,
+  .sector-side-panel {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .sector-map-shell,
+  .sector-side-panel {
+    border-radius: var(--radius-sm);
+  }
+
+  .sector-selection-summary {
+    gap: 0.55rem;
+    font-size: 0.84rem;
+  }
+
+  .sector-action-popup {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
