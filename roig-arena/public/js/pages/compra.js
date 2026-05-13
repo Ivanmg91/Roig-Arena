@@ -286,13 +286,6 @@ class SeatMapManager {
                     }
                 });
 
-                // Hover efecto
-                seatGroup.addEventListener('mouseenter', () => {
-                    circle.style.opacity = '0.8';
-                });
-                seatGroup.addEventListener('mouseleave', () => {
-                    circle.style.opacity = '1';
-                });
             }
 
             svg.appendChild(seatGroup);

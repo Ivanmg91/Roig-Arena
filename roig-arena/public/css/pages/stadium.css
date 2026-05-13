@@ -181,7 +181,7 @@
   font-size: 0.74rem;
   font-weight: 600;
   border: 1px solid transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: none;
 }
 
 .seat-disponible,
@@ -193,8 +193,8 @@
 
 .seat-disponible:hover,
 .seat-available:hover {
-  transform: scale(1.12);
-  box-shadow: 0 0 0 2px rgba(42, 102, 80, 0.6);
+  transform: none;
+  box-shadow: none;
 }
 
 .seat-reservado,
@@ -219,11 +219,11 @@
   background: var(--color-accent);
   color: #fff;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(245, 48, 3, 0.4);
+  box-shadow: none;
 }
 
 .seat-selected:hover {
-  transform: scale(1.08);
+  transform: none;
 }
 
 @media (max-width: 768px) {

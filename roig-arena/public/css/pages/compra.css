@@ -681,14 +681,13 @@
 
 /* Nodos de asientos en SVG */
 .seat-node {
-    transition: opacity 0.15s ease;
     pointer-events: all;
 }
 
 .seat-node circle {
     fill: #e0e0e0;
     stroke: #999;
-    stroke-width: 0.5;
+    stroke-width: 1;
     pointer-events: all;
 }
 
@@ -696,12 +695,7 @@
 .seat-node.seat-disponible circle {
     fill: #00FF00;
     stroke: #008000;
-    stroke-width: 2;
-}
-
-.seat-node.seat-disponible:hover circle {
-    fill: #66BB6A;
-    filter: drop-shadow(0 0 2px rgba(76, 175, 80, 0.5));
+    stroke-width: 1;
 }
 
 /* Ocupado */
@@ -720,8 +714,7 @@
 .seat-node.seat-selected circle {
     fill: #2196F3;
     stroke: #1565c0;
-    stroke-width: 2;
-    filter: drop-shadow(0 0 4px rgba(33, 150, 243, 0.6));
+    stroke-width: 1;
 }
 
 /* Fondo y escenario */
