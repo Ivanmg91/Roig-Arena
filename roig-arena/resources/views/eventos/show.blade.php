@@ -519,6 +519,13 @@
                 <a href="{{ route('eventos.index', [], false) }}" class="btn btn-alt">
                     Volver al listado
                 </a>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.eventos.sectores.editor', ['eventoId' => $evento->id], false) }}" class="btn btn-primary">
+                            Editar Sectores
+                        </a>
+                    @endif
+                @endauth
             </div>
         @endif
     </section>

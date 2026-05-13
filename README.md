@@ -285,12 +285,9 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Errores detectados
 
 - Creo que al pulsar cerrar sesión desde el dashboard de usuario hay algún error de redirección de ruta.
-- Cuando se agotan un sector de un evento se cambian de posicion en el mapa.
 
 ### Por hacer ahora que recuerde
 
-- Un + para asociar sectores a un evento
-- Al borrar un evento no borra los precios asociados de la tabla Precios (solo se ve reflejado en la bd creo)
 - Boton que marque y desmarque todos los eventos de golpe
 
 ## Otros

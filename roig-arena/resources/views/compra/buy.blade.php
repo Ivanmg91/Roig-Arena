@@ -42,7 +42,7 @@
 
             <!-- Mapa SVG interactivo (NUEVO) -->
             <div class="seat-map-wrapper">
-                <svg id="seatMapSvg" 
+                <svg id="seatMapSvg"
                     class="seat-map-svg"
                     viewBox="0 0 960 560"
                     width="960"
