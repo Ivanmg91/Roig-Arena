@@ -90,3 +90,6 @@ else
     echo -e "\n${YELLOW}⚠ Los servicios están arriba pero algunos tests han fallado.${NC}"
     exit 1
 fi
+
+# --- mostrar la URL ---
+echo -e "\n${BLUE}🌐 URL del entorno: http://localhost${NC}"
