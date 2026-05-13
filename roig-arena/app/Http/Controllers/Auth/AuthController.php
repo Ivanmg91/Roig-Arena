@@ -117,27 +117,23 @@ class AuthController extends Controller
 
     public function logoutWeb(Request $request)
     {
-        // Eliminar todos los tokens de Sanctum para invalidar cualquier token guardado en el cliente
+        // Eliminar todos los tokens de Sanctum
         $request->user()?->tokens()->delete();
 
+        // Cerrar sesión
         Auth::logout();
-        $request->session()->invalidate();
+
+        // Regenerar token ANTES de invalidar
         $request->session()->regenerateToken();
+
+        // Finalmente invalidar la sesión
+        $request->session()->invalidate();
 
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Sesión cerrada correctamente']);
         }
 
-        return redirect()->route('home');
-    }
-
-    /**
-     * Obtener usuario autenticado
-     */
-    public function user(Request $request)
-    {
-        return response()->json([
-            'data' => $request->user(),
-        ]);
+        // Redirigir a la página de inicio
+        return redirect('/');
     }
 }

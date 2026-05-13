@@ -760,3 +760,24 @@ tr:hover td {
     padding: 1.25rem 0 2.5rem;
   }
 }
+
+/* ─── Alertas de sesión ────────────────────────────────── */
+.alert {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border-left: 4px solid;
+}
+
+.alert-success {
+  background: rgba(76, 175, 80, 0.08);
+  border-color: rgba(76, 175, 80, 0.3);
+  color: #a5d6a7;
+}
+
+.alert-error {
+  background: rgba(245, 48, 3, 0.08);
+  border-color: rgba(245, 48, 3, 0.3);
+  color: #ffd4ca;
+}

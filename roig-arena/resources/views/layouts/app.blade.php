@@ -31,6 +31,16 @@
 
     <main class="main">
         <div class="container">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ $message }}
+                </div>
+            @endif
+            @if ($message = Session::get('error'))
+                <div class="alert alert-error" role="alert">
+                    {{ $message }}
+                </div>
+            @endif
             @yield('content')
         </div>
     </main>
