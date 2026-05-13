@@ -41,8 +41,9 @@
 
 .event-card-image {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
   object-position: center;
   display: block;
   border-bottom: 1px solid var(--color-border);
@@ -50,7 +51,7 @@
 }
 
 .event-card:hover .event-card-image {
-  transform: scale(1.025);
+  transform: none;
   opacity: 0.95;
 }
 
@@ -239,10 +240,6 @@
 }
 
 @media (max-width: 720px) {
-  .event-card-image {
-    aspect-ratio: 2 / 1;
-  }
-
   .event-card-body {
     padding: 0.92rem 1rem 1rem;
   }

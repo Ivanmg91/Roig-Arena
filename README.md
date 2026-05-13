@@ -289,6 +289,7 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 ### Por hacer ahora que recuerde
 
 - Boton que marque y desmarque todos los eventos de golpe
+- En el popup que se abre para pagar se deberia poder quitar asientos de pagar y poder cancelar todo y quitar el timer
 
 ## Otros
 

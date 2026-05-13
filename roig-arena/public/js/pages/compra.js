@@ -104,14 +104,11 @@ class SeatMapManager {
                 ? json.data.flatMap(sector => Array.isArray(sector?.asientos) ? sector.asientos : [])
                 : [];
 
-        const totalFilas = Number(json?.data?.total_filas);
-        const totalColumnas = Number(json?.data?.total_columnas);
-        if (Number.isFinite(totalFilas) && totalFilas > 0) {
-            this.rows = totalFilas;
-        }
-        if (Number.isFinite(totalColumnas) && totalColumnas > 0) {
-            this.cols = totalColumnas;
-        }
+        // Forzar el tamaño de la cuadrícula a 12 filas x 20 columnas
+        // aunque el backend devuelva otros totales. Cambia aquí si quieres
+        // permitir tamaños dinámicos en el futuro.
+        this.rows = 12;
+        this.cols = 20;
         this.recalculateGeometry();
 
         console.log(`[SeatMapManager] Cargados ${asientos.length} asientos`);
@@ -137,6 +134,14 @@ class SeatMapManager {
             console.error('[SeatMapManager] SVG no encontrado');
             return;
         }
+        // No depender del tamaño del wrapper: usaremos un viewBox calculado
+        // a partir de una cuadrícula fija para asegurar que la rejilla
+        // completa (incluyendo números y márgenes) siempre se dibuje.
+        this.recalculateGeometry();
+
+        // Asegurar que el viewBox del SVG refleja el tamaño calculado
+        svg.setAttribute('viewBox', `0 0 ${this.viewWidth} ${this.viewHeight}`);
+        svg.setAttribute('preserveAspectRatio', 'xMinYMid meet');
 
         svg.innerHTML = '';
 
@@ -183,6 +188,7 @@ class SeatMapManager {
         // Dibujar líneas horizontales y verticales de referencia
         // (similar a editarSectoresEvento.js)
 
+        // this.rows = 12;
         for (let row = 1; row <= this.rows; row++) {
             const y = this.padTop + (row - 1) * this.yStep;
 
@@ -206,6 +212,7 @@ class SeatMapManager {
             });
         }
 
+        // this.cols = 20;
         for (let col = 1; col <= this.cols; col++) {
             const x = this.padLeft + (col - 1) * this.xStep;
 
@@ -446,11 +453,26 @@ class SeatMapManager {
     }
 
     recalculateGeometry() {
-        this.gridWidth = this.viewWidth - this.padLeft - this.padRight;
-        this.gridHeight = this.viewHeight - this.padTop - this.padBottom;
-        this.seatRadius = Math.max(12, Math.min(20, Math.min(this.gridWidth / this.cols, this.gridHeight / this.rows) * 0.35));
-        this.xStep = this.cols > 1 ? this.gridWidth / (this.cols - 1) : this.gridWidth;
-        this.yStep = this.rows > 1 ? this.gridHeight / (this.rows - 1) : this.gridHeight;
+        // Usar una cuadrícula fija (paso fijo) para que la rejilla sea predecible
+        // y siempre dibuje el área completa. Cambiar `fixedStep` si hace falta.
+        const fixedStep = 48; // px entre asientos
+        const extraRight = 60; // espacio extra a la derecha para números
+        const extraBottom = 40; // espacio extra abajo para etiquetas
+
+        // Dimensiones internas de la cuadrícula
+        this.gridWidth = (this.cols - 1) * fixedStep;
+        this.gridHeight = (this.rows - 1) * fixedStep;
+
+        // Viewport total incluyendo padding y márgenes extras
+        this.viewWidth = this.padLeft + this.gridWidth + this.padRight + extraRight;
+        this.viewHeight = this.padTop + this.gridHeight + this.padBottom + extraBottom;
+
+        // Pasos corresponden al step fijo
+        this.xStep = fixedStep;
+        this.yStep = fixedStep;
+
+        // Radio de asiento relativo al step
+        this.seatRadius = Math.max(8, Math.min(20, fixedStep * 0.28));
     }
 
     // Utilities
