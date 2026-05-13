@@ -269,23 +269,21 @@ La autenticación usa **Laravel Sanctum** (Bearer token).
 - [ ] Transacciones DB (por hacer)
 - [ ] Logs de operaciones (por hacer)
 
-### Seguridad
+### Seguridad (poner ejemplos de donde se da cada cosa)
 
 - [x] Autenticación con Laravel Sanctum tokens Bearer (revisar)
 - [x] Middleware IsAdmin para rutas protegidas (revisar)
 - [ ] Validaciones en todos los endpoints (revisar)
-- [ ] Protección contra race condition lockForUpdate (revisar)
-- [ ] Transacciones DB para operaciones críticas (revisar)
+- [x] Protección contra race condition lockForUpdate (revisar)
+- [x] Transacciones DB para operaciones críticas (revisar)
 - [x] Ocultación de datos sensibles password, tokens (revisar)
-- [ ] Soft deletes en users y eventos (revisar)
+- [x] Soft deletes en users y eventos (revisar)
 - [x] Hash de contraseñas (sin problemas detectados)
 - [x] Códigos HTTP correctos 200, 201, 400, 401, 403, 404 (revisar)
 
 ### Errores detectados
 
 ### Por hacer ahora que recuerde
-
-- En el popup que se abre para pagar se deberia poder quitar asientos de pagar
 
 ## Otros
 
