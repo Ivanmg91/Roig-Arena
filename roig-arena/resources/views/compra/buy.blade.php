@@ -4,7 +4,6 @@
 
 @section('page_styles')
     <link rel="stylesheet" href="/css/pages/compra.css">
-    <link rel="stylesheet" href="/css/pages/stadium.css">
 @endsection
 
 @section('content')
