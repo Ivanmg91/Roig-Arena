@@ -109,6 +109,16 @@ class AuthController extends Controller
     }
 
     /**
+     * Obtener datos del usuario autenticado
+     */
+    public function user(Request $request)
+    {
+        return response()->json([
+            'data' => $request->user(),
+        ]);
+    }
+
+    /**
      * Cerrar sesión
      */
     public function logout(Request $request)
