@@ -3,11 +3,13 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Este modal permite buscar artistas y vincularlos o desvincularlos del evento actual.
     const addBtn = document.querySelector('[data-add-artista-button]');
     const modal = document.querySelector('#artista-modal');
 
     if (!addBtn || !modal) return;
 
+    // Piezas visuales y datos que usa el modal para funcionar.
     const backdrop = modal.querySelector('[data-modal-backdrop]');
     const closeButtons = modal.querySelectorAll('[data-modal-close]');
     const listEl = modal.querySelector('#artista-list');
@@ -18,18 +20,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const existing = JSON.parse(modal.getAttribute('data-existing-artistas') || '[]').map(Number);
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
+    // Abre el modal y carga la lista completa de artistas.
     function openModal() {
         modal.hidden = false;
         if (searchInput) searchInput.focus();
         fetchArtistas();
     }
 
+    // Cierra el modal y limpia el contenido para dejarlo listo para la siguiente apertura.
     function closeModal() {
         modal.hidden = true;
         if (listEl) listEl.innerHTML = '';
         if (searchInput) searchInput.value = '';
     }
 
+    // Consulta el endpoint de artistas y, si hace falta, aplica filtro por nombre.
     function fetchArtistas(q = '') {
         if (!listEl) return;
 
@@ -55,14 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Comprueba si un artista ya está relacionado con el evento.
     function isAssociated(id) {
         return existing.includes(Number(id));
     }
 
+    // Construye la URL de borrado del artista asociado en la vista actual.
     function getDetachUrl(id) {
         return detachUrlTemplate ? detachUrlTemplate.replace('__ID__', id) : '';
     }
 
+    // Dibuja la lista de resultados con acciones para añadir o borrar.
     function renderList(artistas) {
         listEl.innerHTML = '';
 
@@ -103,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Actualiza visualmente una fila para indicar que ya está añadida.
     function markRowAsAssociated(row) {
         const addBtn = row.querySelector('.add-artista-btn');
         if (addBtn) {
@@ -122,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Envía al backend la asociación del artista al evento.
     function onAddArtista(e) {
         e.preventDefault();
 
@@ -165,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Elimina un artista del catálogo desde el propio modal.
     function onDeleteArtista(e) {
         e.preventDefault();
 
@@ -212,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Quita de la página la tarjeta del artista que ya no está asociado.
     function removeArtistCardFromPage(artistaId) {
         const artistsSection = document.querySelector('.event-info-section:nth-of-type(2)');
         if (!artistsSection) return;
@@ -242,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Añade al detalle del evento una tarjeta visual del artista recién asociado.
     function appendArtistCardToPage(artistaId, row) {
         const artistsSection = document.querySelector('.event-info-section:nth-of-type(2)');
         if (!artistsSection || !row) return;
@@ -303,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
         artistsSection.appendChild(card);
     }
 
+    // Escapa texto antes de insertarlo en HTML.
     function escapeHtml(text) {
         if (!text) return '';
         return String(text)
@@ -313,10 +327,12 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, '&#39;');
     }
 
+    // Conectamos el modal con sus disparadores y cierres.
     addBtn.addEventListener('click', openModal);
     backdrop?.addEventListener('click', closeModal);
     closeButtons.forEach(button => button.addEventListener('click', closeModal));
 
+    // Búsqueda con pequeño retardo para no disparar una petición por cada tecla.
     if (searchInput) {
         let timeoutId;
         searchInput.addEventListener('input', function () {
@@ -327,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // El botón de búsqueda lanza la consulta con el texto actual.
     if (searchBtn) {
         searchBtn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -334,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Escape cierra el modal si está abierto.
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !modal.hidden) {
             closeModal();

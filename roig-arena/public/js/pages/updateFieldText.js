@@ -1,4 +1,4 @@
-// Función generalizada para edición inline
+// Componente reutilizable para editar un campo directamente en pantalla sin recargar la página.
 function initInlineEditor(options) {
     const {
         containerSelector,
@@ -10,8 +10,11 @@ function initInlineEditor(options) {
         fieldName = 'value' // Nombre del campo en el form (por defecto 'value')
     } = options;
 
+    // Buscamos el bloque que contiene el editor y salimos si no existe en esta vista.
     const container = document.querySelector(containerSelector);
     if (!container) return;
+
+    // La URL puede venir en opciones, en un data-attribute o en el action del formulario.
     const updateUrl = updateUrlOption || container.dataset.updateUrl || container.querySelector(formSelector)?.getAttribute('action');
     const toggleButton = container.querySelector(toggleSelector);
     const titleDisplay = container.querySelector(displaySelector);
@@ -19,10 +22,13 @@ function initInlineEditor(options) {
     const input = container.querySelector(inputSelector);
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 
+    // Si falta una pieza básica, no inicializamos nada para evitar errores en la interfaz.
     if (!toggleButton || !titleDisplay || !form || !input || !updateUrl || !csrfToken) return;
 
+    // Algunos campos, como la fecha, necesitan una normalización especial antes de enviarse.
     const isDateField = fieldName === 'fecha';
 
+    // Convierte valores de fecha a un formato consistente para editar y guardar.
     const normalizeDateValue = (value) => {
         if (!value) return '';
         if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
@@ -35,6 +41,7 @@ function initInlineEditor(options) {
         return value;
     };
 
+    // Convierte la fecha al formato legible que se muestra en pantalla.
     const formatDateForDisplay = (value) => {
         const normalizedValue = normalizeDateValue(value);
         const match = normalizedValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -42,6 +49,7 @@ function initInlineEditor(options) {
         return `${match[3]}/${match[2]}/${match[1]}`;
     };
 
+    // Recupera el valor actual visible para usarlo al abrir o cancelar la edición.
     const getEditableValue = () => {
         const displayValue = titleDisplay.textContent.trim();
         if (!isDateField) {
@@ -54,6 +62,7 @@ function initInlineEditor(options) {
 
     const openEditor = () => {
         titleDisplay.hidden = true;
+        // Muestra el formulario y oculta el texto estático para permitir la edición.
         toggleButton.hidden = true;
         form.hidden = false;
         input.hidden = false;
@@ -65,6 +74,8 @@ function initInlineEditor(options) {
         input.focus();
         input.select();
     };
+
+    // Restaura la vista normal cuando se cancela o termina la edición.
     const closeEditor = () => {
         form.hidden = true;
         input.hidden = true;
@@ -73,10 +84,15 @@ function initInlineEditor(options) {
         input.setCustomValidity('');
     };
 
+    // Activamos el editor cuando el usuario pulsa el botón de editar.
     toggleButton.addEventListener('click', openEditor);
+
+    // Limpiamos el error visual mientras el usuario corrige el valor.
     input.addEventListener('input', () => {
         input.setCustomValidity('');
     });
+
+    // Escape cancela la edición y Enter intenta guardar el cambio.
     input.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             event.preventDefault();
@@ -99,6 +115,8 @@ function initInlineEditor(options) {
             form.submit();
         }
     });
+
+    // Guardamos el nuevo valor mediante fetch para actualizar solo ese campo.
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -113,18 +131,18 @@ function initInlineEditor(options) {
 
         try {
             const formData = new FormData(form);
-            // Asegurarse de que el campo tenga el nombre correcto
+            // Nos aseguramos de enviar el nombre real del campo que espera el backend.
             formData.set(fieldName, normalizedValue);
             formData.set('_method', 'PATCH');
 
-            // Aquí enviaríamos la solicitud al backend para actualizar el valor
+            // Laravel procesa la actualización como una petición PATCH simulada.
             const response = await fetch(updateUrl, {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
-                                    'X-CSRF-TOKEN': csrfToken,
-                                    'X-Requested-With': 'XMLHttpRequest',
-                                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
                 },
                 body: formData,
             });
@@ -132,6 +150,7 @@ function initInlineEditor(options) {
             const payload = await response.json().catch(() => ({}));
 
             if (!response.ok) {
+                // Si falla, mostramos el mensaje devuelto por el servidor en el propio campo.
                 const message = payload?.message || payload?.error || 'No se pudo actualizar.';
                 input.setCustomValidity(message);
                 input.reportValidity();
@@ -139,20 +158,22 @@ function initInlineEditor(options) {
                 return;
             }
 
-                const updatedValue = payload?.data?.[fieldName] ?? normalizedValue;
-                const displayValue = isDateField ? formatDateForDisplay(updatedValue) : updatedValue;
-                titleDisplay.textContent = displayValue;
-                input.value = normalizedValue;
-                closeEditor();
-            } catch (error) {
-                input.setCustomValidity('Error de red al actualizar.');
-                input.reportValidity();
-            }
+            // Si todo va bien, actualizamos el texto visible con la respuesta del backend.
+            const updatedValue = payload?.data?.[fieldName] ?? normalizedValue;
+            const displayValue = isDateField ? formatDateForDisplay(updatedValue) : updatedValue;
+            titleDisplay.textContent = displayValue;
+            input.value = normalizedValue;
+            closeEditor();
+        } catch (error) {
+            // Error de red o fallo inesperado al enviar la petición.
+            input.setCustomValidity('Error de red al actualizar.');
+            input.reportValidity();
+        }
     });
 }
-// Inicializar editores inline
+// Inicializamos varias instancias del editor, una por cada campo editable de la página.
 document.addEventListener('DOMContentLoaded', () => {
-    // Editor para el título del evento
+    // Título del evento.
     initInlineEditor({
         containerSelector: '[data-event-title-editor]',
         displaySelector: '[data-event-title-display]',
@@ -161,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSelector: '[data-event-title-input]',
         fieldName: 'nombre'
     });
-    // Editor para la descripción corta
+    // Descripción corta.
     initInlineEditor({
         containerSelector: '[data-description-editor]',
         displaySelector: '[data-description-display]',
@@ -170,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSelector: '[data-description-input]',
         fieldName: 'descripcion_corta'
     });
-    // Editor para la descripción larga
+    // Descripción larga.
     initInlineEditor({
         containerSelector: '[data-description_long-editor]',
         displaySelector: '[data-description_long-display]',
@@ -179,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSelector: '[data-description_long-input]',
         fieldName: 'descripcion_larga'
     });
-    // Editor para la fecha
+    // Fecha.
     initInlineEditor({
         containerSelector: '[data-date-editor]',
         displaySelector: '[data-date-display]',
@@ -188,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSelector: '[data-date-input]',
         fieldName: 'fecha'
     });
-    // Editor para la hora
+    // Hora.
     initInlineEditor({
         containerSelector: '[data-hour-editor]',
         displaySelector: '[data-hour-display]',
@@ -197,6 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSelector: '[data-hour-input]',
         fieldName: 'hora'
     });
-    // Puedes agregar más aquí, por ejemplo para artistas o precios
+    // Aquí se pueden añadir más campos reutilizando la misma función.
     // initInlineEditor({ ... });
 });

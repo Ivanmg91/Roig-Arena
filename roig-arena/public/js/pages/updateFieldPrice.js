@@ -1,3 +1,4 @@
+// Formatea un valor numérico como precio visible en formato español.
 function formatPrice(value) {
     const numericValue = Number.parseFloat(value);
 
@@ -11,13 +12,16 @@ function formatPrice(value) {
     }).format(numericValue) + '€';
 }
 
+// Activa todos los editores inline de precio que existan en la página.
 function initPriceInlineEditors() {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
     if (!csrfToken) return;
 
+    // Cada formulario representa un precio editable dentro de la interfaz.
     document.querySelectorAll('[data-sector-price-editor]').forEach((form) => {
         if (form.dataset.priceEditorInitialized === 'true') return;
 
+        // Buscamos el contenedor visual cercano para alternar el texto y el formulario.
         const container = form.closest('td, .pricing-table-actions, .event-price-editor') || form.parentElement;
         const toggleButton = container?.querySelector('[data-sector_price-toggle], [data-sector-price-toggle]');
         const input = form.querySelector('[data-sector-price-input]');
@@ -26,6 +30,7 @@ function initPriceInlineEditors() {
 
         if (!toggleButton || !input || !display || !form.action) return;
 
+        // Muestra el editor y prepara el input para escribir.
         const openEditor = () => {
             form.hidden = false;
             toggleButton.hidden = true;
@@ -33,13 +38,16 @@ function initPriceInlineEditors() {
             input.select();
         };
 
+        // Devuelve la vista a su estado normal.
         const closeEditor = () => {
             form.hidden = true;
             toggleButton.hidden = false;
         };
 
+        // El botón abre el modo edición.
         toggleButton.addEventListener('click', openEditor);
 
+        // Escape revierte el valor actual y cierra el editor.
         input.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 event.preventDefault();
@@ -48,6 +56,7 @@ function initPriceInlineEditors() {
             }
         });
 
+        // Guardamos el nuevo precio sin recargar la página.
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -59,6 +68,7 @@ function initPriceInlineEditors() {
             }
 
             try {
+                // El backend espera el campo precio y la acción PATCH simulada.
                 const formData = new FormData(form);
                 formData.set('precio', newValue);
                 formData.set('_method', 'PATCH');
@@ -85,20 +95,25 @@ function initPriceInlineEditors() {
                     return;
                 }
 
+                // Si todo va bien, actualizamos el texto visible con el valor confirmado.
                 const updatedPrice = payload?.data?.precio ?? newValue;
                 display.textContent = formatPrice(updatedPrice);
                 input.defaultValue = Number.parseFloat(updatedPrice).toFixed(2);
                 input.value = input.defaultValue;
                 closeEditor();
             } catch (error) {
+                // Cualquier fallo de red se muestra directamente en el campo.
                 input.setCustomValidity('Error de red al actualizar el precio.');
                 input.reportValidity();
             }
         });
 
+        // Marcamos este formulario para no inicializarlo dos veces.
         form.dataset.priceEditorInitialized = 'true';
     });
 }
 
+// Inicialización automática cuando el DOM ya está listo.
 document.addEventListener('DOMContentLoaded', initPriceInlineEditors);
+// Dejamos la función disponible por si otra vista necesita invocarla manualmente.
 window.initPriceInlineEditors = initPriceInlineEditors;

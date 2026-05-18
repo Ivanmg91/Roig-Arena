@@ -1,10 +1,12 @@
 (() => {
+            // Este módulo gestiona la descarga del PDF de una entrada y las acciones previas asociadas al ticket.
             const { jsPDF } = window.jspdf || {};
 
             if (!jsPDF) {
                 return;
             }
 
+            // Convierte una imagen remota en un formato que jsPDF pueda incrustar dentro del documento.
             const toDataUrl = async (url) => {
                 const response = await fetch(url, { mode: 'cors' });
 
@@ -22,6 +24,7 @@
                 });
             };
 
+            // Limpia el nombre del evento para poder usarlo como parte del nombre del archivo descargado.
             const sanitizeName = (value) => {
                 return value
                     .toLowerCase()
@@ -31,6 +34,7 @@
                     .replace(/(^-|-$)/g, '') || 'entrada';
             };
 
+            // Reúne las cabeceras que esperan los endpoints protegidos por Sanctum y CSRF.
             const getRequestHeaders = () => {
                 const token = localStorage.getItem('sanctum_token');
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
@@ -43,8 +47,10 @@
                 };
             };
 
+            // Cada botón marcado como descarga genera su propio flujo de PDF.
             document.querySelectorAll('[data-ticket-download]').forEach((button) => {
                 button.addEventListener('click', async () => {
+                    // Los datos del ticket se leen desde atributos data para no depender del HTML visible.
                     const evento = button.dataset.evento || 'Evento';
                     const fecha = button.dataset.fecha || 'Por confirmar';
                     const hora = button.dataset.hora || 'Por confirmar';
@@ -53,7 +59,7 @@
                     const precio = button.dataset.precio || '-';
                     const codigo = button.dataset.codigo || '-';
 
-                    // Pedir confirmación al usuario
+                    // Antes de continuar, confirmamos que el usuario quiere marcar la entrada como descargada.
                     const confirmacion = confirm(
                         'ADVERTENCIA\n\n' +
                         'Al descargar la entrada:\n' +
@@ -62,14 +68,14 @@
                     );
 
                     if (!confirmacion) {
-                        return; // Usuario canceló
+                        return;
                     }
 
-                    // Marcar entrada como descargada en el servidor
+                    // Primero avisamos al servidor de que la entrada se ha descargado.
                     try {
                         const response = await fetch(`/api/entradas/${entrada}/descargar`, {
                             method: 'POST',
-                            credentials: 'include', // Esto envía automáticamente las cookies de sesión con la petición, lo que permitirá que Sanctum reconozca que estás autenticado.
+                            credentials: 'include',
                             headers: getRequestHeaders(),
                         });
 
@@ -89,7 +95,7 @@
                             cancelButton.remove();
                         }
 
-                        // Si la petición fue exitosa, proceder con la descarga del PDF
+                        // Si el servidor respondió bien, seguimos con la generación del PDF.
                     } catch (error) {
                         alert('Error: ' + error.message);
                         console.error('Error al marcar entrada como descargada:', error);
@@ -119,6 +125,7 @@
                     pdf.text(`Precio: ${precio}`, 15, y);
                     y += 12;
 
+                    // El QR ayuda a validar la entrada en accesos o controles.
                     pdf.setFont('helvetica', 'bold');
                     pdf.text('Codigo QR', 15, y);
 
@@ -139,8 +146,10 @@
                 });
             });
 
+            // También permitimos cancelar una compra desde la misma interfaz.
             document.querySelectorAll('[data-ticket-cancel]').forEach((button) => {
                 button.addEventListener('click', async () => {
+                    // Leemos la entrada asociada al botón de cancelar.
                     const entrada = button.dataset.entrada;
 
                     if (!entrada) {
