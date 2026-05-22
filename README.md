@@ -47,6 +47,8 @@ bash arena.sh
 
 ---
 
+Para levantarlo usando una bbdd externa usar los .sh que contienen en nombre cloud
+
 ## Estructura del proyecto
 
 La aplicación sigue una estructura clásica de Laravel, pero organizada para separar claramente la capa HTTP, la lógica de negocio, el acceso a datos y la preparación de respuestas JSON. El flujo general es este:
