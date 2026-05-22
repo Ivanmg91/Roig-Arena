@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [ -z "${BASH_VERSION:-}" ]; then
-    exec bash "$0" "$@"
-fi
-
 set -Eeuo pipefail
 
 GREEN='\033[0;32m'
@@ -16,34 +12,35 @@ log() { echo -e "${BLUE}>>> $*${NC}"; }
 ok() { echo -e "${GREEN}[OK] $*${NC}"; }
 warn() { echo -e "${YELLOW}[WARN] $*${NC}"; }
 fail() { echo -e "${RED}[ERROR] $*${NC}"; exit 1; }
-has_cmd() { command -v "$1" >/dev/null 2>&1; }
 
 upsert_env_var() {
     local key="$1"
     local value="$2"
-    if grep -qE "^${key}=" .env; then
-        sed -i "s|^${key}=.*|${key}=${value}|" .env
-    elif grep -qE "^#\s*${key}=" .env; then
-        sed -i "s|^#\s*${key}=.*|${key}=${value}|" .env
+    local file="$3"
+    if grep -qE "^${key}=" "$file"; then
+        sed -i "s|^${key}=.*|${key}=${value}|" "$file"
+    elif grep -qE "^#\s*${key}=" "$file"; then
+        sed -i "s|^#\s*${key}=.*|${key}=${value}|" "$file"
     else
-        echo "${key}=${value}" >> .env
+        echo "${key}=${value}" >> "$file"
     fi
 }
 
-log "Iniciando configuración inicial para Arena con Base de Datos en la Nube (AWS)..."
+log "Iniciando configuración automática para AWS..."
 
-if [ ! -f .env ]; then
+# 1. Crear .env.cloud
+if [ ! -f .env.cloud ]; then
     if [ -f .env.example ]; then
-        cp .env.example .env
-        ok "Archivo .env creado desde .env.example"
+        cp .env.example .env.cloud
+        ok "Archivo .env.cloud creado desde .env.example"
     else
-        fail "No se encontró .env.example"
+        fail "No se encontró .env.example para crear la base."
     fi
 else
-    ok "Archivo .env ya existe"
+    ok "El archivo .env.cloud ya existe. Se actualizará la IP."
 fi
 
-# Pedir la IP de AWS al usuario
+# 2. Pedir la IP de AWS
 echo -e "${YELLOW}"
 read -p "¿Cuál es la IP pública de tu servidor AWS EC2?: " AWS_IP
 echo -e "${NC}"
@@ -52,44 +49,95 @@ if [ -z "$AWS_IP" ]; then
     fail "La IP no puede estar vacía. Abortando."
 fi
 
-log "Aplicando variables de entorno para conectarse a AWS MySQL..."
-upsert_env_var "DB_CONNECTION" "mysql"
-upsert_env_var "DB_HOST" "$AWS_IP"
-upsert_env_var "DB_PORT" "3306"
-upsert_env_var "DB_DATABASE" "arena2"
-upsert_env_var "DB_USERNAME" "arena2_user"
-upsert_env_var "DB_PASSWORD" "Arena2Pass2024\!Student"
-ok "Variables DB_* configuradas para apuntar a $AWS_IP."
+# 3. Configurar variables en .env.cloud
+log "Inyectando credenciales de AWS en .env.cloud..."
+upsert_env_var "DB_CONNECTION" "mysql" ".env.cloud"
+upsert_env_var "DB_HOST" "$AWS_IP" ".env.cloud"
+upsert_env_var "DB_PORT" "3306" ".env.cloud"
+upsert_env_var "DB_DATABASE" "arena2" ".env.cloud"
+upsert_env_var "DB_USERNAME" "arena2_user" ".env.cloud"
+upsert_env_var "DB_PASSWORD" "Arena2Pass2024\!Student" ".env.cloud"
 
-log "Instalando dependencias de Composer..."
-COMPOSER_DONE=0
+# Añadimos permisos de usuario (Sail hace esto por detrás, lo necesitamos explícito aquí)
+upsert_env_var "WWWUSER" "$(id -u)" ".env.cloud"
+upsert_env_var "WWWGROUP" "$(id -g)" ".env.cloud"
 
-if has_cmd composer && has_cmd php; then
-    LOCAL_PHP_VERSION="$(php -r 'echo PHP_VERSION;')"
-    if [ "$(printf '%s\n' "8.2.0" "$LOCAL_PHP_VERSION" | sort -V | head -n1)" = "8.2.0" ]; then
-        if composer install; then
-            COMPOSER_DONE=1
-        else
-            warn "composer install local falló. Se reintenta con contenedor Composer."
-        fi
-    else
-        warn "PHP local ($LOCAL_PHP_VERSION) es < 8.2. Se usa contenedor Composer."
-    fi
+ok "Credenciales guardadas en .env.cloud apuntando a $AWS_IP."
+
+# 4. Crear compose.cloud.yaml dinámicamente si no existe
+if [ ! -f compose.cloud.yaml ]; then
+    log "Generando compose.cloud.yaml sin el contenedor de MySQL local..."
+    cat << 'EOF' > compose.cloud.yaml
+services:
+    laravel.test:
+        build:
+            context: './vendor/laravel/sail/runtimes/8.5'
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: 'sail-8.5/app'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-8080}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - redis
+            - meilisearch
+            - mailpit
+            - selenium
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - 'sail-redis:/data'
+        networks:
+            - sail
+    meilisearch:
+        image: 'getmeili/meilisearch:latest'
+        ports:
+            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        volumes:
+            - 'sail-meilisearch:/meili_data'
+        networks:
+            - sail
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - sail
+    selenium:
+        image: selenium/standalone-chromium
+        volumes:
+            - '/dev/shm:/dev/shm'
+        networks:
+            - sail
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sail-redis:
+        driver: local
+    sail-meilisearch:
+        driver: local
+EOF
+    ok "compose.cloud.yaml creado."
 else
-    warn "Composer o PHP local no disponible. Se usa contenedor Composer."
+    ok "compose.cloud.yaml ya existe."
 fi
-
-if [ "$COMPOSER_DONE" -ne 1 ]; then
-    docker run --rm \
-        -u "$(id -u):$(id -g)" \
-        -v "$(pwd):/var/www/html" \
-        -w /var/www/html \
-        laravelsail/php82-composer:latest \
-        composer install --ignore-platform-reqs
-fi
-
-[ -x ./vendor/bin/sail ] || fail "No se pudo generar ./vendor/bin/sail. Revisa el resultado de composer install."
-ok "Sail instalado correctamente."
 
 echo ""
-ok "Bootstrap completado. Ejecuta './arena-cloud.sh' para levantar el entorno y migrar la base de datos remota."
+ok "¡Todo listo! Ejecuta './arena-cloud.sh' para conectarte a AWS."
